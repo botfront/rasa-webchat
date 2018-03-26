@@ -1,9 +1,9 @@
 const path = require('path');
 
 module.exports = {
-  entry: './index.js',
+  entry: path.join(__dirname, 'index.js'),
   output: {
-    path: path.join(__dirname, '/lib'),
+    path: path.resolve(__dirname, 'lib'),
     filename: 'index.js',
     library: 'react-chat-widget',
     libraryTarget: 'umd'
@@ -11,15 +11,17 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
+  mode: 'production',
   module: {
     rules: [{
       test: /\.js$/,
+      exclude: /node_modules/,
       loader: 'babel-loader'
     }, {
       test: /\.scss$/,
       use: [
-        { loader: 'style-loader' },
-        { loader: 'css-loader' },
+                { loader: 'style-loader' },
+                { loader: 'css-loader' },
         {
           loader: 'sass-loader',
           options: {
