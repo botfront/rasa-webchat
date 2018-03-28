@@ -3,19 +3,21 @@
 
 .conversation-container {
   .header {
-    background-color: $turqois-1;
+    background-color: $red-1;
     border-radius: 10px 10px 0 0;
     color: $white;
     display: flex;
     flex-direction: column;
     text-align: center;
     padding: 15px 0 25px;
+    font-family: $roboto;
   }
 
   .title {
     font-size: 24px;
     margin: 0;
     padding: 15px 0;
+    font-family: $roboto;
   }
 
   .close-button {

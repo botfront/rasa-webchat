@@ -7,7 +7,7 @@
 }
 
 .client {
-  @include message-bubble($turqois-2);
+  @include message-bubble($red-2);
   margin-left: auto;
 }
 
@@ -17,6 +17,7 @@
 
 .message {
   font-size: 14px;
+  font-family: $roboto;
 }
 
 /* For markdown elements created with default styles */
