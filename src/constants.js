@@ -11,6 +11,7 @@ export const MESSAGES_TYPES = {
   SNIPPET: {
     LINK: 'snippet'
   },
+  QUICK_REPLY: 'quickreply',
   CUSTOM_COMPONENT: 'component'
 };
 
@@ -34,6 +35,23 @@ export const PROP_TYPES = {
     ]),
     title: PropTypes.string,
     link: PropTypes.string,
+    content: PropTypes.string,
+    target: PropTypes.target,
+    sender: PropTypes.oneOf([
+      MESSAGE_SENDER.CLIENT,
+      MESSAGE_SENDER.RESPONSE
+    ])
+  }),
+
+  QUICK_REPLY: ImmutablePropTypes.contains({
+    type: PropTypes.oneOf([
+      MESSAGES_TYPES.QUICK_REPLY
+    ]),
+    replies: ImmutablePropTypes.listOf(
+        PropTypes.shape({
+          title: PropTypes.string,
+          payload: PropTypes.func
+        })),
     sender: PropTypes.oneOf([
       MESSAGE_SENDER.CLIENT,
       MESSAGE_SENDER.RESPONSE

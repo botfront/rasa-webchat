@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
-import { Widget, addResponseMessage, addLinkSnippet, addUserMessage } from '../../index';
+import { List } from 'immutable';
+import { Widget, addResponseMessage, addLinkSnippet, addUserMessage, addQuickReply } from '../../index';
 
 import logo from '../../assets/logo.png';
 
@@ -12,7 +13,11 @@ class App extends Component {
   handleNewUserMessage = (newMessage) => {
     console.log(`New message incoming! ${newMessage}`);
         // Now send the message throught the backend API
-    addResponseMessage(`You just said: ${newMessage}`);
+    addQuickReply(
+        List([
+             { title: 'Quick Reply 1', payload: () => { console.log('QR 1'); } },
+             { title: 'Quick Reply 2', payload: () => { console.log('QR 2'); } }
+        ]));
   }
 
   render() {

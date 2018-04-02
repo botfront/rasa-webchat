@@ -19,7 +19,7 @@
     "javascript"
   ],
   "dependencies": {
-    "immutable": "^3.8.1",
+    "immutable": "^3.8.2",
     "marked": "^0.3.6",
     "prop-types": "^15.5.10",
     "react-immutable-proptypes": "^2.1.0",

@@ -13,6 +13,10 @@ export function addLinkSnippet(link) {
   store.dispatch(actions.addLinkSnippet(link));
 }
 
+export function addQuickReply(replies) {
+  store.dispatch(actions.addQuickReply(replies));
+}
+
 export function renderCustomComponent(component, props, showAvatar = false) {
   store.dispatch(actions.renderCustomComponent(component, props, showAvatar));
 }

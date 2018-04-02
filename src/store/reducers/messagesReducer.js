@@ -4,7 +4,8 @@ import { MESSAGE_SENDER } from 'constants';
 import {
   createNewMessage,
   createLinkSnippet,
-  createComponentMessage
+  createComponentMessage,
+  createQuickReply
 } from './helper';
 import * as actionTypes from '../actions/actionTypes';
 
@@ -20,6 +21,9 @@ export default function reducer(state = initialState, action) {
     }
     case actionTypes.ADD_NEW_LINK_SNIPPET: {
       return state.push(createLinkSnippet(action.link, MESSAGE_SENDER.RESPONSE));
+    }
+    case actionTypes.ADD_QUICK_REPLY: {
+      return state.push(createQuickReply(action.replies, MESSAGE_SENDER.RESPONSE));
     }
     case actionTypes.ADD_COMPONENT_MESSAGE: {
       return state.push(createComponentMessage(action.component, action.props, action.showAvatar));

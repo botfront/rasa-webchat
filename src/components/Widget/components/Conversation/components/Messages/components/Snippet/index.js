@@ -12,7 +12,7 @@ class Snippet extends PureComponent {
         </h5>
         <div className="snippet-details">
           <a href={this.props.message.get('link')} target={this.props.message.get('target')} className="link">
-            { this.props.message.get('link') }
+            { this.props.message.get('content') }
           </a>
         </div>
       </div>

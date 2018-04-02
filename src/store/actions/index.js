@@ -33,6 +33,13 @@ export function addLinkSnippet(link) {
   };
 }
 
+export function addQuickReply(replies) {
+  return {
+    type: actions.ADD_QUICK_REPLY,
+    replies
+  };
+}
+
 export function renderCustomComponent(component, props, showAvatar) {
   return {
     type: actions.ADD_COMPONENT_MESSAGE,

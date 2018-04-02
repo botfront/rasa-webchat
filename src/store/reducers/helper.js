@@ -3,6 +3,7 @@ import { MESSAGES_TYPES, MESSAGE_SENDER } from 'constants';
 
 import Message from 'messagesComponents/Message';
 import Snippet from 'messagesComponents/Snippet';
+import QuickReply from 'messagesComponents/QuickReply';
 
 export function createNewMessage(text, sender) {
   return Map({
@@ -20,7 +21,18 @@ export function createLinkSnippet(link) {
     component: Snippet,
     title: link.title,
     link: link.link,
+    content: link.content,
     target: link.target || '_blank',
+    sender: MESSAGE_SENDER.RESPONSE,
+    showAvatar: true
+  });
+}
+
+export function createQuickReply(replies) {
+  return Map({
+    type: MESSAGES_TYPES.QUICK_REPLY,
+    component: QuickReply,
+    replies,
     sender: MESSAGE_SENDER.RESPONSE,
     showAvatar: true
   });
