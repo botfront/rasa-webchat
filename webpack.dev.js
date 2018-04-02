@@ -18,6 +18,7 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   mode: 'development',
+  devtool: 'eval-source-map',
   module: {
     rules: [{
       test: /\.js$/,
