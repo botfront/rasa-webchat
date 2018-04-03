@@ -1,11 +1,11 @@
 const path = require('path');
 
 module.exports = {
-  entry: path.join(__dirname, 'index.js'),
+  entry: path.join(__dirname, 'index_facade.js'),
   output: {
-    path: path.resolve(__dirname, 'lib'),
-    filename: 'index.js',
-    library: 'react-chat-widget',
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'mrbotwebchat.js',
+    library: 'MrbotWebChat',
     libraryTarget: 'umd'
   },
   resolve: {
