@@ -24,6 +24,7 @@
     "prop-types": "^15.5.10",
     "react-immutable-proptypes": "^2.1.0",
     "react-redux": "^5.0.6",
+    "socket.io-client": "^2.1.0",
     "redux": "^3.7.2"
   },
   "devDependencies": {

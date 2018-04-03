@@ -1,11 +1,38 @@
+/* eslint-disable no-undef */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { toggleChat, addUserMessage } from 'actions';
-
+import { toggleChat, addUserMessage, addResponseMessage } from 'actions';
+import io from 'socket.io-client';
 import WidgetLayout from './layout';
 
+
 class Widget extends Component {
+
+  componentDidMount() {
+    this.socket = io(this.props.socketUrl);
+    this.socket.on('connect', () => {
+      console.log(`connect:${this.socket.id}`);
+    });
+
+    this.socket.on('bot_uttered', (botUttered) => {
+      console.log(botUttered);
+      this.props.dispatch(addResponseMessage(botUttered.text));
+    });
+
+    this.socket.on('connect_error', (error) => {
+      console.log(error);
+    });
+
+    this.socket.on('error', (error) => {
+      console.log(error);
+    });
+
+    this.socket.on('disconnect', (reason) => {
+      console.log(reason);
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.fullScreenMode) {
       this.props.dispatch(toggleChat());
@@ -18,10 +45,10 @@ class Widget extends Component {
 
   handleMessageSubmit = (event) => {
     event.preventDefault();
-    const userInput = event.target.message.value;
-    if (userInput) {
-      this.props.dispatch(addUserMessage(userInput));
-      this.props.handleNewUserMessage(userInput);
+    const userUttered = event.target.message.value;
+    if (userUttered) {
+      this.props.dispatch(addUserMessage(userUttered));
+      this.socket.emit('user_uttered', userUttered);
     }
     event.target.message.value = '';
   }
@@ -46,7 +73,7 @@ class Widget extends Component {
 Widget.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  handleNewUserMessage: PropTypes.func.isRequired,
+  socketUrl: PropTypes.string,
   senderPlaceHolder: PropTypes.string,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
