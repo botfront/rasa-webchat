@@ -4,4 +4,4 @@ steps:
 - name: 'gcr.io/cloud-builders/npm'
   args: ['run','build']
 - name: 'gcr.io/cloud-builders/gsutil'
-  args: ['cp', 'dist/mrbotwebchat.js', 'gs:/mrbot-cdn/']
+  args: ['cp', 'dist/mrbotwebchat.js', 'gs://mrbot-cdn/mrbotwebchat.js']
