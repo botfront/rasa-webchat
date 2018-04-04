@@ -5,9 +5,7 @@ module.exports = {
   entry: path.resolve(__dirname, 'dev/src/chat_test.js'),
   output: {
     path: path.resolve(__dirname, 'dev'),
-    filename: 'index.js',
-    library: 'react-chat-widget',
-    libraryTarget: 'umd'
+    filename: 'index.js'
   },
   devServer: {
     stats: 'errors-only',

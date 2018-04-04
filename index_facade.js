@@ -9,6 +9,13 @@ export default {
     ReactDOM.render(
       <Widget
         socketUrl={args.socketUrl}
+        title={args.title}
+        subtitle={args.subtitle}
+        senderPlaceHolder={args.senderPlaceHolder}
+        profileAvatar={args.profileAvatar}
+        showCloseButton={args.showCloseButton}
+        fullScreenMode={args.fullScreenMode}
+        badge={args.badge}
       />, document.querySelector(args.selector)
 
     );
