@@ -31,6 +31,9 @@ export default function reducer(state = initialState, action) {
     case actionTypes.SET_QUICK_REPLY: {
       return state.setIn([action.id, 'chosenReply'], action.title);
     }
+    case actionTypes.INSERT_NEW_USER_MESSAGE: {
+      return state.insert(action.index, createNewMessage(action.text, MESSAGE_SENDER.CLIENT));
+    }
     case actionTypes.DROP_MESSAGES: {
       return initialState;
     }

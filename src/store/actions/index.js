@@ -48,6 +48,14 @@ export function setQuickReply(id, title) {
   };
 }
 
+export function insertUserMessage(index, text) {
+  return {
+    type: actions.INSERT_NEW_USER_MESSAGE,
+    index,
+    text
+  };
+}
+
 export function renderCustomComponent(component, props, showAvatar) {
   return {
     type: actions.ADD_COMPONENT_MESSAGE,

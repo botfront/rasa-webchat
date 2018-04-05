@@ -21,6 +21,7 @@ export const PROP_TYPES = {
       MESSAGES_TYPES.TEXT,
       MESSAGES_TYPES.SNIPPET.LINK
     ]),
+    id: PropTypes.number,
     text: PropTypes.string,
     sender: PropTypes.oneOf([
       MESSAGE_SENDER.CLIENT,
@@ -33,6 +34,7 @@ export const PROP_TYPES = {
       MESSAGES_TYPES.TEXT,
       MESSAGES_TYPES.SNIPPET.LINK
     ]),
+    id: PropTypes.number,
     title: PropTypes.string,
     link: PropTypes.string,
     content: PropTypes.string,
@@ -47,6 +49,7 @@ export const PROP_TYPES = {
     type: PropTypes.oneOf([
       MESSAGES_TYPES.QUICK_REPLY
     ]),
+    id: PropTypes.number,
     replies: ImmutablePropTypes.listOf(
         PropTypes.shape({
           title: PropTypes.string,

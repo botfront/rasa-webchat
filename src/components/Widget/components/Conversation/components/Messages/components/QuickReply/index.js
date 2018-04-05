@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { PROP_TYPES } from 'constants';
-import { addUserMessage } from 'actions';
+import { insertUserMessage, setQuickReply } from 'actions';
 
 import './styles.scss';
-import { setQuickReply } from '../../../../../../../../store/actions';
 
 class QuickReply extends PureComponent {
   constructor(props) {
@@ -47,16 +46,13 @@ QuickReply.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  chosenReply: (id) => {
-    const mesg = state.messages.get(id);
-    return mesg.get('chosenReply');
-  }
+  chosenReply: id => state.messages.get(id).get('chosenReply')
 });
 
 const mapDispatchToProps = dispatch => ({
   chooseReply: (payload, title, id) => {
-    dispatch(addUserMessage(payload));
     dispatch(setQuickReply(id, title));
+    dispatch(insertUserMessage(id + 1, payload));
   }
 });
 
