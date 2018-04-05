@@ -50,11 +50,13 @@ export const PROP_TYPES = {
     replies: ImmutablePropTypes.listOf(
         PropTypes.shape({
           title: PropTypes.string,
-          payload: PropTypes.func
+          payload: PropTypes.string
         })),
     sender: PropTypes.oneOf([
       MESSAGE_SENDER.CLIENT,
       MESSAGE_SENDER.RESPONSE
-    ])
+    ]),
+    chooseReply: PropTypes.func,
+    chosenReply: PropTypes.string
   })
 };

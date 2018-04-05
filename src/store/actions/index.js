@@ -40,6 +40,14 @@ export function addQuickReply(replies) {
   };
 }
 
+export function setQuickReply(id, title) {
+  return {
+    type: actions.SET_QUICK_REPLY,
+    id,
+    title
+  };
+}
+
 export function renderCustomComponent(component, props, showAvatar) {
   return {
     type: actions.ADD_COMPONENT_MESSAGE,

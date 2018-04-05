@@ -1,4 +1,4 @@
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 import { MESSAGES_TYPES, MESSAGE_SENDER } from 'constants';
 
 import Message from 'messagesComponents/Message';
@@ -15,7 +15,7 @@ export function createNewMessage(text, sender) {
   });
 }
 
-export function createLinkSnippet(link) {
+export function createLinkSnippet(link, sender) {
   return Map({
     type: MESSAGES_TYPES.SNIPPET.LINK,
     component: Snippet,
@@ -23,18 +23,19 @@ export function createLinkSnippet(link) {
     link: link.link,
     content: link.content,
     target: link.target || '_blank',
-    sender: MESSAGE_SENDER.RESPONSE,
+    sender,
     showAvatar: true
   });
 }
 
-export function createQuickReply(replies) {
+export function createQuickReply(replies, sender) {
   return Map({
     type: MESSAGES_TYPES.QUICK_REPLY,
     component: QuickReply,
-    replies,
-    sender: MESSAGE_SENDER.RESPONSE,
-    showAvatar: true
+    replies: List(replies),
+    sender,
+    showAvatar: true,
+    chosenReply: null
   });
 }
 
