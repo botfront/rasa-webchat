@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { PROP_TYPES } from 'constants';
-import { insertUserMessage, setQuickReply } from 'actions';
+import { addUserMessage, setQuickReply, toggleInputDisabled } from 'actions';
 
 import './styles.scss';
 
@@ -9,11 +9,11 @@ class QuickReply extends PureComponent {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-  }
 
-  getReplies(replies) {
-    let i = 0;
-    return replies.map(reply => <li key={i += 1} data-payload={reply.payload}>{reply.title}</li>);
+    const chosenReply = this.props.getChosenReply(this.props.id);
+    if (!chosenReply && !this.props.inputState) {
+      this.props.toggleInputDisabled();
+    }
   }
 
   handleClick(reply) {
@@ -25,7 +25,7 @@ class QuickReply extends PureComponent {
 
 
   render() {
-    const chosenReply = this.props.chosenReply(this.props.id);
+    const chosenReply = this.props.getChosenReply(this.props.id);
     if (chosenReply) {
       return (
         <div className={this.props.message.get('sender')}>
@@ -39,19 +39,22 @@ class QuickReply extends PureComponent {
   }
   }
 
-QuickReply.propTypes = {
-  message: PROP_TYPES.QUICK_REPLY
-};
-
 const mapStateToProps = state => ({
-  chosenReply: id => state.messages.get(id).get('chosenReply')
+  getChosenReply: id => state.messages.get(id).get('chosenReply'),
+  inputState: state.behavior.get('disabledInput')
 });
 
 const mapDispatchToProps = dispatch => ({
+  toggleInputDisabled: _ => dispatch(toggleInputDisabled()),
   chooseReply: (payload, title, id) => {
     dispatch(setQuickReply(id, title));
-    dispatch(insertUserMessage(id + 1, payload));
+    dispatch(addUserMessage(payload));
+    dispatch(toggleInputDisabled());
   }
 });
+
+QuickReply.propTypes = {
+  message: PROP_TYPES.QUICK_REPLY
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuickReply);

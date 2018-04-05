@@ -60,6 +60,9 @@ export const PROP_TYPES = {
       MESSAGE_SENDER.RESPONSE
     ]),
     chooseReply: PropTypes.func,
+    getChosenReply: PropTypes.func,
+    toggleInputDisabled: PropTypes.func,
+    inputState: PropTypes.bool,
     chosenReply: PropTypes.string
   })
 };
