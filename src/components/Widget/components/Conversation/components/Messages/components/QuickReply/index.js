@@ -16,27 +16,25 @@ class QuickReply extends PureComponent {
     return replies.map(reply => <li key={i += 1} data-payload={reply.payload}>{reply.title}</li>);
   }
 
-  handleClick(event) {
-    const reply = event.target.dataset.payload;
-    const title = event.target.textContent;
+  handleClick(reply) {
+    const message = reply.payload;
+    const title = reply.title;
     const id = this.props.id;
-    this.props.chooseReply(reply, title, id);
+    this.props.chooseReply(message, title, id);
   }
 
 
   render() {
-    const reply = this.props.chosenReply(this.props.id);
-    if (reply) {
+    const chosenReply = this.props.chosenReply(this.props.id);
+    if (chosenReply) {
       return (
         <div className={this.props.message.get('sender')}>
-          <div className="message-text">{reply}</div>
+          <div className="message-text">{chosenReply}</div>
         </div>);
     }
     return (
-      <div className={this.props.message.get('sender')}>
-        <div className="message-text">
-          <ul role="button" onClick={this.handleClick}>{this.getReplies(this.props.message.get('replies'))}</ul>
-        </div>
+      <div className="message">
+        {this.props.message.get('replies').map((reply, index) => <div key={index} className={'response'} onClick={this.handleClick.bind(this, reply)}>{reply.title}</div>)}
       </div>);
   }
   }
