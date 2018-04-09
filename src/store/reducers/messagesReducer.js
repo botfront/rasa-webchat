@@ -23,7 +23,7 @@ export default function reducer(state = initialState, action) {
       return state.push(createLinkSnippet(action.link, MESSAGE_SENDER.RESPONSE));
     }
     case actionTypes.ADD_QUICK_REPLY: {
-      return state.push(createQuickReply(action.replies, MESSAGE_SENDER.RESPONSE));
+      return state.push(createQuickReply(action.quickReply, MESSAGE_SENDER.RESPONSE));
     }
     case actionTypes.ADD_COMPONENT_MESSAGE: {
       return state.push(createComponentMessage(action.component, action.props, action.showAvatar));

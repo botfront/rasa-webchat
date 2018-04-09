@@ -4,6 +4,8 @@
 .message {
   margin: 10px;
   display: flex;
+  font-size: 14px;
+  font-family: $roboto;
 }
 
 .client {
@@ -13,11 +15,6 @@
 
 .response {
   @include message-bubble($grey-2);
-}
-
-.message {
-  font-size: 14px;
-  font-family: $roboto;
 }
 
 /* For markdown elements created with default styles */

@@ -13,8 +13,8 @@ export function addLinkSnippet(link) {
   store.dispatch(actions.addLinkSnippet(link));
 }
 
-export function addQuickReply(replies) {
-  store.dispatch(actions.addQuickReply(replies));
+export function addQuickReply(quickReply) {
+  store.dispatch(actions.addQuickReply(quickReply));
 }
 
 export function setQuickReply(id, title) {

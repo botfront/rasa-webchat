@@ -28,11 +28,12 @@ export function createLinkSnippet(link, sender) {
   });
 }
 
-export function createQuickReply(replies, sender) {
+export function createQuickReply(quickReply, sender) {
   return Map({
     type: MESSAGES_TYPES.QUICK_REPLY,
     component: QuickReply,
-    replies: List(replies),
+    item: quickReply.item,
+    replies: List(quickReply.replies),
     sender,
     showAvatar: true,
     chosenReply: null

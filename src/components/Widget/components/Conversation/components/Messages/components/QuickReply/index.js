@@ -29,12 +29,17 @@ class QuickReply extends PureComponent {
     if (chosenReply) {
       return (
         <div className={this.props.message.get('sender')}>
-          <div className="message-text">{chosenReply}</div>
+          <div className="message-text">{this.props.message.get('item')}</div>
         </div>);
     }
     return (
-      <div className="message">
-        {this.props.message.get('replies').map((reply, index) => <div key={index} className={'response'} onClick={this.handleClick.bind(this, reply)}>{reply.title}</div>)}
+      <div>
+        <div className={this.props.message.get('sender')}>
+          <div className="message-text">{this.props.message.get('item')}</div>
+        </div>
+        <div className="replies">
+          {this.props.message.get('replies').map((reply, index) => <div key={index} className={'reply'} onClick={this.handleClick.bind(this, reply)}>{reply.title}</div>)}
+        </div>
       </div>);
   }
   }

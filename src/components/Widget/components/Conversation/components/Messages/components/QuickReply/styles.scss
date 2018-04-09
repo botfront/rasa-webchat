@@ -1,23 +1,22 @@
 @import "variables.scss";
 @import "common.scss";
 
-.message {
+.replies {
   margin: 10px;
   display: flex;
+  overflow: auto;
+  font-size: 14px;
+  font-family: $roboto;
 }
 
-.client {
-  @include message-bubble($red-2);
-  margin-left: auto;
+.reply {
+  @include borderless-message-bubble($red-2);
+  cursor: pointer;
+  margin: 0.25em;
 }
 
 .response {
   @include message-bubble($grey-2);
-}
-
-.message {
-  font-size: 14px;
-  font-family: $roboto;
 }
 
 .avatar {

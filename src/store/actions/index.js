@@ -33,10 +33,10 @@ export function addLinkSnippet(link) {
   };
 }
 
-export function addQuickReply(replies) {
+export function addQuickReply(quickReply) {
   return {
     type: actions.ADD_QUICK_REPLY,
-    replies
+    quickReply
   };
 }
 

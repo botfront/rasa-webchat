@@ -11,6 +11,17 @@ $roboto: 'Roboto', serif;
   font-family: $roboto;
 }
 
+@mixin borderless-message-bubble($color) {
+    border-color: $color;
+    border-radius: 10px;
+    border-style: solid;
+    padding: 15px;
+    max-width: 215px;
+    max-height: 1em;
+    text-align: center;
+    font-family: $roboto;
+  }
+
 @mixin widget-container-fs {
   height: 100%;
   margin: 0;
