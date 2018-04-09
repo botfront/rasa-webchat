@@ -2,10 +2,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'dev/src/chat_test.js'),
+  entry: path.resolve(__dirname, 'index_facade.js'),
   output: {
     path: path.resolve(__dirname, 'dev'),
-    filename: 'index.js'
+    filename: 'index.js',
+    library: 'MrbotWebChat',
+    libraryTarget: 'umd'
   },
   devServer: {
     stats: 'errors-only',
@@ -49,7 +51,7 @@ module.exports = {
     title: 'React Chat Widget Test',
     filename: 'index.html',
     inject: false,
-    template: require('html-webpack-template'),
-    bodyHtmlSnippet: '<div id="app"/>'
+    template: 'dev/src/index.html',
+    showErrors: true
   })]
 };
