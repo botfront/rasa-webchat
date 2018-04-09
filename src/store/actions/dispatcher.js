@@ -13,6 +13,18 @@ export function addLinkSnippet(link) {
   store.dispatch(actions.addLinkSnippet(link));
 }
 
+export function addQuickReply(replies) {
+  store.dispatch(actions.addQuickReply(replies));
+}
+
+export function setQuickReply(id, title) {
+  store.dispatch(actions.setQuickReply(id, title));
+}
+
+export function insertUserMessage(id, text) {
+  store.dispatch(actions.insertUserMessage(id, text));
+}
+
 export function renderCustomComponent(component, props, showAvatar = false) {
   store.dispatch(actions.renderCustomComponent(component, props, showAvatar));
 }
