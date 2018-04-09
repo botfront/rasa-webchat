@@ -7,9 +7,9 @@ class Snippet extends PureComponent {
   render() {
     return (
       <div className="snippet">
-        <h5 className="snippet-title">
+        <b className="snippet-title">
           { this.props.message.get('title') }
-        </h5>
+        </b>
         <div className="snippet-details">
           <a href={this.props.message.get('link')} target={this.props.message.get('target')} className="link">
             { this.props.message.get('content') }

@@ -1,8 +1,9 @@
 /* eslint-disable no-undef */
 import React, { Component } from 'react';
+import { isSnippet, isQR, isText } from './msgProcessor';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { toggleChat, addUserMessage, addResponseMessage } from 'actions';
+import { toggleChat, addUserMessage, addResponseMessage, addLinkSnippet, addQuickReply } from 'actions';
 import io from 'socket.io-client';
 import WidgetLayout from './layout';
 
@@ -15,21 +16,21 @@ class Widget extends Component {
       console.log(`connect:${this.socket.id}`);
     });
 
+
     this.socket.on('bot_uttered', (botUttered) => {
-      console.log(botUttered);
-      this.props.dispatch(addResponseMessage(botUttered.text));
+      this.props.dispatch(this.dispatchMessage(botUttered));
     });
 
     this.socket.on('connect_error', (error) => {
-      console.log(error);
+      // console.log(error);
     });
 
     this.socket.on('error', (error) => {
-      console.log(error);
+      // console.log(error);
     });
 
     this.socket.on('disconnect', (reason) => {
-      console.log(reason);
+      // console.log(reason);
     });
   }
 
@@ -39,9 +40,29 @@ class Widget extends Component {
     }
   }
 
+  dispatchMessage(message) {
+    if (Object.keys(message).length === 0) {
+      return;
+    }
+    if (isText(message)) {
+      this.props.dispatch(addResponseMessage(message.text));
+    } else if (isQR(message)) {
+      this.props.dispatch(addQuickReply([{ title: 'Quick Reply 1', payload: 'Here is my first answer' },
+          { title: 'Quick Reply 2', payload: 'Here is another possible answer' }]));
+    } else if (isSnippet(message)) {
+      const element = message.attachment.payload.elements[0];
+      this.props.dispatch(addLinkSnippet({
+        title: element.title,
+        content: element.buttons[0].title,
+        link: element.buttons[0].url,
+        target: '_blank'
+      }));
+    }
+  }
+
   toggleConversation = () => {
     this.props.dispatch(toggleChat());
-  }
+  };
 
   handleMessageSubmit = (event) => {
     event.preventDefault();

@@ -38,7 +38,7 @@ export const PROP_TYPES = {
     title: PropTypes.string,
     link: PropTypes.string,
     content: PropTypes.string,
-    target: PropTypes.target,
+    target: PropTypes.string,
     sender: PropTypes.oneOf([
       MESSAGE_SENDER.CLIENT,
       MESSAGE_SENDER.RESPONSE
