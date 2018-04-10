@@ -47,8 +47,13 @@ class Widget extends Component {
     if (isText(message)) {
       this.props.dispatch(addResponseMessage(message.text));
     } else if (isQR(message)) {
-      this.props.dispatch(addQuickReply([{ title: 'Quick Reply 1', payload: 'Here is my first answer' },
-          { title: 'Quick Reply 2', payload: 'Here is another possible answer' }]));
+      this.props.dispatch(addQuickReply({
+        text: 'text1',
+        quick_replies: [
+          { title: 'Quick Reply 1', payload: 'Here is my first answer' },
+          { title: 'Quick Reply 2', payload: 'Here is another possible answer' }
+        ]
+      }));
     } else if (isSnippet(message)) {
       const element = message.attachment.payload.elements[0];
       this.props.dispatch(addLinkSnippet({

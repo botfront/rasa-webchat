@@ -32,8 +32,8 @@ export function createQuickReply(quickReply, sender) {
   return Map({
     type: MESSAGES_TYPES.QUICK_REPLY,
     component: QuickReply,
-    item: quickReply.item,
-    replies: List(quickReply.replies),
+    text: quickReply.text,
+    quick_replies: List(quickReply.quick_replies),
     sender,
     showAvatar: true,
     chosenReply: null

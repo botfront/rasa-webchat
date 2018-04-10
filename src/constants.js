@@ -50,8 +50,8 @@ export const PROP_TYPES = {
       MESSAGES_TYPES.QUICK_REPLY
     ]),
     id: PropTypes.number,
-    item: PropTypes.string,
-    replies: ImmutablePropTypes.listOf(
+    text: PropTypes.string,
+    quick_replies: ImmutablePropTypes.listOf(
         PropTypes.shape({
           title: PropTypes.string,
           payload: PropTypes.string

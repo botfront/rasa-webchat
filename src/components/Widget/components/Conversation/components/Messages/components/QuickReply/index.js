@@ -18,7 +18,7 @@ class QuickReply extends PureComponent {
   }
 
   handleClick(reply) {
-    const message = reply.payload;
+    const message = reply.title;
     const title = reply.title;
     const id = this.props.id;
     this.props.chooseReply(message, title, id);
@@ -31,16 +31,16 @@ class QuickReply extends PureComponent {
     if (chosenReply) {
       return (
         <div className={this.props.message.get('sender')}>
-          <div className="message-text">{this.props.message.get('item')}</div>
+          <div className="message-text">{this.props.message.get('text')}</div>
         </div>);
     }
     return (
       <div>
         <div className={this.props.message.get('sender')}>
-          <div className="message-text">{this.props.message.get('item')}</div>
+          <div className="message-text">{this.props.message.get('text')}</div>
         </div>
         <div className="replies">
-          {this.props.message.get('replies').map((reply, index) => <div key={index} className={'reply'} onClick={this.handleClick.bind(this, reply)}>{reply.title}</div>)}
+          {this.props.message.get('quick_replies').map((reply, index) => <div key={index} className={'reply'} onClick={this.handleClick.bind(this, reply)}>{reply.title}</div>)}
         </div>
       </div>);
   }
