@@ -18,7 +18,7 @@ class Widget extends Component {
 
 
     this.socket.on('bot_uttered', (botUttered) => {
-      this.props.dispatch(this.dispatchMessage(botUttered));
+      this.dispatchMessage(botUttered);
     });
 
     this.socket.on('connect_error', (error) => {
