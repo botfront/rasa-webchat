@@ -33,6 +33,7 @@ export function createQuickReply(quickReply, sender) {
     type: MESSAGES_TYPES.QUICK_REPLY,
     component: QuickReply,
     item: quickReply.item,
+    hint: quickReply.hint || 'Select an option...',
     replies: List(quickReply.replies),
     sender,
     showAvatar: true,

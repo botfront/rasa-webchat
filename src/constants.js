@@ -51,6 +51,7 @@ export const PROP_TYPES = {
     ]),
     id: PropTypes.number,
     item: PropTypes.string,
+    hint: PropTypes.string,
     replies: ImmutablePropTypes.listOf(
         PropTypes.shape({
           title: PropTypes.string,
