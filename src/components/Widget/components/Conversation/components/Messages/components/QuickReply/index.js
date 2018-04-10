@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { PROP_TYPES } from 'constants';
-import { addUserMessage, setQuickReply, toggleInputDisabled } from 'actions';
+import { addUserMessage, setQuickReply, toggleInputDisabled, changeInputFieldHint } from 'actions';
 
 import './styles.scss';
 
@@ -13,6 +13,7 @@ class QuickReply extends PureComponent {
     const chosenReply = this.props.getChosenReply(this.props.id);
     if (!chosenReply && !this.props.inputState) {
       this.props.toggleInputDisabled();
+      this.props.changeInputFieldHint('Choose a reply');
     }
   }
 
@@ -21,6 +22,7 @@ class QuickReply extends PureComponent {
     const title = reply.title;
     const id = this.props.id;
     this.props.chooseReply(message, title, id);
+    this.props.changeInputFieldHint('Type a message...');
   }
 
 
@@ -51,6 +53,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   toggleInputDisabled: _ => dispatch(toggleInputDisabled()),
+  changeInputFieldHint: hint => dispatch(changeInputFieldHint(hint)),
   chooseReply: (payload, title, id) => {
     dispatch(setQuickReply(id, title));
     dispatch(addUserMessage(payload));

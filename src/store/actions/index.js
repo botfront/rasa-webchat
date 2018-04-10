@@ -12,6 +12,13 @@ export function toggleInputDisabled() {
   };
 }
 
+export function changeInputFieldHint(hint) {
+  return {
+    type: actions.CHANGE_INPUT_FIELD_HINT,
+    hint
+  };
+}
+
 export function addUserMessage(text) {
   return {
     type: actions.ADD_NEW_USER_MESSAGE,
