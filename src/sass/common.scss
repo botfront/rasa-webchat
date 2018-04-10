@@ -2,8 +2,9 @@
 
 $roboto: 'Roboto', serif;  
 
-@mixin message-bubble($color) {
+@mixin message-bubble($color, $textColor) {
   background-color: $color;
+  color: $textColor;
   border-radius: 10px;
   padding: 15px;
   max-width: 215px;
@@ -11,9 +12,10 @@ $roboto: 'Roboto', serif;
   font-family: $roboto;
 }
 
-@mixin borderless-message-bubble($color) {
+@mixin borderless-message-bubble($color, $textColor) {
     border-color: $color;
     border-radius: 10px;
+    color: $textColor;
     border-style: solid;
     padding: 15px;
     max-width: 215px;
@@ -40,7 +42,7 @@ $roboto: 'Roboto', serif;
 }
 
 @mixin close-button-fs {
-  background-color: $red-1;
+  background-color: $blue-1;
   border: 0;
   display: block;
   position: absolute;

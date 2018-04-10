@@ -2,7 +2,7 @@
 @import "common.scss";
 
 .snippet {
-  @include message-bubble($grey-2);
+  @include message-bubble($grey-2, #000);
 }
 
 .snippet-title {

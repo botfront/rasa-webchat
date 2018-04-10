@@ -14,16 +14,12 @@ class App extends Component {
         // Now send the message throught the backend API
     addQuickReply({
       item: 'What ice cream flavor do you want?',
+      hint: 'Could you please choose an option?',
       replies:
       [
         { title: 'Mint', payload: 'I\'d like a mint flavored ice-cream please' },
         { title: 'Chocolate', payload: 'I\'d like a chocolate flavored ice-cream please' },
         { title: 'Raspberry', payload: 'I\'d like a raspberry flavored ice-cream please' },
-        { title: 'Strawberry', payload: 'I\'d like a strawberry flavored ice-cream please' },
-        { title: 'Apple', payload: 'I\'d like a apple flavored ice-cream please' },
-        { title: 'Grapefruit', payload: 'I\'d like a grapefruit flavored ice-cream please' },
-        { title: 'Banana', payload: 'I\'d like a banana flavored ice-cream please' },
-        { title: 'White chocolate', payload: 'I\'d like a white chocolate flavored ice-cream please' },
         { title: 'Nut', payload: 'I\'d like a nut flavored ice-cream please' }
       ] });
   }

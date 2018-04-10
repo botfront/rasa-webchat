@@ -9,12 +9,12 @@
 }
 
 .client {
-  @include message-bubble($red-2);
+  @include message-bubble($blue-1, $white);
   margin-left: auto;
 }
 
 .response {
-  @include message-bubble($grey-2);
+  @include message-bubble($grey-2, #000);
 }
 
 /* For markdown elements created with default styles */

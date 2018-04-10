@@ -10,10 +10,11 @@ class QuickReply extends PureComponent {
     super(props);
     this.handleClick = this.handleClick.bind(this);
 
+    const hint = this.props.message.get('hint');
     const chosenReply = this.props.getChosenReply(this.props.id);
     if (!chosenReply && !this.props.inputState) {
       this.props.toggleInputDisabled();
-      this.props.changeInputFieldHint('Choose a reply');
+      this.props.changeInputFieldHint(hint);
     }
   }
 

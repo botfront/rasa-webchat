@@ -13,7 +13,7 @@ const Header = ({ title, subtitle, toggleChat, showCloseButton }) =>
       </button>
     }
     <h4 className="title">{title}</h4>
-    <span>{subtitle}</span>
+    {subtitle && <span>{subtitle}</span>}
   </div>;
 
 Header.propTypes = {

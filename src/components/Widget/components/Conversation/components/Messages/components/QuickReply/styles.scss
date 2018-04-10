@@ -10,13 +10,22 @@
 }
 
 .reply {
-  @include borderless-message-bubble($red-2);
+  border-color: $blue-2;
+  border-radius: 20px;
+  border-width: 1px;
+  color: $blue-2;
+  border-style: solid;
+  padding: 10px;
+  max-width: 215px;
+  max-height: 1em;
+  text-align: center;
+  font-family: $roboto;
   cursor: pointer;
   margin: 0.25em;
 }
 
 .response {
-  @include message-bubble($grey-2);
+  @include message-bubble($grey-2, #000);
 }
 
 .avatar {
