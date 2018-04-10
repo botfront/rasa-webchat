@@ -1,27 +1,75 @@
+/* eslint-disable no-undef */
 import React, { Component } from 'react';
+import { isSnippet, isQR, isText } from './msgProcessor';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { toggleChat, addUserMessage } from 'actions';
-
+import { toggleChat, addUserMessage, addResponseMessage, addLinkSnippet, addQuickReply } from 'actions';
+import io from 'socket.io-client';
 import WidgetLayout from './layout';
 
+
 class Widget extends Component {
+
+  componentDidMount() {
+    this.socket = io(this.props.socketUrl);
+    this.socket.on('connect', () => {
+      console.log(`connect:${this.socket.id}`);
+    });
+
+
+    this.socket.on('bot_uttered', (botUttered) => {
+      this.dispatchMessage(botUttered);
+    });
+
+    this.socket.on('connect_error', (error) => {
+      // console.log(error);
+    });
+
+    this.socket.on('error', (error) => {
+      // console.log(error);
+    });
+
+    this.socket.on('disconnect', (reason) => {
+      // console.log(reason);
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.fullScreenMode) {
       this.props.dispatch(toggleChat());
     }
   }
 
+  dispatchMessage(message) {
+    if (Object.keys(message).length === 0) {
+      return;
+    }
+    if (isText(message)) {
+      this.props.dispatch(addResponseMessage(message.text));
+    } else if (isQR(message)) {
+      this.props.dispatch(addQuickReply([{ title: 'Quick Reply 1', payload: 'Here is my first answer' },
+          { title: 'Quick Reply 2', payload: 'Here is another possible answer' }]));
+    } else if (isSnippet(message)) {
+      const element = message.attachment.payload.elements[0];
+      this.props.dispatch(addLinkSnippet({
+        title: element.title,
+        content: element.buttons[0].title,
+        link: element.buttons[0].url,
+        target: '_blank'
+      }));
+    }
+  }
+
   toggleConversation = () => {
     this.props.dispatch(toggleChat());
-  }
+  };
 
   handleMessageSubmit = (event) => {
     event.preventDefault();
-    const userInput = event.target.message.value;
-    if (userInput) {
-      this.props.dispatch(addUserMessage(userInput));
-      this.props.handleNewUserMessage(userInput);
+    const userUttered = event.target.message.value;
+    if (userUttered) {
+      this.props.dispatch(addUserMessage(userUttered));
+      this.socket.emit('user_uttered', userUttered);
     }
     event.target.message.value = '';
   }
@@ -46,7 +94,7 @@ class Widget extends Component {
 Widget.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  handleNewUserMessage: PropTypes.func.isRequired,
+  socketUrl: PropTypes.string,
   senderPlaceHolder: PropTypes.string,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,

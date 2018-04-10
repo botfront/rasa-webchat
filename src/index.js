@@ -10,11 +10,11 @@ const ConnectedWidget = props =>
     <Widget
       title={props.title}
       subtitle={props.subtitle}
-      handleNewUserMessage={props.handleNewUserMessage}
       senderPlaceHolder={props.senderPlaceHolder}
       profileAvatar={props.profileAvatar}
       showCloseButton={props.showCloseButton}
       fullScreenMode={props.fullScreenMode}
+      socketUrl={props.socketUrl}
       badge={props.badge}
     />
   </Provider>;
@@ -22,7 +22,7 @@ const ConnectedWidget = props =>
 ConnectedWidget.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  handleNewUserMessage: PropTypes.func.isRequired,
+  socketUrl: PropTypes.string.isRequired,
   senderPlaceHolder: PropTypes.string,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
@@ -36,6 +36,7 @@ ConnectedWidget.defaultProps = {
   senderPlaceHolder: 'Type a message...',
   showCloseButton: true,
   fullScreenMode: false,
+  socketUrl: 'http://localhost:5005',
   badge: 0
 };
 
