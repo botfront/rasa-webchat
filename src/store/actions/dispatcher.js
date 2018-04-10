@@ -1,4 +1,4 @@
-import store from '../store';
+import { store } from '../store';
 import * as actions from './index';
 
 export function addUserMessage(text) {
@@ -35,6 +35,10 @@ export function toggleWidget() {
 
 export function toggleInputDisabled() {
   store.dispatch(actions.toggleInputDisabled());
+}
+
+export function changeInputFieldHint(hint) {
+  store.dispatch(actions.changeInputFieldHint(hint));
 }
 
 export function dropMessages() {

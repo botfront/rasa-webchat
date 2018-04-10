@@ -11,7 +11,7 @@ export default {
         socketUrl={args.socketUrl}
         title={args.title}
         subtitle={args.subtitle}
-        senderPlaceHolder={args.senderPlaceHolder}
+        inputTextFieldHint={args.inputTextFieldHint}
         profileAvatar={args.profileAvatar}
         showCloseButton={args.showCloseButton}
         fullScreenMode={args.fullScreenMode}

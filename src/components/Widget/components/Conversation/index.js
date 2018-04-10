@@ -19,7 +19,6 @@ const Conversation = props =>
     />
     <Sender
       sendMessage={props.sendMessage}
-      placeholder={props.senderPlaceHolder}
       disabledInput={props.disabledInput}
     />
   </div>;
@@ -28,7 +27,6 @@ Conversation.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   sendMessage: PropTypes.func,
-  senderPlaceHolder: PropTypes.string,
   profileAvatar: PropTypes.string,
   toggleChat: PropTypes.func,
   showCloseButton: PropTypes.bool,

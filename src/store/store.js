@@ -3,12 +3,18 @@ import { createStore, combineReducers } from 'redux';
 import behavior from './reducers/behaviorReducer';
 import messages from './reducers/messagesReducer';
 
-const reducer = combineReducers({ behavior, messages });
+let store = 'call initStore first';
+
+function initStore(hint) {
+  const reducer = combineReducers({ behavior: behavior(hint), messages });
 
 /* eslint-disable no-underscore-dangle */
-export default createStore(
+  store = createStore(
   reducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ &&
   window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 /* eslint-enable */
+}
+
+export { initStore, store };
