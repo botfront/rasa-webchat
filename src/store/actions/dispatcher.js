@@ -5,6 +5,10 @@ export function addUserMessage(text) {
   store.dispatch(actions.addUserMessage(text));
 }
 
+export function emitUserMessage(text) {
+  store.dispatch(actions.emitUserMessage(text));
+}
+
 export function addResponseMessage(text) {
   store.dispatch(actions.addResponseMessage(text));
 }

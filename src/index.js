@@ -4,12 +4,14 @@ import { Provider } from 'react-redux';
 
 import Widget from './components/Widget';
 import { store, initStore } from '../src/store/store';
-
+import socket from './socket';
 
 const ConnectedWidget = (props) => {
-  initStore(props.inputTextFieldHint);
+  const sock = socket(props.socketUrl);
+  initStore(props.inputTextFieldHint, sock);
   return (<Provider store={store}>
     <Widget
+      socket={sock}
       title={props.title}
       subtitle={props.subtitle}
       handleNewUserMessage={props.handleNewUserMessage}

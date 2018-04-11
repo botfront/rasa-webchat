@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { PROP_TYPES } from 'constants';
-import { addUserMessage, setQuickReply, toggleInputDisabled, changeInputFieldHint } from 'actions';
+import { addUserMessage, emitUserMessage, setQuickReply, toggleInputDisabled, changeInputFieldHint } from 'actions';
 
 import './styles.scss';
 
@@ -19,13 +19,12 @@ class QuickReply extends PureComponent {
   }
 
   handleClick(reply) {
-    const message = reply.title;
+    const payload = reply.payload;
     const title = reply.title;
     const id = this.props.id;
-    this.props.chooseReply(message, title, id);
+    this.props.chooseReply(payload, title, id);
     this.props.changeInputFieldHint('Type a message...');
   }
-
 
   render() {
     const chosenReply = this.props.getChosenReply(this.props.id);
@@ -44,7 +43,7 @@ class QuickReply extends PureComponent {
           {this.props.message.get('quick_replies').map((reply, index) => <div key={index} className={'reply'} onClick={this.handleClick.bind(this, reply)}>{reply.title}</div>)}
         </div>
       </div>);
-  }
+    }
   }
 
 const mapStateToProps = state => ({
@@ -57,7 +56,8 @@ const mapDispatchToProps = dispatch => ({
   changeInputFieldHint: hint => dispatch(changeInputFieldHint(hint)),
   chooseReply: (payload, title, id) => {
     dispatch(setQuickReply(id, title));
-    dispatch(addUserMessage(payload));
+    dispatch(addUserMessage(title));
+    dispatch(emitUserMessage(payload));
     dispatch(toggleInputDisabled());
   }
 });
