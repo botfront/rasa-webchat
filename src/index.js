@@ -12,19 +12,20 @@ const ConnectedWidget = (props) => {
   return (<Provider store={store}>
     <Widget
       socket={sock}
+      initPayload={props.initPayload}
       title={props.title}
       subtitle={props.subtitle}
       handleNewUserMessage={props.handleNewUserMessage}
       profileAvatar={props.profileAvatar}
       showCloseButton={props.showCloseButton}
       fullScreenMode={props.fullScreenMode}
-      socketUrl={props.socketUrl}
       badge={props.badge}
     />
   </Provider>);
 };
 
 ConnectedWidget.propTypes = {
+  initPayload: PropTypes.string,
   title: PropTypes.string,
   subtitle: PropTypes.string,
   socketUrl: PropTypes.string.isRequired,

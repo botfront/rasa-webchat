@@ -1,6 +1,10 @@
 import { store } from '../store';
 import * as actions from './index';
 
+export function initialize() {
+  store.dispatch(actions.initialize());
+}
+
 export function addUserMessage(text) {
   store.dispatch(actions.addUserMessage(text));
 }

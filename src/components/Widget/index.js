@@ -3,16 +3,22 @@ import React, { Component } from 'react';
 import { isSnippet, isQR, isText } from './msgProcessor';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { toggleChat, addUserMessage, emitUserMessage, addResponseMessage, addLinkSnippet, addQuickReply } from 'actions';
+import { toggleChat, addUserMessage, emitUserMessage, addResponseMessage, addLinkSnippet, addQuickReply, initialize } from 'actions';
 import WidgetLayout from './layout';
 
 
 class Widget extends Component {
 
   componentDidMount() {
-    this.props.socket.on('bot_uttered', (botUttered) => {
+    const { initPayload, initialized, socket } = this.props;
+
+    socket.on('bot_uttered', (botUttered) => {
       this.dispatchMessage(botUttered);
     });
+    if (!initialized) {
+      this.props.dispatch(initialize());
+      socket.emit('user_uttered', initPayload);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -70,10 +76,15 @@ class Widget extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  initialized: state.behavior.initialized
+});
+
 Widget.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  socketUrl: PropTypes.string,
+  initPayload: PropTypes.string,
+  initialized: PropTypes.bool,
   inputTextFieldHint: PropTypes.string,
   handleNewUserMessage: PropTypes.func.isRequired,
   profileAvatar: PropTypes.string,
@@ -83,4 +94,4 @@ Widget.propTypes = {
   socket: PropTypes.object.isRequired
 };
 
-export default connect()(Widget);
+export default connect(mapStateToProps)(Widget);

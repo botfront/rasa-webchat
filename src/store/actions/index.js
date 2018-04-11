@@ -1,5 +1,11 @@
 import * as actions from './actionTypes';
 
+export function initialize() {
+  return {
+    type: actions.INITIALIZE
+  };
+}
+
 export function toggleChat() {
   return {
     type: actions.TOGGLE_CHAT
