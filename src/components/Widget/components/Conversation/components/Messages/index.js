@@ -19,12 +19,12 @@ class Messages extends Component {
     scrollToBottom();
   }
 
-  getComponentToRender = (message, index) => {
+  getComponentToRender = (message, index, isLast) => {
     const ComponentToRender = message.get('component');
     if (message.get('type') === 'component') {
-      return <ComponentToRender id={index} {...message.get('props')} />;
+      return <ComponentToRender id={index} {...message.get('props')} isLast={isLast}/>;
     }
-    return <ComponentToRender id={index} message={message} />;
+    return <ComponentToRender id={index} message={message} isLast={isLast} />;
   };
 
   render() {
@@ -39,7 +39,8 @@ class Messages extends Component {
                 <img src={this.props.profileAvatar} className="avatar" alt="profile" />
               }
               {
-                this.getComponentToRender(message, index)
+
+                this.getComponentToRender(message, index, index === this.props.messages.size - 1)
               }
             </div>
           )
