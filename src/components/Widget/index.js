@@ -77,7 +77,7 @@ class Widget extends Component {
 }
 
 const mapStateToProps = state => ({
-  initialized: state.behavior.initialized
+  initialized: state.behavior.get('initialized')
 });
 
 Widget.propTypes = {
