@@ -26,7 +26,7 @@ class QuickReply extends PureComponent {
     // this.props.changeInputFieldHint('Type a message...');
   }
 
-  renderQR() {
+  render() {
     const chosenReply = this.props.getChosenReply(this.props.id);
     if (chosenReply) {
       return (
@@ -39,15 +39,15 @@ class QuickReply extends PureComponent {
         <div className={this.props.message.get('sender')}>
           <div className="message-text">{this.props.message.get('text')}</div>
         </div>
+        {this.props.isLast &&
         <div className="replies">
-          {this.props.message.get('quick_replies').map((reply, index) => <div key={index} className={'reply'} onClick={this.handleClick.bind(this, reply)}>{reply.title}</div>)}
+          {this.props.message.get('quick_replies').map((reply, index) => <div
+            key={index} className={'reply'}
+            onClick={this.handleClick.bind(this, reply)}
+          >{reply.title}</div>)}
         </div>
+        }
       </div>);
-  }
-
-  render() {
-    console.log(this.props.isLast)
-    return (<div>{this.props.isLast && this.renderQR()}</div>);
   }
 }
 
@@ -64,7 +64,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setQuickReply(id, title));
     dispatch(addUserMessage(title));
     dispatch(emitUserMessage(payload));
-    dispatch(toggleInputDisabled());
+    // dispatch(toggleInputDisabled());
   }
 });
 
