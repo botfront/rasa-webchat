@@ -1,6 +1,6 @@
 # webchat
 
-A simple webchat widget to connect to a chatbot. Forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget)
+A simple webchat widget to connect with a chatbot. Forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget)
 ## Features
 
 - Plain text message UI
@@ -85,6 +85,7 @@ message = {"message":{
               }
             }
           })
+          
 emit('bot_uttered', message, room=socket_id)
 ```
 
@@ -93,5 +94,5 @@ The chat widget can communicate with any backend, but there is a [Rasa core chan
 available here](https://github.com/mrbot-ai/rasa-addons/)
 
 ## Contributors
-@PHLF
-@znat
+[@PHLF](https://github.com/phlf)
+[@znat](https://github.com/znat)
