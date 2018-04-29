@@ -12,6 +12,7 @@ const ConnectedWidget = (props) => {
   return (<Provider store={store}>
     <Widget
       socket={sock}
+      interval={props.interval}
       initPayload={props.initPayload}
       title={props.title}
       subtitle={props.subtitle}
@@ -26,6 +27,7 @@ const ConnectedWidget = (props) => {
 
 ConnectedWidget.propTypes = {
   initPayload: PropTypes.string,
+  interval: PropTypes.number,
   title: PropTypes.string,
   subtitle: PropTypes.string,
   socketUrl: PropTypes.string.isRequired,
@@ -39,6 +41,7 @@ ConnectedWidget.propTypes = {
 
 ConnectedWidget.defaultProps = {
   title: 'Welcome',
+  interval: 2000,
   inputTextFieldHint: 'Type a message...',
   showCloseButton: true,
   fullScreenMode: false,

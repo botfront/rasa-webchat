@@ -8,12 +8,21 @@ import WidgetLayout from './layout';
 
 
 class Widget extends Component {
+  constructor(props) {
+    super(props);
+    this.messages = [];
+    setInterval(() => {
+      if (this.messages.length > 0) {
+        this.dispatchMessage(this.messages.shift());
+      }
+    }, this.props.interval);
+  }
 
   componentDidMount() {
     const { initPayload, initialized, socket } = this.props;
 
     socket.on('bot_uttered', (botUttered) => {
-      this.dispatchMessage(botUttered);
+      this.messages.push(botUttered);
     });
     if (!initialized) {
       this.props.dispatch(initialize());
@@ -81,6 +90,7 @@ const mapStateToProps = state => ({
 });
 
 Widget.propTypes = {
+  interval: PropTypes.number,
   title: PropTypes.string,
   subtitle: PropTypes.string,
   initPayload: PropTypes.string,
