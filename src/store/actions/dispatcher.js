@@ -21,6 +21,14 @@ export function addLinkSnippet(link) {
   store.dispatch(actions.addLinkSnippet(link));
 }
 
+export function addVideoSnippet(video) {
+  store.dispatch(actions.addVideoSnippet(video));
+}
+
+export function addImageSnippet(image) {
+  store.dispatch(actions.addImageSnippet(image));
+}
+
 export function addQuickReply(quickReply) {
   store.dispatch(actions.addQuickReply(quickReply));
 }

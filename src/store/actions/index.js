@@ -31,6 +31,7 @@ export function addUserMessage(text) {
     text
   };
 }
+
 export function emitUserMessage(text) {
   return {
     type: actions.EMIT_NEW_USER_MESSAGE,
@@ -49,6 +50,20 @@ export function addLinkSnippet(link) {
   return {
     type: actions.ADD_NEW_LINK_SNIPPET,
     link
+  };
+}
+
+export function addVideoSnippet(video) {
+  return {
+    type: actions.ADD_NEW_VIDEO_VIDREPLY,
+    video
+  };
+}
+
+export function addImageSnippet(image) {
+  return {
+    type: actions.ADD_NEW_IMAGE_IMGREPLY,
+    image
   };
 }
 

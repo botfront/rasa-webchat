@@ -11,15 +11,24 @@ export const MESSAGES_TYPES = {
   SNIPPET: {
     LINK: 'snippet'
   },
+  VIDREPLY: {
+    VIDEO: 'vidreply'
+  },
+  IMGREPLY: {
+    IMAGE: 'imgreply'
+  },
   QUICK_REPLY: 'quickreply',
   CUSTOM_COMPONENT: 'component'
 };
 
 export const PROP_TYPES = {
+
   MESSAGE: ImmutablePropTypes.contains({
     type: PropTypes.oneOf([
       MESSAGES_TYPES.TEXT,
-      MESSAGES_TYPES.SNIPPET.LINK
+      MESSAGES_TYPES.SNIPPET.LINK,
+      MESSAGES_TYPES.IMGREPLY.IMAGE,
+      MESSAGES_TYPES.VIDREPLY.VIDEO
     ]),
     id: PropTypes.number,
     text: PropTypes.string,
@@ -39,6 +48,34 @@ export const PROP_TYPES = {
     link: PropTypes.string,
     content: PropTypes.string,
     target: PropTypes.string,
+    sender: PropTypes.oneOf([
+      MESSAGE_SENDER.CLIENT,
+      MESSAGE_SENDER.RESPONSE
+    ])
+  }),
+
+  VIDREPLY: ImmutablePropTypes.contains({
+    type: PropTypes.oneOf([
+      MESSAGES_TYPES.TEXT,
+      MESSAGES_TYPES.VIDREPLY.VIDEO
+    ]),
+    id: PropTypes.number,
+    title: PropTypes.string,
+    src: PropTypes.string,
+    sender: PropTypes.oneOf([
+      MESSAGE_SENDER.CLIENT,
+      MESSAGE_SENDER.RESPONSE
+    ])
+  }),
+
+  IMGREPLY: ImmutablePropTypes.contains({
+    type: PropTypes.oneOf([
+      MESSAGES_TYPES.TEXT,
+      MESSAGES_TYPES.IMGREPLY.IMAGE
+    ]),
+    id: PropTypes.number,
+    title: PropTypes.string,
+    src: PropTypes.string,
     sender: PropTypes.oneOf([
       MESSAGE_SENDER.CLIENT,
       MESSAGE_SENDER.RESPONSE
@@ -67,4 +104,5 @@ export const PROP_TYPES = {
     inputState: PropTypes.bool,
     chosenReply: PropTypes.string
   })
+
 };

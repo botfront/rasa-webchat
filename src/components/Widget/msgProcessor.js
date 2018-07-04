@@ -1,5 +1,3 @@
-
-
 export function isSnippet(message) {
   return Object.keys(message).includes('attachment')
     && Object.keys(message.attachment).includes('type')
@@ -8,9 +6,20 @@ export function isSnippet(message) {
     && Object.keys(message.attachment.payload).indexOf('template_type') >= 0
     && message.attachment.payload.template_type === 'generic'
     && Object.keys(message.attachment.payload).indexOf('elements') >= 0
-    && message.attachment.payload.elements.length > 0;
+    && message.attachment.payload.elements.length > 0
 }
 
+export function isVideo(message) {
+  return Object.keys(message).includes('attachment')
+  && Object.keys(message.attachment).includes('type')
+  && message.attachment.type === 'video'
+}
+
+export function isImage(message) {
+  return Object.keys(message).includes('attachment')
+  && Object.keys(message.attachment).includes('type')
+  && message.attachment.type === 'image'
+}
 
 export function isText(message) {
   return Object.keys(message).length === 1 && Object.keys(message).includes('text');
