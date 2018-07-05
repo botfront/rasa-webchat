@@ -6,12 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <body>
 <script src="index.js" type="text/javascript"></script>
-<div id="webchat"></div><script>
+<div id="webchat"></div>
+<script>
   WebChat.default.init({
     selector: "#webchat",
-    socketUrl: "ws://localhost:5500",
     initPayload: "/get_started",
-    title:"Support"
+    socketUrl: "http://localhost:3000/",
+    title:"DEV Test"
   })
 </script>
 

@@ -6,7 +6,6 @@ export default function (socketUrl) {
     console.log(`connect:${socket.id}`);
   });
 
-
   socket.on('connect_error', (error) => {
     console.log(error);
   });

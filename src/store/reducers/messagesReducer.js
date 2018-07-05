@@ -2,11 +2,14 @@ import { List } from 'immutable';
 import { MESSAGE_SENDER } from 'constants';
 
 import {
+    createQuickReply,
     createNewMessage,
     createLinkSnippet,
+    createVideoSnippet,
+    createImageSnippet,
     createComponentMessage,
-    createQuickReply
 } from './helper';
+
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = List([]);
@@ -21,6 +24,12 @@ export default function reducer(state = initialState, action) {
     }
     case actionTypes.ADD_NEW_LINK_SNIPPET: {
       return state.push(createLinkSnippet(action.link, MESSAGE_SENDER.RESPONSE));
+    }
+    case actionTypes.ADD_NEW_VIDEO_VIDREPLY: {
+      return state.push(createVideoSnippet(action.video, MESSAGE_SENDER.RESPONSE));
+    }
+    case actionTypes.ADD_NEW_IMAGE_IMGREPLY: {
+      return state.push(createImageSnippet(action.image, MESSAGE_SENDER.RESPONSE));
     }
     case actionTypes.ADD_QUICK_REPLY: {
       return state.push(createQuickReply(action.quickReply, MESSAGE_SENDER.RESPONSE));

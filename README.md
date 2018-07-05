@@ -61,34 +61,62 @@ message = {
 emit('bot_uttered', message, room=socket_id)
 ```
 
-
 #### sending a link Snippet
 
 Admittedly a bit far fetched, thinking that Snippets would evolve to carousels
 of generic templates :)
 
 ```python
-message = {"message":{
-            "attachment":{
-              "type":"template",
-              "payload":{
-                "template_type":"generic",
-                "elements":[
-                  {
-                    "title":"Title",
-                    "buttons":[
-                      "title":"Link name",
-                      "url": "http://link.url"
-                    ]
-                  }
-                ]
-              }
-            }
-          })
-          
+message = {
+  "attachment":{
+    "type":"template",
+    "payload":{
+      "template_type":"generic",
+      "elements":[
+        {
+          "title":"Title",
+          "buttons":[ {
+            "title":"Link name",
+            "url": "http://link.url"
+          }
+        ]
+      }
+    ]
+  }
+}
+}    
 emit('bot_uttered', message, room=socket_id)
 ```
 
+#### sending a Video Message
+
+```python
+message = {
+  "attachment":{
+    "type":"video",
+    "payload":{
+      "title":"Link name",
+      "src": "https://www.youtube.com/watch?v=f3EbDbm8XqY"
+    }
+  }
+}  
+emit('bot_uttered', message, room=socket_id)
+```
+
+#### sending an Image Message
+
+```python
+message = {
+      "attachment":{
+        "type":"image",
+        "payload":{
+          "title":"Link name",
+          "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_IX5FSDQLrwm9qvuXu_g7R9t_-3yBSycZ8OxpRXvMDaTAeBEW"
+        }
+      }
+    }
+emit('bot_uttered', message, room=socket_id)
+```
 #### Using with Rasa
 The chat widget can communicate with any backend, but there is a [Rasa core channel
 available here](https://github.com/mrbot-ai/rasa-addons/)
