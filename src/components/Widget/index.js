@@ -1,13 +1,14 @@
 /* eslint-disable no-undef */
 import React, { Component } from 'react';
-import { isSnippet, isQR, isText } from './msgProcessor';
+import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { toggleChat, addUserMessage, emitUserMessage, addResponseMessage, addLinkSnippet, addQuickReply, initialize } from 'actions';
+import { toggleChat, addUserMessage, emitUserMessage, addResponseMessage, addLinkSnippet, addVideoSnippet, addImageSnippet, addQuickReply, initialize } from 'actions';
 import WidgetLayout from './layout';
 
 
 class Widget extends Component {
+
   constructor(props) {
     super(props);
     this.messages = [];
@@ -52,6 +53,18 @@ class Widget extends Component {
         link: element.buttons[0].url,
         target: '_blank'
       }));
+    } else if (isVideo(message)) {
+      const element = message.attachment.payload;
+      this.props.dispatch(addVideoSnippet({
+        title: element.title,
+        video: element.src
+      }));
+    } else if (isImage(message)) {
+      const element = message.attachment.payload;
+      this.props.dispatch(addImageSnippet({
+        title: element.title,
+        image: element.src
+      }));
     }
   }
 
@@ -72,14 +85,14 @@ class Widget extends Component {
   render() {
     return (
       <WidgetLayout
-        onToggleConversation={this.toggleConversation}
-        onSendMessage={this.handleMessageSubmit}
-        title={this.props.title}
-        subtitle={this.props.subtitle}
-        profileAvatar={this.props.profileAvatar}
-        showCloseButton={this.props.showCloseButton}
-        fullScreenMode={this.props.fullScreenMode}
-        badge={this.props.badge}
+      onToggleConversation={this.toggleConversation}
+      onSendMessage={this.handleMessageSubmit}
+      title={this.props.title}
+      subtitle={this.props.subtitle}
+      profileAvatar={this.props.profileAvatar}
+      showCloseButton={this.props.showCloseButton}
+      fullScreenMode={this.props.fullScreenMode}
+      badge={this.props.badge}
       />
     );
   }
