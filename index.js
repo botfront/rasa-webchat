@@ -9,6 +9,7 @@ export default {
     ReactDOM.render(
       <Widget
         socketUrl={args.socketUrl}
+        interval={args.interval}
         initPayload={args.initPayload}
         title={args.title}
         subtitle={args.subtitle}
