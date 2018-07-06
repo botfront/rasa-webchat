@@ -24,6 +24,7 @@
     "react-immutable-proptypes": "^2.1.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
+    "prop-types": "^15.6.2",
     "socket.io": "^2.1.1",
     "uniqueid": "^1.0.0"
   },
@@ -58,7 +59,6 @@
     "node-sass": "^4.8.3",
     "prettier": "^1.11.1",
     "prettier-eslint": "^5.1.0",
-    "prop-types": "^15.6.2",
     "react": "^15.6.2",
     "react-test-renderer": "^15.6.2",
     "sass-loader": "^6.0.7",

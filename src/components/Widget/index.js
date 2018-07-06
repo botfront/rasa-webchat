@@ -1,10 +1,20 @@
 /* eslint-disable no-undef */
-import React, { Component } from 'react';
-import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { toggleChat, addUserMessage, emitUserMessage, addResponseMessage, addLinkSnippet, addVideoSnippet, addImageSnippet, addQuickReply, initialize } from 'actions';
-import WidgetLayout from './layout';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import {
+  toggleChat,
+  addUserMessage,
+  emitUserMessage,
+  addResponseMessage,
+  addLinkSnippet,
+  addVideoSnippet,
+  addImageSnippet,
+  addQuickReply,
+  initialize
+} from "actions";
+import { isSnippet, isVideo, isImage, isQR, isText } from "./msgProcessor";
+import WidgetLayout from "./layout";
 
 
 class Widget extends Component {
@@ -20,15 +30,12 @@ class Widget extends Component {
   }
 
   componentDidMount() {
-    const { initPayload, initialized, socket } = this.props;
+    const { socket } = this.props;
 
     socket.on('bot_uttered', (botUttered) => {
       this.messages.push(botUttered);
     });
-    if (!initialized) {
-      this.props.dispatch(initialize());
-      socket.emit('user_uttered', initPayload);
-    }
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -70,6 +77,12 @@ class Widget extends Component {
 
   toggleConversation = () => {
     this.props.dispatch(toggleChat());
+
+    const { initPayload, initialized, customData, socket } = this.props;
+    if (!initialized) {
+      this.props.dispatch(initialize());
+      socket.emit('user_uttered', { message: initPayload, customData});
+    }
   };
 
   handleMessageSubmit = (event) => {
@@ -80,19 +93,20 @@ class Widget extends Component {
       this.props.dispatch(emitUserMessage(userUttered));
     }
     event.target.message.value = '';
-  }
+  };
 
   render() {
     return (
       <WidgetLayout
-      onToggleConversation={this.toggleConversation}
-      onSendMessage={this.handleMessageSubmit}
-      title={this.props.title}
-      subtitle={this.props.subtitle}
-      profileAvatar={this.props.profileAvatar}
-      showCloseButton={this.props.showCloseButton}
-      fullScreenMode={this.props.fullScreenMode}
-      badge={this.props.badge}
+        onToggleConversation={this.toggleConversation}
+        onSendMessage={this.handleMessageSubmit}
+        title={this.props.title}
+        subtitle={this.props.subtitle}
+        customData={this.props.customData}
+        profileAvatar={this.props.profileAvatar}
+        showCloseButton={this.props.showCloseButton}
+        fullScreenMode={this.props.fullScreenMode}
+        badge={this.props.badge}
       />
     );
   }
@@ -105,6 +119,7 @@ const mapStateToProps = state => ({
 Widget.propTypes = {
   interval: PropTypes.number,
   title: PropTypes.string,
+  customData: PropTypes.shape({}),
   subtitle: PropTypes.string,
   initPayload: PropTypes.string,
   initialized: PropTypes.bool,
@@ -114,7 +129,7 @@ Widget.propTypes = {
   showCloseButton: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
-  socket: PropTypes.object.isRequired
+  socket: PropTypes.shape({})
 };
 
 export default connect(mapStateToProps)(Widget);

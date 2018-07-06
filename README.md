@@ -20,6 +20,8 @@ In your `<body/>`:
     WebChat.default.init({
         selector: "#webchat",
         initPayload: "/get_started",
+        interval: 1000, // 1000 ms between each message
+        customData: {"userId": "123"}, // arbitrary custom data. Stay minimal as this will be added to the socket
         socketUrl: "http://localhost:5500",
         title: "Title"
         subtitle: "Subtitle"

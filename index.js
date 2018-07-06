@@ -13,6 +13,7 @@ export default {
         initPayload={args.initPayload}
         title={args.title}
         subtitle={args.subtitle}
+        customData={args.customData}
         inputTextFieldHint={args.inputTextFieldHint}
         profileAvatar={args.profileAvatar}
         showCloseButton={args.showCloseButton}

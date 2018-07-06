@@ -1,9 +1,10 @@
 import io from 'socket.io-client';
 
-export default function (socketUrl) {
+export default function (socketUrl, customData) {
   const socket = io(socketUrl);
   socket.on('connect', () => {
     console.log(`connect:${socket.id}`);
+    socket.customData = customData;
   });
 
   socket.on('connect_error', (error) => {
