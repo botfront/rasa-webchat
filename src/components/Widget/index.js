@@ -35,7 +35,6 @@ class Widget extends Component {
     socket.on('bot_uttered', (botUttered) => {
       this.messages.push(botUttered);
     });
-
   }
 
   componentWillReceiveProps(nextProps) {

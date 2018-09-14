@@ -4,6 +4,10 @@
     "react" 
   ],
   "plugins": [
+    ["babel-plugin-root-import", {
+      "rootPathSuffix": "src",
+      "rootPathPrefix": "@"
+    }],
     "transform-class-properties",
     "transform-object-rest-spread",
     ["module-resolver", {
@@ -17,5 +21,15 @@
         "messagesComponents": "./src/components/Widget/components/Conversation/components/Messages/components"
       }
     }]
-  ]
+  ],
+  "env": { // For React Native
+    "production": {
+      "plugins": [
+        ["babel-plugin-root-import", {
+          "rootPathSuffix": "src",
+          "rootPathPrefix": "@"
+        }]
+      ]
+    }
+  }
 }
