@@ -9,7 +9,7 @@ import './style.scss';
 const WidgetLayout = props =>
   <div className={props.fullScreenMode ? 'widget-container full-screen' : 'widget-container'}>
     {
-      props.showChat &&
+      (props.showChat || props.embedded) &&
       <Conversation
         title={props.title}
         subtitle={props.subtitle}
@@ -22,7 +22,7 @@ const WidgetLayout = props =>
       />
     }
     {
-      !props.fullScreenMode &&
+      !props.fullScreenMode && !props.embedded &&
       <Launcher
         toggle={props.onToggleConversation}
         badge={props.badge}
@@ -40,7 +40,8 @@ WidgetLayout.propTypes = {
   showCloseButton: PropTypes.bool,
   disabledInput: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
-  badge: PropTypes.number
+  badge: PropTypes.number,
+  embedded: PropTypes.bool
 };
 
 export default connect(store => ({

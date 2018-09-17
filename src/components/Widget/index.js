@@ -35,6 +35,10 @@ class Widget extends Component {
     socket.on('bot_uttered', (botUttered) => {
       this.messages.push(botUttered);
     });
+
+    if (this.props.embedded) {
+      this.toggleConversation();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -80,7 +84,7 @@ class Widget extends Component {
     const { initPayload, initialized, customData, socket } = this.props;
     if (!initialized) {
       this.props.dispatch(initialize());
-      socket.emit('user_uttered', { message: initPayload, customData});
+      socket.emit('user_uttered', { message: initPayload, customData });
     }
   };
 
@@ -106,6 +110,7 @@ class Widget extends Component {
         showCloseButton={this.props.showCloseButton}
         fullScreenMode={this.props.fullScreenMode}
         badge={this.props.badge}
+        embedded={this.props.embedded}
       />
     );
   }
@@ -128,7 +133,8 @@ Widget.propTypes = {
   showCloseButton: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
-  socket: PropTypes.shape({})
+  socket: PropTypes.shape({}),
+  embedded: PropTypes.bool
 };
 
 export default connect(mapStateToProps)(Widget);
