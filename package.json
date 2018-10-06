@@ -1,10 +1,10 @@
 {
-  "name": "react-chat-widget",
-  "version": "2.1.2",
-  "description": "Chat web widget for React apps",
+  "name": "rasa-webchat",
+  "version": "0.3.2",
+  "description": "Chat web widget for React apps and Rasa Core chatbots",
   "main": "lib/index.js",
-  "repository": "git@github.com:Wolox/react-chat-widget.git",
-  "author": "Martín Callegari <martin.callegari@wolox.com.ar>",
+  "repository": "git@https://github.com/mrbot-ai/rasa-webchat.git",
+  "author": "Mr. Bot <human@mrbot.ai>",
   "license": "MIT",
   "scripts": {
     "build": "webpack-cli --config webpack.prod.js",

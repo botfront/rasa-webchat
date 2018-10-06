@@ -7,7 +7,7 @@ import { store, initStore } from '../src/store/store';
 import socket from './socket';
 
 const ConnectedWidget = (props) => {
-  const sock = socket(props.socketUrl, props.customData);
+  const sock = socket(props.socketUrl, props.customData, props.socketPath);
   initStore(props.inputTextFieldHint, sock);
   return (<Provider store={store}>
     <Widget
@@ -32,6 +32,7 @@ ConnectedWidget.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   socketUrl: PropTypes.string.isRequired,
+  socketPath: PropTypes.string,
   customData: PropTypes.shape({}),
   handleNewUserMessage: PropTypes.func.isRequired,
   profileAvatar: PropTypes.string,
@@ -48,7 +49,8 @@ ConnectedWidget.defaultProps = {
   inputTextFieldHint: 'Type a message...',
   showCloseButton: true,
   fullScreenMode: false,
-  socketUrl: 'http://localhost:5005',
+  socketUrl: 'http://localhost',
+  socketPath: '/',
   badge: 0
 };
 
