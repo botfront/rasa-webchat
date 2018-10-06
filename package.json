@@ -1,6 +1,6 @@
 {
   "name": "rasa-webchat",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Chat web widget for React apps and Rasa Core chatbots",
   "main": "lib/index.js",
   "repository": "git@https://github.com/mrbot-ai/rasa-webchat.git",

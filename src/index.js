@@ -50,7 +50,6 @@ ConnectedWidget.defaultProps = {
   showCloseButton: true,
   fullScreenMode: false,
   socketUrl: 'http://localhost',
-  socketPath: '/',
   badge: 0
 };
 
