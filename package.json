@@ -20,11 +20,12 @@
   ],
   "dependencies": {
     "immutable": "^3.8.2",
+    "linkifyjs": "^2.1.7",
+    "prop-types": "^15.6.2",
     "react-dom": "^15.6.2",
     "react-immutable-proptypes": "^2.1.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "prop-types": "^15.6.2",
     "socket.io": "^2.1.1",
     "uniqueid": "^1.0.0"
   },

@@ -26,6 +26,7 @@ export const PROP_TYPES = {
   MESSAGE: ImmutablePropTypes.contains({
     type: PropTypes.oneOf([
       MESSAGES_TYPES.TEXT,
+      MESSAGES_TYPES.QUICK_REPLY,
       MESSAGES_TYPES.SNIPPET.LINK,
       MESSAGES_TYPES.IMGREPLY.IMAGE,
       MESSAGES_TYPES.VIDREPLY.VIDEO
