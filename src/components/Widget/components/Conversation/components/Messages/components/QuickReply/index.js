@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { PROP_TYPES } from 'constants';
 import { addUserMessage, emitUserMessage, setQuickReply, toggleInputDisabled, changeInputFieldHint } from 'actions';
+import Message from '../Message/index';
 
 import './styles.scss';
 
@@ -29,16 +30,11 @@ class QuickReply extends PureComponent {
   render() {
     const chosenReply = this.props.getChosenReply(this.props.id);
     if (chosenReply) {
-      return (
-        <div className={this.props.message.get('sender')}>
-          <div className="message-text">{this.props.message.get('text')}</div>
-        </div>);
+      return <Message message={this.props.message} />
     }
     return (
       <div>
-        <div className={this.props.message.get('sender')}>
-          <div className="message-text">{this.props.message.get('text')}</div>
-        </div>
+        <Message message={this.props.message} />
         {this.props.isLast &&
         <div className="replies">
           {this.props.message.get('quick_replies').map((reply, index) => <div

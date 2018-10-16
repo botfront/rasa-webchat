@@ -7,6 +7,7 @@ const plugin = {
     ReactDOM.render(
       <Widget
         socketUrl={args.socketUrl}
+        socketPath={args.socketPath}
         interval={args.interval}
         initPayload={args.initPayload}
         title={args.title}
