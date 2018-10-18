@@ -23,12 +23,34 @@ In your `<body/>`:
         interval: 1000, // 1000 ms between each message
         customData: {"userId": "123"}, // arbitrary custom data. Stay minimal as this will be added to the socket
         socketUrl: "http://localhost:5500",
-        title: "Title"
-        subtitle: "Subtitle"
-        profileAvatar: "http://to.avat.ar"
-        showCloseButton: true
-        fullScreenMode: false
+        title: "Title",
+        subtitle: "Subtitle",
+        profileAvatar: "http://to.avat.ar",
+    })
 </script>
+```
+
+To import Webchat as a react component:
+```bash
+npm install mrbot-ai/rasa-webchat
+```
+
+Then once it is installed it can be implemented as follows. Make sure to have the prop 'embedded'
+set to true if you don't want to see the launcher
+```javascript
+import { Widget } from 'rasa-webchat';
+
+function CustomWidget = () => {
+  return (
+    <Widget
+      interval={2000}
+      initPayload={"/get_started"}
+      socketUrl={"http://localhost:5500"}
+      title={"Title"}
+      embedded={true}
+    />
+  )
+}
 ```
 
 ## In your backend.
@@ -123,7 +145,9 @@ emit('bot_uttered', message, room=socket_id)
 The chat widget can communicate with any backend, but there is a [Rasa core channel
 available here](https://github.com/mrbot-ai/rasa-addons/)
 
+
 ## Contributors
 [@PHLF](https://github.com/phlf)
 [@znat](https://github.com/znat)
+[@TheoTomalty](https://github.com/TheoTomalty)
 [@Hub4IT](https://github.com/Hub4IT)
