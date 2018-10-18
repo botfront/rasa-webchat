@@ -11,10 +11,12 @@
 .client {
   @include message-bubble($blue-1, $white);
   margin-left: auto;
+  overflow-wrap: break-word;
 }
 
 .response {
   @include message-bubble($grey-2, #000);
+  overflow-wrap: break-word;
 }
 
 /* For markdown elements created with default styles */

@@ -185,7 +185,7 @@ higherarchy:
 | .header                 | div of the top area with the chatbox header               |
 | .title                  | the title element of the header                           |
 | .close-button           | the close icon of the header                              |
-| .message                | the boxes holding the messages of client and bot          |
+| .message                | the boxes holding the messages of client and response     |
 | .replies                | the area that gives quick reply options                   |
 | .snippet                |                                                           |
 | .imageFrame             | a container for sending images                            |
