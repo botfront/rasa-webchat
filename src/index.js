@@ -48,7 +48,6 @@ ConnectedWidget.defaultProps = {
   customData: {},
   interval: 2000,
   inputTextFieldHint: 'Type a message...',
-  showCloseButton: true,
   fullScreenMode: false,
   socketUrl: 'http://localhost',
   badge: 0

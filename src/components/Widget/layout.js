@@ -6,29 +6,40 @@ import Conversation from './components/Conversation';
 import Launcher from './components/Launcher';
 import './style.scss';
 
-const WidgetLayout = props =>
-  <div className={props.fullScreenMode ? 'widget-container full-screen' : 'widget-container'}>
-    {
-      (props.showChat || props.embedded) &&
-      <Conversation
-        title={props.title}
-        subtitle={props.subtitle}
-        sendMessage={props.onSendMessage}
-        profileAvatar={props.profileAvatar}
-        toggleChat={props.onToggleConversation}
-        showChat={props.showChat}
-        showCloseButton={props.showCloseButton}
-        disabledInput={props.disabledInput}
-      />
-    }
-    {
-      !props.fullScreenMode && !props.embedded &&
-      <Launcher
-        toggle={props.onToggleConversation}
-        badge={props.badge}
-      />
-    }
-  </div>;
+const WidgetLayout = (props) => {
+  const classes = props.embedded ? ['widget-embedded'] : ['widget-container'];
+  if (props.fullScreenMode) {
+    classes.push('full-screen');
+  }
+  const showCloseButton = props.showCloseButton !== undefined ? props.showCloseButton : (
+    !props.fullScreenMode && !props.embedded
+  );
+
+  return (
+    <div className={classes.join(' ')}>
+      {
+        (props.fullScreenMode || props.showChat || props.embedded) &&
+        <Conversation
+          title={props.title}
+          subtitle={props.subtitle}
+          sendMessage={props.onSendMessage}
+          profileAvatar={props.profileAvatar}
+          toggleChat={props.onToggleConversation}
+          showChat={props.showChat}
+          disabledInput={props.disabledInput}
+          {...{ showCloseButton }}
+        />
+      }
+      {
+        !props.fullScreenMode && !props.embedded &&
+        <Launcher
+          toggle={props.onToggleConversation}
+          badge={props.badge}
+        />
+      }
+    </div>
+  );
+};
 
 WidgetLayout.propTypes = {
   title: PropTypes.string,
