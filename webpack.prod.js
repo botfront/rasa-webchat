@@ -2,7 +2,6 @@
 
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
@@ -53,8 +52,7 @@ module.exports = {
       new UglifyJsPlugin({
         cache: true,
         parallel: true
-      }),
-      new OptimizeCSSAssetsPlugin({})
+      })
     ]
   }
 };
