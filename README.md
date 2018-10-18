@@ -146,6 +146,52 @@ The chat widget can communicate with any backend, but there is a [Rasa core chan
 available here](https://github.com/mrbot-ai/rasa-addons/)
 
 
+## Styles
+
+higherarchy:
+```
+.conversation-container
+  |-- .header
+        |-- .title
+        |-- .close-function
+  |-- .messages-container
+        |-- .message
+              |-- .client
+              |-- .response
+        |-- .replies
+              |-- .reply
+              |-- .response
+        |-- .snippet
+              |-- .snippet-title
+              |-- .snippet-detials
+              |-- .link
+        |-- .imageFrame
+        |-- .videoFrame
+  |-- .sender
+        |-- .new-message
+        |-- .send
+```
+
+| Class                   |  Description                                              |
+|-------------------------|-----------------------------------------------------------|
+| .widget-container       | The div containing the chatbox of the default version     |
+| .widget-embedded        | div of the embedded chatbox (using embedded prop)         |
+| .full-screen            | div of the fullscreen chatbox (using fullScreenMode prop) |
+| .conversation-container |                                                           |
+| .messages-container     | the central area where the messages appear                |
+| .sender                 | div of the bottom area which prompts user input           |
+| .new-message            | the text input element of sender                          |
+| .send                   | the send icon element of sender                           |
+| .header                 | div of the top area with the chatbox header               |
+| .title                  | the title element of the header                           |
+| .close-button           | the close icon of the header                              |
+| .message                | the boxes holding the messages of client and bot          |
+| .replies                | the area that gives quick reply options                   |
+| .snippet                |                                                           |
+| .imageFrame             | a container for sending images                            |
+| .videoFrame             | a container for sending video                             |
+
+
 ## Contributors
 [@PHLF](https://github.com/phlf)
 [@znat](https://github.com/znat)
