@@ -12,6 +12,10 @@
   @include message-bubble($blue-1, $white);
   margin-left: auto;
   overflow-wrap: break-word;
+
+  a {
+    color: $turqois-1;
+  }
 }
 
 .response {
