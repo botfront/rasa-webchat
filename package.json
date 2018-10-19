@@ -10,7 +10,7 @@
     "build": "webpack-cli --config webpack.prod.js",
     "dev": "webpack-dev-server --config webpack.dev.js",
     "test": "jest --coverage",
-    "prepare": "npm run test && npm run build"
+    "prepare": "npm run build"
   },
   "keywords": [
     "react",
