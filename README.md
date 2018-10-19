@@ -17,7 +17,7 @@ A simple webchat widget to connect with a chatbot. Forked from [react-chat-widge
 In your `<body/>`:
 ```javascript
 <div id="webchat"/>
-<script src="https://storage.googleapis.com/mrbot-cdn/webchat-0.3.5.js"></script>
+<script src="https://storage.googleapis.com/mrbot-cdn/webchat-0.4.0.js"></script>
 <script>
     WebChat.default.init({
         selector: "#webchat",
