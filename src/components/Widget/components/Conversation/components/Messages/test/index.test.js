@@ -3,7 +3,7 @@ import { List } from 'immutable';
 import { shallow } from 'enzyme';
 
 import { createNewMessage, createLinkSnippet, createVideoSnippet, createImageSnippet } from 'helper';
-import { createComponentMessage } from '@/utils/messages';
+import { createComponentMessage } from 'utils/messages';
 
 import Messages from '../index';
 import Video from '../components/VidReply';
