@@ -157,7 +157,7 @@ available here](https://github.com/mrbot-ai/rasa-addons/)
 
 ## Styles
 
-higherarchy:
+hierarchy:
 ```
 .conversation-container
   |-- .header
