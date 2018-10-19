@@ -12,10 +12,12 @@ A simple webchat widget to connect with a chatbot. Forked from [react-chat-widge
 
 ## Usage
 
+#### As a script 
+
 In your `<body/>`:
 ```javascript
 <div id="webchat"/>
-<script src="https://storage.googleapis.com/mrbot-cdn/webchat-latest.js"></script>
+<script src="https://storage.googleapis.com/mrbot-cdn/webchat-0.3.5.js"></script>
 <script>
     WebChat.default.init({
         selector: "#webchat",
@@ -23,6 +25,7 @@ In your `<body/>`:
         interval: 1000, // 1000 ms between each message
         customData: {"userId": "123"}, // arbitrary custom data. Stay minimal as this will be added to the socket
         socketUrl: "http://localhost:5500",
+        socketPath: "/socket.io/",
         title: "Title",
         subtitle: "Subtitle",
         profileAvatar: "http://to.avat.ar",
@@ -30,7 +33,12 @@ In your `<body/>`:
 </script>
 ```
 
-To import Webchat as a react component:
+It is recommended to use a particular version (i.e. "webchat-<version>.js") however the file "webchat-latest.js"
+is also available and is updated continuously with the latest version.
+
+#### As a React component
+
+Install the package from GitHub by running:
 ```bash
 npm install mrbot-ai/rasa-webchat
 ```
@@ -46,6 +54,7 @@ function CustomWidget = () => {
       interval={2000}
       initPayload={"/get_started"}
       socketUrl={"http://localhost:5500"}
+       socketPath={"/socket.io/"}
       title={"Title"}
       embedded={true}
     />
@@ -163,7 +172,7 @@ higherarchy:
               |-- .response
         |-- .snippet
               |-- .snippet-title
-              |-- .snippet-detials
+              |-- .snippet-details
               |-- .link
         |-- .imageFrame
         |-- .videoFrame
@@ -172,24 +181,24 @@ higherarchy:
         |-- .send
 ```
 
-| Class                   |  Description                                              |
-|-------------------------|-----------------------------------------------------------|
-| .widget-container       | The div containing the chatbox of the default version     |
-| .widget-embedded        | div of the embedded chatbox (using embedded prop)         |
-| .full-screen            | div of the fullscreen chatbox (using fullScreenMode prop) |
-| .conversation-container |                                                           |
-| .messages-container     | the central area where the messages appear                |
-| .sender                 | div of the bottom area which prompts user input           |
-| .new-message            | the text input element of sender                          |
-| .send                   | the send icon element of sender                           |
-| .header                 | div of the top area with the chatbox header               |
-| .title                  | the title element of the header                           |
-| .close-button           | the close icon of the header                              |
-| .message                | the boxes holding the messages of client and response     |
-| .replies                | the area that gives quick reply options                   |
-| .snippet                |                                                           |
-| .imageFrame             | a container for sending images                            |
-| .videoFrame             | a container for sending video                             |
+| Class                   |  Description                                                        |
+|-------------------------|---------------------------------------------------------------------|
+| .widget-container       | The div containing the chatbox of the default version               |
+| .widget-embedded        | div of the embedded chatbox (using embedded prop)                   |
+| .full-screen            | div of the fullscreen chatbox (using fullScreenMode prop)           |
+| .conversation-container | the parent div containing the header, message-container and sender  |
+| .messages-container     | the central area where the messages appear                          |
+| .sender                 | div of the bottom area which prompts user input                     |
+| .new-message            | the text input element of sender                                    |
+| .send                   | the send icon element of sender                                     |
+| .header                 | div of the top area with the chatbox header                         |
+| .title                  | the title element of the header                                     |
+| .close-button           | the close icon of the header                                        |
+| .message                | the boxes holding the messages of client and response               |
+| .replies                | the area that gives quick reply options                             |
+| .snippet                | a component for describing links                                    |
+| .imageFrame             | a container for sending images                                      |
+| .videoFrame             | a container for sending video                                       |
 
 
 ## Contributors
