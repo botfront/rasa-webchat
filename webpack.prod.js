@@ -1,10 +1,13 @@
+'use strict'
+
 const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: path.join(__dirname, 'index.js'),
+  entry: './index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'webchat.js',
+    path: path.join(__dirname, '/lib'),
+    filename: 'index.js',
     library: 'WebChat',
     libraryTarget: 'umd'
   },
@@ -13,29 +16,32 @@ module.exports = {
   },
   mode: 'production',
   module: {
-    rules: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader'
-    }, {
-      test: /\.scss$/,
-      use: [
-                { loader: 'style-loader' },
-                { loader: 'css-loader' },
-        {
-          loader: 'sass-loader',
-          options: {
-            includePaths: [
-              path.resolve(__dirname, 'src/sass/')
-            ]
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [path.resolve(__dirname, 'src/scss/')]
+            }
           }
+        ]
+      },
+      {
+        test: /\.(jpg|png|gif|svg)$/,
+        use: {
+          loader: 'url-loader'
         }
-      ]
-    }, {
-      test: /\.(jpg|png|gif|svg)$/,
-      use: {
-        loader: 'url-loader'
       }
-    }]
-  }
+    ]
+  },
+  plugins: [new CleanWebpackPlugin(['lib'])]
 };

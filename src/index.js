@@ -22,6 +22,7 @@ const ConnectedWidget = (props) => {
       showCloseButton={props.showCloseButton}
       fullScreenMode={props.fullScreenMode}
       badge={props.badge}
+      embedded={props.embedded}
     />
   </Provider>);
 };
@@ -44,10 +45,9 @@ ConnectedWidget.propTypes = {
 
 ConnectedWidget.defaultProps = {
   title: 'Welcome',
-  customData : {},
+  customData: {},
   interval: 2000,
   inputTextFieldHint: 'Type a message...',
-  showCloseButton: true,
   fullScreenMode: false,
   socketUrl: 'http://localhost',
   badge: 0

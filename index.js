@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Widget } from './index_for_react_app';
 
-
-export default {
-
+const plugin = {
   init: (args) => {
     ReactDOM.render(
       <Widget
@@ -25,3 +23,9 @@ export default {
     );
   }
 };
+
+export {
+  plugin as default,
+  Widget
+};
+

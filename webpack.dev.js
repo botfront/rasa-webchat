@@ -2,9 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'index.js'),
+  entry: './index.js',
   output: {
-    path: path.resolve(__dirname, 'dev'),
+    path: path.join(__dirname, '/lib'),
     filename: 'index.js',
     library: 'WebChat',
     libraryTarget: 'umd'
@@ -14,7 +14,7 @@ module.exports = {
     host: process.env.HOST, // Defaults to `localhost`
     port: process.env.PORT, // Defaults to 8080
     open: true, // Open the page in browser
-    contentBase: path.resolve(__dirname, 'dev')
+    contentBase: path.resolve(__dirname, '/lib')
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -29,14 +29,12 @@ module.exports = {
     }, {
       test: /\.scss$/,
       use: [
-                { loader: 'style-loader' },
-                { loader: 'css-loader' },
+        { loader: 'style-loader' },
+        { loader: 'css-loader' },
         {
           loader: 'sass-loader',
           options: {
-            includePaths: [
-              path.resolve(__dirname, 'src/sass/')
-            ]
+            includePaths: [path.resolve(__dirname, 'src/scss/')]
           }
         }
       ]
@@ -47,11 +45,13 @@ module.exports = {
       }
     }]
   },
-  plugins: [new HtmlWebpackPlugin({
-    title: 'Web Chat Widget Test',
-    filename: 'index.html',
-    inject: false,
-    template: 'dev/src/index.html',
-    showErrors: true
-  })]
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Web Chat Widget Test',
+      filename: 'index.html',
+      inject: false,
+      template: 'dev/src/index.html',
+      showErrors: true
+    })
+  ]
 };
