@@ -36,14 +36,8 @@ class Widget extends Component {
       this.messages.push(botUttered);
     });
 
-    if (this.props.embedded) {
+    if (this.props.embedded || this.props.fullScreenMode) {
       this.toggleConversation();
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.fullScreenMode) {
-      this.props.dispatch(toggleChat());
     }
   }
 
