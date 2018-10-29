@@ -16,6 +16,7 @@
 .full-screen {
 
   .conversation-container {
+    border-radius: 0;
     @include conversation-container-fs;
   }
 }

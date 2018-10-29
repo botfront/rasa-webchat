@@ -1,15 +1,21 @@
 import React, { PureComponent } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { PROP_TYPES } from 'constants';
-import Linkify from 'linkifyjs/react';
 
 import './styles.scss';
 
 class Message extends PureComponent {
   render() {
+    const sender = this.props.message.get('sender');
+    const text = this.props.message.get('text');
     return (
-      <div className={this.props.message.get('sender')}>
+      <div className={sender}>
         <div className="message-text" >
-          <Linkify tagName="p" style={{ margin: '0' }}>{this.props.message.get('text')}</Linkify>
+          {sender === 'response' ? (
+            <ReactMarkdown className={'markdown'} source={text} />
+          ) : (
+            text
+          )}
         </div>
       </div>
     );
