@@ -21,17 +21,7 @@ class Widget extends Component {
 
   constructor(props) {
     super(props);
-    this.messages = [
-      {
-        "attachment": {
-          "type": "image",
-          "payload": {
-            "title": "Crop-Scaled Image",
-            "src": "https://seopressor.com/wp-content/uploads/2016/06/Large-Format-HD-Wallpaper.jpg"
-          }
-        }
-      }
-    ];
+    this.messages = [];
     setInterval(() => {
       if (this.messages.length > 0) {
         this.dispatchMessage(this.messages.shift());
