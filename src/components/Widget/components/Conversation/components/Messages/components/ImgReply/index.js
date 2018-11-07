@@ -6,10 +6,6 @@ import './styles.scss';
 class ImgReply extends PureComponent {
   render() {
     const message = this.props.message;
-
-    const cropScale = (width, height) => {
-
-    }
     return (
       <div className="image">
         <b className="image-title">
