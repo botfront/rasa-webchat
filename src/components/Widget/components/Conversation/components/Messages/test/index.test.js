@@ -15,7 +15,7 @@ describe('<Messages />', () => {
   const message = createNewMessage('Response message 1');
   const linkSnippet = createLinkSnippet({ title: 'link', link: 'link' });
   const srcVideo = createVideoSnippet({ title: 'video', video: 'video' });
-  const srcImage = createImageSnippet({ title: 'image', image: 'image', dims: [100, 100] });
+  const srcImage = createImageSnippet({ title: 'image', image: 'image', dims: { 'width': 100, 'height': 100 } });
   /* eslint-disable react/prop-types */
   const Dummy = ({ text }) => <div>{text}</div>;
   /* eslint-enable */
