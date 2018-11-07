@@ -21,7 +21,17 @@ class Widget extends Component {
 
   constructor(props) {
     super(props);
-    this.messages = [];
+    this.messages = [
+      {
+        "attachment": {
+          "type": "image",
+          "payload": {
+            "title": "Crop-Scaled Image",
+            "src": "https://seopressor.com/wp-content/uploads/2016/06/Large-Format-HD-Wallpaper.jpg"
+          }
+        }
+      }
+    ];
     setInterval(() => {
       if (this.messages.length > 0) {
         this.dispatchMessage(this.messages.shift());
@@ -67,7 +77,8 @@ class Widget extends Component {
       const element = message.attachment.payload;
       this.props.dispatch(addImageSnippet({
         title: element.title,
-        image: element.src
+        image: element.src,
+        dims: this.props.images.dims
       }));
     }
   }
@@ -106,6 +117,7 @@ class Widget extends Component {
         showChat={this.props.showChat}
         badge={this.props.badge}
         embedded={this.props.embedded}
+        imagesSize={this.props.embedded}
       />
     );
   }
@@ -128,7 +140,8 @@ Widget.propTypes = {
   showChat: PropTypes.bool,
   badge: PropTypes.number,
   socket: PropTypes.shape({}),
-  embedded: PropTypes.bool
+  embedded: PropTypes.bool,
+  images: PropTypes.object
 };
 
 export default connect(mapStateToProps)(Widget);
