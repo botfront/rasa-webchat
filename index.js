@@ -18,6 +18,7 @@ const plugin = {
         showCloseButton={args.showCloseButton}
         fullScreenMode={args.fullScreenMode}
         badge={args.badge}
+        imageDims={args.imageDims}
       />, document.querySelector(args.selector)
 
     );

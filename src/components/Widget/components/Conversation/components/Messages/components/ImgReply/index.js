@@ -5,13 +5,14 @@ import './styles.scss';
 
 class ImgReply extends PureComponent {
   render() {
+    const message = this.props.message;
     return (
       <div className="image">
         <b className="image-title">
-          { this.props.message.get('title') }
+          { message.get('title') }
         </b>
         <div className="image-details">
-          <img src={this.props.message.get('image')} className="imageFrame" />
+          <img style={{ objectFit: "cover", width: message.get('width'), height: message.get('height') }} src={message.get('image')} className="imageFrame" />
         </div>
       </div>
     );

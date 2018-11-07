@@ -67,7 +67,8 @@ class Widget extends Component {
       const element = message.attachment.payload;
       this.props.dispatch(addImageSnippet({
         title: element.title,
-        image: element.src
+        image: element.src,
+        dims: this.props.imageDims
       }));
     }
   }
@@ -106,6 +107,7 @@ class Widget extends Component {
         showChat={this.props.showChat}
         badge={this.props.badge}
         embedded={this.props.embedded}
+        imagesSize={this.props.embedded}
       />
     );
   }
@@ -128,7 +130,8 @@ Widget.propTypes = {
   showChat: PropTypes.bool,
   badge: PropTypes.number,
   socket: PropTypes.shape({}),
-  embedded: PropTypes.bool
+  embedded: PropTypes.bool,
+  imageDims: PropTypes.object
 };
 
 export default connect(mapStateToProps)(Widget);
