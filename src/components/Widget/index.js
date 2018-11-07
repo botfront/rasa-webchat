@@ -68,7 +68,7 @@ class Widget extends Component {
       this.props.dispatch(addImageSnippet({
         title: element.title,
         image: element.src,
-        dims: this.props.images.dims
+        dims: this.props.imageDims
       }));
     }
   }
@@ -131,7 +131,7 @@ Widget.propTypes = {
   badge: PropTypes.number,
   socket: PropTypes.shape({}),
   embedded: PropTypes.bool,
-  images: PropTypes.object
+  imageDims: PropTypes.object
 };
 
 export default connect(mapStateToProps)(Widget);

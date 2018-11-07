@@ -12,7 +12,7 @@ class ImgReply extends PureComponent {
           { message.get('title') }
         </b>
         <div className="image-details">
-          <img style={{ objectFit: "cover", width: message.get('dims')[0], height: message.get('dims')[1] }} src={message.get('image')} className="imageFrame" />
+          <img style={{ objectFit: "cover", width: message.get('width'), height: message.get('height') }} src={message.get('image')} className="imageFrame" />
         </div>
       </div>
     );

@@ -27,7 +27,7 @@ const WidgetLayout = (props) => {
           toggleChat={props.onToggleConversation}
           showChat={props.showChat}
           disabledInput={props.disabledInput}
-          images={props.images}
+          imageDims={props.imageDims}
           {...{ showCloseButton }}
         />
       }
@@ -54,7 +54,7 @@ WidgetLayout.propTypes = {
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
   embedded: PropTypes.bool,
-  images: PropTypes.object
+  imageDims: PropTypes.object
 };
 
 export default connect(store => ({
