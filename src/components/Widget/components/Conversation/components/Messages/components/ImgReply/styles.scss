@@ -2,7 +2,8 @@
 @import "common.scss";
 
 .imageFrame {
-  width: 300px;
-  height: 200px;
+  object-fit: cover;
+  width: inherit;
+  // height: 200px;
   margin-top: 10px;
 }

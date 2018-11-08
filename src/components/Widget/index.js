@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   toggleChat,
   addUserMessage,
@@ -12,16 +12,26 @@ import {
   addImageSnippet,
   addQuickReply,
   initialize
-} from "actions";
-import { isSnippet, isVideo, isImage, isQR, isText } from "./msgProcessor";
-import WidgetLayout from "./layout";
+} from 'actions';
+import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
+import WidgetLayout from './layout';
 
 
 class Widget extends Component {
 
   constructor(props) {
     super(props);
-    this.messages = [];
+    this.messages = [
+      {
+        'attachment': {
+          type: 'image',
+          payload: {
+            title: 'Crop-Scaled Image',
+            src: 'https://seopressor.com/wp-content/uploads/2016/06/Large-Format-HD-Wallpaper.jpg'
+          }
+        }
+      }
+    ];
     setInterval(() => {
       if (this.messages.length > 0) {
         this.dispatchMessage(this.messages.shift());
@@ -68,7 +78,7 @@ class Widget extends Component {
       this.props.dispatch(addImageSnippet({
         title: element.title,
         image: element.src,
-        dims: this.props.imageDims
+        imageConfig: this.props.config.images
       }));
     }
   }
@@ -131,7 +141,7 @@ Widget.propTypes = {
   badge: PropTypes.number,
   socket: PropTypes.shape({}),
   embedded: PropTypes.bool,
-  imageDims: PropTypes.object
+  imageConfig: PropTypes.object
 };
 
 export default connect(mapStateToProps)(Widget);

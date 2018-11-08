@@ -6,13 +6,16 @@ import './styles.scss';
 class ImgReply extends PureComponent {
   render() {
     const message = this.props.message;
+    const title = message.get('title');
+    const image = message.get('image');
+    const config = message.get('config');
     return (
       <div className="image">
         <b className="image-title">
-          { message.get('title') }
+          { title }
         </b>
         <div className="image-details">
-          <img style={{ objectFit: "cover", width: message.get('width'), height: message.get('height') }} src={message.get('image')} className="imageFrame" />
+          <img style={{ objectFit: "cover", width: config.dims.width, height: config.dims.height }} src={image} className="imageFrame" />
         </div>
       </div>
     );

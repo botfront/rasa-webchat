@@ -16,7 +16,7 @@ const Conversation = props =>
     />
     <Messages
       profileAvatar={props.profileAvatar}
-      imageDims={props.imageDims}
+      imageConfig={props.imageConfig}
     />
     <Sender
       sendMessage={props.sendMessage}
@@ -32,7 +32,7 @@ Conversation.propTypes = {
   toggleChat: PropTypes.func,
   showCloseButton: PropTypes.bool,
   disabledInput: PropTypes.bool,
-  imageDims: PropTypes.object
+  imageConfig: PropTypes.object
 };
 
 export default Conversation;
