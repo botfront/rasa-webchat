@@ -67,8 +67,7 @@ class Widget extends Component {
       const element = message.attachment.payload;
       this.props.dispatch(addImageSnippet({
         title: element.title,
-        image: element.src,
-        params: this.props.params.images
+        image: element.src
       }));
     }
   }

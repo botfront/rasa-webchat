@@ -5,17 +5,20 @@ import './styles.scss';
 
 class ImgReply extends PureComponent {
   render() {
-    const message = this.props.message;
-    const title = message.get('title');
-    const image = message.get('image');
-    const params = message.get('params');
+    const { params: { images: { dims = {} } = {} } } = this.props;
+    const { width, height } = dims;
+    // Convert map to object
+    const message = [...this.props.message.entries()].reduce( (acc, e) => ( 
+      acc[e[0]] = e[1], 
+      acc), {});
+    const { title, image } = message;
     return (
       <div className="image">
         <b className="image-title">
           { title }
         </b>
-        <div className="image-details">
-          <img className="imageFrame" style={{ objectFit: "cover", width: params.dims.width, height: params.dims.height }} src={image} />
+        <div className="image-details" style={{ width, height }}>
+          <img className="image-frame" src={image} />
         </div>
       </div>
     );
@@ -25,5 +28,9 @@ class ImgReply extends PureComponent {
 ImgReply.propTypes = {
   message: PROP_TYPES.IMGREPLY
 };
+
+ImgReply.defaultProps = {
+  params: {}
+}
 
 export default ImgReply;
