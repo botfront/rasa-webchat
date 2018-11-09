@@ -78,7 +78,7 @@ class Widget extends Component {
       this.props.dispatch(addImageSnippet({
         title: element.title,
         image: element.src,
-        imageConfig: this.props.config.images
+        params: this.props.params.images
       }));
     }
   }
@@ -117,7 +117,7 @@ class Widget extends Component {
         showChat={this.props.showChat}
         badge={this.props.badge}
         embedded={this.props.embedded}
-        imagesSize={this.props.embedded}
+        params={this.props.params}
       />
     );
   }
@@ -141,7 +141,7 @@ Widget.propTypes = {
   badge: PropTypes.number,
   socket: PropTypes.shape({}),
   embedded: PropTypes.bool,
-  imageConfig: PropTypes.object
+  params: PropTypes.object
 };
 
 export default connect(mapStateToProps)(Widget);

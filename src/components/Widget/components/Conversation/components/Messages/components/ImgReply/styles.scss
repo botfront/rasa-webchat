@@ -3,7 +3,6 @@
 
 .imageFrame {
   object-fit: cover;
-  width: inherit;
-  // height: 200px;
+  max-width: 100%;
   margin-top: 10px;
 }

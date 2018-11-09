@@ -8,14 +8,14 @@ class ImgReply extends PureComponent {
     const message = this.props.message;
     const title = message.get('title');
     const image = message.get('image');
-    const config = message.get('config');
+    const params = message.get('params');
     return (
       <div className="image">
         <b className="image-title">
           { title }
         </b>
         <div className="image-details">
-          <img style={{ objectFit: "cover", width: config.dims.width, height: config.dims.height }} src={image} className="imageFrame" />
+          <img className="imageFrame" style={{ objectFit: "cover", width: params.dims.width, height: params.dims.height }} src={image} />
         </div>
       </div>
     );
