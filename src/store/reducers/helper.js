@@ -47,8 +47,6 @@ export function createImageSnippet(image, sender) {
     component: Image,
     title: image.title,
     image: image.image,
-    width: image.dims.width,
-    height: image.dims.height,
     sender,
     showAvatar: true
   });

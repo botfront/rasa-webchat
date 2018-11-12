@@ -23,7 +23,7 @@ const ConnectedWidget = (props) => {
       fullScreenMode={props.fullScreenMode}
       badge={props.badge}
       embedded={props.embedded}
-      imageDims={props.imageDims}
+      params={props.params}
     />
   </Provider>);
 };
@@ -43,7 +43,7 @@ ConnectedWidget.propTypes = {
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
   embedded: PropTypes.bool,
-  imageDims: PropTypes.object
+  params: PropTypes.object
 };
 
 ConnectedWidget.defaultProps = {
