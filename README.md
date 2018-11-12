@@ -32,8 +32,8 @@ In your `<body/>`:
         params: {
           images: {
             dims: {
-              width: null,
-              height: null,
+              width: 300,
+              height: 200,
             }
           }
         }
@@ -68,8 +68,8 @@ function CustomWidget = () => {
       params={
         images: {
           dims: {
-            width: null,
-            height: null
+            width: 300,
+            height: 200
           }
         }
       }
