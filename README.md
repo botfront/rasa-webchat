@@ -41,6 +41,8 @@ In your `<body/>`:
 </script>
 ```
 
+About images: `width` and `height` define the size in pixels that images in messages are crop-scaled to. If not present, the image will scale to the maximum width of the container and the image.
+
 It is recommended to use a particular version (i.e. "webchat-<version>.js") however the file "webchat-latest.js"
 is also available and is updated continuously with the latest version.
 
@@ -80,7 +82,6 @@ function CustomWidget = () => {
 
 - Make sure to have the prop `embedded`
 set to `true` if you don't want to see the launcher.
-- `width` and `height` define the size in pixels that images in messages are crop-scaled to. If set to `null`, the image will scale to the maximum width of the container and the image.
 
 ## In your backend.
 
