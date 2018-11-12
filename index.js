@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Widget, toggleWidget, openWidget, closeWidget } from './index_for_react_app';
+import { Widget, toggleWidget, openWidget, closeWidget, showWidget, hideWidget } from './index_for_react_app';
 
 const plugin = {
   init: (args) => {
+
     ReactDOM.render(
       <Widget
         socketUrl={args.socketUrl}
@@ -30,6 +31,8 @@ export {
   Widget,
   toggleWidget,
   openWidget,
-  closeWidget
+  closeWidget,
+  showWidget,
+  hideWidget
 };
 

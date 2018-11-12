@@ -6,6 +6,18 @@ export function initialize() {
   };
 }
 
+export function showWidget() {
+  return {
+    type: actions.SHOW_WIDGET
+  };
+}
+
+export function hideWidget() {
+  return {
+    type: actions.HIDE_WIDGET
+  };
+}
+
 export function toggleChat() {
   return {
     type: actions.TOGGLE_CHAT

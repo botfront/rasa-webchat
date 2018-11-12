@@ -45,6 +45,14 @@ export function renderCustomComponent(component, props, showAvatar = false) {
   store.dispatch(actions.renderCustomComponent(component, props, showAvatar));
 }
 
+export function showWidget() {
+  store.dispatch(actions.showWidget());
+}
+
+export function hideWidget() {
+  store.dispatch(actions.hideWidget());
+}
+
 export function toggleWidget() {
   store.dispatch(actions.toggleChat());
 }

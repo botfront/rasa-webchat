@@ -1,4 +1,6 @@
 export const INITIALIZE = 'INITIALIZE';
+export const SHOW_WIDGET = 'SHOW_WIDGET';
+export const HIDE_WIDGET = 'HIDE_WIDGET';
 export const TOGGLE_CHAT = 'TOGGLE_CHAT';
 export const OPEN_CHAT = 'OPEN_CHAT';
 export const CLOSE_CHAT = 'CLOSE_CHAT';
