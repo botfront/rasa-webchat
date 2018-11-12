@@ -46,6 +46,12 @@ About images: `width` and `height` define the size in pixels that images in mess
 It is recommended to use a particular version (i.e. "webchat-<version>.js") however the file "webchat-latest.js"
 is also available and is updated continuously with the latest version.
 
+`WebChat.toggle()`, `WebChat.open()`, and `WebChat.close` can be used to change the state of the chat box to open or closed.
+
+`WebChat.show()` and `WebChat.hide()` can be used to show or hide the entire chat widget.
+
+`WebChat.isOpen()` and `WebChat.isVisible()` can be used to get the open state of the chat box and the visibility state of the entire widget.
+
 #### As a React component
 
 Install the package from GitHub by running:
@@ -64,7 +70,7 @@ function CustomWidget = () => {
       interval={2000}
       initPayload={"/get_started"}
       socketUrl={"http://localhost:5500"}
-       socketPath={"/socket.io/"}
+      socketPath={"/socket.io/"}
       title={"Title"}
       embedded={true}
       params={
