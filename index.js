@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+<<<<<<< HEAD
 import { Widget, toggleWidget, openWidget, closeWidget, showWidget, hideWidget } from './index_for_react_app';
+=======
+import { Widget, toggleWidget, openWidget, closeWidget } from './index_for_react_app';
+>>>>>>> aad48248dc992453cc98aaff51614b2b4baa309c
 
 const plugin = {
   init: (args) => {
@@ -31,8 +35,12 @@ export {
   Widget,
   toggleWidget,
   openWidget,
+<<<<<<< HEAD
   closeWidget,
   showWidget,
   hideWidget
+=======
+  closeWidget
+>>>>>>> aad48248dc992453cc98aaff51614b2b4baa309c
 };
 
