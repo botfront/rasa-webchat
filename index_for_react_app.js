@@ -8,6 +8,8 @@ import {
   addQuickReply,
   renderCustomComponent,
   toggleWidget,
+  openWidget,
+  closeWidget,
   toggleInputDisabled,
   dropMessages
 } from './src/store/actions/dispatcher';
@@ -22,6 +24,8 @@ export {
   addQuickReply,
   renderCustomComponent,
   toggleWidget,
+  openWidget,
+  closeWidget,
   toggleInputDisabled,
   dropMessages
 };

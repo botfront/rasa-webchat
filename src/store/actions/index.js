@@ -12,6 +12,18 @@ export function toggleChat() {
   };
 }
 
+export function openChat() {
+  return {
+    type: actions.OPEN_CHAT
+  };
+}
+
+export function closeChat() {
+  return {
+    type: actions.CLOSE_CHAT
+  };
+}
+
 export function toggleInputDisabled() {
   return {
     type: actions.TOGGLE_INPUT_DISABLED

@@ -9,6 +9,12 @@ export default function (inputFieldTextHint) {
       case actionTypes.TOGGLE_CHAT: {
         return state.update('showChat', showChat => !showChat);
       }
+      case actionTypes.OPEN_CHAT: {
+        return state.update('showChat', showChat => true);
+      }
+      case actionTypes.CLOSE_CHAT: {
+        return state.update('showChat', showChat => false);
+      }
       case actionTypes.TOGGLE_INPUT_DISABLED: {
         return state.update('disabledInput', disabledInput => !disabledInput);
       }
