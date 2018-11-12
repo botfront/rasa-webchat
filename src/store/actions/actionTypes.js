@@ -1,4 +1,6 @@
 export const INITIALIZE = 'INITIALIZE';
+export const GET_OPEN_STATE = 'GET_OPEN_STATE';
+export const GET_VISIBLE_STATE = 'GET_VISIBLE_STATE';
 export const SHOW_WIDGET = 'SHOW_WIDGET';
 export const HIDE_WIDGET = 'HIDE_WIDGET';
 export const TOGGLE_CHAT = 'TOGGLE_CHAT';

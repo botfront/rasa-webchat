@@ -6,6 +6,18 @@ export function initialize() {
   };
 }
 
+export function getOpenState() {
+  return {
+    type: actions.GET_OPEN_STATE
+  };
+}
+
+export function getVisibleState() {
+  return {
+    type: actions.GET_VISIBLE_STATE
+  };
+}
+
 export function showWidget() {
   return {
     type: actions.SHOW_WIDGET
