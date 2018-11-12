@@ -29,9 +29,19 @@ In your `<body/>`:
         title: "Title",
         subtitle: "Subtitle",
         profileAvatar: "http://to.avat.ar",
+        params: {
+          images: {
+            dims: {
+              width: 300,
+              height: 200,
+            }
+          }
+        }
     })
 </script>
 ```
+
+About images: `width` and `height` define the size in pixels that images in messages are crop-scaled to. If not present, the image will scale to the maximum width of the container and the image.
 
 It is recommended to use a particular version (i.e. "webchat-<version>.js") however the file "webchat-latest.js"
 is also available and is updated continuously with the latest version.
@@ -43,8 +53,8 @@ Install the package from GitHub by running:
 npm install mrbot-ai/rasa-webchat
 ```
 
-Then once it is installed it can be implemented as follows. Make sure to have the prop 'embedded'
-set to true if you don't want to see the launcher
+Then once it is installed it can be implemented as follows. 
+
 ```javascript
 import { Widget } from 'rasa-webchat';
 
@@ -57,10 +67,21 @@ function CustomWidget = () => {
        socketPath={"/socket.io/"}
       title={"Title"}
       embedded={true}
+      params={
+        images: {
+          dims: {
+            width: 300,
+            height: 200
+          }
+        }
+      }
     />
   )
 }
 ```
+
+- Make sure to have the prop `embedded`
+set to `true` if you don't want to see the launcher.
 
 ## In your backend.
 

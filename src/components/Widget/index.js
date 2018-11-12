@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   toggleChat,
   addUserMessage,
@@ -12,9 +12,9 @@ import {
   addImageSnippet,
   addQuickReply,
   initialize
-} from "actions";
-import { isSnippet, isVideo, isImage, isQR, isText } from "./msgProcessor";
-import WidgetLayout from "./layout";
+} from 'actions';
+import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
+import WidgetLayout from './layout';
 
 
 class Widget extends Component {
@@ -106,6 +106,7 @@ class Widget extends Component {
         showChat={this.props.showChat}
         badge={this.props.badge}
         embedded={this.props.embedded}
+        params={this.props.params}
       />
     );
   }
@@ -128,7 +129,8 @@ Widget.propTypes = {
   showChat: PropTypes.bool,
   badge: PropTypes.number,
   socket: PropTypes.shape({}),
-  embedded: PropTypes.bool
+  embedded: PropTypes.bool,
+  params: PropTypes.object
 };
 
 export default connect(mapStateToProps)(Widget);
