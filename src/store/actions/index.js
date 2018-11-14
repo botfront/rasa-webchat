@@ -6,9 +6,45 @@ export function initialize() {
   };
 }
 
+export function getOpenState() {
+  return {
+    type: actions.GET_OPEN_STATE
+  };
+}
+
+export function getVisibleState() {
+  return {
+    type: actions.GET_VISIBLE_STATE
+  };
+}
+
+export function showWidget() {
+  return {
+    type: actions.SHOW_WIDGET
+  };
+}
+
+export function hideWidget() {
+  return {
+    type: actions.HIDE_WIDGET
+  };
+}
+
 export function toggleChat() {
   return {
     type: actions.TOGGLE_CHAT
+  };
+}
+
+export function openChat() {
+  return {
+    type: actions.OPEN_CHAT
+  };
+}
+
+export function closeChat() {
+  return {
+    type: actions.CLOSE_CHAT
   };
 }
 

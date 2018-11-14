@@ -1,6 +1,14 @@
 import { store } from '../store';
 import * as actions from './index';
 
+export function isOpen() {
+  return store.dispatch(actions.getOpenState());
+  }
+
+export function isVisible() {
+  return store.dispatch(actions.getVisibleState());
+}
+
 export function initialize() {
   store.dispatch(actions.initialize());
 }
@@ -45,8 +53,24 @@ export function renderCustomComponent(component, props, showAvatar = false) {
   store.dispatch(actions.renderCustomComponent(component, props, showAvatar));
 }
 
+export function showWidget() {
+  store.dispatch(actions.showWidget());
+}
+
+export function hideWidget() {
+  store.dispatch(actions.hideWidget());
+}
+
 export function toggleWidget() {
   store.dispatch(actions.toggleChat());
+}
+
+export function openWidget() {
+  store.dispatch(actions.openChat());
+}
+
+export function closeWidget() {
+  store.dispatch(actions.closeChat());
 }
 
 export function toggleInputDisabled() {

@@ -16,3 +16,7 @@ ratio while filling the element’s entire content box. If the
 object's aspect ratio does not match the aspect ratio of its box
 then the object will be clipped to fit. The clipping will be taken
 from the center.
+- `WebChat.toggle()`, `WebChat.open()`, and `WebChat.close` can be used to change the state of the chat box to open or closed.
+- `WebChat.show()` and `WebChat.hide()` can be used to show or hide the entire chat widget.
+- `WebChat.isOpen()` and `WebChat.isVisible()` can be used to get the open state of the chat box and the visibility state of the entire widget.
+

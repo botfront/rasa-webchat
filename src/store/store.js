@@ -2,14 +2,24 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 
 import behavior from "./reducers/behaviorReducer";
 import messages from "./reducers/messagesReducer";
+import * as actionTypes from './actions/actionTypes';
 
 let store = "call initStore first";
 
 function initStore(hint, socket) {
   const customMiddleWare = (store) => next => (action) => {
-    if (action.type === "EMIT_NEW_USER_MESSAGE") {
-      socket.emit("user_uttered", { message: action.text, customData: socket.customData });
+    switch (action.type) {
+      case actionTypes.EMIT_NEW_USER_MESSAGE: {
+        socket.emit("user_uttered", { message: action.text, customData: socket.customData });
+      }
+      case actionTypes.GET_OPEN_STATE: {
+        return store.getState().behavior.get("showChat");
+      }
+      case actionTypes.GET_VISIBLE_STATE: {
+        return store.getState().behavior.get("showWidget");
+      }
     }
+
     // console.log('Middleware triggered:', action);
     next(action);
   };

@@ -16,6 +16,7 @@ const WidgetLayout = (props) => {
   );
 
   return (
+    props.showWidget ? 
     <div className={classes.join(' ')}>
       {
         (props.fullScreenMode || props.showChat || props.embedded) &&
@@ -39,6 +40,7 @@ const WidgetLayout = (props) => {
         />
       }
     </div>
+    : null
   );
 };
 
@@ -58,6 +60,7 @@ WidgetLayout.propTypes = {
 };
 
 export default connect(store => ({
+  showWidget: store.behavior.get('showWidget'),
   showChat: store.behavior.get('showChat'),
   disabledInput: store.behavior.get('disabledInput')
 }))(WidgetLayout);

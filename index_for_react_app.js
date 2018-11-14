@@ -7,7 +7,13 @@ import {
   addImageSnippet,
   addQuickReply,
   renderCustomComponent,
+  isOpen,
+  isVisible,
+  showWidget,
+  hideWidget,
   toggleWidget,
+  openWidget,
+  closeWidget,
   toggleInputDisabled,
   dropMessages
 } from './src/store/actions/dispatcher';
@@ -21,7 +27,13 @@ export {
   addImageSnippet,
   addQuickReply,
   renderCustomComponent,
+  isOpen,
+  isVisible,
+  showWidget,
+  hideWidget,
   toggleWidget,
+  openWidget,
+  closeWidget,
   toggleInputDisabled,
   dropMessages
 };

@@ -103,6 +103,7 @@ class Widget extends Component {
         profileAvatar={this.props.profileAvatar}
         showCloseButton={this.props.showCloseButton}
         fullScreenMode={this.props.fullScreenMode}
+        showWidget={this.props.showWidget}
         showChat={this.props.showChat}
         badge={this.props.badge}
         embedded={this.props.embedded}
@@ -126,6 +127,7 @@ Widget.propTypes = {
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
+  showWidget: PropTypes.bool,
   showChat: PropTypes.bool,
   badge: PropTypes.number,
   socket: PropTypes.shape({}),
