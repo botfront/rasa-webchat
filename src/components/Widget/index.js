@@ -41,6 +41,27 @@ class Widget extends Component {
     }
   }
 
+  storeSessionMessage = (key, message) => {
+    console.log("Attempt to store message to session")
+    const cachedSession = sessionStorage.getItem(key);
+    var newSession;
+    if (cachedSession) {
+      let session = JSON.parse(cachedSession);
+      newSession = {
+        ...session,
+        conversation: session.conversation.concat([message])
+      }
+      console.log("Updated existing session: \n", newSession);
+    } else {
+      newSession = {
+        session_ID: "123",
+        conversation: [message]
+      }
+      console.log("No existing session, created new session: \n", newSession);
+    }
+    sessionStorage.setItem(key, JSON.stringify(newSession));
+  }
+
   dispatchMessage(message) {
     if (Object.keys(message).length === 0) {
       return;
@@ -88,6 +109,7 @@ class Widget extends Component {
     if (userUttered) {
       this.props.dispatch(addUserMessage(userUttered));
       this.props.dispatch(emitUserMessage(userUttered));
+      this.storeSessionMessage("chat_session", userUttered);
     }
     event.target.message.value = '';
   };
