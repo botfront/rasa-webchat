@@ -1,5 +1,5 @@
 import { Map, List } from 'immutable';
-import { MESSAGES_TYPES, MESSAGE_SENDER } from 'constants';
+import { MESSAGES_TYPES, MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
 import {
     createQuickReply,
@@ -8,6 +8,8 @@ import {
     createVideoSnippet,
     createImageSnippet,
     createComponentMessage,
+    getRemoteSession,
+    storeMessageToState
 } from './helper';
 
 import * as actionTypes from '../actions/actionTypes';
@@ -18,66 +20,11 @@ export default function (socket) {
 
   const initialState = List([]);
 
-  const sessionName = "chat_session";
-  var socket;
-
-  const requestSession = async (localID) => {
-    return new Promise((resolve, reject) => {
-      socket.emit('session_request', { 'session_id': localID});
-      socket.on('session_confirm', (remoteID) => {
-        console.log(`session_confirm:${socket.id} session_id:${remoteID}`);
-        resolve(remoteID);
-      });
-    })
-  }
-
-  const createOrGetSession = async (key) => {
-    console.log("Attempt to create or get session")
-    const cachedSession = sessionStorage.getItem(key);
-    var session;
-    if (cachedSession) {
-      let parsedSession = JSON.parse(cachedSession)
-      const formattedConversation =
-        Object.values(parsedSession.conversation).map(message => Map(message));
-      session = {
-        ...parsedSession,
-        conversation: formattedConversation.slice()
-      }
-      await requestSession(session.session_id);
-      console.log("Found existing session: \n", session);
-    } else {
-      let sid = await requestSession(null)
-      session = {
-        session_id: sid,
-        conversation: []
-      }
-      console.log("No existing session, created new session: \n", session);
-      sessionStorage.setItem(key, JSON.stringify(session));
-    }
-    return session;
-  }
-
-  const storeSessionState = (key, state) => {
-    const session = createOrGetSession(key);
-    const newSession = {
-      ...session,
-      conversation: [...Array.from(state)].slice()
-    }
-    console.log("Updated session: \n", newSession);
-    sessionStorage.setItem(key, JSON.stringify(newSession));
-  }
-
-  const storeMessageToState = state => message => {
-    const newState = state.push(message);
-    storeSessionState(sessionName, newState);
-    console.log(newState);
-    return newState;
-  }
-
-  return function reducer(state, action) {
+  return function reducer(state = initialState, action) {
   
-    state = List(createOrGetSession(sessionName).conversation);
-    const storeMessage = storeMessageToState(state)
+    // const session = getRemoteSession(SESSION_NAME, socket);
+    // state = List(session.conversation);
+    const storeMessage = storeMessageToState(state, socket)
   
     switch (action.type) {
       case actionTypes.ADD_NEW_USER_MESSAGE: {

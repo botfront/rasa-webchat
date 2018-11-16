@@ -8,7 +8,12 @@ import socket from './socket';
 
 const ConnectedWidget = (props) => {
   const sock = socket(props.socketUrl, props.customData, props.socketPath);
-  initStore(props.inputTextFieldHint, sock);
+  initStore(
+    props.inputTextFieldHint, 
+    props.initPayload,
+    props.customData,
+    sock
+    );
   return (<Provider store={store}>
     <Widget
       socket={sock}

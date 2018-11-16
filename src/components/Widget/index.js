@@ -37,6 +37,9 @@ class Widget extends Component {
       this.messages.push(botUttered);
     });
 
+    // initialize to get or create session_id
+    this.props.dispatch(initialize());
+
     if (this.props.embedded || this.props.fullScreenMode) {
       this.toggleConversation();
     }
@@ -75,12 +78,7 @@ class Widget extends Component {
 
   toggleConversation = () => {
     this.props.dispatch(toggleChat());
-
-    const { initPayload, initialized, customData, socket } = this.props;
-    if (!initialized) {
-      this.props.dispatch(initialize());
-      socket.emit('user_uttered', { message: initPayload, customData });
-    }
+    // this.props.dispatch(initialize());
   };
 
   handleMessageSubmit = (event) => {
@@ -115,7 +113,7 @@ class Widget extends Component {
 }
 
 const mapStateToProps = state => ({
-  initialized: state.behavior.get('initialized')
+  // initialized: state.behavior.get('initialized')
 });
 
 Widget.propTypes = {
@@ -124,7 +122,7 @@ Widget.propTypes = {
   customData: PropTypes.shape({}),
   subtitle: PropTypes.string,
   initPayload: PropTypes.string,
-  initialized: PropTypes.bool,
+  // initialized: PropTypes.bool,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
@@ -137,3 +135,4 @@ Widget.propTypes = {
 };
 
 export default connect(mapStateToProps)(Widget);
+// export default Widget;
