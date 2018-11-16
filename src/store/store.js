@@ -23,7 +23,7 @@ function initStore(hint, socket) {
     // console.log('Middleware triggered:', action);
     next(action);
   };
-  const reducer = combineReducers({ behavior: behavior(hint), messages });
+  const reducer = combineReducers({ behavior: behavior(hint), messages: messages(socket) });
 
   /* eslint-disable no-underscore-dangle */
   store = createStore(
