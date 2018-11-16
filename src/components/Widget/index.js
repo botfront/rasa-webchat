@@ -33,53 +33,14 @@ class Widget extends Component {
   componentDidMount() {
     const { socket } = this.props;
 
-    // this.loadSession();
-
     socket.on('bot_uttered', (botUttered) => {
       this.messages.push(botUttered);
-      // this.storeSessionMessage(sessionName)
-      // console.log("Stored income message to session storage: \n", botUttered);
     });
 
     if (this.props.embedded || this.props.fullScreenMode) {
       this.toggleConversation();
     }
   }
-
-  // loadSession = (key) => {
-  //   console.log("Attempt to load messages from session")
-  //   const cachedSession = sessionStorage.getItem(key);
-  //   if (cachedSession) {
-  //     let session = JSON.parse(cachedSession);
-  //     session.conversation.map(message => {
-  //       this.dispatchMessage(message)
-  //     });
-  //     console.log("Loaded existing session: \n", session);
-  //   } else {
-  //     console.log("No existing session to load")
-  //   }
-  // }
-
-  // storeSessionMessage = (key, message) => {
-  //   console.log("Attempt to store message to session")
-  //   const cachedSession = sessionStorage.getItem(key);
-  //   var newSession;
-  //   if (cachedSession) {
-  //     let session = JSON.parse(cachedSession);
-  //     newSession = {
-  //       ...session,
-  //       conversation: session.conversation.concat([message])
-  //     }
-  //     console.log("Updated existing session: \n", newSession);
-  //   } else {
-  //     newSession = {
-  //       session_ID: "123",
-  //       conversation: [message]
-  //     }
-  //     console.log("No existing session, created new session: \n", newSession);
-  //   }
-  //   sessionStorage.setItem(key, JSON.stringify(newSession));
-  // }
 
   dispatchMessage(message) {
     if (Object.keys(message).length === 0) {
@@ -128,8 +89,6 @@ class Widget extends Component {
     if (userUttered) {
       this.props.dispatch(addUserMessage(userUttered));
       this.props.dispatch(emitUserMessage(userUttered));
-      // console.log(userUttered);
-      // this.storeSessionMessage(sessionName, userUttered);
     }
     event.target.message.value = '';
   };

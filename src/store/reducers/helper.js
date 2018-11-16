@@ -1,11 +1,8 @@
 import { Map, List } from 'immutable';
 import { MESSAGES_TYPES, MESSAGE_SENDER } from 'constants';
 
-import Video from 'messagesComponents/VidReply';
-import Image from 'messagesComponents/ImgReply';
-import Message from 'messagesComponents/Message';
-import Snippet from 'messagesComponents/Snippet';
-import QuickReply from 'messagesComponents/QuickReply';
+import { Video, Image, Message, Snippet, QuickReply } from 'messagesComponents';
+
 
 export function createNewMessage(text, sender) {
   return Map({

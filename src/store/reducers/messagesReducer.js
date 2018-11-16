@@ -1,5 +1,5 @@
-import { List } from 'immutable';
-import { MESSAGE_SENDER } from 'constants';
+import { Map, List } from 'immutable';
+import { MESSAGES_TYPES, MESSAGE_SENDER } from 'constants';
 
 import {
     createQuickReply,
@@ -12,37 +12,57 @@ import {
 
 import * as actionTypes from '../actions/actionTypes';
 
+import { Video, Image, Message, Snippet, QuickReply } from 'messagesComponents';
+
 const initialState = List([]);
 
 const sessionName = "chat_session";
 
-const storeSessionMessage = (key, message) => {
-  console.log("Attempt to store message to session")
+const createOrGetSession = (key) => {
+  console.log("Attempt to create or get session")
   const cachedSession = sessionStorage.getItem(key);
-  var newSession;
+  var session;
   if (cachedSession) {
-    let session = JSON.parse(cachedSession);
-    newSession = {
-      ...session,
-      conversation: session.conversation.concat([message])
+    let parsedSession = JSON.parse(cachedSession)
+    const formattedConversation =
+      Object.values(parsedSession.conversation).map(message => Map(message))
+    session = {
+      ...parsedSession,
+      conversation: formattedConversation.slice()
     }
-    console.log("Updated existing session: \n", newSession);
+    console.log("Found existing session: \n", session);
   } else {
-    newSession = {
+    session = {
       session_ID: "123",
-      conversation: [message]
+      conversation: []
     }
-    console.log("No existing session, created new session: \n", newSession);
+    console.log("No existing session, created new session: \n", session);
+    sessionStorage.setItem(key, JSON.stringify(session));
   }
+  return session;
+}
+
+const storeSessionState = (key, state) => {
+  const session = createOrGetSession(key);
+  const newSession = {
+    ...session,
+    conversation: [...Array.from(state)].slice()
+  }
+  console.log("Updated session: \n", newSession);
   sessionStorage.setItem(key, JSON.stringify(newSession));
 }
 
-export default function reducer(state = initialState, action) {
+const storeMessageToState = state => message => {
+  const newState = state.push(message);
+  storeSessionState(sessionName, newState);
+  console.log(newState);
+  return newState;
+}
+
+export default function reducer(state, action) {
   
-  const storeMessage = (message) => {
-    storeSessionMessage(sessionName, message);
-    return state.push(message);
-  }
+  state = List(createOrGetSession(sessionName).conversation);
+  const storeMessage = storeMessageToState(state)
 
   switch (action.type) {
     case actionTypes.ADD_NEW_USER_MESSAGE: {
