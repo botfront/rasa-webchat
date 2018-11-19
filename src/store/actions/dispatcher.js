@@ -84,3 +84,7 @@ export function changeInputFieldHint(hint) {
 export function dropMessages() {
   store.dispatch(actions.dropMessages());
 }
+
+export function pullSession() {
+  store.dispatch(actions.pullSession());
+}
