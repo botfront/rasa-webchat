@@ -41,7 +41,7 @@ ConnectedWidget.propTypes = {
   socketUrl: PropTypes.string.isRequired,
   socketPath: PropTypes.string,
   customData: PropTypes.shape({}),
-  handleNewUserMessage: PropTypes.func.isRequired,
+  handleNewUserMessage: PropTypes.func,
   profileAvatar: PropTypes.string,
   inputTextFieldHint: PropTypes.string,
   showCloseButton: PropTypes.bool,
