@@ -20,3 +20,8 @@ from the center.
 - `WebChat.show()` and `WebChat.hide()` can be used to show or hide the entire chat widget.
 - `WebChat.isOpen()` and `WebChat.isVisible()` can be used to get the open state of the chat box and the visibility state of the entire widget.
 
+## 0.4.3
+- Implemented session persistence for chat widget.
+- Chat messages and widget state params are stored in sessionStorage of the browser.
+- Sessions are synchronized with server by a session_id.
+- The session persists as long as the browser is open. Thus opening new tabs and refreshing the page will persist the conversation and the widget state.
