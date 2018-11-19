@@ -74,7 +74,6 @@ export function createComponentMessage(component, props, showAvatar) {
 
 export const requestSession = (socket) => async function(localID) {
   return new Promise((resolve, reject) => {
-    console.log("test string", { 'session_id': localID })
     socket.emit('session_request', ({ 'session_id': localID }));
     socket.on('session_confirm', (remoteID) => {
       console.log(`session_confirm:${socket.id} session_id:${remoteID}`);
@@ -84,66 +83,74 @@ export const requestSession = (socket) => async function(localID) {
 }
 
 export function getLocalSession(key) {
-  console.log("Attempt to create or get session")
+  // Attempt to get local session from sessionStorage
   const cachedSession = sessionStorage.getItem(key);
-  var session;
+  var session = null;
   if (cachedSession) {
+    // Found existing session in sessionStorage
     let parsedSession = JSON.parse(cachedSession)
-    const formattedConversation =
-      Object.values(parsedSession.conversation).map(message => Map(message));
-    session = {
+    // Format conversation from array of object to immutable Map for use by messages components
+    const formattedConversation = parsedSession.conversation
+      ? Object.values(parsedSession.conversation).map(item => Map(item)).slice()
+      : [];
+    // Check if params is undefined
+    const formattedParams = parsedSession.params
+      ? parsedSession.params
+      : {};
+    //Create a new session to return
+      session = {
       ...parsedSession,
-      conversation: formattedConversation.slice()
+      conversation: formattedConversation,
+      params: formattedParams
     }
-    console.log("Found existing session: \n", session);
   } else {
-    console.log("No existing session");
+    console.log("No existing local session");
   }
+  // Returns a formatted session object if any found, otherwise return undefined
   return session;
 }
 
-export async function getRemoteSession(key, socket) {
-  console.log("Attempt to create or get session")
+export function storeLocalSession(key, sid) {
+  // Attempt to store session id to local sessionStorage
   const cachedSession = sessionStorage.getItem(key);
   var session;
   if (cachedSession) {
+      // Found exisiting session in sessionStorage
     let parsedSession = JSON.parse(cachedSession)
-    const formattedConversation =
-      Object.values(parsedSession.conversation).map(message => Map(message));
     session = {
       ...parsedSession,
-      conversation: formattedConversation.slice()
+      session_id: sid
     }
-    await requestSession(socket)(session.session_id);
-    console.log("Found existing session: \n", session);
   } else {
-    const sid = await requestSession(socket)(null)
-    console.log("session_id log: ",sid)
+    // No existing local session, create a new empty session with only session_id
     session = {
-      session_id: sid,
-      conversation: []
+      session_id: sid
     }
-    console.log("No existing session, created new session: \n", session);
-    sessionStorage.setItem(key, JSON.stringify(session));
   }
-  return session;
+  // Store updated session to sessionStorage
+  sessionStorage.setItem(key, JSON.stringify(session));
 }
 
-export function storeSessionState(key, state, session) {
-  // const session = getRemoteSession(key, socket);
+export function storeMessage(conversation) {
+  // Store a conversation List to sessionStorage
+  const localSession = getLocalSession(SESSION_NAME);
   const newSession = {
-    ...session,
-    conversation: [...Array.from(state)].slice()
+    // Since immutable List is not a native JS object, store conversation as array
+    ...localSession,
+    conversation: [...Array.from(conversation)].slice()
   }
-  console.log("Updated session: \n", newSession);
-  sessionStorage.setItem(key, JSON.stringify(newSession));
+  sessionStorage.setItem(SESSION_NAME, JSON.stringify(newSession));
+  return conversation
 }
 
-export const storeMessageToState = (state, socket) => message => {
-  const session = getLocalSession(SESSION_NAME);
-  state = List(session.conversation);
-  const newState = state.push(message);
-  storeSessionState(SESSION_NAME, newState, session);
-  console.log(newState);
-  return newState;
+export function storeParams(params) {
+  // Store a params List to sessionStorage
+  const localSession = getLocalSession(SESSION_NAME);
+  const newSession = {
+    // Since immutable Map is not a native JS object, store conversation as array
+    ...localSession,
+    params: params.toJS()
+  }
+  sessionStorage.setItem(SESSION_NAME, JSON.stringify(newSession));
+  return params
 }

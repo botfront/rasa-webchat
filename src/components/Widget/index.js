@@ -11,10 +11,14 @@ import {
   addVideoSnippet,
   addImageSnippet,
   addQuickReply,
-  initialize
+  initialize,
+  pullSession
 } from 'actions';
+
 import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
 import WidgetLayout from './layout';
+import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
+import { SESSION_NAME } from 'constants';
 
 const sessionName = "chat_session";
 
@@ -31,14 +35,43 @@ class Widget extends Component {
   }
 
   componentDidMount() {
-    const { socket } = this.props;
+    const { initPayload, customData, socket } = this.props;
 
     socket.on('bot_uttered', (botUttered) => {
       this.messages.push(botUttered);
     });
 
-    // initialize to get or create session_id
-    this.props.dispatch(initialize());
+    /* Request a session from server */
+    this.props.dispatch(pullSession());
+
+    // Get the local session, check if there is an existing session_id
+    const localSession = getLocalSession(SESSION_NAME);
+    const local_id = localSession? localSession.session_id: null
+
+    // Send a session_request to the server
+    socket.on('connect', () => {
+      socket.emit('session_request', ({ 'session_id': local_id }));
+    });
+
+    // When session_confirm is received from the server:
+    socket.on('session_confirm', (remote_id) => {
+      console.log(`session_confirm:${socket.id} session_id:${remote_id}`);
+      
+      /*
+      Check if the session_id is consistent with the server
+      If the local_id is null or different from the remote_id,
+      start a new session.
+      */
+      if (local_id != remote_id) {
+        socket.emit('user_uttered', { message: initPayload, customData, session_id: remote_id });
+        
+        // Store the received session_id to sessionStorage
+        storeLocalSession(SESSION_NAME, remote_id);
+
+        // Store the initial state to both the redux store and the sessionStorage
+        this.props.dispatch(initialize());
+      }
+    });
 
     if (this.props.embedded || this.props.fullScreenMode) {
       this.toggleConversation();
@@ -78,7 +111,6 @@ class Widget extends Component {
 
   toggleConversation = () => {
     this.props.dispatch(toggleChat());
-    // this.props.dispatch(initialize());
   };
 
   handleMessageSubmit = (event) => {
@@ -112,17 +144,12 @@ class Widget extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  // initialized: state.behavior.get('initialized')
-});
-
 Widget.propTypes = {
   interval: PropTypes.number,
   title: PropTypes.string,
   customData: PropTypes.shape({}),
   subtitle: PropTypes.string,
   initPayload: PropTypes.string,
-  // initialized: PropTypes.bool,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
@@ -134,5 +161,4 @@ Widget.propTypes = {
   params: PropTypes.object
 };
 
-export default connect(mapStateToProps)(Widget);
-// export default Widget;
+export default connect()(Widget);

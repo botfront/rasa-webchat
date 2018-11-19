@@ -9,7 +9,8 @@ import {
     createImageSnippet,
     createComponentMessage,
     getRemoteSession,
-    storeMessageToState
+    storeMessage,
+    getLocalSession
 } from './helper';
 
 import * as actionTypes from '../actions/actionTypes';
@@ -22,40 +23,46 @@ export default function (socket) {
 
   return function reducer(state = initialState, action) {
   
-    // const session = getRemoteSession(SESSION_NAME, socket);
-    // state = List(session.conversation);
-    const storeMessage = storeMessageToState(state, socket)
-  
     switch (action.type) {
+      // Each change to the redux store's message list gets recorded to sessionStorage
       case actionTypes.ADD_NEW_USER_MESSAGE: {
-        return storeMessage(createNewMessage(action.text, MESSAGE_SENDER.CLIENT))
+        return storeMessage(state.push(createNewMessage(action.text, MESSAGE_SENDER.CLIENT)))
       }
       case actionTypes.ADD_NEW_RESPONSE_MESSAGE: {
-        return storeMessage(createNewMessage(action.text, MESSAGE_SENDER.RESPONSE));
+        return storeMessage(state.push(createNewMessage(action.text, MESSAGE_SENDER.RESPONSE)));
       }
       case actionTypes.ADD_NEW_LINK_SNIPPET: {
-        return storeMessage(createLinkSnippet(action.link, MESSAGE_SENDER.RESPONSE));
+        return storeMessage(state.push(createLinkSnippet(action.link, MESSAGE_SENDER.RESPONSE)));
       }
       case actionTypes.ADD_NEW_VIDEO_VIDREPLY: {
-        return storeMessage(createVideoSnippet(action.video, MESSAGE_SENDER.RESPONSE));
+        return storeMessage(state.push(createVideoSnippet(action.video, MESSAGE_SENDER.RESPONSE)));
       }
       case actionTypes.ADD_NEW_IMAGE_IMGREPLY: {
-        return storeMessage(createImageSnippet(action.image, MESSAGE_SENDER.RESPONSE));
+        return storeMessage(state.push(createImageSnippet(action.image, MESSAGE_SENDER.RESPONSE)));
       }
       case actionTypes.ADD_QUICK_REPLY: {
-        return storeMessage(createQuickReply(action.quickReply, MESSAGE_SENDER.RESPONSE));
+        return storeMessage(state.push(createQuickReply(action.quickReply, MESSAGE_SENDER.RESPONSE)));
       }
       case actionTypes.ADD_COMPONENT_MESSAGE: {
-        return storeMessage(createComponentMessage(action.component, action.props, action.showAvatar));
+        return storeMessage(state.push(createComponentMessage(action.component, action.props, action.showAvatar)));
       }
       case actionTypes.SET_QUICK_REPLY: {
-        return state.setIn([action.id, 'chosenReply'], action.title);
+        return storeMessage(state.setIn([action.id, 'chosenReply'], action.title));
       }
       case actionTypes.INSERT_NEW_USER_MESSAGE: {
-        return state.insert(action.index, createNewMessage(action.text, MESSAGE_SENDER.CLIENT));
+        return storeMessage(state.insert(action.index, createNewMessage(action.text, MESSAGE_SENDER.CLIENT)));
       }
       case actionTypes.DROP_MESSAGES: {
-        return initialState;
+        return storeMessage(initialState)
+      }
+      // Pull conversation from sessionStorage, parsing as immutable List
+      case actionTypes.PULL_SESSION: {
+        const localSession = getLocalSession(SESSION_NAME);
+        if (localSession) {
+          return List(localSession.conversation);
+        } else {
+          return state
+        }
       }
       default:
         return state;
