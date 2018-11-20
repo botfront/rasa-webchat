@@ -11,6 +11,7 @@ import {
   addVideoSnippet,
   addImageSnippet,
   addQuickReply,
+  initialize,
   connectServer,
   disconnectServer,
   pullSession
@@ -34,18 +35,16 @@ class Widget extends Component {
   }
 
   componentDidMount() {
-    const { initPayload, customData, socket, storage } = this.props;
+    const { socket, storage } = this.props;
 
     socket.on('bot_uttered', (botUttered) => {
       this.messages.push(botUttered);
     });
 
+    const local_id = this.getSessionId();
+
     /* Request a session from server */
     this.props.dispatch(pullSession());
-
-    // Get the local session, check if there is an existing session_id
-    const localSession = getLocalSession(storage, SESSION_NAME);
-    const local_id = localSession? localSession.session_id: null
 
     // Send a session_request to the server
     socket.on('connect', () => {
@@ -55,19 +54,20 @@ class Widget extends Component {
     // When session_confirm is received from the server:
     socket.on('session_confirm', (remote_id) => {
       console.log(`session_confirm:${socket.id} session_id:${remote_id}`);
+
+      // Store the initial state to both the redux store and the storage, set connected to true
       this.props.dispatch(connectServer());
+
       /*
       Check if the session_id is consistent with the server
       If the local_id is null or different from the remote_id,
       start a new session.
       */
       if (local_id != remote_id) {
-        socket.emit('user_uttered', { message: initPayload, customData, session_id: remote_id });
         
+        storage.clear();
         // Store the received session_id to storage
         storeLocalSession(storage, SESSION_NAME, remote_id);
-
-        // Store the initial state to both the redux store and the storage
       }
     });
 
@@ -79,6 +79,14 @@ class Widget extends Component {
     if (this.props.embedded || this.props.fullScreenMode) {
       this.toggleConversation();
     }
+  }
+
+  getSessionId() {
+    const { storage } = this.props;
+    // Get the local session, check if there is an existing session_id
+    const localSession = getLocalSession(storage, SESSION_NAME);
+    const local_id = localSession? localSession.session_id: null;
+    return local_id;
   }
 
   dispatchMessage(message) {
@@ -113,7 +121,16 @@ class Widget extends Component {
   }
 
   toggleConversation = () => {
+    // Send initial payload when chat icon is clicked
+    const { initPayload, customData, socket } = this.props;
     this.props.dispatch(toggleChat());
+
+    if (this.props.connected && !this.props.initialized ) {
+      // Only send initial payload if the widget is connected to the server but not yet initialized
+      const session_id = this.getSessionId();
+      socket.emit('user_uttered', { message: initPayload, customData, session_id: session_id });
+      this.props.dispatch(initialize());
+    }
   };
 
   handleMessageSubmit = (event) => {
@@ -147,6 +164,11 @@ class Widget extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  initialized: state.behavior.get('initialized'),
+  connected: state.behavior.get('connected')
+});
+
 Widget.propTypes = {
   interval: PropTypes.number,
   title: PropTypes.string,
@@ -161,7 +183,9 @@ Widget.propTypes = {
   badge: PropTypes.number,
   socket: PropTypes.shape({}),
   embedded: PropTypes.bool,
-  params: PropTypes.object
+  params: PropTypes.object,
+  connected: PropTypes.bool,
+  initialized: PropTypes.bool
 };
 
-export default connect()(Widget);
+export default connect(mapStateToProps)(Widget);

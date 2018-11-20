@@ -4,7 +4,7 @@ import { SESSION_NAME } from 'constants';
 import { getLocalSession, storeParamsTo } from './helper';
 
 export default function (inputFieldTextHint, storage) {
-  const initialState = Map({ connected: false, showWidget: true, showChat: false, disabledInput: true, inputFieldTextHint });
+  const initialState = Map({ connected: false, initialized: false, showWidget: true, showChat: false, disabledInput: true, inputFieldTextHint });
 
   return function reducer(state = initialState, action) {
     const storeParams = storeParamsTo(storage);
@@ -36,6 +36,9 @@ export default function (inputFieldTextHint, storage) {
       }
       case actionTypes.DISCONNECT: {
         return storeParams(state.set('connected', false).set('disabledInput', true));
+      }
+      case actionTypes.INITIALIZE: {
+        return storeParams(state.set('initialized', true));
       }
       // Pull params from storage to redux store
       case actionTypes.PULL_SESSION: {
