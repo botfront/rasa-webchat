@@ -27,3 +27,4 @@ from the center.
 - The param `storage` is exposed which allows the user to specify where the session is stored.
 - In the case of `session`, session storage of the browser is used, and the session persists as long as the browser is open, and is erased after it is closed.
 - In the case of `local`, local storage of the browser is used and the session persists even after the browser is closed. The session is erased when the browser's cookies are cleared. 
+- Implemented connecting notifier and disabled input field before session_confirm is received from the server and the session is generated and synchronized.
