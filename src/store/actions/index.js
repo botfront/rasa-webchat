@@ -1,8 +1,14 @@
 import * as actions from './actionTypes';
 
-export function initialize() {
+export function connectServer() {
   return {
-    type: actions.INITIALIZE
+    type: actions.CONNECT
+  };
+}
+
+export function disconnectServer() {
+  return {
+    type: actions.DISCONNECT
   };
 }
 

@@ -1,4 +1,5 @@
-export const INITIALIZE = 'INITIALIZE';
+export const CONNECT = 'CONNECT';
+export const DISCONNECT = 'DISCONNECT';
 export const GET_OPEN_STATE = 'GET_OPEN_STATE';
 export const GET_VISIBLE_STATE = 'GET_VISIBLE_STATE';
 export const SHOW_WIDGET = 'SHOW_WIDGET';

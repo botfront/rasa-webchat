@@ -11,7 +11,8 @@ import {
   addVideoSnippet,
   addImageSnippet,
   addQuickReply,
-  initialize,
+  connectServer,
+  disconnectServer,
   pullSession
 } from 'actions';
 
@@ -67,8 +68,13 @@ class Widget extends Component {
         storeLocalSession(storage, SESSION_NAME, remote_id);
 
         // Store the initial state to both the redux store and the storage
-        this.props.dispatch(initialize());
+        this.props.dispatch(connectServer());
       }
+    });
+
+    socket.on('disconnect', (reason) => {
+      console.log(reason);
+      this.props.dispatch(disconnectServer());
     });
 
     if (this.props.embedded || this.props.fullScreenMode) {

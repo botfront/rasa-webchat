@@ -30,6 +30,7 @@ const WidgetLayout = (props) => {
           disabledInput={props.disabledInput}
           params={props.params}
           {...{ showCloseButton }}
+          connected={props.connected}
         />
       }
       {
@@ -56,11 +57,13 @@ WidgetLayout.propTypes = {
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
   embedded: PropTypes.bool,
-  params: PropTypes.object
+  params: PropTypes.object,
+  connected: PropTypes.bool
 };
 
 export default connect(store => ({
   showWidget: store.behavior.get('showWidget'),
   showChat: store.behavior.get('showChat'),
-  disabledInput: store.behavior.get('disabledInput')
+  disabledInput: store.behavior.get('disabledInput'),
+  connected: store.behavior.get('connected')
 }))(WidgetLayout);

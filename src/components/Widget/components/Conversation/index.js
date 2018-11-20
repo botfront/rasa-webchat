@@ -13,6 +13,7 @@ const Conversation = props =>
       subtitle={props.subtitle}
       toggleChat={props.toggleChat}
       showCloseButton={props.showCloseButton}
+      connected={props.connected}
     />
     <Messages
       profileAvatar={props.profileAvatar}
@@ -32,7 +33,8 @@ Conversation.propTypes = {
   toggleChat: PropTypes.func,
   showCloseButton: PropTypes.bool,
   disabledInput: PropTypes.bool,
-  params: PropTypes.object
+  params: PropTypes.object,
+  connected: PropTypes.bool
 };
 
 export default Conversation;
