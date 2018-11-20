@@ -1,16 +1,15 @@
 import { Map } from 'immutable';
 import * as actionTypes from '../actions/actionTypes';
-import { initialize } from '../actions/dispatcher';
 import { SESSION_NAME } from 'constants';
-import { getLocalSession, storeParams } from './helper';
+import { getLocalSession, storeParamsTo } from './helper';
 
-export default function (inputFieldTextHint, initPayload, customData, socket) {
-  const initialState = Map({ showWidget: true, showChat: false, disabledInput: false, inputFieldTextHint });
+export default function (inputFieldTextHint, storage) {
+  const initialState = Map({ showWidget: true, showChat: false, disabledInput: false, inputFieldTextHint, storage: "SESSION" });
 
   return function reducer(state = initialState, action) {
-
+    const storeParams = storeParamsTo(storage);
     switch (action.type) {
-      // Each change to the redux store's behavior Map gets recorded to sessionStorage
+      // Each change to the redux store's behavior Map gets recorded to storage
       case actionTypes.SHOW_WIDGET: {
         return storeParams(state.update('showWidget', showWidget => true));
       }
@@ -35,9 +34,9 @@ export default function (inputFieldTextHint, initPayload, customData, socket) {
       case actionTypes.INITIALIZE: {
         return storeParams(state);
       }
-      // Pull params from sessionStorage to redux store
+      // Pull params from storage to redux store
       case actionTypes.PULL_SESSION: {
-        const localSession = getLocalSession(SESSION_NAME);
+        const localSession = getLocalSession(storage, SESSION_NAME);
         if (localSession) {
           return Map(localSession.params);
         } else {

@@ -9,12 +9,13 @@ import * as actionTypes from './actions/actionTypes';
 
 let store = "call initStore first";
 
-function initStore(hint, initPayload, customData, socket) {
+function initStore(hint, socket, storage) {
 
   const customMiddleWare = (store) => next => (action) => {
+    const session_id = (getLocalSession(storage, SESSION_NAME)? getLocalSession(storage, SESSION_NAME).session_id: null);
     switch (action.type) {
       case actionTypes.EMIT_NEW_USER_MESSAGE: {
-        socket.emit("user_uttered", { message: action.text, customData: socket.customData, session_id: (getLocalSession(SESSION_NAME)? getLocalSession(SESSION_NAME).session_id: null) });
+        socket.emit("user_uttered", { message: action.text, customData: socket.customData, session_id });
       }
       case actionTypes.GET_OPEN_STATE: {
         return store.getState().behavior.get("showChat");
@@ -28,8 +29,8 @@ function initStore(hint, initPayload, customData, socket) {
     next(action);
   };
   const reducer = combineReducers({ 
-    behavior: behavior(hint, initPayload, customData, socket), 
-    messages: messages(socket) 
+    behavior: behavior(hint, storage), 
+    messages: messages(storage) 
   });
 
   /* eslint-disable no-underscore-dangle */

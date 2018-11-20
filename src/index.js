@@ -8,11 +8,11 @@ import socket from './socket';
 
 const ConnectedWidget = (props) => {
   const sock = socket(props.socketUrl, props.customData, props.socketPath);
+  const storage = props.params.storage == "session" ? sessionStorage : localStorage
   initStore(
-    props.inputTextFieldHint, 
-    props.initPayload,
-    props.customData,
-    sock
+    props.inputTextFieldHint,
+    sock,
+    storage
     );
   return (<Provider store={store}>
     <Widget
@@ -29,6 +29,7 @@ const ConnectedWidget = (props) => {
       badge={props.badge}
       embedded={props.embedded}
       params={props.params}
+      storage={storage}
     />
   </Provider>);
 };
@@ -58,7 +59,10 @@ ConnectedWidget.defaultProps = {
   inputTextFieldHint: 'Type a message...',
   fullScreenMode: false,
   socketUrl: 'http://localhost',
-  badge: 0
+  badge: 0,
+  params: {
+    storage: "local"
+  }
 };
 
 export default ConnectedWidget;

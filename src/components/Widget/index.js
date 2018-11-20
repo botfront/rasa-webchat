@@ -20,8 +20,6 @@ import WidgetLayout from './layout';
 import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
 import { SESSION_NAME } from 'constants';
 
-const sessionName = "chat_session";
-
 class Widget extends Component {
 
   constructor(props) {
@@ -35,7 +33,7 @@ class Widget extends Component {
   }
 
   componentDidMount() {
-    const { initPayload, customData, socket } = this.props;
+    const { initPayload, customData, socket, storage } = this.props;
 
     socket.on('bot_uttered', (botUttered) => {
       this.messages.push(botUttered);
@@ -45,7 +43,7 @@ class Widget extends Component {
     this.props.dispatch(pullSession());
 
     // Get the local session, check if there is an existing session_id
-    const localSession = getLocalSession(SESSION_NAME);
+    const localSession = getLocalSession(storage, SESSION_NAME);
     const local_id = localSession? localSession.session_id: null
 
     // Send a session_request to the server
@@ -65,10 +63,10 @@ class Widget extends Component {
       if (local_id != remote_id) {
         socket.emit('user_uttered', { message: initPayload, customData, session_id: remote_id });
         
-        // Store the received session_id to sessionStorage
-        storeLocalSession(SESSION_NAME, remote_id);
+        // Store the received session_id to storage
+        storeLocalSession(storage, SESSION_NAME, remote_id);
 
-        // Store the initial state to both the redux store and the sessionStorage
+        // Store the initial state to both the redux store and the storage
         this.props.dispatch(initialize());
       }
     });

@@ -1,5 +1,5 @@
-import { Map, List } from 'immutable';
-import { MESSAGES_TYPES, MESSAGE_SENDER, SESSION_NAME } from 'constants';
+import { List } from 'immutable';
+import { MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
 import {
     createQuickReply,
@@ -8,23 +8,20 @@ import {
     createVideoSnippet,
     createImageSnippet,
     createComponentMessage,
-    getRemoteSession,
-    storeMessage,
+    storeMessageTo,
     getLocalSession
 } from './helper';
 
 import * as actionTypes from '../actions/actionTypes';
 
-import { Video, Image, Message, Snippet, QuickReply } from 'messagesComponents';
-
-export default function (socket) {
+export default function (storage) {
 
   const initialState = List([]);
 
   return function reducer(state = initialState, action) {
-  
+    const storeMessage = storeMessageTo(storage);
     switch (action.type) {
-      // Each change to the redux store's message list gets recorded to sessionStorage
+      // Each change to the redux store's message list gets recorded to storage
       case actionTypes.ADD_NEW_USER_MESSAGE: {
         return storeMessage(state.push(createNewMessage(action.text, MESSAGE_SENDER.CLIENT)))
       }
@@ -55,9 +52,9 @@ export default function (socket) {
       case actionTypes.DROP_MESSAGES: {
         return storeMessage(initialState)
       }
-      // Pull conversation from sessionStorage, parsing as immutable List
+      // Pull conversation from storage, parsing as immutable List
       case actionTypes.PULL_SESSION: {
-        const localSession = getLocalSession(SESSION_NAME);
+        const localSession = getLocalSession(storage, SESSION_NAME);
         if (localSession) {
           return List(localSession.conversation);
         } else {

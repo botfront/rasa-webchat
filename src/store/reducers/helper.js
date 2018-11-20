@@ -72,22 +72,12 @@ export function createComponentMessage(component, props, showAvatar) {
   });
 }
 
-export const requestSession = (socket) => async function(localID) {
-  return new Promise((resolve, reject) => {
-    socket.emit('session_request', ({ 'session_id': localID }));
-    socket.on('session_confirm', (remoteID) => {
-      console.log(`session_confirm:${socket.id} session_id:${remoteID}`);
-      resolve(remoteID);
-    });
-  })
-}
-
-export function getLocalSession(key) {
-  // Attempt to get local session from sessionStorage
-  const cachedSession = sessionStorage.getItem(key);
+export function getLocalSession(storage, key) {
+  // Attempt to get local session from storage
+  const cachedSession = storage.getItem(key);
   var session = null;
   if (cachedSession) {
-    // Found existing session in sessionStorage
+    // Found existing session in storage
     let parsedSession = JSON.parse(cachedSession)
     // Format conversation from array of object to immutable Map for use by messages components
     const formattedConversation = parsedSession.conversation
@@ -103,19 +93,17 @@ export function getLocalSession(key) {
       conversation: formattedConversation,
       params: formattedParams
     }
-  } else {
-    console.log("No existing local session");
   }
   // Returns a formatted session object if any found, otherwise return undefined
   return session;
 }
 
-export function storeLocalSession(key, sid) {
-  // Attempt to store session id to local sessionStorage
-  const cachedSession = sessionStorage.getItem(key);
+export function storeLocalSession(storage, key, sid) {
+  // Attempt to store session id to local storage
+  const cachedSession = storage.getItem(key);
   var session;
   if (cachedSession) {
-      // Found exisiting session in sessionStorage
+      // Found exisiting session in storage
     let parsedSession = JSON.parse(cachedSession)
     session = {
       ...parsedSession,
@@ -127,30 +115,30 @@ export function storeLocalSession(key, sid) {
       session_id: sid
     }
   }
-  // Store updated session to sessionStorage
-  sessionStorage.setItem(key, JSON.stringify(session));
+  // Store updated session to storage
+  storage.setItem(key, JSON.stringify(session));
 }
 
-export function storeMessage(conversation) {
-  // Store a conversation List to sessionStorage
-  const localSession = getLocalSession(SESSION_NAME);
+export const storeMessageTo = (storage) => (conversation) => {
+  // Store a conversation List to storage
+  const localSession = getLocalSession(storage, SESSION_NAME);
   const newSession = {
     // Since immutable List is not a native JS object, store conversation as array
     ...localSession,
     conversation: [...Array.from(conversation)].slice()
   }
-  sessionStorage.setItem(SESSION_NAME, JSON.stringify(newSession));
+  storage.setItem(SESSION_NAME, JSON.stringify(newSession));
   return conversation
 }
 
-export function storeParams(params) {
-  // Store a params List to sessionStorage
-  const localSession = getLocalSession(SESSION_NAME);
+export const storeParamsTo = (storage) => (params) => {
+  // Store a params List to storage
+  const localSession = getLocalSession(storage, SESSION_NAME);
   const newSession = {
     // Since immutable Map is not a native JS object, store conversation as array
     ...localSession,
     params: params.toJS()
   }
-  sessionStorage.setItem(SESSION_NAME, JSON.stringify(newSession));
+  storage.setItem(SESSION_NAME, JSON.stringify(newSession));
   return params
 }
