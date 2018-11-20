@@ -28,3 +28,4 @@ from the center.
 - In the case of `session`, session storage of the browser is used, and the session persists as long as the browser is open, and is erased after it is closed.
 - In the case of `local`, local storage of the browser is used and the session persists even after the browser is closed. The session is erased when the browser's cookies are cleared. 
 - Implemented connecting notifier and disabled input field before session_confirm is received from the server and the session is generated and synchronized.
+- Separate connecting to server and sending initPayload. Server is connected when the component mounts, while initPayload is sent when the chat is toggled open and the server is connected.
