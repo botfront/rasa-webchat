@@ -55,7 +55,7 @@ class Widget extends Component {
     // When session_confirm is received from the server:
     socket.on('session_confirm', (remote_id) => {
       console.log(`session_confirm:${socket.id} session_id:${remote_id}`);
-      
+      this.props.dispatch(connectServer());
       /*
       Check if the session_id is consistent with the server
       If the local_id is null or different from the remote_id,
@@ -68,7 +68,6 @@ class Widget extends Component {
         storeLocalSession(storage, SESSION_NAME, remote_id);
 
         // Store the initial state to both the redux store and the storage
-        this.props.dispatch(connectServer());
       }
     });
 
