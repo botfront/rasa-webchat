@@ -36,6 +36,7 @@ In your `<body/>`:
               height: 200,
             }
           }
+          storage: "local"
         }
     })
 </script>
@@ -51,6 +52,12 @@ is also available and is updated continuously with the latest version.
 `WebChat.show()` and `WebChat.hide()` can be used to show or hide the entire chat widget.
 
 `WebChat.isOpen()` and `WebChat.isVisible()` can be used to get the open state of the chat box and the visibility state of the entire widget.
+
+`storage` specifies the location where the the conversation and state of the WebChat is stored in the browser's storage. 
+
+`storage: "session"` defines the state to be stored in the session storage. The session storage persists on reload of the page, and is cleared after the browser or tab is closed, or when `sessionStorage.clear()`is called.
+
+`storage: "local"` defines the state to be stored in the local stoage. The local storage persists after the the browser is closed, and is cleared when the cookies of the browser are cleared, or when `localStorage.clear()`is called.
 
 #### As a React component
 
@@ -80,6 +87,7 @@ function CustomWidget = () => {
             height: 200
           }
         }
+        storage: "local"
       }
     />
   )

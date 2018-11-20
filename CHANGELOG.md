@@ -22,6 +22,8 @@ from the center.
 
 ## 0.4.3
 - Implemented session persistence for chat widget.
-- Chat messages and widget state params are stored in sessionStorage of the browser.
+- Chat messages and widget state params are stored in storage of the browser.
 - Sessions are synchronized with server by a session_id.
-- The session persists as long as the browser is open. Thus opening new tabs and refreshing the page will persist the conversation and the widget state.
+- The param `storage` is exposed which allows the user to specify where the session is stored.
+- In the case of `session`, session storage of the browser is used, and the session persists as long as the browser is open, and is erased after it is closed.
+- In the case of `local`, local storage of the browser is used and the session persists even after the browser is closed. The session is erased when the browser's cookies are cleared. 
