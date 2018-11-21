@@ -189,6 +189,16 @@ emit('bot_uttered', message, room=socket_id)
 The chat widget can communicate with any backend, but there is a [Rasa core channel
 available here](https://github.com/mrbot-ai/rasa-addons/)
 
+## API
+
+| Method                  |  Description                                                                                                       |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------|
+| WebChat.toggle()        | Toggle the open/close state of the chat window, send initPayload if webchat is not initialized and is toggled open |
+| WebChat.open()          | Open the chat window, send initPayload if webchat is not initialized                                               |
+| WebChat.close()         | Close the chat window                                                                                              |
+| WebChat.show()          | Show the chat widget, send initPayload if the chat is in open state and not initialized                            |
+| WebChat.hide()          | Hide the chat widget                                                                                               |
+
 
 ## Styles
 
@@ -198,6 +208,7 @@ hierarchy:
   |-- .header
         |-- .title
         |-- .close-function
+        |-- .loading
   |-- .messages-container
         |-- .message
               |-- .client
@@ -229,6 +240,7 @@ hierarchy:
 | .header                 | div of the top area with the chatbox header                         |
 | .title                  | the title element of the header                                     |
 | .close-button           | the close icon of the header                                        |
+| .loading                | the loading status element of the header                            |
 | .message                | the boxes holding the messages of client and response               |
 | .replies                | the area that gives quick reply options                             |
 | .snippet                | a component for describing links                                    |
@@ -241,3 +253,4 @@ hierarchy:
 [@znat](https://github.com/znat)
 [@TheoTomalty](https://github.com/TheoTomalty)
 [@Hub4IT](https://github.com/Hub4IT)
+[@dliuproduction](https://github.com/dliuproduction)
