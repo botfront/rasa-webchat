@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import close from 'assets/clear-button.svg';
 import './style.scss';
 
-const Header = ({ title, subtitle, toggleChat, showCloseButton, connected }) =>
+const Header = ({ title, subtitle, toggleChat, showCloseButton, connected, connectingText }) =>
   <div>
     <div className="header">
     {
@@ -19,7 +19,7 @@ const Header = ({ title, subtitle, toggleChat, showCloseButton, connected }) =>
   {
     !connected &&
     <span className="loading">
-      Connecting...
+      {connectingText}
     </span>
   }
   </div>
@@ -29,7 +29,8 @@ Header.propTypes = {
   subtitle: PropTypes.string,
   toggleChat: PropTypes.func,
   showCloseButton: PropTypes.bool,
-  connected: PropTypes.bool
+  connected: PropTypes.bool,
+  connectingText: PropTypes.string
 };
 
 export default Header;

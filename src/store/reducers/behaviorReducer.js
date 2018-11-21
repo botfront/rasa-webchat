@@ -3,8 +3,16 @@ import * as actionTypes from '../actions/actionTypes';
 import { SESSION_NAME } from 'constants';
 import { getLocalSession, storeParamsTo } from './helper';
 
-export default function (inputFieldTextHint, storage) {
-  const initialState = Map({ connected: false, initialized: false, showWidget: true, showChat: false, disabledInput: true, inputFieldTextHint });
+export default function (inputFieldTextHint, connectingText, storage) {
+  const initialState = Map({ 
+    connected: false, 
+    initialized: false, 
+    showWidget: true, 
+    showChat: false, 
+    disabledInput: true, 
+    inputFieldTextHint, 
+    connectingText 
+  });
 
   return function reducer(state = initialState, action) {
     const storeParams = storeParamsTo(storage);

@@ -15,6 +15,7 @@ const plugin = {
         subtitle={args.subtitle}
         customData={args.customData}
         inputTextFieldHint={args.inputTextFieldHint}
+        connectingText={args.connectingText}
         profileAvatar={args.profileAvatar}
         showCloseButton={args.showCloseButton}
         fullScreenMode={args.fullScreenMode}

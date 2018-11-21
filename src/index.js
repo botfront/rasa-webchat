@@ -11,6 +11,7 @@ const ConnectedWidget = (props) => {
   const storage = props.params.storage == "session" ? sessionStorage : localStorage
   initStore(
     props.inputTextFieldHint,
+    props.connectingText,
     sock,
     storage
     );
@@ -45,6 +46,7 @@ ConnectedWidget.propTypes = {
   handleNewUserMessage: PropTypes.func,
   profileAvatar: PropTypes.string,
   inputTextFieldHint: PropTypes.string,
+  connectingText: PropTypes.string,
   showCloseButton: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
@@ -57,6 +59,7 @@ ConnectedWidget.defaultProps = {
   customData: {},
   interval: 2000,
   inputTextFieldHint: 'Type a message...',
+  connectingText: 'Waiting for server...',
   fullScreenMode: false,
   socketUrl: 'http://localhost',
   badge: 0,

@@ -9,7 +9,7 @@ import * as actionTypes from './actions/actionTypes';
 
 let store = "call initStore first";
 
-function initStore(hint, socket, storage) {
+function initStore(hintText, connectingText, socket, storage) {
 
   const customMiddleWare = (store) => next => (action) => {
     const session_id = (getLocalSession(storage, SESSION_NAME)? getLocalSession(storage, SESSION_NAME).session_id: null);
@@ -29,7 +29,7 @@ function initStore(hint, socket, storage) {
     next(action);
   };
   const reducer = combineReducers({ 
-    behavior: behavior(hint, storage), 
+    behavior: behavior(hintText, connectingText, storage), 
     messages: messages(storage) 
   });
 

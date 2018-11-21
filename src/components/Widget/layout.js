@@ -31,6 +31,7 @@ const WidgetLayout = (props) => {
           params={props.params}
           {...{ showCloseButton }}
           connected={props.connected}
+          connectingText={props.connectingText}
         />
       }
       {
@@ -58,12 +59,14 @@ WidgetLayout.propTypes = {
   badge: PropTypes.number,
   embedded: PropTypes.bool,
   params: PropTypes.object,
-  connected: PropTypes.bool
+  connected: PropTypes.bool,
+  connectingText: PropTypes.string,
 };
 
 export default connect(store => ({
   showWidget: store.behavior.get('showWidget'),
   showChat: store.behavior.get('showChat'),
   disabledInput: store.behavior.get('disabledInput'),
-  connected: store.behavior.get('connected')
+  connected: store.behavior.get('connected'),
+  connectingText: store.behavior.get('connectingText')
 }))(WidgetLayout);
