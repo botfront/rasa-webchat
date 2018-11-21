@@ -76,7 +76,7 @@ class Widget extends Component {
       this.props.dispatch(disconnectServer());
     });
 
-    if (this.props.embedded || this.props.fullScreenMode) {
+    if (this.props.embedded) {
       this.toggleConversation();
     }
   }
@@ -156,7 +156,7 @@ class Widget extends Component {
   render() {
     return (
       <WidgetLayout
-        onToggleConversation={this.toggleConversation}
+        toggleChat={this.toggleConversation}
         onSendMessage={this.handleMessageSubmit}
         title={this.props.title}
         subtitle={this.props.subtitle}
@@ -164,8 +164,8 @@ class Widget extends Component {
         profileAvatar={this.props.profileAvatar}
         showCloseButton={this.props.showCloseButton}
         fullScreenMode={this.props.fullScreenMode}
-        showWidget={this.props.showWidget}
-        showChat={this.props.showChat}
+        isChatOpen={this.props.isChatOpen}
+        isChatVisible={this.props.isChatVisible}
         badge={this.props.badge}
         embedded={this.props.embedded}
         params={this.props.params}
@@ -177,8 +177,8 @@ class Widget extends Component {
 const mapStateToProps = state => ({
   initialized: state.behavior.get('initialized'),
   connected: state.behavior.get('connected'),
-  showChat: state.behavior.get('showChat'),
-  showWidget: state.behavior.get('showWidget')
+  isChatOpen: state.behavior.get('isChatOpen'),
+  isChatVisible: state.behavior.get('isChatVisible')
 });
 
 Widget.propTypes = {
@@ -190,8 +190,8 @@ Widget.propTypes = {
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
-  showWidget: PropTypes.bool,
-  showChat: PropTypes.bool,
+  isChatVisible: PropTypes.bool,
+  isChatOpen: PropTypes.bool,
   badge: PropTypes.number,
   socket: PropTypes.shape({}),
   embedded: PropTypes.bool,

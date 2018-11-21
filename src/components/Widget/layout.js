@@ -11,22 +11,20 @@ const WidgetLayout = (props) => {
   if (props.fullScreenMode) {
     classes.push('full-screen');
   }
-  const showCloseButton = props.showCloseButton !== undefined ? props.showCloseButton : (
-    !props.fullScreenMode && !props.embedded
-  );
+  const showCloseButton = props.showCloseButton !== undefined ? props.showCloseButton : !props.embedded;
 
   return (
-    props.showWidget ? 
+    props.isChatVisible ? 
     <div className={classes.join(' ')}>
       {
-        (props.fullScreenMode || props.showChat || props.embedded) &&
+        (props.isChatOpen || props.embedded) &&
         <Conversation
           title={props.title}
           subtitle={props.subtitle}
           sendMessage={props.onSendMessage}
           profileAvatar={props.profileAvatar}
-          toggleChat={props.onToggleConversation}
-          showChat={props.showChat}
+          toggleChat={props.toggleChat}
+          isChatOpen={props.isChatOpen}
           disabledInput={props.disabledInput}
           params={props.params}
           {...{ showCloseButton }}
@@ -35,9 +33,10 @@ const WidgetLayout = (props) => {
         />
       }
       {
-        !props.fullScreenMode && !props.embedded &&
+        !props.embedded &&
         <Launcher
-          toggle={props.onToggleConversation}
+          toggle={props.toggleChat}
+          isChatOpen={props.isChatOpen}
           badge={props.badge}
         />
       }
@@ -50,8 +49,9 @@ WidgetLayout.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   onSendMessage: PropTypes.func,
-  onToggleConversation: PropTypes.func,
-  showChat: PropTypes.bool,
+  toggleChat: PropTypes.func,
+  isChatOpen: PropTypes.bool,
+  isChatVisible: PropTypes.bool,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
   disabledInput: PropTypes.bool,
@@ -64,8 +64,8 @@ WidgetLayout.propTypes = {
 };
 
 export default connect(store => ({
-  showWidget: store.behavior.get('showWidget'),
-  showChat: store.behavior.get('showChat'),
+  isChatVisible: store.behavior.get('isChatVisible'),
+  isChatOpen: store.behavior.get('isChatOpen'),
   disabledInput: store.behavior.get('disabledInput'),
   connected: store.behavior.get('connected'),
   connectingText: store.behavior.get('connectingText')
