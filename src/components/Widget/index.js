@@ -81,6 +81,13 @@ class Widget extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if ((prevProps.showChat != this.props.showChat && prevProps.showChat == false) || 
+        (prevProps.showWidget != this.props.showWidget && prevProps.showWidget == false && this.props.showChat == true)) {
+      this.sendInitPayload();
+    }
+  }
+
   getSessionId() {
     const { storage } = this.props;
     // Get the local session, check if there is an existing session_id
@@ -88,6 +95,22 @@ class Widget extends Component {
     const local_id = localSession? localSession.session_id: null;
     return local_id;
   }
+
+  sendInitPayload = () => {
+    // Send initial payload when chat is opened or widget is shown
+    const { initPayload, customData, socket } = this.props;
+    if (this.props.connected && !this.props.initialized ) {
+      // Only send initial payload if the widget is connected to the server but not yet initialized
+      const session_id = this.getSessionId();
+      socket.emit('user_uttered', { message: initPayload, customData, session_id: session_id });
+      console.log("sent init payload");
+      this.props.dispatch(initialize());
+    }
+  }
+
+  toggleConversation = () => {
+    this.props.dispatch(toggleChat());
+  };
 
   dispatchMessage(message) {
     if (Object.keys(message).length === 0) {
@@ -119,19 +142,6 @@ class Widget extends Component {
       }));
     }
   }
-
-  toggleConversation = () => {
-    // Send initial payload when chat icon is clicked
-    const { initPayload, customData, socket } = this.props;
-    this.props.dispatch(toggleChat());
-
-    if (this.props.connected && !this.props.initialized ) {
-      // Only send initial payload if the widget is connected to the server but not yet initialized
-      const session_id = this.getSessionId();
-      socket.emit('user_uttered', { message: initPayload, customData, session_id: session_id });
-      this.props.dispatch(initialize());
-    }
-  };
 
   handleMessageSubmit = (event) => {
     event.preventDefault();
@@ -166,7 +176,9 @@ class Widget extends Component {
 
 const mapStateToProps = state => ({
   initialized: state.behavior.get('initialized'),
-  connected: state.behavior.get('connected')
+  connected: state.behavior.get('connected'),
+  showChat: state.behavior.get('showChat'),
+  showWidget: state.behavior.get('showWidget')
 });
 
 Widget.propTypes = {
