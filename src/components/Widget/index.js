@@ -41,12 +41,10 @@ class Widget extends Component {
       this.messages.push(botUttered);
     });
 
-    const local_id = this.getSessionId();
-
-    /* Request a session from server */
     this.props.dispatch(pullSession());
 
-    // Send a session_request to the server
+    // Request a session from server
+    const local_id = this.getSessionId();
     socket.on('connect', () => {
       socket.emit('session_request', ({ 'session_id': local_id }));
     });
@@ -62,7 +60,8 @@ class Widget extends Component {
       Check if the session_id is consistent with the server
       If the local_id is null or different from the remote_id,
       start a new session.
-      */
+      */    
+     
       if (local_id != remote_id) {
         
         storage.clear();
@@ -82,10 +81,7 @@ class Widget extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if ((prevProps.showChat != this.props.showChat && prevProps.showChat == false) || 
-        (prevProps.showWidget != this.props.showWidget && prevProps.showWidget == false && this.props.showChat == true)) {
-      this.sendInitPayload();
-    }
+    this.trySendInitPayload(prevProps);
   }
 
   getSessionId() {
@@ -96,14 +92,23 @@ class Widget extends Component {
     return local_id;
   }
 
-  sendInitPayload = () => {
+  trySendInitPayload = () => {
+    const { 
+      initPayload, 
+      customData, 
+      socket, 
+      initialized, 
+      isChatOpen, 
+      isChatVisible, 
+      embedded, 
+      connected 
+    } = this.props;
+
     // Send initial payload when chat is opened or widget is shown
-    const { initPayload, customData, socket } = this.props;
-    if (this.props.connected && !this.props.initialized ) {
+    if (!initialized && connected && (((isChatOpen && isChatVisible) || embedded))) {
       // Only send initial payload if the widget is connected to the server but not yet initialized
       const session_id = this.getSessionId();
       socket.emit('user_uttered', { message: initPayload, customData, session_id: session_id });
-      console.log("sent init payload");
       this.props.dispatch(initialize());
     }
   }
