@@ -7,8 +7,8 @@ import openLauncher from 'assets/launcher_button.svg';
 import close from 'assets/clear-button.svg';
 import './style.scss';
 
-const Launcher = ({ toggle, isChatOpen, badge }) =>
-  <button type="button" className={isChatOpen ? 'launcher hide-sm' : 'launcher'} onClick={toggle}>
+const Launcher = ({ toggle, isChatOpen, badge, fullScreenMode }) =>
+  <button type="button" className={(isChatOpen ? 'launcher hide-sm' : 'launcher') + (fullScreenMode ? ` full-screen${isChatOpen ? '  hide' : ''}` : '')} onClick={toggle}>
     <Badge badge ={badge} />
     {
       isChatOpen ?
@@ -20,7 +20,8 @@ const Launcher = ({ toggle, isChatOpen, badge }) =>
 Launcher.propTypes = {
   toggle: PropTypes.func,
   isChatOpen: PropTypes.bool,
-  badge: PropTypes.number
+  badge: PropTypes.number,
+  fullScreenMode: PropTypes.bool
 };
 
 export default Launcher;

@@ -16,6 +16,14 @@
   &:focus {
     outline: none;
   }
+  
+  &.hide {
+    display: none
+  }
+
+  &.full-screen {
+    @include launcher-fs;
+  }
 }
 
 .open-launcher {
@@ -27,11 +35,7 @@
   @include animation(0, 0.5s, rotation-lr);
 }
 
-@media screen {
-  .launcher {
-    @include launcher-fs;
-  }
-
+@media screen and (max-width: 800px){
   .hide-sm {
     display: none;
   }

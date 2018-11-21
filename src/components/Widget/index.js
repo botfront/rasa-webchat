@@ -80,8 +80,8 @@ class Widget extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    this.trySendInitPayload(prevProps);
+  componentDidUpdate() {
+    this.trySendInitPayload();
   }
 
   getSessionId() {

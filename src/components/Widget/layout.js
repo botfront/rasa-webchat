@@ -38,6 +38,7 @@ const WidgetLayout = (props) => {
           toggle={props.toggleChat}
           isChatOpen={props.isChatOpen}
           badge={props.badge}
+          fullScreenMode={props.fullScreenMode}
         />
       }
     </div>
