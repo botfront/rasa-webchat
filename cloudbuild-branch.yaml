@@ -1,0 +1,9 @@
+steps:
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['install']
+- name: 'gcr.io/cloud-builders/npm'
+  args: ['run','build']
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp', 'lib/index.js', 'gs://mrbot-cdn/webchat-$BRANCH_NAME.js']
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['acl', 'ch', '-u', 'AllUsers:R', 'gs://mrbot-cdn/webchat-$BRANCH_NAME.js']
