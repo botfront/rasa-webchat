@@ -18,10 +18,10 @@ function initStore(hintText, connectingText, socket, storage) {
         socket.emit("user_uttered", { message: action.text, customData: socket.customData, session_id });
       }
       case actionTypes.GET_OPEN_STATE: {
-        return store.getState().behavior.get("showChat");
+        return store.getState().behavior.get("isChatOpen");
       }
       case actionTypes.GET_VISIBLE_STATE: {
-        return store.getState().behavior.get("showWidget");
+        return store.getState().behavior.get("isChatVisible");
       }
     }
 

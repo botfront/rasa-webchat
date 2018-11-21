@@ -61,24 +61,24 @@ export function renderCustomComponent(component, props, showAvatar = false) {
   store.dispatch(actions.renderCustomComponent(component, props, showAvatar));
 }
 
-export function showWidget() {
-  store.dispatch(actions.showWidget());
-}
-
-export function hideWidget() {
-  store.dispatch(actions.hideWidget());
-}
-
-export function toggleWidget() {
-  store.dispatch(actions.toggleChat());
-}
-
-export function openWidget() {
+export function openChat() {
   store.dispatch(actions.openChat());
 }
 
-export function closeWidget() {
+export function closeChat() {
   store.dispatch(actions.closeChat());
+}
+
+export function toggleChat() {
+  store.dispatch(actions.toggleChat());
+}
+
+export function showChat() {
+  store.dispatch(actions.showChat());
+}
+
+export function hideChat() {
+  store.dispatch(actions.hideChat());
 }
 
 export function toggleInputDisabled() {

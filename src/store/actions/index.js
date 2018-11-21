@@ -30,15 +30,15 @@ export function getVisibleState() {
   };
 }
 
-export function showWidget() {
+export function showChat() {
   return {
-    type: actions.SHOW_WIDGET
+    type: actions.SHOW_CHAT
   };
 }
 
-export function hideWidget() {
+export function hideChat() {
   return {
-    type: actions.HIDE_WIDGET
+    type: actions.HIDE_CHAT
   };
 }
 

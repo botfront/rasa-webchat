@@ -7,11 +7,11 @@ import openLauncher from 'assets/launcher_button.svg';
 import close from 'assets/clear-button.svg';
 import './style.scss';
 
-const Launcher = ({ toggle, chatOpened, badge }) =>
-  <button type="button" className={chatOpened ? 'launcher hide-sm' : 'launcher'} onClick={toggle}>
+const Launcher = ({ toggle, isChatOpen, badge }) =>
+  <button type="button" className={isChatOpen ? 'launcher hide-sm' : 'launcher'} onClick={toggle}>
     <Badge badge ={badge} />
     {
-      chatOpened ?
+      isChatOpen ?
         <img src={close} className="close-launcher" alt="" /> :
         <img src={openLauncher} className="open-launcher" alt="" />
     }
@@ -19,10 +19,8 @@ const Launcher = ({ toggle, chatOpened, badge }) =>
 
 Launcher.propTypes = {
   toggle: PropTypes.func,
-  chatOpened: PropTypes.bool,
+  isChatOpen: PropTypes.bool,
   badge: PropTypes.number
 };
 
-export default connect(store => ({
-  chatOpened: store.behavior.get('showChat')
-}))(Launcher);
+export default Launcher;

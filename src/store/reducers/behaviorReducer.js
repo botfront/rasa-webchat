@@ -7,8 +7,8 @@ export default function (inputFieldTextHint, connectingText, storage) {
   const initialState = Map({ 
     connected: false, 
     initialized: false, 
-    showWidget: true, 
-    showChat: false, 
+    isChatVisible: true, 
+    isChatOpen: false, 
     disabledInput: true, 
     inputFieldTextHint, 
     connectingText 
@@ -18,20 +18,20 @@ export default function (inputFieldTextHint, connectingText, storage) {
     const storeParams = storeParamsTo(storage);
     switch (action.type) {
       // Each change to the redux store's behavior Map gets recorded to storage
-      case actionTypes.SHOW_WIDGET: {
-        return storeParams(state.update('showWidget', showWidget => true));
+      case actionTypes.SHOW_CHAT: {
+        return storeParams(state.update('isChatVisible', isChatVisible => true));
       }
-      case actionTypes.HIDE_WIDGET: {
-        return storeParams(state.update('showWidget', showWidget => false));
+      case actionTypes.HIDE_CHAT: {
+        return storeParams(state.update('isChatVisible', isChatVisible => false));
       }
       case actionTypes.TOGGLE_CHAT: {
-        return storeParams(state.update('showChat', showChat => !showChat));
+        return storeParams(state.update('isChatOpen', isChatOpen => !isChatOpen));
       }
       case actionTypes.OPEN_CHAT: {
-        return storeParams(state.update('showChat', showChat => true));
+        return storeParams(state.update('isChatOpen', isChatOpen => true));
       }
       case actionTypes.CLOSE_CHAT: {
-        return storeParams(state.update('showChat', showChat => false));
+        return storeParams(state.update('isChatOpen', isChatOpen => false));
       }
       case actionTypes.TOGGLE_INPUT_DISABLED: {
         return storeParams(state.update('disabledInput', disabledInput => !disabledInput));
