@@ -63,6 +63,7 @@ ConnectedWidget.defaultProps = {
   fullScreenMode: false,
   socketUrl: 'http://localhost',
   badge: 0,
+  embedded: false,
   params: {
     storage: "local"
   }

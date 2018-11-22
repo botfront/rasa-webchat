@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   toggleChat,
+  openChat,
+  showChat,
   addUserMessage,
   emitUserMessage,
   addResponseMessage,
@@ -76,7 +78,8 @@ class Widget extends Component {
     });
 
     if (this.props.embedded) {
-      this.toggleConversation();
+      this.props.dispatch(showChat());
+      this.props.dispatch(openChat());
     }
   }
 

@@ -46,6 +46,14 @@ const WidgetLayout = (props) => {
   );
 };
 
+const mapStateToProps = state => ({
+  isChatVisible: state.behavior.get('isChatVisible'),
+  isChatOpen: state.behavior.get('isChatOpen'),
+  disabledInput: state.behavior.get('disabledInput'),
+  connected: state.behavior.get('connected'),
+  connectingText: state.behavior.get('connectingText')
+})
+
 WidgetLayout.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
@@ -64,10 +72,4 @@ WidgetLayout.propTypes = {
   connectingText: PropTypes.string,
 };
 
-export default connect(store => ({
-  isChatVisible: store.behavior.get('isChatVisible'),
-  isChatOpen: store.behavior.get('isChatOpen'),
-  disabledInput: store.behavior.get('disabledInput'),
-  connected: store.behavior.get('connected'),
-  connectingText: store.behavior.get('connectingText')
-}))(WidgetLayout);
+export default connect(mapStateToProps)(WidgetLayout);
