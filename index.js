@@ -21,6 +21,7 @@ const plugin = {
         fullScreenMode={args.fullScreenMode}
         badge={args.badge}
         params={args.params}
+        embedded={args.embedded}
       />, document.querySelector(args.selector)
     );
   }
