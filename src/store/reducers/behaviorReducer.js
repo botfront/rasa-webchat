@@ -51,7 +51,7 @@ export default function (inputFieldTextHint, connectingText, storage) {
       // Pull params from storage to redux store
       case actionTypes.PULL_SESSION: {
         const localSession = getLocalSession(storage, SESSION_NAME);
-        if (localSession) {
+        if (localSession && localSession.params) {
           return Map(localSession.params);
         } else {
           return state

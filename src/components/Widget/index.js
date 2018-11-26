@@ -63,12 +63,14 @@ class Widget extends Component {
       If the local_id is null or different from the remote_id,
       start a new session.
       */    
-     
-      if (local_id != remote_id) {
+      if (local_id !== remote_id) {
         
-        storage.clear();
+        // storage.clear();
         // Store the received session_id to storage
+        
         storeLocalSession(storage, SESSION_NAME, remote_id);
+        this.props.dispatch(pullSession());
+        this.trySendInitPayload()
       }
     });
 
@@ -77,14 +79,19 @@ class Widget extends Component {
       this.props.dispatch(disconnectServer());
     });
 
-    if (this.props.embedded) {
+    if (this.props.embedded && this.props.initialized) {
       this.props.dispatch(showChat());
       this.props.dispatch(openChat());
     }
   }
 
   componentDidUpdate() {
+    this.props.dispatch(pullSession());
     this.trySendInitPayload();
+    if (this.props.embedded && this.props.initialized) {
+      this.props.dispatch(showChat());
+      this.props.dispatch(openChat());
+    }
   }
 
   getSessionId() {
@@ -95,6 +102,10 @@ class Widget extends Component {
     return local_id;
   }
 
+  // TODO: Need to erase redux store on load if localStorage
+  // is erased. Then behavior on reload can be consistent with 
+  // behavior on first load
+
   trySendInitPayload = () => {
     const { 
       initPayload, 
@@ -102,15 +113,21 @@ class Widget extends Component {
       socket, 
       initialized, 
       isChatOpen, 
-      isChatVisible, 
+      isChatVisible,
       embedded, 
       connected 
     } = this.props;
 
     // Send initial payload when chat is opened or widget is shown
     if (!initialized && connected && (((isChatOpen && isChatVisible) || embedded))) {
+      console.log(initialized,connected)
       // Only send initial payload if the widget is connected to the server but not yet initialized
+      
       const session_id = this.getSessionId();
+
+      // check that session_id is confirmed
+      if (!session_id) return
+      console.log("sending init payload", session_id)
       socket.emit('user_uttered', { message: initPayload, customData, session_id: session_id });
       this.props.dispatch(initialize());
     }
@@ -206,6 +223,11 @@ Widget.propTypes = {
   params: PropTypes.object,
   connected: PropTypes.bool,
   initialized: PropTypes.bool
+};
+
+Widget.defaultProps = {
+  isChatOpen: false,
+  isChatVisible: true,
 };
 
 export default connect(mapStateToProps)(Widget);
