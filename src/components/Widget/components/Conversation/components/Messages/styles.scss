@@ -9,6 +9,13 @@
   padding-top: 10px;
 }
 
+.widget-embedded {
+  .messages-container {
+    height: 100vh;
+    max-height: 100%;
+  }
+}
+
 .full-screen {
 
   .messages-container {

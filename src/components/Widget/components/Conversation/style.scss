@@ -13,6 +13,21 @@
   @include animation(0, 0.5s, slide-out);
 }
 
+.widget-embedded {
+  .conversation-container {
+    @include animation(0, 0s, slide-in); // disable animation
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-height: 100%;
+    overflow: unset;
+  }
+
+  .slide-out {
+    @include animation(0, 0s, slide-out); // disable animation
+  }
+}
+
 .full-screen {
 
   .conversation-container {

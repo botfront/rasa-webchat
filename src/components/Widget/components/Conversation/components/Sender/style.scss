@@ -21,6 +21,12 @@
   }
 }
 
+.widget-embedded {
+  .sender {
+    flex: 0, 0, auto;
+  }
+}
+
 .send {
   background: $grey-2;
   border: 0;
