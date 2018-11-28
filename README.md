@@ -3,21 +3,24 @@
 A simple webchat widget to connect with a chatbot. Forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget)
 ## Features
 
-- Plain text message UI
-- Snippet style for links (only as responses for now)
+- Text Messages 
 - Quick Replies
-- Compatible with Messenger Platform API
+- Images and Videos
+- Snippet style for links (only as responses for now)
+- Markdown support
+- Easy to import in a script tag or as a React Component
+- Persistent sessions
 
 ![demonstration](./assets/chat-demonstration.gif)
 
-## Usage
+## Setup
 
-#### As a script 
+### In a `<script> tag 
 
 In your `<body/>`:
 ```javascript
 <div id="webchat"/>
-<script src="https://storage.googleapis.com/mrbot-cdn/webchat-0.4.1.js"></script>
+<script src="https://storage.googleapis.com/mrbot-cdn/webchat-0.5.0.js"></script>
 <script>
   WebChat.default.init({
     selector: "#webchat",
@@ -50,15 +53,7 @@ About images: `width` and `height` define the size in pixels that images in mess
 It is recommended to use a particular version (i.e. "webchat-<version>.js") however the file "webchat-latest.js"
 is also available and is updated continuously with the latest version.
 
-#### Session Persistence
-
-`storage` specifies the location where the the conversation and state of the WebChat is stored in the browser's storage. 
-
-`storage: "session"` defines the state to be stored in the session storage. The session storage persists on reload of the page, and is cleared after the browser or tab is closed, or when `sessionStorage.clear()`is called.
-
-`storage: "local"` defines the state to be stored in the local stoage. The local storage persists after the the browser is closed, and is cleared when the cookies of the browser are cleared, or when `localStorage.clear()`is called.
-
-#### As a React component
+### As a React component
 
 Install the package from GitHub by running:
 ```bash
@@ -98,9 +93,14 @@ function CustomWidget = () => {
 - Make sure to have the prop `embedded`
 set to `true` if you don't want to see the launcher.
 
-## In your backend.
+### Backend
 
-Your backend should expose a socket with [socket.io](http://socket.io)
+#### Rasa Core
+
+Use the SocketIOInput channel: See [instructions in the Rasa Core documentation](https://rasa.com/docs/core/connectors/#socketio-connector)
+
+#### Others
+Your backend must expose a socket with [socket.io](http://socket.io)
 
 ### Receiving messages from the chat
 
@@ -112,13 +112,13 @@ Your backend should expose a socket with [socket.io](http://socket.io)
 
 ### Sending messages from the backend to the chat widget
 
-#### sending plain text
+##### sending plain text
 
 ```python
-emit('bot_uttered', {"text": "hello"}, room=socket_id)
+emit('bot_uttered', {"text": "hello"}, room=session_id)
 ```
 
-#### sending quick replies
+##### sending quick replies
 
 ```python
 message = {
@@ -130,7 +130,7 @@ message = {
 emit('bot_uttered', message, room=socket_id)
 ```
 
-#### sending a link Snippet
+##### sending a link Snippet
 
 Admittedly a bit far fetched, thinking that Snippets would evolve to carousels
 of generic templates :)
@@ -157,7 +157,7 @@ message = {
 emit('bot_uttered', message, room=socket_id)
 ```
 
-#### sending a Video Message
+##### sending a Video Message
 
 ```python
 message = {
@@ -172,7 +172,7 @@ message = {
 emit('bot_uttered', message, room=socket_id)
 ```
 
-#### sending an Image Message
+##### sending an Image Message
 
 ```python
 message = {
@@ -186,9 +186,19 @@ message = {
     }
 emit('bot_uttered', message, room=socket_id)
 ```
-#### Using with Rasa
-The chat widget can communicate with any backend, but there is a [Rasa core channel
-available here](https://github.com/mrbot-ai/rasa-addons/)
+
+
+## Usage
+
+### Session Persistence
+
+`storage` specifies the location where the the conversation and state of the WebChat is stored in the browser's storage. 
+
+`storage: "session"` defines the state to be stored in the session storage. The session storage persists on reload of the page, and is cleared after the browser or tab is closed, or when `sessionStorage.clear()`is called.
+
+`storage: "local"` defines the state to be stored in the local stoage. The local storage persists after the the browser is closed, and is cleared when the cookies of the browser are cleared, or when `localStorage.clear()`is called.
+
+
 
 ## API
 
