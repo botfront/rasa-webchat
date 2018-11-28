@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   toggleChat,
+  openChat,
+  showChat,
   addUserMessage,
   emitUserMessage,
   addResponseMessage,
@@ -11,11 +13,16 @@ import {
   addVideoSnippet,
   addImageSnippet,
   addQuickReply,
-  initialize
+  initialize,
+  connectServer,
+  disconnectServer,
+  pullSession
 } from 'actions';
+
 import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
 import WidgetLayout from './layout';
-
+import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
+import { SESSION_NAME } from 'constants';
 
 class Widget extends Component {
 
@@ -30,16 +37,104 @@ class Widget extends Component {
   }
 
   componentDidMount() {
-    const { socket } = this.props;
+    const { socket, storage } = this.props;
 
     socket.on('bot_uttered', (botUttered) => {
       this.messages.push(botUttered);
     });
 
-    if (this.props.embedded || this.props.fullScreenMode) {
-      this.toggleConversation();
+    this.props.dispatch(pullSession());
+
+    // Request a session from server
+    const local_id = this.getSessionId();
+    socket.on('connect', () => {
+      socket.emit('session_request', ({ 'session_id': local_id }));
+    });
+
+    // When session_confirm is received from the server:
+    socket.on('session_confirm', (remote_id) => {
+      console.log(`session_confirm:${socket.id} session_id:${remote_id}`);
+
+      // Store the initial state to both the redux store and the storage, set connected to true
+      this.props.dispatch(connectServer());
+
+      /*
+      Check if the session_id is consistent with the server
+      If the local_id is null or different from the remote_id,
+      start a new session.
+      */    
+      if (local_id !== remote_id) {
+        
+        // storage.clear();
+        // Store the received session_id to storage
+        
+        storeLocalSession(storage, SESSION_NAME, remote_id);
+        this.props.dispatch(pullSession());
+        this.trySendInitPayload()
+      }
+    });
+
+    socket.on('disconnect', (reason) => {
+      console.log(reason);
+      this.props.dispatch(disconnectServer());
+    });
+
+    if (this.props.embedded && this.props.initialized) {
+      this.props.dispatch(showChat());
+      this.props.dispatch(openChat());
     }
   }
+
+  componentDidUpdate() {
+    this.props.dispatch(pullSession());
+    this.trySendInitPayload();
+    if (this.props.embedded && this.props.initialized) {
+      this.props.dispatch(showChat());
+      this.props.dispatch(openChat());
+    }
+  }
+
+  getSessionId() {
+    const { storage } = this.props;
+    // Get the local session, check if there is an existing session_id
+    const localSession = getLocalSession(storage, SESSION_NAME);
+    const local_id = localSession? localSession.session_id: null;
+    return local_id;
+  }
+
+  // TODO: Need to erase redux store on load if localStorage
+  // is erased. Then behavior on reload can be consistent with 
+  // behavior on first load
+
+  trySendInitPayload = () => {
+    const { 
+      initPayload, 
+      customData, 
+      socket, 
+      initialized, 
+      isChatOpen, 
+      isChatVisible,
+      embedded, 
+      connected 
+    } = this.props;
+
+    // Send initial payload when chat is opened or widget is shown
+    if (!initialized && connected && (((isChatOpen && isChatVisible) || embedded))) {
+      // Only send initial payload if the widget is connected to the server but not yet initialized
+      
+      const session_id = this.getSessionId();
+
+      // check that session_id is confirmed
+      if (!session_id) return
+      console.log("sending init payload", session_id)
+      socket.emit('user_uttered', { message: initPayload, customData, session_id: session_id });
+      this.props.dispatch(initialize());
+    }
+  }
+
+  toggleConversation = () => {
+    this.props.dispatch(toggleChat());
+  };
 
   dispatchMessage(message) {
     if (Object.keys(message).length === 0) {
@@ -72,16 +167,6 @@ class Widget extends Component {
     }
   }
 
-  toggleConversation = () => {
-    this.props.dispatch(toggleChat());
-
-    const { initPayload, initialized, customData, socket } = this.props;
-    if (!initialized) {
-      this.props.dispatch(initialize());
-      socket.emit('user_uttered', { message: initPayload, customData });
-    }
-  };
-
   handleMessageSubmit = (event) => {
     event.preventDefault();
     const userUttered = event.target.message.value;
@@ -95,7 +180,7 @@ class Widget extends Component {
   render() {
     return (
       <WidgetLayout
-        onToggleConversation={this.toggleConversation}
+        toggleChat={this.toggleConversation}
         onSendMessage={this.handleMessageSubmit}
         title={this.props.title}
         subtitle={this.props.subtitle}
@@ -103,8 +188,8 @@ class Widget extends Component {
         profileAvatar={this.props.profileAvatar}
         showCloseButton={this.props.showCloseButton}
         fullScreenMode={this.props.fullScreenMode}
-        showWidget={this.props.showWidget}
-        showChat={this.props.showChat}
+        isChatOpen={this.props.isChatOpen}
+        isChatVisible={this.props.isChatVisible}
         badge={this.props.badge}
         embedded={this.props.embedded}
         params={this.props.params}
@@ -114,7 +199,10 @@ class Widget extends Component {
 }
 
 const mapStateToProps = state => ({
-  initialized: state.behavior.get('initialized')
+  initialized: state.behavior.get('initialized'),
+  connected: state.behavior.get('connected'),
+  isChatOpen: state.behavior.get('isChatOpen'),
+  isChatVisible: state.behavior.get('isChatVisible')
 });
 
 Widget.propTypes = {
@@ -123,16 +211,22 @@ Widget.propTypes = {
   customData: PropTypes.shape({}),
   subtitle: PropTypes.string,
   initPayload: PropTypes.string,
-  initialized: PropTypes.bool,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
-  showWidget: PropTypes.bool,
-  showChat: PropTypes.bool,
+  isChatVisible: PropTypes.bool,
+  isChatOpen: PropTypes.bool,
   badge: PropTypes.number,
   socket: PropTypes.shape({}),
   embedded: PropTypes.bool,
-  params: PropTypes.object
+  params: PropTypes.object,
+  connected: PropTypes.bool,
+  initialized: PropTypes.bool
+};
+
+Widget.defaultProps = {
+  isChatOpen: false,
+  isChatVisible: true,
 };
 
 export default connect(mapStateToProps)(Widget);

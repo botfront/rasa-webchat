@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
+import { MESSAGES_TYPES } from 'constants';
+import { Video, Image, Message, Snippet, QuickReply } from 'messagesComponents';
+
 import './styles.scss';
 
 const scrollToBottom = () => {
@@ -21,12 +24,31 @@ class Messages extends Component {
 
   getComponentToRender = (message, index, isLast) => {
     const { params } = this.props;
-    const ComponentToRender = message.get('component');
+    const ComponentToRender = (() => {
+      switch(message.get('type')){
+        case MESSAGES_TYPES.TEXT: {
+          return Message
+        }
+        case MESSAGES_TYPES.SNIPPET.LINK: {
+          return Snippet
+        }
+        case MESSAGES_TYPES.VIDREPLY.VIDEO: {
+          return Video
+        }
+        case MESSAGES_TYPES.IMGREPLY.IMAGE: {
+          return Image
+        }
+        case MESSAGES_TYPES.QUICK_REPLY: {
+          return QuickReply
+        }
+      }
+      return null
+    })()
     if (message.get('type') === 'component') {
       return <ComponentToRender id={index} {...message.get('props')} isLast={isLast}/>;
     }
     return <ComponentToRender id={index} params={params} message={message} isLast={isLast} />;
-  };
+  }
 
   render() {
     return (

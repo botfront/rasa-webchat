@@ -6,6 +6,18 @@ export function initialize() {
   };
 }
 
+export function connectServer() {
+  return {
+    type: actions.CONNECT
+  };
+}
+
+export function disconnectServer() {
+  return {
+    type: actions.DISCONNECT
+  };
+}
+
 export function getOpenState() {
   return {
     type: actions.GET_OPEN_STATE
@@ -18,15 +30,15 @@ export function getVisibleState() {
   };
 }
 
-export function showWidget() {
+export function showChat() {
   return {
-    type: actions.SHOW_WIDGET
+    type: actions.SHOW_CHAT
   };
 }
 
-export function hideWidget() {
+export function hideChat() {
   return {
-    type: actions.HIDE_WIDGET
+    type: actions.HIDE_CHAT
   };
 }
 
@@ -140,3 +152,10 @@ export function dropMessages() {
     type: actions.DROP_MESSAGES
   };
 }
+
+export function pullSession() {
+  return {
+    type: actions.PULL_SESSION
+  };
+}
+

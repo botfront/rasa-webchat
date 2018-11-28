@@ -13,6 +13,14 @@ export function initialize() {
   store.dispatch(actions.initialize());
 }
 
+export function connect() {
+  store.dispatch(actions.connect());
+}
+
+export function disconnect() {
+  store.dispatch(actions.disconnect());
+}
+
 export function addUserMessage(text) {
   store.dispatch(actions.addUserMessage(text));
 }
@@ -53,24 +61,24 @@ export function renderCustomComponent(component, props, showAvatar = false) {
   store.dispatch(actions.renderCustomComponent(component, props, showAvatar));
 }
 
-export function showWidget() {
-  store.dispatch(actions.showWidget());
-}
-
-export function hideWidget() {
-  store.dispatch(actions.hideWidget());
-}
-
-export function toggleWidget() {
-  store.dispatch(actions.toggleChat());
-}
-
-export function openWidget() {
+export function openChat() {
   store.dispatch(actions.openChat());
 }
 
-export function closeWidget() {
+export function closeChat() {
   store.dispatch(actions.closeChat());
+}
+
+export function toggleChat() {
+  store.dispatch(actions.toggleChat());
+}
+
+export function showChat() {
+  store.dispatch(actions.showChat());
+}
+
+export function hideChat() {
+  store.dispatch(actions.hideChat());
 }
 
 export function toggleInputDisabled() {
@@ -83,4 +91,8 @@ export function changeInputFieldHint(hint) {
 
 export function dropMessages() {
   store.dispatch(actions.dropMessages());
+}
+
+export function pullSession() {
+  store.dispatch(actions.pullSession());
 }

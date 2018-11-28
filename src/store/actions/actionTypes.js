@@ -1,8 +1,10 @@
 export const INITIALIZE = 'INITIALIZE';
+export const CONNECT = 'CONNECT';
+export const DISCONNECT = 'DISCONNECT';
 export const GET_OPEN_STATE = 'GET_OPEN_STATE';
 export const GET_VISIBLE_STATE = 'GET_VISIBLE_STATE';
-export const SHOW_WIDGET = 'SHOW_WIDGET';
-export const HIDE_WIDGET = 'HIDE_WIDGET';
+export const SHOW_CHAT = 'SHOW_CHAT';
+export const HIDE_CHAT = 'HIDE_CHAT';
 export const TOGGLE_CHAT = 'TOGGLE_CHAT';
 export const OPEN_CHAT = 'OPEN_CHAT';
 export const CLOSE_CHAT = 'CLOSE_CHAT';
@@ -19,3 +21,5 @@ export const ADD_QUICK_REPLY = 'ADD_QUICK_REPLY';
 export const SET_QUICK_REPLY = 'SET_QUICK_REPLY';
 export const INSERT_NEW_USER_MESSAGE = 'INSERT_NEW_USER_MESSAGE';
 export const DROP_MESSAGES = 'DROP_MESSAGES';
+export const PULL_SESSION = 'PULL_SESSION';
+

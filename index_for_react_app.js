@@ -9,11 +9,11 @@ import {
   renderCustomComponent,
   isOpen,
   isVisible,
-  showWidget,
-  hideWidget,
-  toggleWidget,
-  openWidget,
-  closeWidget,
+  openChat,
+  closeChat,
+  toggleChat,
+  showChat,
+  hideChat,
   toggleInputDisabled,
   dropMessages
 } from './src/store/actions/dispatcher';
@@ -29,11 +29,11 @@ export {
   renderCustomComponent,
   isOpen,
   isVisible,
-  showWidget,
-  hideWidget,
-  toggleWidget,
-  openWidget,
-  closeWidget,
+  openChat,
+  closeChat,
+  toggleChat,
+  showChat,
+  hideChat,
   toggleInputDisabled,
   dropMessages
 };

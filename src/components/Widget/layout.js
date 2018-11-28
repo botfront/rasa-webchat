@@ -11,32 +11,34 @@ const WidgetLayout = (props) => {
   if (props.fullScreenMode) {
     classes.push('full-screen');
   }
-  const showCloseButton = props.showCloseButton !== undefined ? props.showCloseButton : (
-    !props.fullScreenMode && !props.embedded
-  );
+  const showCloseButton = props.showCloseButton !== undefined ? props.showCloseButton : !props.embedded;
 
   return (
-    props.showWidget ? 
+    props.isChatVisible ? 
     <div className={classes.join(' ')}>
       {
-        (props.fullScreenMode || props.showChat || props.embedded) &&
+        (props.isChatOpen || props.embedded) &&
         <Conversation
           title={props.title}
           subtitle={props.subtitle}
           sendMessage={props.onSendMessage}
           profileAvatar={props.profileAvatar}
-          toggleChat={props.onToggleConversation}
-          showChat={props.showChat}
+          toggleChat={props.toggleChat}
+          isChatOpen={props.isChatOpen}
           disabledInput={props.disabledInput}
           params={props.params}
           {...{ showCloseButton }}
+          connected={props.connected}
+          connectingText={props.connectingText}
         />
       }
       {
-        !props.fullScreenMode && !props.embedded &&
+        !props.embedded &&
         <Launcher
-          toggle={props.onToggleConversation}
+          toggle={props.toggleChat}
+          isChatOpen={props.isChatOpen}
           badge={props.badge}
+          fullScreenMode={props.fullScreenMode}
         />
       }
     </div>
@@ -44,23 +46,30 @@ const WidgetLayout = (props) => {
   );
 };
 
+const mapStateToProps = state => ({
+  isChatVisible: state.behavior.get('isChatVisible'),
+  isChatOpen: state.behavior.get('isChatOpen'),
+  disabledInput: state.behavior.get('disabledInput'),
+  connected: state.behavior.get('connected'),
+  connectingText: state.behavior.get('connectingText')
+})
+
 WidgetLayout.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   onSendMessage: PropTypes.func,
-  onToggleConversation: PropTypes.func,
-  showChat: PropTypes.bool,
+  toggleChat: PropTypes.func,
+  isChatOpen: PropTypes.bool,
+  isChatVisible: PropTypes.bool,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
   disabledInput: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
   embedded: PropTypes.bool,
-  params: PropTypes.object
+  params: PropTypes.object,
+  connected: PropTypes.bool,
+  connectingText: PropTypes.string,
 };
 
-export default connect(store => ({
-  showWidget: store.behavior.get('showWidget'),
-  showChat: store.behavior.get('showChat'),
-  disabledInput: store.behavior.get('disabledInput')
-}))(WidgetLayout);
+export default connect(mapStateToProps)(WidgetLayout);

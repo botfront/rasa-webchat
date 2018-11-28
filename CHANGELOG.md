@@ -20,3 +20,12 @@ from the center.
 - `WebChat.show()` and `WebChat.hide()` can be used to show or hide the entire chat widget.
 - `WebChat.isOpen()` and `WebChat.isVisible()` can be used to get the open state of the chat box and the visibility state of the entire widget.
 
+## 0.4.3
+- Implemented session persistence for chat widget.
+- Chat messages and widget state params are stored in storage of the browser.
+- Sessions are synchronized with server by a session_id.
+- The param `storage` is exposed which allows the user to specify where the session is stored.
+- In the case of `session`, session storage of the browser is used, and the session persists as long as the browser is open, and is erased after it is closed.
+- In the case of `local`, local storage of the browser is used and the session persists even after the browser is closed. The session is erased when the browser's cookies are cleared. 
+- Implemented connecting notifier and disabled input field before session_confirm is received from the server and the session is generated and synchronized.
+- Separate connecting to server and sending initPayload. Server is connected when the component mounts, while initPayload is sent when the chat is toggled open and the server is connected.

@@ -19,25 +19,29 @@ In your `<body/>`:
 <div id="webchat"/>
 <script src="https://storage.googleapis.com/mrbot-cdn/webchat-0.4.1.js"></script>
 <script>
-    WebChat.default.init({
-        selector: "#webchat",
-        initPayload: "/get_started",
-        interval: 1000, // 1000 ms between each message
-        customData: {"userId": "123"}, // arbitrary custom data. Stay minimal as this will be added to the socket
-        socketUrl: "http://localhost:5500",
-        socketPath: "/socket.io/",
-        title: "Title",
-        subtitle: "Subtitle",
-        profileAvatar: "http://to.avat.ar",
-        params: {
-          images: {
-            dims: {
-              width: 300,
-              height: 200,
-            }
-          }
+  WebChat.default.init({
+    selector: "#webchat",
+    initPayload: "/get_started",
+    interval: 1000, // 1000 ms between each message
+    customData: {"userId": "123"}, // arbitrary custom data. Stay minimal as this will be added to the socket
+    socketUrl: "http://localhost:5500",
+    socketPath: "/socket.io/",
+    title: "Title",
+    subtitle: "Subtitle",
+    inputTextFieldHint: "Type a message...",
+    connectingText: "Waiting for server...",
+    fullScreenMode: false,
+    profileAvatar: "http://to.avat.ar",
+    params: {
+      images: {
+        dims: {
+          width: 300,
+          height: 200,
         }
-    })
+      },
+      storage: "local"
+    }
+  })
 </script>
 ```
 
@@ -46,11 +50,13 @@ About images: `width` and `height` define the size in pixels that images in mess
 It is recommended to use a particular version (i.e. "webchat-<version>.js") however the file "webchat-latest.js"
 is also available and is updated continuously with the latest version.
 
-`WebChat.toggle()`, `WebChat.open()`, and `WebChat.close` can be used to change the state of the chat box to open or closed.
+#### Session Persistence
 
-`WebChat.show()` and `WebChat.hide()` can be used to show or hide the entire chat widget.
+`storage` specifies the location where the the conversation and state of the WebChat is stored in the browser's storage. 
 
-`WebChat.isOpen()` and `WebChat.isVisible()` can be used to get the open state of the chat box and the visibility state of the entire widget.
+`storage: "session"` defines the state to be stored in the session storage. The session storage persists on reload of the page, and is cleared after the browser or tab is closed, or when `sessionStorage.clear()`is called.
+
+`storage: "local"` defines the state to be stored in the local stoage. The local storage persists after the the browser is closed, and is cleared when the cookies of the browser are cleared, or when `localStorage.clear()`is called.
 
 #### As a React component
 
@@ -72,15 +78,18 @@ function CustomWidget = () => {
       socketUrl={"http://localhost:5500"}
       socketPath={"/socket.io/"}
       title={"Title"}
+      inputTextFieldHint={"Type a message..."}
+      connectingText={"Waiting for server..."}
       embedded={true}
-      params={
+      params={{
         images: {
           dims: {
             width: 300,
             height: 200
           }
-        }
-      }
+        },
+        storage: "local"
+      }}
     />
   )
 }
@@ -181,6 +190,19 @@ emit('bot_uttered', message, room=socket_id)
 The chat widget can communicate with any backend, but there is a [Rasa core channel
 available here](https://github.com/mrbot-ai/rasa-addons/)
 
+## API
+
+| Method                  |  Description                                                                                                       |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------|
+| WebChat.toggle()        | Toggle the open/close state of the chat window, send initPayload if webchat is not initialized and is toggled open |
+| WebChat.open()          | Open the chat window, send initPayload if webchat is not initialized                                               |
+| WebChat.close()         | Close the chat window                                                                                              |
+| WebChat.isOpen()     | Get the open/closed state of the widget                                                                               |
+| WebChat.show()          | Show the chat widget, send initPayload if the chat is in open state and not initialized                            |
+| WebChat.hide()          | Hide the chat widget                                                                                               |
+| WebChat.isVisible()     | Get the shown/hidden state of the widget                                                                           |
+
+
 
 ## Styles
 
@@ -190,6 +212,7 @@ hierarchy:
   |-- .header
         |-- .title
         |-- .close-function
+        |-- .loading
   |-- .messages-container
         |-- .message
               |-- .client
@@ -221,6 +244,7 @@ hierarchy:
 | .header                 | div of the top area with the chatbox header                         |
 | .title                  | the title element of the header                                     |
 | .close-button           | the close icon of the header                                        |
+| .loading                | the loading status element of the header                            |
 | .message                | the boxes holding the messages of client and response               |
 | .replies                | the area that gives quick reply options                             |
 | .snippet                | a component for describing links                                    |
@@ -233,3 +257,4 @@ hierarchy:
 [@znat](https://github.com/znat)
 [@TheoTomalty](https://github.com/TheoTomalty)
 [@Hub4IT](https://github.com/Hub4IT)
+[@dliuproduction](https://github.com/dliuproduction)

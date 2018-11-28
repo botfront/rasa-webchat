@@ -73,3 +73,9 @@ $roboto: 'Roboto', serif;
   position: fixed;
   right: 0;
 }
+
+@mixin loading-fs {
+  border-radius: 0;
+  flex-shrink: 0;
+  position: relative;
+}
