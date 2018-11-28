@@ -102,7 +102,7 @@ Use the SocketIOInput channel: See [instructions in the Rasa Core documentation]
 #### Others
 Your backend must expose a socket with [socket.io](http://socket.io)
 
-### Receiving messages from the chat
+##### Receiving messages from the chat
 
 ```python
 @socketio.on('user_uttered')
@@ -110,15 +110,15 @@ Your backend must expose a socket with [socket.io](http://socket.io)
         # do something
 ```          
 
-### Sending messages from the backend to the chat widget
+##### Sending messages from the backend to the chat widget
 
-##### sending plain text
+###### sending plain text
 
 ```python
 emit('bot_uttered', {"text": "hello"}, room=session_id)
 ```
 
-##### sending quick replies
+###### sending quick replies
 
 ```python
 message = {
@@ -130,7 +130,7 @@ message = {
 emit('bot_uttered', message, room=socket_id)
 ```
 
-##### sending a link Snippet
+###### sending a link Snippet
 
 Admittedly a bit far fetched, thinking that Snippets would evolve to carousels
 of generic templates :)
@@ -157,7 +157,7 @@ message = {
 emit('bot_uttered', message, room=socket_id)
 ```
 
-##### sending a Video Message
+###### sending a Video Message
 
 ```python
 message = {
@@ -172,7 +172,7 @@ message = {
 emit('bot_uttered', message, room=socket_id)
 ```
 
-##### sending an Image Message
+###### sending an Image Message
 
 ```python
 message = {
