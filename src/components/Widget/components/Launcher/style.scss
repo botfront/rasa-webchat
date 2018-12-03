@@ -4,7 +4,6 @@
 
 .launcher {
   @include animation(0, 0.5s, slide-in);
-  align-self: flex-end;
   background-color: $blue-1;
   border: 0;
   border-radius: 50%;
@@ -35,7 +34,11 @@
   @include animation(0, 0.5s, rotation-lr);
 }
 
-@media screen and (max-width: 800px){
+@media screen and (max-width: 800px) {
+  .launcher {
+    @include launcher-fs;
+  }
+
   .hide-sm {
     display: none;
   }

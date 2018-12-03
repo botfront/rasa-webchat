@@ -67,15 +67,12 @@ $roboto: 'Roboto', serif;
   height: 100%;
 }
 
-@mixin launcher-fs {
-  bottom: 0;
-  margin: 20px;
-  position: fixed;
-  right: 0;
-}
-
 @mixin loading-fs {
   border-radius: 0;
   flex-shrink: 0;
   position: relative;
+}
+
+@mixin launcher-fs {
+  margin: 0 20px 20px 0;
 }
