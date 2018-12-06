@@ -24,8 +24,7 @@ module.exports = {
   module: {
     rules: [{
       test: /\.js$/,
-      exclude: /node_modules/,
-      include: path.join(__dirname, '/lib'),
+      exclude: '/node_modules/',
       loader: 'babel-loader'
     }, {
       test: /\.scss$/,
