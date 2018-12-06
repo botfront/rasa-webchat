@@ -23,7 +23,7 @@ module.exports = {
   devtool: 'eval-source-map',
   module: {
     rules: [{
-      test: /\.js$/,
+      test: /\.(js|jsx)$/,
       exclude: '/node_modules/',
       loader: 'babel-loader'
     }, {
