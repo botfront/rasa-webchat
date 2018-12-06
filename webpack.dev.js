@@ -2,7 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: ['babel-polyfill', './index.js'],
+  // entry: ['babel-polyfill', './index.js'],
+  entry: './index.js',
   output: {
     path: path.join(__dirname, '/lib'),
     filename: 'index.js',
@@ -24,7 +25,7 @@ module.exports = {
   module: {
     rules: [{
       test: /\.(js|jsx)$/,
-      exclude: '/node_modules/',
+      exclude: /node_modules/,
       loader: 'babel-loader'
     }, {
       test: /\.scss$/,
