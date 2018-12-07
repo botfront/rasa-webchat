@@ -3,7 +3,7 @@
 A simple webchat widget to connect with a chatbot. Forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget)
 ## Features
 
-- Text Messages 
+- Text Messages
 - Quick Replies
 - Images and Videos
 - Snippet style for links (only as responses for now)
@@ -15,7 +15,7 @@ A simple webchat widget to connect with a chatbot. Forked from [react-chat-widge
 
 ## Setup
 
-### In a `<script> tag 
+### In a `<script> tag
 
 In your `<body/>`:
 ```javascript
@@ -60,7 +60,7 @@ Install the package from GitHub by running:
 npm install mrbot-ai/rasa-webchat
 ```
 
-Then once it is installed it can be implemented as follows. 
+Then once it is installed it can be implemented as follows.
 
 ```javascript
 import { Widget } from 'rasa-webchat';
@@ -108,7 +108,7 @@ Your backend must expose a socket with [socket.io](http://socket.io)
 @socketio.on('user_uttered')
     def handle_message(message):
         # do something
-```          
+```
 
 ##### Sending messages from the backend to the chat widget
 
@@ -153,7 +153,7 @@ message = {
     ]
   }
 }
-}    
+}
 emit('bot_uttered', message, room=socket_id)
 ```
 
@@ -168,7 +168,7 @@ message = {
       "src": "https://www.youtube.com/watch?v=f3EbDbm8XqY"
     }
   }
-}  
+}
 emit('bot_uttered', message, room=socket_id)
 ```
 
@@ -192,7 +192,7 @@ emit('bot_uttered', message, room=socket_id)
 
 ### Session Persistence
 
-`storage` specifies the location where the the conversation and state of the WebChat is stored in the browser's storage. 
+`storage` specifies the location where the the conversation and state of the WebChat is stored in the browser's storage.
 
 `storage: "session"` defines the state to be stored in the session storage. The session storage persists on reload of the page, and is cleared after the browser or tab is closed, or when `sessionStorage.clear()`is called.
 
@@ -260,6 +260,17 @@ hierarchy:
 | .snippet                | a component for describing links                                    |
 | .imageFrame             | a container for sending images                                      |
 | .videoFrame             | a container for sending video                                       |
+
+## Usage with Docker
+
+Since you have to install the package from GitHub, npm will clone the repo to the global .npm directory before
+building the module in your node_modules directory. For this reason docker will have trouble installing the package,
+of course the global .npm directory doesn't exist in the container. To solve this simply add the following line
+in your Dockerfile before the `RUN npm install` command
+
+```docker
+RUN mkdir -p /root/.npm
+```
 
 
 ## Contributors
