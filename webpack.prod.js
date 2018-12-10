@@ -4,7 +4,8 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: ['babel-polyfill', './index.js'],
+  // entry: ['babel-polyfill', './index.js'],
+  entry: './index.js',
   output: {
     path: path.join(__dirname, '/lib'),
     filename: 'index.js',
@@ -18,7 +19,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
