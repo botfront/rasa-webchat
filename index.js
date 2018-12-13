@@ -22,8 +22,6 @@ const plugin = {
         badge={args.badge}
         params={args.params}
         embedded={args.embedded}
-        openLauncherImage={args.openLauncherImage}
-        closeImage={args.closeImage}
       />, document.querySelector(args.selector)
     );
   }

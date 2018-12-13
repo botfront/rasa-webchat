@@ -14,7 +14,7 @@ const WidgetLayout = (props) => {
   const showCloseButton = props.showCloseButton !== undefined ? props.showCloseButton : !props.embedded;
 
   return (
-    props.isChatVisible ?
+    props.isChatVisible ? 
     <div className={classes.join(' ')}>
       {
         (props.isChatOpen || props.embedded) &&
@@ -30,7 +30,6 @@ const WidgetLayout = (props) => {
           {...{ showCloseButton }}
           connected={props.connected}
           connectingText={props.connectingText}
-          closeImage={props.closeImage}
         />
       }
       {
@@ -40,8 +39,6 @@ const WidgetLayout = (props) => {
           isChatOpen={props.isChatOpen}
           badge={props.badge}
           fullScreenMode={props.fullScreenMode}
-          openLauncherImage={props.openLauncherImage}
-          closeImage={props.closeImage}
         />
       }
     </div>
@@ -73,8 +70,6 @@ WidgetLayout.propTypes = {
   params: PropTypes.object,
   connected: PropTypes.bool,
   connectingText: PropTypes.string,
-  openLauncherImage: PropTypes.string,
-  closeImage: PropTypes.string
 };
 
 export default connect(mapStateToProps)(WidgetLayout);

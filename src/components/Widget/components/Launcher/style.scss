@@ -4,9 +4,6 @@
 
 .launcher {
   @include animation(0, 0.5s, slide-in);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: $blue-1;
   border: 0;
   border-radius: 50%;
@@ -26,12 +23,6 @@
   &.full-screen {
     @include launcher-fs;
   }
-  
-  img {
-    width: 70%;
-    max-height: 70%;
-    object-fit: contain;
-  }
 }
 
 .open-launcher {
@@ -39,9 +30,7 @@
 }
 
 .close-launcher {
-  &.default {
-    width: 20px !important;
-  }
+  width: 20px;
   @include animation(0, 0.5s, rotation-lr);
 }
 

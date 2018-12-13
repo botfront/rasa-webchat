@@ -193,8 +193,6 @@ class Widget extends Component {
         badge={this.props.badge}
         embedded={this.props.embedded}
         params={this.props.params}
-        openLauncherImage={this.props.openLauncherImage}
-        closeImage={this.props.closeImage}
       />
     );
   }
@@ -223,9 +221,7 @@ Widget.propTypes = {
   embedded: PropTypes.bool,
   params: PropTypes.object,
   connected: PropTypes.bool,
-  initialized: PropTypes.bool,
-  openLauncherImage: PropTypes.string,
-  closeImage: PropTypes.string
+  initialized: PropTypes.bool
 };
 
 Widget.defaultProps = {
