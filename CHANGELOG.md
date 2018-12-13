@@ -1,3 +1,7 @@
+## 0.5.0
+
+- Added session persistence with Rasa Core
+
 ## 0.4.1
 
 - Removed Linkify, added markdown support for response messages
