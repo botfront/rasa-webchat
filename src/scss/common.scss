@@ -65,6 +65,8 @@ $roboto: 'Roboto', serif;
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
+  border-radius: 0;
 }
 
 @mixin loading-fs {
