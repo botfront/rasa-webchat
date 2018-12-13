@@ -15,6 +15,7 @@ const Conversation = props =>
       showCloseButton={props.showCloseButton}
       connected={props.connected}
       connectingText={props.connectingText}
+      closeImage={props.closeImage}
     />
     <Messages
       profileAvatar={props.profileAvatar}
@@ -36,7 +37,9 @@ Conversation.propTypes = {
   disabledInput: PropTypes.bool,
   params: PropTypes.object,
   connected: PropTypes.bool,
-  connectingText: PropTypes.string
+  connectingText: PropTypes.string,
+  closeImage: PropTypes.string
+
 };
 
 export default Conversation;
