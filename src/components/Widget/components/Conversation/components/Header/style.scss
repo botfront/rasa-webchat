@@ -7,8 +7,9 @@
     color: $white;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     text-align: center;
-    padding: 15px 0 15px;
+    height: 55px;
     font-family: $roboto;
   }
 

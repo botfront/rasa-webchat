@@ -42,18 +42,21 @@ $roboto: 'Roboto', serif;
 }
 
 @mixin close-button-fs {
+  @include center;
   background-color: $blue-1;
   border: 0;
-  display: block;
   position: absolute;
   right: 10px;
-  top: 20px;
   width: 40px;
 }
 
 @mixin close-fs {
-  width: 20px;
-  height: 20px;
+  &.default {
+    width: 20px;
+    height: 20px;
+  }
+  width: 30px;
+  height: 30px;
 }
 
 @mixin messages-container-fs {
@@ -65,6 +68,8 @@ $roboto: 'Roboto', serif;
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
+  border-radius: 0;
 }
 
 @mixin loading-fs {
@@ -75,4 +80,10 @@ $roboto: 'Roboto', serif;
 
 @mixin launcher-fs {
   margin: 0 20px 20px 0;
+}
+
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

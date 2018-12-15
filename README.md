@@ -35,6 +35,8 @@ In your `<body/>`:
     connectingText: "Waiting for server...",
     fullScreenMode: false,
     profileAvatar: "http://to.avat.ar",
+    openLauncherImage: 'myCustomOpenImage.png',
+    closeLauncherImage: 'myCustomCloseImage.png',
     params: {
       images: {
         dims: {
@@ -76,6 +78,8 @@ function CustomWidget = () => {
       inputTextFieldHint={"Type a message..."}
       connectingText={"Waiting for server..."}
       embedded={true}
+      openLauncherImage="myCustomOpenImage.png"
+      closeLauncherImage="myCustomCloseImage.png"
       params={{
         images: {
           dims: {

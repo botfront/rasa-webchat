@@ -31,6 +31,8 @@ const ConnectedWidget = (props) => {
       embedded={props.embedded}
       params={props.params}
       storage={storage}
+      openLauncherImage={props.openLauncherImage}
+      closeImage={props.closeImage}
     />
   </Provider>);
 };
@@ -51,7 +53,9 @@ ConnectedWidget.propTypes = {
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
   embedded: PropTypes.bool,
-  params: PropTypes.object
+  params: PropTypes.object,
+  openLauncherImage: PropTypes.string,
+  closeImage: PropTypes.string
 };
 
 ConnectedWidget.defaultProps = {
