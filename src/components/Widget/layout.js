@@ -14,7 +14,7 @@ const WidgetLayout = (props) => {
   const showCloseButton = props.showCloseButton !== undefined ? props.showCloseButton : !props.embedded;
 
   return (
-    props.isChatVisible ?
+    props.isChatVisible && props.connected ?
     <div className={classes.join(' ')}>
       {
         (props.isChatOpen || props.embedded) &&
