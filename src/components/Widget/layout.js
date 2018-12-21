@@ -12,9 +12,10 @@ const WidgetLayout = (props) => {
     classes.push('full-screen');
   }
   const showCloseButton = props.showCloseButton !== undefined ? props.showCloseButton : !props.embedded;
+  const isVisible = props.isChatVisible && !(props.hideWhenNotConnected && !props.connected);
 
   return (
-    props.isChatVisible && props.connected ?
+    isVisible ?
     <div className={classes.join(' ')}>
       {
         (props.isChatOpen || props.embedded) &&
@@ -66,6 +67,7 @@ WidgetLayout.propTypes = {
   isChatVisible: PropTypes.bool,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
+  hideWhenNotConnected: PropTypes.bool,
   disabledInput: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,

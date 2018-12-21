@@ -26,6 +26,7 @@ const ConnectedWidget = (props) => {
       handleNewUserMessage={props.handleNewUserMessage}
       profileAvatar={props.profileAvatar}
       showCloseButton={props.showCloseButton}
+      hideWhenNotConnected={props.hideWhenNotConnected}
       fullScreenMode={props.fullScreenMode}
       badge={props.badge}
       embedded={props.embedded}
@@ -50,6 +51,7 @@ ConnectedWidget.propTypes = {
   inputTextFieldHint: PropTypes.string,
   connectingText: PropTypes.string,
   showCloseButton: PropTypes.bool,
+  hideWhenNotConnected: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
   embedded: PropTypes.bool,
@@ -65,6 +67,7 @@ ConnectedWidget.defaultProps = {
   inputTextFieldHint: 'Type a message...',
   connectingText: 'Waiting for server...',
   fullScreenMode: false,
+  hideWhenNotConnected: true,
   socketUrl: 'http://localhost',
   badge: 0,
   embedded: false,

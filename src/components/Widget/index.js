@@ -62,12 +62,12 @@ class Widget extends Component {
       Check if the session_id is consistent with the server
       If the local_id is null or different from the remote_id,
       start a new session.
-      */    
+      */
       if (local_id !== remote_id) {
-        
+
         // storage.clear();
         // Store the received session_id to storage
-        
+
         storeLocalSession(storage, SESSION_NAME, remote_id);
         this.props.dispatch(pullSession());
         this.trySendInitPayload()
@@ -103,25 +103,25 @@ class Widget extends Component {
   }
 
   // TODO: Need to erase redux store on load if localStorage
-  // is erased. Then behavior on reload can be consistent with 
+  // is erased. Then behavior on reload can be consistent with
   // behavior on first load
 
   trySendInitPayload = () => {
-    const { 
-      initPayload, 
-      customData, 
-      socket, 
-      initialized, 
-      isChatOpen, 
+    const {
+      initPayload,
+      customData,
+      socket,
+      initialized,
+      isChatOpen,
       isChatVisible,
-      embedded, 
-      connected 
+      embedded,
+      connected
     } = this.props;
 
     // Send initial payload when chat is opened or widget is shown
     if (!initialized && connected && (((isChatOpen && isChatVisible) || embedded))) {
       // Only send initial payload if the widget is connected to the server but not yet initialized
-      
+
       const session_id = this.getSessionId();
 
       // check that session_id is confirmed
@@ -187,6 +187,7 @@ class Widget extends Component {
         customData={this.props.customData}
         profileAvatar={this.props.profileAvatar}
         showCloseButton={this.props.showCloseButton}
+        hideWhenNotConnected={this.props.hideWhenNotConnected}
         fullScreenMode={this.props.fullScreenMode}
         isChatOpen={this.props.isChatOpen}
         isChatVisible={this.props.isChatVisible}
@@ -215,6 +216,7 @@ Widget.propTypes = {
   initPayload: PropTypes.string,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
+  hideWhenNotConnected: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
   isChatVisible: PropTypes.bool,
   isChatOpen: PropTypes.bool,

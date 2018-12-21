@@ -18,6 +18,7 @@ const plugin = {
         connectingText={args.connectingText}
         profileAvatar={args.profileAvatar}
         showCloseButton={args.showCloseButton}
+        hideWhenNotConnected={args.hideWhenNotConnected}
         fullScreenMode={args.fullScreenMode}
         badge={args.badge}
         params={args.params}
@@ -37,7 +38,7 @@ export {
   closeChat as close,
   showChat as show,
   hideChat as hide,
-  isOpen, 
+  isOpen,
   isVisible
 };
 

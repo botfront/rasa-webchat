@@ -3,7 +3,7 @@ import * as actions from './index';
 
 export function isOpen() {
   return store.dispatch(actions.getOpenState());
-  }
+}
 
 export function isVisible() {
   return store.dispatch(actions.getVisibleState());

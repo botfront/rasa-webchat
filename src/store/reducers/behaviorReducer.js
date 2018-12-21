@@ -4,14 +4,14 @@ import { SESSION_NAME } from 'constants';
 import { getLocalSession, storeParamsTo } from './helper';
 
 export default function (inputFieldTextHint, connectingText, storage) {
-  const initialState = Map({ 
-    connected: false, 
-    initialized: false, 
-    isChatVisible: true, 
-    isChatOpen: false, 
-    disabledInput: true, 
-    inputFieldTextHint, 
-    connectingText 
+  const initialState = Map({
+    connected: false,
+    initialized: false,
+    isChatVisible: true,
+    isChatOpen: false,
+    disabledInput: true,
+    inputFieldTextHint,
+    connectingText
   });
 
   return function reducer(state = initialState, action) {
@@ -51,10 +51,14 @@ export default function (inputFieldTextHint, connectingText, storage) {
       // Pull params from storage to redux store
       case actionTypes.PULL_SESSION: {
         const localSession = getLocalSession(storage, SESSION_NAME);
+
+        // Do not persist connected state
+        const connected = state.get('connected');
+
         if (localSession && localSession.params) {
-          return Map(localSession.params);
+          return Map({ ...localSession.params, connected });
         } else {
-          return state
+          return state;
         }
       }
       default:

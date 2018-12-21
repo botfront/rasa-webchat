@@ -20,7 +20,7 @@ A simple webchat widget to connect with a chatbot. Forked from [react-chat-widge
 In your `<body/>`:
 ```javascript
 <div id="webchat"/>
-<script src="https://storage.googleapis.com/mrbot-cdn/webchat-0.5.0.js"></script>
+<script src="https://storage.googleapis.com/mrbot-cdn/webchat-0.5.3.js"></script>
 <script>
   WebChat.default.init({
     selector: "#webchat",
@@ -33,6 +33,7 @@ In your `<body/>`:
     subtitle: "Subtitle",
     inputTextFieldHint: "Type a message...",
     connectingText: "Waiting for server...",
+    hideWhenNotConnected: true,
     fullScreenMode: false,
     profileAvatar: "http://to.avat.ar",
     openLauncherImage: 'myCustomOpenImage.png',
@@ -77,6 +78,7 @@ function CustomWidget = () => {
       title={"Title"}
       inputTextFieldHint={"Type a message..."}
       connectingText={"Waiting for server..."}
+      hideWhenNotConnected
       embedded={true}
       openLauncherImage="myCustomOpenImage.png"
       closeLauncherImage="myCustomCloseImage.png"
