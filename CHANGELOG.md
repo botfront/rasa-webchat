@@ -1,6 +1,7 @@
 ## 0.5.3
 - Added the parameter hideWhenNotConnected to not display the widget when the server is not connected (defaults to true)
 - Fixed issue where the 'connected' property was being loaded from previous session instead of being triggered on actual connection
+- Reduced the size of the widget container on mobile and in fullscreen mode (blocking clicks)
 
 ## 0.5.2
 - Added support for custom images for open and close buttons of chatWidget interface
