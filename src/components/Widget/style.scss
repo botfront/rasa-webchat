@@ -13,7 +13,7 @@
   align-items: flex-end;
   justify-content: flex-end;
 
-  &.full-screen {
+  &.full-screen.chat-open {
     @include widget-container-fs;
   }
 }
