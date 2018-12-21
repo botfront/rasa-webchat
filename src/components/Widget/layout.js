@@ -15,7 +15,7 @@ const WidgetLayout = (props) => {
   const isVisible = props.isChatVisible && !(props.hideWhenNotConnected && !props.connected);
   const chatShowing = (props.isChatOpen || props.embedded);
 
-  if (chatShowing) {
+  if (chatShowing && !props.embedded) {
     classes.push('chat-open');
   }
 
