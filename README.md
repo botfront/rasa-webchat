@@ -33,6 +33,7 @@ In your `<body/>`:
     subtitle: "Subtitle",
     inputTextFieldHint: "Type a message...",
     connectingText: "Waiting for server...",
+    hideWhenNotConnected: true,
     fullScreenMode: false,
     profileAvatar: "http://to.avat.ar",
     openLauncherImage: 'myCustomOpenImage.png',
@@ -77,6 +78,7 @@ function CustomWidget = () => {
       title={"Title"}
       inputTextFieldHint={"Type a message..."}
       connectingText={"Waiting for server..."}
+      hideWhenNotConnected
       embedded={true}
       openLauncherImage="myCustomOpenImage.png"
       closeLauncherImage="myCustomCloseImage.png"
