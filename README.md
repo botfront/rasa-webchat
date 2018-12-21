@@ -75,6 +75,7 @@ function CustomWidget = () => {
       initPayload={"/get_started"}
       socketUrl={"http://localhost:5500"}
       socketPath={"/socket.io/"}
+      customData: {{"userId": "123"}}, // arbitrary custom data. Stay minimal as this will be added to the socket
       title={"Title"}
       inputTextFieldHint={"Type a message..."}
       connectingText={"Waiting for server..."}
@@ -104,6 +105,8 @@ set to `true` if you don't want to see the launcher.
 #### Rasa Core
 
 Use the SocketIOInput channel: See [instructions in the Rasa Core documentation](https://rasa.com/docs/core/connectors/#socketio-connector)
+
+If you want to process `customData` in Rasa Core you have to [create a new channel](https://rasa.com/docs/core/connectors/#custom-channels). Use channel `rasa_core.channels.socketio` as a template for your new channel. In such channel `customData` can be retrieved via `data['customData']`. Then you can  modify `sender_id`, save `customData` to the database, fill slots or whatever you need to with your additional data.
 
 #### Others
 Your backend must expose a socket with [socket.io](http://socket.io)
