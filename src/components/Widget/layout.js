@@ -13,12 +13,17 @@ const WidgetLayout = (props) => {
   }
   const showCloseButton = props.showCloseButton !== undefined ? props.showCloseButton : !props.embedded;
   const isVisible = props.isChatVisible && !(props.hideWhenNotConnected && !props.connected);
+  const chatShowing = (props.isChatOpen || props.embedded);
+
+  if (chatShowing) {
+    classes.push('chat-open');
+  }
 
   return (
     isVisible ?
     <div className={classes.join(' ')}>
       {
-        (props.isChatOpen || props.embedded) &&
+        chatShowing &&
         <Conversation
           title={props.title}
           subtitle={props.subtitle}
