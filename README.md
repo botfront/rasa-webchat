@@ -74,7 +74,7 @@ function CustomWidget = () => {
       initPayload={"/get_started"}
       socketUrl={"http://localhost:5500"}
       socketPath={"/socket.io/"}
-      customData: {"userId": "123"}, // arbitrary custom data. Stay minimal as this will be added to the socket
+      customData: {{"userId": "123"}}, // arbitrary custom data. Stay minimal as this will be added to the socket
       title={"Title"}
       inputTextFieldHint={"Type a message..."}
       connectingText={"Waiting for server..."}
