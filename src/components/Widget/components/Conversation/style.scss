@@ -17,10 +17,7 @@
 .widget-embedded {
   .conversation-container {
     @include animation(0, 0s, slide-in); // disable animation
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    max-height: 100%;
+    @include conversation-container-fs;
     overflow: unset;
   }
 
