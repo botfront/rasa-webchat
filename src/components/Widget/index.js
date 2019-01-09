@@ -71,6 +71,16 @@ class Widget extends Component {
         storeLocalSession(storage, SESSION_NAME, remote_id);
         this.props.dispatch(pullSession());
         this.trySendInitPayload()
+      } else {
+        // If this is an existing session, it's possible we changed pages and want to send a
+        // user message when we land.
+        const params = (new URL(document.location)).searchParams;
+        const send = params.get('send');
+
+        if (send) {
+          this.props.dispatch(addUserMessage(send));
+          this.props.dispatch(emitUserMessage(send));
+        }
       }
     });
 
