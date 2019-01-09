@@ -1,3 +1,6 @@
+## 0.5.4
+- When reconnecting to an existing chat session, the bot will send any message contained in the `?send=<message>` URL parameter once it has restored the socket.io connection
+
 ## 0.5.3
 - Added the parameter hideWhenNotConnected to not display the widget when the server is not connected (defaults to true)
 - Fixed issue where the 'connected' property was being loaded from previous session instead of being triggered on actual connection
