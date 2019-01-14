@@ -22,7 +22,7 @@ import {
 import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
 import WidgetLayout from './layout';
 import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
-import { SESSION_NAME } from 'constants';
+import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
 
 class Widget extends Component {
 
@@ -74,12 +74,16 @@ class Widget extends Component {
       } else {
         // If this is an existing session, it's possible we changed pages and want to send a
         // user message when we land.
-        const params = (new URL(document.location)).searchParams;
-        const send = params.get('send');
+        const nextMessage = window.localStorage.getItem(NEXT_MESSAGE);
 
-        if (send) {
-          this.props.dispatch(addUserMessage(send));
-          this.props.dispatch(emitUserMessage(send));
+        if (nextMessage !== null) {
+          const { message, expiry } = JSON.parse(nextMessage);
+          window.localStorage.removeItem(NEXT_MESSAGE);
+
+          if (expiry === 0 || expiry > Date.now()) {
+            this.props.dispatch(addUserMessage(message));
+            this.props.dispatch(emitUserMessage(message));
+          }
         }
       }
     });

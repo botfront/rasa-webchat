@@ -210,7 +210,7 @@ emit('bot_uttered', message, room=socket_id)
 
 ## Sending a message on page load
 
-When reconnecting to an existing chat session, the bot will send any message contained in the `?send=<message>` URL parameter once it has restored the socket.io connection. This is useful if you would like your bot to be able to offer your user to navigate around the site.
+When reconnecting to an existing chat session, the bot will send a message contained in the localStorage key specified by the `NEXT_MESSAGE` constant. The message should be stringified JSON with a `message` property describing the message and an `expiry` property set to a UNIX timestamp in milliseconds after which this message should not be sent. This is useful if you would like your bot to be able to offer your user to navigate around the site.
 
 
 ## API
