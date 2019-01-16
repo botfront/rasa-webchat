@@ -12,7 +12,7 @@ class Message extends PureComponent {
       <div className={sender}>
         <div className="message-text" >
           {sender === 'response' ? (
-            <ReactMarkdown className={'markdown'} source={text} linkTarget={(url) => { if (!url.startsWith('mailto')) return '_blank'; }} />
+            <ReactMarkdown className={'markdown'} source={text} linkTarget={(url) => { if (!url.startsWith('mailto') && !url.startsWith('javascript')) return '_blank'; }} transformLinkUri={null} />
           ) : (
             text
           )}
