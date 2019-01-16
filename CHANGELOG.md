@@ -1,3 +1,6 @@
+## 0.5.4
+- When reconnecting to an existing chat session, the bot will send a message contained in the localStorage key specified by the `NEXT_MESSAGE` constant. The message should be stringified JSON with a `message` property describing the message and an `expiry` property set to a UNIX timestamp in milliseconds after which this message should not be sent.
+
 ## 0.5.3
 - Added the parameter hideWhenNotConnected to not display the widget when the server is not connected (defaults to true)
 - Fixed issue where the 'connected' property was being loaded from previous session instead of being triggered on actual connection

@@ -23,6 +23,8 @@ export const MESSAGES_TYPES = {
   CUSTOM_COMPONENT: 'component'
 };
 
+export const NEXT_MESSAGE = 'mrbot_next_message';
+
 export const PROP_TYPES = {
 
   MESSAGE: ImmutablePropTypes.contains({
