@@ -17,10 +17,6 @@ class DocViewer extends Component {
     };
   }
 
-  componentDidMount() {
-    this.iframeTimeoutId = setInterval(this.updateIframeSrc, 1000 * 8);
-  }
-
   getIframeLink() {
     return `https://docs.google.com/viewer?url=${this.props.src}&embedded=true`;
   }
@@ -41,6 +37,7 @@ class DocViewer extends Component {
 
   handleOpenModal() {
     this.setState({ openedModal: true });
+    this.iframeTimeoutId = setInterval(this.updateIframeSrc, 1000 * 4);
   }
 
   handleCloseModal() {
