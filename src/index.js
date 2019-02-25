@@ -13,7 +13,8 @@ const ConnectedWidget = (props) => {
     props.inputTextFieldHint,
     props.connectingText,
     sock,
-    storage
+    storage,
+    props.docViewer,
     );
   return (<Provider store={store}>
     <Widget
@@ -57,7 +58,8 @@ ConnectedWidget.propTypes = {
   embedded: PropTypes.bool,
   params: PropTypes.object,
   openLauncherImage: PropTypes.string,
-  closeImage: PropTypes.string
+  closeImage: PropTypes.string,
+  docViewer: PropTypes.bool
 };
 
 ConnectedWidget.defaultProps = {
@@ -72,8 +74,9 @@ ConnectedWidget.defaultProps = {
   badge: 0,
   embedded: false,
   params: {
-    storage: "local"
-  }
+    storage: 'local'
+  },
+  docViewer: false
 };
 
 export default ConnectedWidget;

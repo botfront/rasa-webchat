@@ -9,8 +9,7 @@ import * as actionTypes from './actions/actionTypes';
 
 let store = "call initStore first";
 
-function initStore(hintText, connectingText, socket, storage) {
-
+function initStore(hintText, connectingText, socket, storage, docViewer = false) {
   const customMiddleWare = (store) => next => (action) => {
     const session_id = (getLocalSession(storage, SESSION_NAME)? getLocalSession(storage, SESSION_NAME).session_id: null);
     switch (action.type) {
@@ -29,8 +28,8 @@ function initStore(hintText, connectingText, socket, storage) {
     next(action);
   };
   const reducer = combineReducers({ 
-    behavior: behavior(hintText, connectingText, storage), 
-    messages: messages(storage) 
+    behavior: behavior(hintText, connectingText, storage, docViewer),
+    messages: messages(storage)
   });
 
   /* eslint-disable no-underscore-dangle */

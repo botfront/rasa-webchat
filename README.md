@@ -212,6 +212,11 @@ emit('bot_uttered', message, room=socket_id)
 
 When reconnecting to an existing chat session, the bot will send a message contained in the localStorage key specified by the `NEXT_MESSAGE` constant. The message should be stringified JSON with a `message` property describing the message and an `expiry` property set to a UNIX timestamp in milliseconds after which this message should not be sent. This is useful if you would like your bot to be able to offer your user to navigate around the site.
 
+### docViewer
+
+**Note :** this is an **experimental** feature  
+
+If you add this prop to the component or to the init script, `docViewer=true` , this will treat links in received messages as links to a document ( `.pdf .doc .xlsx` etc. ) and will open them in a popup using `https://docs.google.com/viewer` service
 
 ## API
 
@@ -292,3 +297,4 @@ RUN mkdir -p /root/.npm
 [@TheoTomalty](https://github.com/TheoTomalty)
 [@Hub4IT](https://github.com/Hub4IT)
 [@dliuproduction](https://github.com/dliuproduction)
+[@MatthieuJnon](https://github.com/MatthieuJnon)

@@ -4,7 +4,6 @@ import { Widget, toggleChat, openChat, closeChat, showChat, hideChat, isOpen, is
 
 const plugin = {
   init: (args) => {
-
     ReactDOM.render(
       <Widget
         socketUrl={args.socketUrl}
@@ -25,6 +24,7 @@ const plugin = {
         embedded={args.embedded}
         openLauncherImage={args.openLauncherImage}
         closeImage={args.closeImage}
+        docViewer={args.docViewer}
       />, document.querySelector(args.selector)
     );
   }
