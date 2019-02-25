@@ -1,6 +1,6 @@
 @import "variables.scss";
 
-.modal {
+.doc-viewer-modal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -9,7 +9,7 @@
   display: block;
 }
 
-.modal-body {
+.doc-viewer-modal-body {
   overflow-y: auto;
   border-radius: 5px;
   width: 80vw;
@@ -18,10 +18,10 @@
   height: 90vh;
   top: 0;
   background: white;
-  animation: slide-down 0.2s ease;
+  animation: doc-viewer-slide-down 0.2s ease;
 }
 
-.open-modal-link {
+.doc-viewer-open-modal-link {
   color: $blue-1;
   text-decoration: underline;
   cursor: pointer;
@@ -32,13 +32,13 @@
   font: inherit;
 }
 
-.modal-iframe {
+.doc-viewer-modal-iframe {
   height: 100%;
   width: 100%;
   border: none;
 }
 
-.modal-fade {
+.doc-viewer-modal-fade {
   opacity: 0.5;
   position: fixed;
   top: 0;
@@ -50,14 +50,14 @@
   animation: appear 0.2s ease;
 }
 
-.modal-footer {
+.doc-viewer-modal-footer {
   flex: 0 0 auto;
   border: none;
   text-align: center;
   margin-top: 2vh;
 }
 
-.close-modal {
+.doc-viewer-close-modal {
   border-radius: 50%;
   background: #89919b;
   color: white;
@@ -72,7 +72,7 @@
   font-weight: 100;
 }
 
-.spinner {
+.doc-viewer-spinner {
   display: inline-block;
   width: 64px;
   height: 64px;
@@ -82,7 +82,7 @@
   transform: translate(-32px, -32px);
   animation: appear .6s ease-in;
 }
-.spinner:after {
+.doc-viewer-spinner:after {
   content: " ";
   display: block;
   width: 46px;
@@ -92,9 +92,9 @@
   border: 5px solid $blue-1;
   border-color: $blue-1 transparent $blue-1 transparent;
   will-change: transform;
-  animation: spinner 1.2s linear infinite;
+  animation: doc-viewer-spinner 1.2s linear infinite;
 }
-@keyframes spinner {
+@keyframes doc-viewer-spinner {
   0% {
     transform: rotate(0deg);
   }
@@ -113,7 +113,7 @@
   }
 }
 
-@keyframes slide-down {
+@keyframes doc-viewer-slide-down {
   0% {
     opacity: 0;
     transform: translateY(-100px);

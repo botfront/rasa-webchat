@@ -52,19 +52,19 @@ class DocViewer extends Component {
 
     return (
       <span>
-        <button onClick={this.handleOpenModal} className="open-modal-link">
+        <button onClick={this.handleOpenModal} className="doc-viewer-open-modal-link">
           {this.props.src}
         </button>
         {this.state.openedModal && (
           <Portal>
-            <div className="modal-fade" aria-hidden="true" onClick={this.handleCloseModal} />
-            <div className="modal">
-              <div className="modal-body">
-                {this.state.iFrameLoading && <div className="spinner" />}
+            <div className="doc-viewer-modal-fade" aria-hidden="true" onClick={this.handleCloseModal} />
+            <div className="doc-viewer-modal">
+              <div className="doc-viewer-modal-body">
+                {this.state.iFrameLoading && <div className="doc-viewer-spinner" />}
                 <iframe
                   src={iframeSrc}
                   title="viewer"
-                  className="modal-iframe"
+                  className="doc-viewer-modal-iframe"
                   onLoad={this.iframeLoaded}
                   onError={this.updateIframeSrc}
                   ref={(iframe) => {
@@ -72,8 +72,8 @@ class DocViewer extends Component {
                   }}
                 />
               </div>
-              <div className="modal-footer">
-                <button type="button" className="close-modal" onClick={this.handleCloseModal}>
+              <div className="doc-viewer-modal-footer">
+                <button type="button" className="doc-viewer-close-modal" onClick={this.handleCloseModal}>
                   X
                 </button>
               </div>
