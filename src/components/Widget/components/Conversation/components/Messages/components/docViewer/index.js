@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-import Portal from 'utils/portal';
 import './style.scss';
 
 class DocViewer extends Component {
@@ -52,31 +52,41 @@ class DocViewer extends Component {
         <button onClick={this.handleOpenModal} className="doc-viewer-open-modal-link">
           {this.props.src}
         </button>
-        {this.state.openedModal && (
-          <Portal>
-            <div className="doc-viewer-modal-fade" aria-hidden="true" onClick={this.handleCloseModal} />
-            <div className="doc-viewer-modal">
-              <div className="doc-viewer-modal-body">
-                {this.state.iFrameLoading && <div className="doc-viewer-spinner" />}
-                <iframe
-                  src={iframeSrc}
-                  title="viewer"
-                  className="doc-viewer-modal-iframe"
-                  onLoad={this.iframeLoaded}
-                  onError={this.updateIframeSrc}
-                  ref={(iframe) => {
-                    this.iframe = iframe;
-                  }}
-                />
+        {this.state.openedModal &&
+          ReactDOM.createPortal(
+            <React.Fragment>
+              <div
+                className="doc-viewer-modal-fade"
+                aria-hidden="true"
+                onClick={this.handleCloseModal}
+              />
+              <div className="doc-viewer-modal">
+                <div className="doc-viewer-modal-body">
+                  {this.state.iFrameLoading && <div className="doc-viewer-spinner" />}
+                  <iframe
+                    src={iframeSrc}
+                    title="viewer"
+                    className="doc-viewer-modal-iframe"
+                    onLoad={this.iframeLoaded}
+                    onError={this.updateIframeSrc}
+                    ref={(iframe) => {
+                      this.iframe = iframe;
+                    }}
+                  />
+                </div>
+                <div className="doc-viewer-modal-footer">
+                  <button
+                    type="button"
+                    className="doc-viewer-close-modal"
+                    onClick={this.handleCloseModal}
+                  >
+                    X
+                  </button>
+                </div>
               </div>
-              <div className="doc-viewer-modal-footer">
-                <button type="button" className="doc-viewer-close-modal" onClick={this.handleCloseModal}>
-                  X
-                </button>
-              </div>
-            </div>
-          </Portal>
-        )}
+            </React.Fragment>,
+            document.body
+          )}
       </span>
     );
   }
