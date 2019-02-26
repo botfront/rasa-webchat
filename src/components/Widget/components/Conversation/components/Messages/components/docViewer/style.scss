@@ -1,0 +1,126 @@
+@import "variables.scss";
+
+.doc-viewer-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20041997;
+  display: block;
+}
+
+.doc-viewer-modal-body {
+  overflow-y: auto;
+  border-radius: 5px;
+  width: 80vw;
+  max-width: 900px;
+  position: relative;
+  height: 90vh;
+  top: 0;
+  background: white;
+  animation: doc-viewer-slide-down 0.2s ease;
+}
+
+.doc-viewer-open-modal-link {
+  color: $blue-1;
+  text-decoration: underline;
+  cursor: pointer;
+  display: inline;
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  font: inherit;
+}
+
+.doc-viewer-modal-iframe {
+  height: 100%;
+  width: 100%;
+  border: none;
+}
+
+.doc-viewer-modal-fade {
+  opacity: 0.5;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10000; // to get on top of the chat widget
+  background-color: #000;
+  animation: appear 0.2s ease;
+}
+
+.doc-viewer-modal-footer {
+  flex: 0 0 auto;
+  border: none;
+  text-align: center;
+  margin-top: 2vh;
+}
+
+.doc-viewer-close-modal {
+  border-radius: 50%;
+  background: #89919b;
+  color: white;
+  font-size: 15px;
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  text-align: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  border: 1px solid transparent;
+  font-weight: 100;
+}
+
+.doc-viewer-spinner {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-32px, -32px);
+  animation: appear .6s ease-in;
+}
+.doc-viewer-spinner:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid $blue-1;
+  border-color: $blue-1 transparent $blue-1 transparent;
+  will-change: transform;
+  animation: doc-viewer-spinner 1.2s linear infinite;
+}
+@keyframes doc-viewer-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes doc-viewer-slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
