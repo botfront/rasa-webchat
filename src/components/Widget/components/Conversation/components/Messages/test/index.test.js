@@ -1,6 +1,7 @@
 import React from 'react';
 import { List } from 'immutable';
-import { shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import { createNewMessage, createLinkSnippet, createVideoSnippet, createImageSnippet } from 'helper';
 import { createComponentMessage } from 'utils/messages';
@@ -10,6 +11,8 @@ import Video from '../components/VidReply';
 import Image from '../components/ImgReply';
 import Message from '../components/Message';
 import Snippet from '../components/Snippet';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('<Messages />', () => {
   const message = createNewMessage('Response message 1');
