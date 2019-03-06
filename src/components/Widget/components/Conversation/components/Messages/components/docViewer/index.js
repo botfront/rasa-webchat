@@ -50,7 +50,7 @@ class DocViewer extends Component {
     return (
       <span>
         <button onClick={this.handleOpenModal} className="doc-viewer-open-modal-link">
-          {this.props.src}
+          {this.props.children}
         </button>
         {this.state.openedModal && (
           <Portal>

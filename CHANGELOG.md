@@ -1,3 +1,6 @@
+## 0.5.6
+- fixed a bug where named links would not render in a received message
+
 ## 0.5.5
 - new prop, `docViewer`, if this props is true, this will treat every link in received messages as a document and will open it in a popup using docs.google.com/viewer (note: this is an experimental feature and should be used with caution)
 
