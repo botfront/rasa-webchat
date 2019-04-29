@@ -1,8 +1,11 @@
+## 0.5.7
+- Fixed a bug where the connection would not close down when the component unmounted and continued polling indefinitely in the background.
+
 ## 0.5.6
-- fixed a bug where named links would not render in a received message
+- Fixed a bug where named links would not render in a received message
 
 ## 0.5.5
-- new prop, `docViewer`, if this props is true, this will treat every link in received messages as a document and will open it in a popup using docs.google.com/viewer (note: this is an experimental feature and should be used with caution)
+- New prop, `docViewer`, if this props is true, this will treat every link in received messages as a document and will open it in a popup using docs.google.com/viewer (note: this is an experimental feature and should be used with caution)
 
 ## 0.5.4
 - When reconnecting to an existing chat session, the bot will send a message contained in the localStorage key specified by the `NEXT_MESSAGE` constant. The message should be stringified JSON with a `message` property describing the message and an `expiry` property set to a UNIX timestamp in milliseconds after which this message should not be sent.
