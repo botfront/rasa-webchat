@@ -90,7 +90,9 @@ class Widget extends Component {
 
     socket.on('disconnect', (reason) => {
       console.log(reason);
-      this.props.dispatch(disconnectServer());
+      if (reason !== 'io client disconnect') {
+        this.props.dispatch(disconnectServer());
+      }
     });
 
     if (this.props.embedded && this.props.initialized) {
@@ -106,6 +108,11 @@ class Widget extends Component {
       this.props.dispatch(showChat());
       this.props.dispatch(openChat());
     }
+  }
+
+  componentWillUnmount() {
+    const { socket } = this.props;
+    socket.close();
   }
 
   getSessionId() {

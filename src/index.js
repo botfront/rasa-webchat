@@ -15,7 +15,7 @@ const ConnectedWidget = (props) => {
     sock,
     storage,
     props.docViewer,
-    );
+  );
   return (<Provider store={store}>
     <Widget
       socket={sock}
