@@ -1,3 +1,6 @@
+## 0.5.8
+- Namespaced all css declarations so that they don't affect styles outside of the widget.
+
 ## 0.5.7
 - Fixed a bug where the connection would not close down when the component unmounted and continued polling indefinitely in the background.
 
