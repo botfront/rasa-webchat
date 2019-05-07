@@ -1,42 +1,47 @@
 @import "variables.scss";
 @import "common.scss";
 
-.message {
-  margin: 10px;
-  display: flex;
-  font-size: 14px;
-  font-family: $roboto;
-
-  .markdown {
-    p {
-      margin: 0;
+.conversation-container {
+  
+  .message {
+    margin: 10px;
+    display: flex;
+    font-size: 14px;
+    font-family: $roboto;
+  
+    .markdown {
+      p {
+        margin: 0;
+      }
     }
   }
-}
-
-.client {
-  @include message-bubble($blue-1, $white);
-  margin-left: auto;
-  overflow-wrap: break-word;
-
-  a {
-    color: $turqois-1;
+  
+  .client {
+    @include message-bubble($blue-1, $white);
+    margin-left: auto;
+    overflow-wrap: break-word;
+  
+    a {
+      color: $turqois-1;
+    }
   }
+  
+  .response {
+    @include message-bubble($grey-2, #000);
+    overflow-wrap: break-word;
+  }
+  
+  /* For markdown elements created with default styles */
+  .message-text {
+    margin: 0;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    margin-right: 10px;
+  }
+
 }
 
-.response {
-  @include message-bubble($grey-2, #000);
-  overflow-wrap: break-word;
-}
-
-/* For markdown elements created with default styles */
-.message-text {
-  margin: 0;
-}
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-  margin-right: 10px;
-}

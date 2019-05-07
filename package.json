@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
-    "build": "webpack --config ./webpack.prod.js",
+    "build": "webpack --config ./webpack.prod.js -p",
     "test": "jest --coverage",
     "prepare": "npm run build"
   },
