@@ -1,6 +1,6 @@
 {
   "name": "rasa-webchat",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "Chat web widget for React apps and Rasa Core chatbots",
   "main": "lib/index.js",
   "repository": "git@https://github.com/mrbot-ai/rasa-webchat.git",
@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
-    "build": "webpack --config ./webpack.prod.js",
+    "build": "webpack --config ./webpack.prod.js -p",
     "test": "jest --coverage",
     "prepare": "npm run build"
   },

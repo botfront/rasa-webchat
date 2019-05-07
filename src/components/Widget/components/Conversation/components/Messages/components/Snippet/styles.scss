@@ -1,20 +1,23 @@
 @import "variables.scss";
 @import "common.scss";
 
-.snippet {
-  @include message-bubble($grey-2, #000);
+.conversation-container {
+  .snippet {
+    @include message-bubble($grey-2, #000);
+  }
+  
+  .snippet-title {
+    margin: 0;
+  }
+  
+  .snippet-details {
+    border-left: 2px solid $green-1;
+    margin-top: 5px;
+    padding-left: 10px;
+  }
+  
+  .link {
+    font-family: $roboto;
+  }
 }
 
-.snippet-title {
-  margin: 0;
-}
-
-.snippet-details {
-  border-left: 2px solid $green-1;
-  margin-top: 5px;
-  padding-left: 10px;
-}
-
-.link {
-  font-family: $roboto;
-}

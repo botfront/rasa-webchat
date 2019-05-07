@@ -1,45 +1,49 @@
 @import "variables.scss";
 
-.sender {
-  align-items: center;
-  display: flex;
-  background-color: $grey-2;
-  height: 45px;
-  padding: 5px;
-}
-
-.new-message {
-  font-size: 0.9em;
-  width: 100%;
-  border: 0;
-  background-color: $grey-2;
-  height: 30px;
-  padding-left: 15px;
-
-  &:focus {
-    outline: none;
+.conversation-container {
+  .sender {
+    align-items: center;
+    display: flex;
+    background-color: $grey-2;
+    height: 45px;
+    padding: 5px;
   }
+  
+  .new-message {
+    font-size: 0.9em;
+    width: 100%;
+    border: 0;
+    background-color: $grey-2;
+    height: 30px;
+    padding-left: 15px;
+  
+    &:focus {
+      outline: none;
+    }
+  }
+  
+  
+  .send {
+    background: $grey-2;
+    border: 0;
+    
+    .send-icon {
+      height: 25px;
+    }
+  }
+  
+  @media screen and (max-width: 800px)  {
+    .sender {
+      border-radius: 0;
+      flex-shrink: 0;
+    }
+  }
+  
 }
 
 .widget-embedded {
   .sender {
     flex: 0, 0, auto;
     height: 60px;
-  }
-}
-
-.send {
-  background: $grey-2;
-  border: 0;
-
-  .send-icon {
-    height: 25px;
-  }
-}
-
-@media screen and (max-width: 800px)  {
-  .sender {
-    border-radius: 0;
-    flex-shrink: 0;
   }
 }
