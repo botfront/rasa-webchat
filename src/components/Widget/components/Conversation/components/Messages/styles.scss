@@ -11,8 +11,8 @@
 
 .widget-embedded {
   .messages-container {
-    height: 100vh;
-    max-height: calc(100vh - 100px); /* 100px: 2 * (sender height + padding) */
+    height: 100%;
+    max-height: 100%;
   }
 }
 
