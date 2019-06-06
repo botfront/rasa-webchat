@@ -1,3 +1,112 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.5.9](https://https///compare/v2.1.1...v0.5.9) (2019-06-06)
+
+
+
+### 0.5.8 (2019-05-07)
+
+
+### Bug Fixes
+
+* css scope ([6c4f7d3](https://https///commit/6c4f7d3))
+
+
+
+### 0.5.7 (2019-04-29)
+
+
+
+### 0.5.6 (2019-03-06)
+
+
+
+### 0.5.5 (2019-02-27)
+
+
+
+### 0.5.4 (2019-01-16)
+
+
+
+### 0.5.3 (2018-12-21)
+
+
+
+### 0.5.2 (2018-12-17)
+
+
+### Bug Fixes
+
+* it was impossible to click behind the empty space of widget button ([8e63321](https://https///commit/8e63321))
+
+
+
+### 0.5.1 (2018-12-03)
+
+
+
+## 0.5.0 (2018-11-28)
+
+
+
+### 0.4.2 (2018-11-14)
+
+
+### Features
+
+* 🎸 Add max-width to images and expose image params ([2d3482b](https://https///commit/2d3482b))
+
+
+### BREAKING CHANGES
+
+* \
+
+
+
+### 0.4.1 (2018-10-29)
+
+
+
+## 0.4.0 (2018-10-19)
+
+
+
+### 0.3.4 (2018-10-12)
+
+
+
+### 0.3.3 (2018-10-06)
+
+
+
+### 0.3.2 (2018-10-06)
+
+
+### Bug Fixes
+
+* testing suite completing appropriately ([e89087e](https://https///commit/e89087e))
+
+
+
+### 0.3.1 (2018-07-11)
+
+
+
+## 0.3.0 (2018-07-06)
+
+
+
+### 0.1.1 (2018-04-29)
+
+
+
+## 0.1.0 (2018-04-11)
+
+
+
 ## 0.5.8
 - Namespaced all css declarations so that they don't affect styles outside of the widget.
 
