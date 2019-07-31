@@ -35,6 +35,7 @@ const ConnectedWidget = (props) => {
       storage={storage}
       openLauncherImage={props.openLauncherImage}
       closeImage={props.closeImage}
+      customComponent={props.customComponent}
     />
   </Provider>);
 };
@@ -59,7 +60,8 @@ ConnectedWidget.propTypes = {
   params: PropTypes.object,
   openLauncherImage: PropTypes.string,
   closeImage: PropTypes.string,
-  docViewer: PropTypes.bool
+  docViewer: PropTypes.bool,
+  customComponent: PropTypes.func
 };
 
 ConnectedWidget.defaultProps = {

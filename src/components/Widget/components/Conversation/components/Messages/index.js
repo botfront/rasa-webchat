@@ -41,6 +41,8 @@ class Messages extends Component {
         case MESSAGES_TYPES.QUICK_REPLY: {
           return QuickReply
         }
+        case MESSAGES_TYPES.CUSTOM_COMPONENT:
+          return this.props.customComponent
       }
       return null
     })()
@@ -75,7 +77,8 @@ class Messages extends Component {
 
 Messages.propTypes = {
   messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
-  profileAvatar: PropTypes.string
+  profileAvatar: PropTypes.string,
+  customComponent: PropTypes.func
 };
 
 export default connect(store => ({

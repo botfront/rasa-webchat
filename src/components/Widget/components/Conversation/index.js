@@ -20,6 +20,7 @@ const Conversation = props =>
     <Messages
       profileAvatar={props.profileAvatar}
       params={props.params}
+      customComponent={props.customComponent}
     />
     <Sender
       sendMessage={props.sendMessage}
@@ -38,8 +39,8 @@ Conversation.propTypes = {
   params: PropTypes.object,
   connected: PropTypes.bool,
   connectingText: PropTypes.string,
-  closeImage: PropTypes.string
-
+  closeImage: PropTypes.string,
+  customComponent: PropTypes.func
 };
 
 export default Conversation;
