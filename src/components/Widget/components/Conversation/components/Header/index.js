@@ -25,7 +25,7 @@ const Header = ({
           showFullScreenButton &&
           <button className="toggle-fullscreen-button" onClick={toggleFullScreen}>
             <img
-              className="toggle-fullscreen"
+              className={`toggle-fullscreen ${fullScreenMode ? 'fullScreenExitImage' : 'fullScreenImage'}`}
               src={fullScreenMode ? fullscreenExit : fullscreen}
               alt="toggle fullscreen"
             />
