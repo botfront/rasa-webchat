@@ -26,6 +26,7 @@ describe('<Messages />', () => {
   const messagesComponent = shallow(
     <Messages.WrappedComponent
       messages={responseMessages}
+      customComponent={Dummy}
     />
   );
 
@@ -45,7 +46,7 @@ describe('<Messages />', () => {
     expect(messagesComponent.find(Image)).toHaveLength(1);
   });
 
-  it('should reder a custom component', () => {
+  it('should render a custom component', () => {
     expect(messagesComponent.find(Dummy)).toHaveLength(1);
   });
 });

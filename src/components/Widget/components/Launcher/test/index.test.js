@@ -5,9 +5,9 @@ import Launcher from '../index';
 
 describe('<Launcher />', () => {
   const createMessageComponent = ({ toggle, chatOpened }) =>
-    shallow(<Launcher.WrappedComponent
+    shallow(<Launcher
       toggle={toggle}
-      chatOpened={chatOpened}
+      isChatOpen={chatOpened}
     />);
 
   it('should call toggle prop when clicked', () => {
