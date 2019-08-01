@@ -46,7 +46,7 @@ In your `<body/>`:
         }
       },
       storage: "local"
-    }
+    },
   })
 </script>
 ```
@@ -92,6 +92,7 @@ function CustomWidget = () => {
         },
         storage: "local"
       }}
+      customComponent: { (messageData) => (<div>Custom React component</div>) }
     />
   )
 }
@@ -196,6 +197,17 @@ message = {
 emit('bot_uttered', message, room=socket_id)
 ```
 
+###### sending a message with custom data
+
+```python
+message = {
+      "data":{
+        "customField1": 'anything you want',
+        "customField2": 'other custom data, 
+      }
+    }
+emit('bot_uttered', message, room=socket_id)
+```
 
 ## Usage
 
