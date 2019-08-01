@@ -20,26 +20,28 @@ const Header = ({
 }) =>
   <div>
     <div className="header">
-      {
-        showCloseButton &&
-        <button className="close-button" onClick={toggleChat}>
-          <img
-            className={`close ${closeImage ? '' : 'default'}`}
-            src={closeImage || close}
-            alt="close"
-          />
-        </button>
-      }
-      {
-        showFullScreenButton &&
-        <button className="toggle-fullscreen-button" onClick={toggleFullScreen}>
-          <img
-            className="toggle-fullscreen"
-            src={fullScreenMode ? fullscreenExit : fullscreen}
-            alt="toggle fullscreen"
-          />
-        </button>
-      }
+      <div className="header-buttons">
+        {
+          showFullScreenButton &&
+          <button className="toggle-fullscreen-button" onClick={toggleFullScreen}>
+            <img
+              className="toggle-fullscreen"
+              src={fullScreenMode ? fullscreenExit : fullscreen}
+              alt="toggle fullscreen"
+            />
+          </button>
+        }
+        {
+          showCloseButton &&
+          <button className="close-button" onClick={toggleChat}>
+            <img
+              className={`close ${closeImage ? '' : 'default'}`}
+              src={closeImage || close}
+              alt="close"
+            />
+          </button>
+        }
+      </div>
       <h4 className="title">{title}</h4>
       {subtitle && <span>{subtitle}</span>}
     </div>

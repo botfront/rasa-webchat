@@ -19,6 +19,10 @@
     font-family: $roboto;
   }
 
+  .header-buttons {
+    @include header-buttons-fs;
+  }
+
   .close-button {
     display: none;
   }
@@ -84,14 +88,16 @@
       @include title-fs;
     }
 
-    .close-button,
-    .toggle-fullscreen-button {
+    .close-button {
       @include header-button-fs;
     }
 
-    .close,
-    .toggle-fullscreen {
+    .close {
       @include header-icon-fs;
+    }
+
+    .toggle-fullscreen-button, .toggle-fullscreen {
+      display: none;
     }
 
     .loading {
