@@ -35,6 +35,7 @@ In your `<body/>`:
     connectingText: "Waiting for server...",
     hideWhenNotConnected: true,
     fullScreenMode: false,
+    showFullScreenButton: false,
     profileAvatar: "http://to.avat.ar",
     openLauncherImage: 'myCustomOpenImage.png',
     closeLauncherImage: 'myCustomCloseImage.png',
@@ -81,6 +82,7 @@ function CustomWidget = () => {
       connectingText={"Waiting for server..."}
       hideWhenNotConnected
       embedded={true}
+      showFullScreenButton={false}
       openLauncherImage="myCustomOpenImage.png"
       closeLauncherImage="myCustomCloseImage.png"
       params={{
