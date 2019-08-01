@@ -60,6 +60,12 @@ export function closeChat() {
   };
 }
 
+export function toggleFullScreen() {
+  return {
+    type: actions.TOGGLE_FULLSCREEN
+  };
+}
+
 export function toggleInputDisabled() {
   return {
     type: actions.TOGGLE_INPUT_DISABLED

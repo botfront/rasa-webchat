@@ -23,6 +23,14 @@
     display: none;
   }
 
+  .toggle-fullscreen-button {
+    @include header-button-fs;
+  }
+
+  .toggle-fullscreen {
+    @include header-icon-fs;
+  }
+
   .loading {
     background-color: $grey-3;
     color: $white;
@@ -51,12 +59,14 @@
     @include title-fs;
   }
 
-  .close-button {
-    @include close-button-fs;
+  .close-button,
+  .toggle-fullscreen-button {
+    @include header-button-fs;
   }
 
-  .close {
-    @include close-fs;
+  .close,
+  .toggle-fullscreen {
+    @include header-icon-fs;
   }
 
   .loading {
@@ -74,12 +84,14 @@
       @include title-fs;
     }
 
-    .close-button {
-      @include close-button-fs;
+    .close-button,
+    .toggle-fullscreen-button {
+      @include header-button-fs;
     }
 
-    .close {
-      @include close-fs;
+    .close,
+    .toggle-fullscreen {
+      @include header-icon-fs;
     }
 
     .loading {

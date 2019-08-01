@@ -17,6 +17,7 @@ const plugin = {
         connectingText={args.connectingText}
         profileAvatar={args.profileAvatar}
         showCloseButton={args.showCloseButton}
+        showFullScreenButton={args.showFullScreenButton}
         hideWhenNotConnected={args.hideWhenNotConnected}
         fullScreenMode={args.fullScreenMode}
         badge={args.badge}

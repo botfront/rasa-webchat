@@ -41,16 +41,17 @@ $roboto: 'Roboto', serif;
   //padding: 0 0 15px 0;
 }
 
-@mixin close-button-fs {
+@mixin header-button-fs {
   @include center;
   background-color: $blue-1;
   border: 0;
   position: absolute;
   right: 10px;
   width: 40px;
+  cursor: pointer;
 }
 
-@mixin close-fs {
+@mixin header-icon-fs {
   &.default {
     width: 20px;
     height: 20px;

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
+  toggleFullScreen,
   toggleChat,
   openChat,
   showChat,
@@ -158,6 +159,10 @@ class Widget extends Component {
     this.props.dispatch(toggleChat());
   };
 
+  toggleFullScreen = () => {
+    this.props.dispatch(toggleFullScreen());
+  };
+
   dispatchMessage(message) {
     if (Object.keys(message).length === 0) {
       return;
@@ -210,12 +215,14 @@ class Widget extends Component {
     return (
       <WidgetLayout
         toggleChat={this.toggleConversation}
+        toggleFullScreen={this.toggleFullScreen}
         onSendMessage={this.handleMessageSubmit}
         title={this.props.title}
         subtitle={this.props.subtitle}
         customData={this.props.customData}
         profileAvatar={this.props.profileAvatar}
         showCloseButton={this.props.showCloseButton}
+        showFullScreenButton={this.props.showFullScreenButton}
         hideWhenNotConnected={this.props.hideWhenNotConnected}
         fullScreenMode={this.props.fullScreenMode}
         isChatOpen={this.props.isChatOpen}
@@ -235,7 +242,8 @@ const mapStateToProps = state => ({
   initialized: state.behavior.get('initialized'),
   connected: state.behavior.get('connected'),
   isChatOpen: state.behavior.get('isChatOpen'),
-  isChatVisible: state.behavior.get('isChatVisible')
+  isChatVisible: state.behavior.get('isChatVisible'),
+  fullScreenMode: state.behavior.get('fullScreenMode')
 });
 
 Widget.propTypes = {
@@ -246,6 +254,7 @@ Widget.propTypes = {
   initPayload: PropTypes.string,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
+  showFullScreenButton: PropTypes.bool,
   hideWhenNotConnected: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
   isChatVisible: PropTypes.bool,
@@ -264,6 +273,7 @@ Widget.propTypes = {
 Widget.defaultProps = {
   isChatOpen: false,
   isChatVisible: true,
+  fullScreenMode: false,
 };
 
 export default connect(mapStateToProps)(Widget);

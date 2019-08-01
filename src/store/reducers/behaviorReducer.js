@@ -34,6 +34,9 @@ export default function (inputFieldTextHint, connectingText, storage, docViewer 
       case actionTypes.CLOSE_CHAT: {
         return storeParams(state.update('isChatOpen', isChatOpen => false));
       }
+      case actionTypes.TOGGLE_FULLSCREEN: {
+        return storeParams(state.update('fullScreenMode', fullScreenMode => !fullScreenMode));
+      }
       case actionTypes.TOGGLE_INPUT_DISABLED: {
         return storeParams(state.update('disabledInput', disabledInput => !disabledInput));
       }
