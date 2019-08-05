@@ -42,7 +42,10 @@ class Messages extends Component {
           return QuickReply
         }
         case MESSAGES_TYPES.CUSTOM_COMPONENT:
-          return this.props.customComponent
+          return connect(
+            store => ({ store }),
+            dispatch => ({ dispatch })
+          )(this.props.customComponent);
       }
       return null
     })()
