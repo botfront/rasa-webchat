@@ -17,6 +17,10 @@ export default function (inputFieldTextHint, connectingText, storage, docViewer 
 
   return function reducer(state = initialState, action) {
     const storeParams = storeParamsTo(storage);
+
+    const localSession = getLocalSession(storage, SESSION_NAME);
+    if (!localSession) state = initialState;
+
     switch (action.type) {
       // Each change to the redux store's behavior Map gets recorded to storage
       case actionTypes.SHOW_CHAT: {
@@ -54,8 +58,6 @@ export default function (inputFieldTextHint, connectingText, storage, docViewer 
       }
       // Pull params from storage to redux store
       case actionTypes.PULL_SESSION: {
-        const localSession = getLocalSession(storage, SESSION_NAME);
-
         // Do not persist connected state
         const connected = state.get('connected');
 
