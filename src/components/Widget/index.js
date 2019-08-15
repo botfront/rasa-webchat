@@ -13,6 +13,7 @@ import {
   addVideoSnippet,
   addImageSnippet,
   addQuickReply,
+  renderCustomComponent,
   initialize,
   connectServer,
   disconnectServer,
@@ -161,6 +162,7 @@ class Widget extends Component {
     if (Object.keys(message).length === 0) {
       return;
     }
+
     if (isText(message)) {
       this.props.dispatch(addResponseMessage(message.text));
     } else if (isQR(message)) {
@@ -185,6 +187,12 @@ class Widget extends Component {
         title: element.title,
         image: element.src
       }));
+    } else {
+      // some custom message
+      const props = message;
+      if (this.props.customComponent) {
+        this.props.dispatch(renderCustomComponent(this.props.customComponent, props, true));
+      }
     }
   }
 
@@ -217,6 +225,7 @@ class Widget extends Component {
         params={this.props.params}
         openLauncherImage={this.props.openLauncherImage}
         closeImage={this.props.closeImage}
+        customComponent={this.props.customComponent}
       />
     );
   }
@@ -248,7 +257,8 @@ Widget.propTypes = {
   connected: PropTypes.bool,
   initialized: PropTypes.bool,
   openLauncherImage: PropTypes.string,
-  closeImage: PropTypes.string
+  closeImage: PropTypes.string,
+  customComponent: PropTypes.func
 };
 
 Widget.defaultProps = {

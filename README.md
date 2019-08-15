@@ -46,7 +46,7 @@ In your `<body/>`:
         }
       },
       storage: "local"
-    }
+    },
   })
 </script>
 ```
@@ -75,7 +75,7 @@ function CustomWidget = () => {
       initPayload={"/get_started"}
       socketUrl={"http://localhost:5500"}
       socketPath={"/socket.io/"}
-      customData: {{"userId": "123"}}, // arbitrary custom data. Stay minimal as this will be added to the socket
+      customData={{"userId": "123"}} // arbitrary custom data. Stay minimal as this will be added to the socket
       title={"Title"}
       inputTextFieldHint={"Type a message..."}
       connectingText={"Waiting for server..."}
@@ -92,6 +92,7 @@ function CustomWidget = () => {
         },
         storage: "local"
       }}
+      customComponent={ (messageData) => (<div>Custom React component</div>) }
     />
   )
 }
@@ -196,6 +197,17 @@ message = {
 emit('bot_uttered', message, room=socket_id)
 ```
 
+###### sending a message with custom data
+
+```python
+message = {
+      "data":{
+        "customField1": 'anything you want',
+        "customField2": 'other custom data, 
+      }
+    }
+emit('bot_uttered', message, room=socket_id)
+```
 
 ## Usage
 

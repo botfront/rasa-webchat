@@ -37,6 +37,7 @@ const WidgetLayout = (props) => {
           connected={props.connected}
           connectingText={props.connectingText}
           closeImage={props.closeImage}
+          customComponent={props.customComponent}
         />
       }
       {
@@ -81,7 +82,8 @@ WidgetLayout.propTypes = {
   connected: PropTypes.bool,
   connectingText: PropTypes.string,
   openLauncherImage: PropTypes.string,
-  closeImage: PropTypes.string
+  closeImage: PropTypes.string,
+  customComponent: PropTypes.func
 };
 
 export default connect(mapStateToProps)(WidgetLayout);
