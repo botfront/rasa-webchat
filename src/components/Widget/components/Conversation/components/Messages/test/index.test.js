@@ -2,8 +2,7 @@ import React from 'react';
 import { List } from 'immutable';
 import { shallow } from 'enzyme';
 
-import { createNewMessage, createLinkSnippet, createVideoSnippet, createImageSnippet } from 'helper';
-import { createComponentMessage } from 'utils/messages';
+import { createNewMessage, createLinkSnippet, createVideoSnippet, createImageSnippet, createComponentMessage } from 'helper';
 
 import Messages from '../index';
 import Video from '../components/VidReply';
@@ -47,6 +46,6 @@ describe('<Messages />', () => {
   });
 
   it('should render a custom component', () => {
-    expect(messagesComponent.find(Dummy)).toHaveLength(1);
+    expect(messagesComponent.find('Connect(Dummy)')).toHaveLength(1);
   });
 });
