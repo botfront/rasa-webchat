@@ -55,16 +55,37 @@ $roboto: 'Roboto', serif;
   border: 0;
   width: 40px;
   cursor: pointer;
+
+  &:focus, &:active, &:hover {
+    outline: none;
+
+    &::-moz-focus-inner {
+      border:0;
+    }
+  }
 }
 
 @mixin header-icon-fs {
   &.default {
     width: 20px;
     height: 20px;
+
+    &:focus, &:active, &:hover {
+      width: 24px;
+      height: 24px;
+    }
   }
+
   width: 30px;
   height: 30px;
   padding-top: 3px;
+
+  &:focus, &:active, &:hover {
+    width: 34px;
+    height: 34px;
+    top: -2px;
+    margin-left: -2px;
+  }
 }
 
 @mixin messages-container-fs {
