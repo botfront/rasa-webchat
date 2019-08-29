@@ -82,7 +82,7 @@ ConnectedWidget.defaultProps = {
   },
   docViewer: false,
   showCloseButton: true,
-  showFullScreenButton: false,
+  showFullScreenButton: false
 };
 
 export default ConnectedWidget;

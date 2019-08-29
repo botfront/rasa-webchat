@@ -273,7 +273,7 @@ Widget.propTypes = {
 Widget.defaultProps = {
   isChatOpen: false,
   isChatVisible: true,
-  fullScreenMode: false,
+  fullScreenMode: false
 };
 
 export default connect(mapStateToProps)(Widget);
