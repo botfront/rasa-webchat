@@ -125,10 +125,6 @@ class Widget extends Component {
     return local_id;
   }
 
-  // TODO: Need to erase redux store on load if localStorage
-  // is erased. Then behavior on reload can be consistent with
-  // behavior on first load
-
   trySendInitPayload = () => {
     const {
       initPayload,
