@@ -22,6 +22,9 @@ function initStore(hintText, connectingText, socket, storage, docViewer = false)
       case actionTypes.GET_VISIBLE_STATE: {
         return store.getState().behavior.get("isChatVisible");
       }
+      case actionTypes.GET_FULLSCREEN_STATE: {
+        return store.getState().behavior.get("fullScreenMode");
+      }
     }
 
     // console.log('Middleware triggered:', action);

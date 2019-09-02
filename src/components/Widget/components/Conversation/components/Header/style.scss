@@ -19,8 +19,20 @@
     font-family: $roboto;
   }
 
+  .header-buttons {
+    @include header-buttons-fs;
+  }
+
   .close-button {
     display: none;
+  }
+
+  .toggle-fullscreen-button {
+    @include header-button-fs;
+  }
+
+  .toggle-fullscreen {
+    @include header-icon-fs;
   }
 
   .loading {
@@ -51,12 +63,14 @@
     @include title-fs;
   }
 
-  .close-button {
-    @include close-button-fs;
+  .close-button,
+  .toggle-fullscreen-button {
+    @include header-button-fs;
   }
 
-  .close {
-    @include close-fs;
+  .close,
+  .toggle-fullscreen {
+    @include header-icon-fs;
   }
 
   .loading {
@@ -75,11 +89,15 @@
     }
 
     .close-button {
-      @include close-button-fs;
+      @include header-button-fs;
     }
 
     .close {
-      @include close-fs;
+      @include header-icon-fs;
+    }
+
+    .toggle-fullscreen-button, .toggle-fullscreen {
+      display: none;
     }
 
     .loading {

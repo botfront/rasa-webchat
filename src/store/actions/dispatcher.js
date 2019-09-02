@@ -81,6 +81,10 @@ export function hideChat() {
   store.dispatch(actions.hideChat());
 }
 
+export function toggleFullScreen() {
+  store.dispatch(actions.toggleFullScreen());
+}
+
 export function toggleInputDisabled() {
   store.dispatch(actions.toggleInputDisabled());
 }

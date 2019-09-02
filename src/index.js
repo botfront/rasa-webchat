@@ -27,6 +27,7 @@ const ConnectedWidget = (props) => {
       handleNewUserMessage={props.handleNewUserMessage}
       profileAvatar={props.profileAvatar}
       showCloseButton={props.showCloseButton}
+      showFullScreenButton={props.showFullScreenButton}
       hideWhenNotConnected={props.hideWhenNotConnected}
       fullScreenMode={props.fullScreenMode}
       badge={props.badge}
@@ -53,6 +54,7 @@ ConnectedWidget.propTypes = {
   inputTextFieldHint: PropTypes.string,
   connectingText: PropTypes.string,
   showCloseButton: PropTypes.bool,
+  showFullScreenButton: PropTypes.bool,
   hideWhenNotConnected: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
@@ -78,7 +80,9 @@ ConnectedWidget.defaultProps = {
   params: {
     storage: 'local'
   },
-  docViewer: false
+  docViewer: false,
+  showCloseButton: true,
+  showFullScreenButton: false
 };
 
 export default ConnectedWidget;
