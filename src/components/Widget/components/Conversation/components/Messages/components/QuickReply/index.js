@@ -30,20 +30,41 @@ class QuickReply extends PureComponent {
   render() {
     const chosenReply = this.props.getChosenReply(this.props.id);
     if (chosenReply) {
-      return <Message message={this.props.message} />
+      return <Message message={this.props.message} />;
     }
     return (
       <div>
         <Message message={this.props.message} />
-        {this.props.isLast &&
+        {this.props.isLast && (
         <div className="replies">
-          {this.props.message.get('quick_replies').map((reply, index) => <div
-            key={index} className={'reply'}
+            {this.props.message.get("quick_replies").map((reply, index) => {
+              if(reply.type === 'web_url') {
+                return (
+                  <a
+                    key={index}
+                    href={reply.payload}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={'reply'}
+                  >
+                    {reply.title}
+                  </a>
+                );
+              }
+              return (
+                <div
+                  key={index}
+                  className={"reply"}
             onClick={this.handleClick.bind(this, reply)}
-          >{reply.title}</div>)}
+                >
+                  {reply.title}
+                </div>
+              );
+            })}
+          </div>
+        )}
         </div>
-        }
-      </div>);
+    );
   }
 }
 
