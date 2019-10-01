@@ -35,6 +35,8 @@
     "uniqueid": "^1.0.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.2",
     "babel-jest": "^19.0.0",
@@ -57,6 +59,7 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^6.10.3",
+    "husky": "^3.0.7",
     "jest": "^20.0.4",
     "prettier": "^1.11.1",
     "prettier-eslint": "^5.1.0",
@@ -78,6 +81,11 @@
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/mocks/fileMock.js",
       "\\.(css|scss)$": "<rootDir>/mocks/styleMock.js"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
 }
