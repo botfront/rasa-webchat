@@ -54,8 +54,8 @@ class QuickReply extends PureComponent {
               return (
                 <div
                   key={index}
-                  className={"reply"}
-            onClick={this.handleClick.bind(this, reply)}
+                  className={'reply'}
+                  onClick={this.handleClick.bind(this, reply)}
                 >
                   {reply.title}
                 </div>

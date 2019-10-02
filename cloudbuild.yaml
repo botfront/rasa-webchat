@@ -1,13 +1,40 @@
 steps:
 - name: 'gcr.io/cloud-builders/npm'
   args: ['install']
+
 - name: 'gcr.io/cloud-builders/npm'
   args: ['run','build']
+
 - name: 'gcr.io/cloud-builders/gsutil'
   args: ['cp', 'lib/index.js', 'gs://mrbot-cdn/webchat-$TAG_NAME.js']
+
 - name: 'gcr.io/cloud-builders/gsutil'
   args: ['cp', 'lib/index.js', 'gs://mrbot-cdn/webchat-latest.js']
+
 - name: 'gcr.io/cloud-builders/gsutil'
   args: ['acl', 'ch', '-u', 'AllUsers:R', 'gs://mrbot-cdn/webchat-$TAG_NAME.js']
 - name: 'gcr.io/cloud-builders/gsutil'
   args: ['acl', 'ch', '-u', 'AllUsers:R', 'gs://mrbot-cdn/webchat-latest.js']
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - kms
+  - decrypt
+  - --ciphertext-file=npmrc.enc
+  - --plaintext-file=/root/.npmrc
+  - --location=global
+  - --keyring=my-keyring
+  - --key=npm-key
+  volumes:
+  - name: 'home'
+    path: /root/
+
+- name: 'gcr.io/cloud-builders/npm'
+  args:
+    - publish
+  dir: cli
+  env:
+  - HOME=/root/
+  volumes:
+  - name: 'home'
+    path: /root/
