@@ -2,25 +2,64 @@ import React from 'react';
 import { List } from 'immutable';
 import { shallow } from 'enzyme';
 
-import { createNewMessage, createLinkSnippet, createVideoSnippet, createImageSnippet, createComponentMessage } from 'helper';
+import {
+  createNewMessage,
+  createLinkSnippet,
+  createVideoSnippet,
+  createImageSnippet,
+  createComponentMessage,
+  createQuickReply
+} from 'helper';
 
 import Messages from '../index';
 import Video from '../components/VidReply';
 import Image from '../components/ImgReply';
 import Message from '../components/Message';
+import QuickReply from '../components/QuickReply';
+
 import Snippet from '../components/Snippet';
 
 describe('<Messages />', () => {
   const message = createNewMessage('Response message 1');
   const linkSnippet = createLinkSnippet({ title: 'link', link: 'link' });
   const srcVideo = createVideoSnippet({ title: 'video', video: 'video' });
-  const srcImage = createImageSnippet({ title: 'image', image: 'image', dims: { 'width': 100, 'height': 100 } });
+  const srcImage = createImageSnippet({
+    title: 'image',
+    image: 'image',
+    dims: { width: 100, height: 100 }
+  });
   /* eslint-disable react/prop-types */
   const Dummy = ({ text }) => <div>{text}</div>;
   /* eslint-enable */
-  const customComp = createComponentMessage(Dummy, { text: 'This is a Dummy Component!' });
+  const customComp = createComponentMessage(Dummy, {
+    text: 'This is a Dummy Component!'
+  });
+  const quickReply = createQuickReply({
+    text: 'test',
+    quick_replies: [
+      {
+        type: 'postback',
+        content_type: 'text',
+        title: 'Button title 1',
+        payload: '/payload1'
+      },
+      {
+        type: 'web_url',
+        content_type: 'text',
+        title: 'google',
+        payload: 'http://www.google.ca'
+      }
+    ]
+  });
 
-  const responseMessages = List([message, linkSnippet, srcVideo, srcImage, customComp]);
+  const responseMessages = List([
+    message,
+    linkSnippet,
+    srcVideo,
+    srcImage,
+    customComp,
+    quickReply
+  ]);
 
   const messagesComponent = shallow(
     <Messages.WrappedComponent
@@ -47,5 +86,9 @@ describe('<Messages />', () => {
 
   it('should render a custom component', () => {
     expect(messagesComponent.find('Connect(Dummy)')).toHaveLength(1);
+  });
+
+  it('should render a QuickReply component', () => {
+    expect(messagesComponent.find(QuickReply)).toHaveLength(1);
   });
 });
