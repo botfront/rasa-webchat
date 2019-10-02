@@ -29,7 +29,7 @@ class Message extends PureComponent {
                   docViewer ? (
                     <DocViewer src={props.href}>{props.children}</DocViewer>
                   ) : (
-                    <a href={props.href}>{props.children}</a>
+                    <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
                   )
               }}
             />
