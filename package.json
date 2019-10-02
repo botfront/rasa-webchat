@@ -10,7 +10,8 @@
     "dev": "webpack-dev-server --config webpack.dev.js",
     "build": "webpack --config ./webpack.prod.js -p",
     "test": "jest --coverage",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "release": "standard-version"
   },
   "keywords": [
     "react",
@@ -67,6 +68,7 @@
     "react-test-renderer": "^15.6.2",
     "sass-loader": "^6.0.7",
     "socket.io-client": "^2.1.1",
+    "standard-version": "^7.0.0",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "webpack": "^4.4.1",
