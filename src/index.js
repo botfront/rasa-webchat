@@ -7,8 +7,14 @@ import { store, initStore } from '../src/store/store';
 import socket from './socket';
 
 const ConnectedWidget = (props) => {
-  const sock = socket(props.socketUrl, props.customData, props.socketPath);
-  const storage = props.params.storage == "session" ? sessionStorage : localStorage
+  const sock = socket(
+    props.socketUrl,
+    props.customData,
+    props.socketPath,
+    props.protocol,
+    props.socketOptions
+  );
+  const storage = props.params.storage === 'session' ? sessionStorage : localStorage;
   initStore(
     props.inputTextFieldHint,
     props.connectingText,
@@ -46,8 +52,10 @@ ConnectedWidget.propTypes = {
   interval: PropTypes.number,
   title: PropTypes.string,
   subtitle: PropTypes.string,
+  protocol: PropTypes.string,
   socketUrl: PropTypes.string.isRequired,
   socketPath: PropTypes.string,
+  socketOptions: PropTypes.shape({}),
   customData: PropTypes.shape({}),
   handleNewUserMessage: PropTypes.func,
   profileAvatar: PropTypes.string,
@@ -59,6 +67,7 @@ ConnectedWidget.propTypes = {
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
   embedded: PropTypes.bool,
+  // eslint-disable-next-line react/forbid-prop-types
   params: PropTypes.object,
   openLauncherImage: PropTypes.string,
   closeImage: PropTypes.string,
@@ -74,7 +83,9 @@ ConnectedWidget.defaultProps = {
   connectingText: 'Waiting for server...',
   fullScreenMode: false,
   hideWhenNotConnected: true,
+  protocol: 'socketio',
   socketUrl: 'http://localhost',
+  socketOptions: {},
   badge: 0,
   embedded: false,
   params: {

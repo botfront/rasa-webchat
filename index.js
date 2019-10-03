@@ -6,8 +6,10 @@ const plugin = {
   init: (args) => {
     ReactDOM.render(
       <Widget
+        protocol={args.protocol}
         socketUrl={args.socketUrl}
         socketPath={args.socketPath}
+        socketOptions={args.socketOptions}
         interval={args.interval}
         initPayload={args.initPayload}
         title={args.title}
