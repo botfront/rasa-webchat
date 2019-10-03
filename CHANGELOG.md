@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://https///compare/v0.5.9...v0.6.0) (2019-10-03)
+
+### 0.5.10 (2019-10-02)
+
+
+### Bug Fixes
+
+* links should open in a new tab ([e238af3](https://https///commit/e238af3))
+* update node-sass version to support node12 ([dd3eee9](https://https///commit/dd3eee9))
+
+
+### Features
+
+* add commitlint and husky ([a040aeb](https://https///commit/a040aeb))
+* add standard version ([573b856](https://https///commit/573b856))
+* add test for quick replies linking ([f95e8f3](https://https///commit/f95e8f3))
+* support web url in quick replies ([ac4b6f1](https://https///commit/ac4b6f1))
+
 ### [0.5.10](https://https///compare/v0.5.9...v0.5.10) (2019-10-02)
 
 
