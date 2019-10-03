@@ -32,7 +32,6 @@ steps:
 - name: 'gcr.io/cloud-builders/npm'
   args:
     - publish
-  dir: cli
   env:
   - HOME=/root/
   volumes:
