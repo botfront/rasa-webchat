@@ -32,7 +32,21 @@
     max-height: 70%;
     object-fit: contain;
   }
+
+  .unread-count-pastille {
+    background-color: #e41c23;
+    color: white;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: 700;
+  }
 }
+
+
 
 .open-launcher {
   @include animation(0, 0.5s, rotation-rl);

@@ -18,7 +18,8 @@ import {
   initialize,
   connectServer,
   disconnectServer,
-  pullSession
+  pullSession,
+  newUnreadMessage
 } from 'actions';
 
 import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
@@ -43,6 +44,9 @@ class Widget extends Component {
 
     socket.on('bot_uttered', (botUttered) => {
       this.messages.push(botUttered);
+      if (!this.props.isChatOpen) {
+        this.props.dispatch(newUnreadMessage());
+      }
     });
 
     this.props.dispatch(pullSession());
@@ -233,6 +237,7 @@ class Widget extends Component {
         openLauncherImage={this.props.openLauncherImage}
         closeImage={this.props.closeImage}
         customComponent={this.props.customComponent}
+        displayUnreadCount={this.props.displayUnreadCount}
       />
     );
   }
@@ -267,13 +272,15 @@ Widget.propTypes = {
   initialized: PropTypes.bool,
   openLauncherImage: PropTypes.string,
   closeImage: PropTypes.string,
-  customComponent: PropTypes.func
+  customComponent: PropTypes.func,
+  displayUnreadCount: PropTypes.bool
 };
 
 Widget.defaultProps = {
   isChatOpen: false,
   isChatVisible: true,
-  fullScreenMode: false
+  fullScreenMode: false,
+  displayUnreadCount: true
 };
 
 export default connect(mapStateToProps)(Widget);

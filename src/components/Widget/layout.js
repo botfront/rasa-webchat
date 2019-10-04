@@ -52,6 +52,7 @@ const WidgetLayout = (props) => {
           fullScreenMode={props.fullScreenMode}
           openLauncherImage={props.openLauncherImage}
           closeImage={props.closeImage}
+          displayUnreadCount={props.displayUnreadCount}
         />
       }
     </div>
@@ -65,7 +66,7 @@ const mapStateToProps = state => ({
   disabledInput: state.behavior.get('disabledInput'),
   connected: state.behavior.get('connected'),
   connectingText: state.behavior.get('connectingText')
-})
+});
 
 WidgetLayout.propTypes = {
   title: PropTypes.string,
@@ -88,7 +89,8 @@ WidgetLayout.propTypes = {
   connectingText: PropTypes.string,
   openLauncherImage: PropTypes.string,
   closeImage: PropTypes.string,
-  customComponent: PropTypes.func
+  customComponent: PropTypes.func,
+  displayUnreadCount: PropTypes.bool
 };
 
 export default connect(mapStateToProps)(WidgetLayout);

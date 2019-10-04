@@ -12,7 +12,8 @@ export default function (inputFieldTextHint, connectingText, storage, docViewer 
     disabledInput: true,
     docViewer,
     inputFieldTextHint,
-    connectingText
+    connectingText,
+    unreadCount: 0
   });
 
   return function reducer(state = initialState, action) {
@@ -26,10 +27,10 @@ export default function (inputFieldTextHint, connectingText, storage, docViewer 
         return storeParams(state.update('isChatVisible', isChatVisible => false));
       }
       case actionTypes.TOGGLE_CHAT: {
-        return storeParams(state.update('isChatOpen', isChatOpen => !isChatOpen));
+        return storeParams(state.update('isChatOpen', isChatOpen => !isChatOpen).set('unreadCount', 0));
       }
       case actionTypes.OPEN_CHAT: {
-        return storeParams(state.update('isChatOpen', isChatOpen => true));
+        return storeParams(state.update('isChatOpen', isChatOpen => true).set('unreadCount', 0));
       }
       case actionTypes.CLOSE_CHAT: {
         return storeParams(state.update('isChatOpen', isChatOpen => false));
@@ -51,6 +52,9 @@ export default function (inputFieldTextHint, connectingText, storage, docViewer 
       }
       case actionTypes.INITIALIZE: {
         return storeParams(state.set('initialized', true));
+      }
+      case actionTypes.NEW_UNREAD_MESSAGE: {
+        return storeParams(state.set('unreadCount', state.get('unreadCount', 0) + 1));
       }
       // Pull params from storage to redux store
       case actionTypes.PULL_SESSION: {

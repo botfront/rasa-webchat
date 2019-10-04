@@ -39,6 +39,7 @@ In your `<body/>`:
     profileAvatar: "http://to.avat.ar",
     openLauncherImage: 'myCustomOpenImage.png',
     closeLauncherImage: 'myCustomCloseImage.png',
+    displayUnreadCount: true, // --> [view](./assets/unread_count_pastille.png)
     params: {
       images: {
         dims: {
@@ -85,6 +86,7 @@ function CustomWidget = () => {
       showFullScreenButton={false}
       openLauncherImage="myCustomOpenImage.png"
       closeLauncherImage="myCustomCloseImage.png"
+      displayUnreadCount={true} // --> [view](./assets/unread_count_pastille.png)
       params={{
         images: {
           dims: {
