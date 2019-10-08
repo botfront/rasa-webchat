@@ -44,8 +44,8 @@ const ConnectedWidget = (props) => {
 ConnectedWidget.propTypes = {
   initPayload: PropTypes.string,
   interval: PropTypes.number,
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   socketUrl: PropTypes.string.isRequired,
   socketPath: PropTypes.string,
   customData: PropTypes.shape({}),

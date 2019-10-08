@@ -32,8 +32,8 @@ const Conversation = props =>
   </div>;
 
 Conversation.propTypes = {
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   sendMessage: PropTypes.func,
   profileAvatar: PropTypes.string,
   toggleFullScreen: PropTypes.func,

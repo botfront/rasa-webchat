@@ -253,9 +253,9 @@ const mapStateToProps = state => ({
 
 Widget.propTypes = {
   interval: PropTypes.number,
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   customData: PropTypes.shape({}),
-  subtitle: PropTypes.string,
+  subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   initPayload: PropTypes.string,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,

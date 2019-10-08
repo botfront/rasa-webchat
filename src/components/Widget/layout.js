@@ -69,8 +69,8 @@ const mapStateToProps = state => ({
 });
 
 WidgetLayout.propTypes = {
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   onSendMessage: PropTypes.func,
   toggleChat: PropTypes.func,
   toggleFullScreen: PropTypes.func,
