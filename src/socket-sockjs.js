@@ -9,9 +9,9 @@ export default function (socketUrl, customData, _path, options) {
   const socket = SockJS(socketUrl);
   const stomp = Stomp.over(socket);
 
-  const MESSAGES_CHANNEL = options.messages_channel || '/app/sendMessage';
-  const REPLY_TOPIC = options.reply_topic || '/user/queue/reply';
-  const SUBSCRIPTION_CHANNEL = options.subscription_channel || '/app/addUser';
+  const MESSAGES_CHANNEL = options.messagesChannel || '/app/sendMessage';
+  const REPLY_TOPIC = options.replyTopic || '/user/queue/reply';
+  const SUBSCRIPTION_CHANNEL = options.subscriptionChannel || '/app/addUser';
 
   const socketProxy = new EventEmitter();
 
@@ -34,8 +34,12 @@ export default function (socketUrl, customData, _path, options) {
     });
   });
 
-  socketProxy.on('session_request', () => {
-    socketProxy.emit('session_confirm', socketProxy.id);
+  socketProxy.on('session_request', (data) => {
+    send({
+      type: 'SESSION_REQUEST',
+      content: JSON.stringify(options.authData || null),
+      sender: 'client'
+    });
   });
 
   socketProxy.onconnect = () => {
@@ -59,13 +63,14 @@ export default function (socketUrl, customData, _path, options) {
 
     if (message.type === 'JOIN') {
       socketProxy.emit('connect');
-    } else if (message.type === 'LEAVE') {
+    } else if (message.type == 'LEAVE') {
       socket.close();
       socketProxy.emit('disconnect', 'server left');
+    } else if (message.type === 'SESSION_CONFIRM') {
+      socketProxy.emit('session_confirm', socketProxy.id)
     } else if (message.type === 'CHAT') {
       const agentMessage = JSON.parse(message.content);
       delete agentMessage.recipient_id;
-
       socketProxy.emit('bot_uttered', agentMessage);
     } else if (message.type === 'SESSION_CONFIRM') {
       socketProxy.emit('session_confirm', message.content);

@@ -12,7 +12,7 @@ const ConnectedWidget = (props) => {
     props.customData,
     props.socketPath,
     props.protocol,
-    props.socketOptions
+    props.protocolOptions
   );
   const storage = props.params.storage === 'session' ? sessionStorage : localStorage;
   initStore(
@@ -55,7 +55,7 @@ ConnectedWidget.propTypes = {
   protocol: PropTypes.string,
   socketUrl: PropTypes.string.isRequired,
   socketPath: PropTypes.string,
-  socketOptions: PropTypes.shape({}),
+  protocolOptions: PropTypes.shape({}),
   customData: PropTypes.shape({}),
   handleNewUserMessage: PropTypes.func,
   profileAvatar: PropTypes.string,
@@ -85,7 +85,7 @@ ConnectedWidget.defaultProps = {
   hideWhenNotConnected: true,
   protocol: 'socketio',
   socketUrl: 'http://localhost',
-  socketOptions: {},
+  protocolOptions: {},
   badge: 0,
   embedded: false,
   params: {
