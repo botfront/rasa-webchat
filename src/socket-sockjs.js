@@ -34,7 +34,7 @@ export default function (socketUrl, customData, _path, options) {
     });
   });
 
-  socketProxy.on('session_request', (data) => {
+  socketProxy.on('session_request', () => {
     send({
       type: 'SESSION_REQUEST',
       content: JSON.stringify(options.authData || null),
@@ -63,11 +63,11 @@ export default function (socketUrl, customData, _path, options) {
 
     if (message.type === 'JOIN') {
       socketProxy.emit('connect');
-    } else if (message.type == 'LEAVE') {
+    } else if (message.type === 'LEAVE') {
       socket.close();
       socketProxy.emit('disconnect', 'server left');
     } else if (message.type === 'SESSION_CONFIRM') {
-      socketProxy.emit('session_confirm', socketProxy.id)
+      socketProxy.emit('session_confirm', socketProxy.id);
     } else if (message.type === 'CHAT') {
       const agentMessage = JSON.parse(message.content);
       delete agentMessage.recipient_id;
