@@ -35,6 +35,9 @@ class Widget extends Component {
     setInterval(() => {
       if (this.messages.length > 0) {
         this.dispatchMessage(this.messages.shift());
+        if (!this.props.isChatOpen) {
+          this.props.dispatch(newUnreadMessage());
+        }
       }
     }, this.props.interval);
   }
@@ -44,9 +47,6 @@ class Widget extends Component {
 
     socket.on('bot_uttered', (botUttered) => {
       this.messages.push(botUttered);
-      if (!this.props.isChatOpen) {
-        this.props.dispatch(newUnreadMessage());
-      }
     });
 
     this.props.dispatch(pullSession());
@@ -280,7 +280,7 @@ Widget.defaultProps = {
   isChatOpen: false,
   isChatVisible: true,
   fullScreenMode: false,
-  displayUnreadCount: true
+  displayUnreadCount: false
 };
 
 export default connect(mapStateToProps)(Widget);
