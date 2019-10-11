@@ -46,7 +46,8 @@ class Widget extends Component {
     const { socket, storage } = this.props;
 
     socket.on('bot_uttered', (botUttered) => {
-      this.messages.push(botUttered);
+      const newMessage = { ...botUttered, text: String(botUttered.text) };
+      this.messages.push(newMessage);
     });
 
     this.props.dispatch(pullSession());

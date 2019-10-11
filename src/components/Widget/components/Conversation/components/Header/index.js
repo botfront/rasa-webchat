@@ -18,7 +18,7 @@ const Header = ({
   connectingText,
   closeImage
 }) =>
-  <div>
+  <div className="header-and-loading">
     <div className="header">
       <div className="header-buttons">
         {
