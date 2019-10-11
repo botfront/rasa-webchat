@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.3](https://https///compare/v0.6.2...v0.6.3) (2019-10-11)
+
+
+### Bug Fixes
+
+* displayUnreadCount in index ([9d915ad](https://https///commit/9d915ad))
+* displayUnreadCount props ([21ef8c2](https://https///commit/21ef8c2))
+* revert inputTextFieldHint ([cb94a5e](https://https///commit/cb94a5e))
+
+
+### Features
+
+* add unread count pastille on openLauncherMessage ([ee37f19](https://https///commit/ee37f19)), closes [#73](https://https///issues/73)
+* regroup messages in conversation by "sender" ([e837844](https://https///commit/e837844))
+
 ### [0.6.2](https://https///compare/v0.6.1...v0.6.2) (2019-10-11)
 
 ### [0.6.1](https://https///compare/v0.6.0...v0.6.1) (2019-10-11)
