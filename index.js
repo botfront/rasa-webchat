@@ -26,6 +26,7 @@ const plugin = {
         openLauncherImage={args.openLauncherImage}
         closeImage={args.closeImage}
         docViewer={args.docViewer}
+        displayUnreadCount={args.displayUnreadCount}
       />, document.querySelector(args.selector)
     );
   }
