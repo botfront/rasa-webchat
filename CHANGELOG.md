@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.1](https://https///compare/v0.6.0...v0.6.1) (2019-10-11)
+
+
+### Bug Fixes
+
+* cast messages text into string to prevent crashes ([4778ad8](https://https///commit/4778ad8))
+
+
+### Features
+
+* experimental sockjs support ([b1f7c9d](https://https///commit/b1f7c9d))
+
 ## [0.6.0](https://https///compare/v0.5.9...v0.6.0) (2019-10-03)
 
 ### 0.5.10 (2019-10-02)
