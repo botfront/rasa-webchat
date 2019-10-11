@@ -100,3 +100,7 @@ export function dropMessages() {
 export function pullSession() {
   store.dispatch(actions.pullSession());
 }
+
+export function newUnreadMessage() {
+  store.dispatch(actions.newUnreadMessage());
+}

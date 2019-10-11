@@ -18,7 +18,8 @@ import {
   initialize,
   connectServer,
   disconnectServer,
-  pullSession
+  pullSession,
+  newUnreadMessage
 } from 'actions';
 
 import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
@@ -34,6 +35,9 @@ class Widget extends Component {
     setInterval(() => {
       if (this.messages.length > 0) {
         this.dispatchMessage(this.messages.shift());
+        if (!this.props.isChatOpen) {
+          this.props.dispatch(newUnreadMessage());
+        }
       }
     }, this.props.interval);
   }
@@ -234,6 +238,7 @@ class Widget extends Component {
         openLauncherImage={this.props.openLauncherImage}
         closeImage={this.props.closeImage}
         customComponent={this.props.customComponent}
+        displayUnreadCount={this.props.displayUnreadCount}
       />
     );
   }
@@ -249,9 +254,9 @@ const mapStateToProps = state => ({
 
 Widget.propTypes = {
   interval: PropTypes.number,
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   customData: PropTypes.shape({}),
-  subtitle: PropTypes.string,
+  subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   initPayload: PropTypes.string,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
@@ -268,13 +273,15 @@ Widget.propTypes = {
   initialized: PropTypes.bool,
   openLauncherImage: PropTypes.string,
   closeImage: PropTypes.string,
-  customComponent: PropTypes.func
+  customComponent: PropTypes.func,
+  displayUnreadCount: PropTypes.bool
 };
 
 Widget.defaultProps = {
   isChatOpen: false,
   isChatVisible: true,
-  fullScreenMode: false
+  fullScreenMode: false,
+  displayUnreadCount: false
 };
 
 export default connect(mapStateToProps)(Widget);

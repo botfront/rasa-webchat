@@ -43,6 +43,7 @@ const ConnectedWidget = (props) => {
       openLauncherImage={props.openLauncherImage}
       closeImage={props.closeImage}
       customComponent={props.customComponent}
+      displayUnreadCount={props.displayUnreadCount}
     />
   </Provider>);
 };
@@ -50,8 +51,8 @@ const ConnectedWidget = (props) => {
 ConnectedWidget.propTypes = {
   initPayload: PropTypes.string,
   interval: PropTypes.number,
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   protocol: PropTypes.string,
   socketUrl: PropTypes.string.isRequired,
   socketPath: PropTypes.string,
@@ -72,7 +73,8 @@ ConnectedWidget.propTypes = {
   openLauncherImage: PropTypes.string,
   closeImage: PropTypes.string,
   docViewer: PropTypes.bool,
-  customComponent: PropTypes.func
+  customComponent: PropTypes.func,
+  displayUnreadCount: PropTypes.bool
 };
 
 ConnectedWidget.defaultProps = {
@@ -93,7 +95,8 @@ ConnectedWidget.defaultProps = {
   },
   docViewer: false,
   showCloseButton: true,
-  showFullScreenButton: false
+  showFullScreenButton: false,
+  displayUnreadCount: false
 };
 
 export default ConnectedWidget;

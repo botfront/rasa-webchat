@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 import { SESSION_NAME } from 'constants';
 import { getLocalSession, storeParamsTo } from './helper';
 
-export default function (inputFieldTextHint, connectingText, storage, docViewer = false) {
+export default function (inputTextFieldHint, connectingText, storage, docViewer = false) {
   const initialState = Map({
     connected: false,
     initialized: false,
@@ -11,8 +11,9 @@ export default function (inputFieldTextHint, connectingText, storage, docViewer 
     isChatOpen: false,
     disabledInput: true,
     docViewer,
-    inputFieldTextHint,
-    connectingText
+    inputTextFieldHint,
+    connectingText,
+    unreadCount: 0
   });
 
   return function reducer(state = initialState, action) {
@@ -26,10 +27,10 @@ export default function (inputFieldTextHint, connectingText, storage, docViewer 
         return storeParams(state.update('isChatVisible', isChatVisible => false));
       }
       case actionTypes.TOGGLE_CHAT: {
-        return storeParams(state.update('isChatOpen', isChatOpen => !isChatOpen));
+        return storeParams(state.update('isChatOpen', isChatOpen => !isChatOpen).set('unreadCount', 0));
       }
       case actionTypes.OPEN_CHAT: {
-        return storeParams(state.update('isChatOpen', isChatOpen => true));
+        return storeParams(state.update('isChatOpen', isChatOpen => true).set('unreadCount', 0));
       }
       case actionTypes.CLOSE_CHAT: {
         return storeParams(state.update('isChatOpen', isChatOpen => false));
@@ -41,7 +42,7 @@ export default function (inputFieldTextHint, connectingText, storage, docViewer 
         return storeParams(state.update('disabledInput', disabledInput => !disabledInput));
       }
       case actionTypes.CHANGE_INPUT_FIELD_HINT: {
-        return storeParams(state.set('inputFieldTextHint', action.hint));
+        return storeParams(state.set('inputTextFieldHint', action.hint));
       }
       case actionTypes.CONNECT: {
         return storeParams(state.set('connected', true).set('disabledInput', false));
@@ -51,6 +52,9 @@ export default function (inputFieldTextHint, connectingText, storage, docViewer 
       }
       case actionTypes.INITIALIZE: {
         return storeParams(state.set('initialized', true));
+      }
+      case actionTypes.NEW_UNREAD_MESSAGE: {
+        return storeParams(state.set('unreadCount', state.get('unreadCount', 0) + 1));
       }
       // Pull params from storage to redux store
       case actionTypes.PULL_SESSION: {

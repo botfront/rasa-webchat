@@ -54,8 +54,8 @@ const Header = ({
   </div>;
 
 Header.propTypes = {
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   fullScreenMode: PropTypes.bool,
   toggleFullScreen: PropTypes.func,
   toggleChat: PropTypes.func,
