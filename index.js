@@ -29,6 +29,7 @@ const plugin = {
         closeImage={args.closeImage}
         docViewer={args.docViewer}
         displayUnreadCount={args.displayUnreadCount}
+        showMessageDate={args.showMessageDate}
       />, document.querySelector(args.selector)
     );
   }

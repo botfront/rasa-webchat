@@ -239,6 +239,7 @@ class Widget extends Component {
         closeImage={this.props.closeImage}
         customComponent={this.props.customComponent}
         displayUnreadCount={this.props.displayUnreadCount}
+        showMessageDate={this.props.showMessageDate}
       />
     );
   }
@@ -274,7 +275,8 @@ Widget.propTypes = {
   openLauncherImage: PropTypes.string,
   closeImage: PropTypes.string,
   customComponent: PropTypes.func,
-  displayUnreadCount: PropTypes.bool
+  displayUnreadCount: PropTypes.bool,
+  showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
 };
 
 Widget.defaultProps = {

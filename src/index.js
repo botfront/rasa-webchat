@@ -44,6 +44,7 @@ const ConnectedWidget = (props) => {
       closeImage={props.closeImage}
       customComponent={props.customComponent}
       displayUnreadCount={props.displayUnreadCount}
+      showMessageDate={props.showMessageDate}
     />
   </Provider>);
 };
@@ -74,7 +75,8 @@ ConnectedWidget.propTypes = {
   closeImage: PropTypes.string,
   docViewer: PropTypes.bool,
   customComponent: PropTypes.func,
-  displayUnreadCount: PropTypes.bool
+  displayUnreadCount: PropTypes.bool,
+  showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
 };
 
 ConnectedWidget.defaultProps = {
@@ -96,7 +98,8 @@ ConnectedWidget.defaultProps = {
   docViewer: false,
   showCloseButton: true,
   showFullScreenButton: false,
-  displayUnreadCount: false
+  displayUnreadCount: false,
+  showMessageDate: false
 };
 
 export default ConnectedWidget;

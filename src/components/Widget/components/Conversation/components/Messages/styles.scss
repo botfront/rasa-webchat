@@ -1,6 +1,27 @@
 @import "variables.scss";
 @import "common.scss";
 
+.group-message.from-client {
+  span.message-date {
+    text-align: right;
+    flex-basis: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 11px;
+    color: #606773;
+  }
+}
+
+.group-message.from-response {
+  span.message-date {
+    text-align: left;
+    flex-basis: 100%;
+    margin-left: 50px;
+    font-size: 11px;
+    color: #606773;
+  }
+}
+
 .messages-container {
   background-color: $white;
   height: 50vh;

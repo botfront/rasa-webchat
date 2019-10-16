@@ -41,6 +41,7 @@ const WidgetLayout = (props) => {
           connectingText={props.connectingText}
           closeImage={props.closeImage}
           customComponent={props.customComponent}
+          showMessageDate={props.showMessageDate}
         />
       }
       {
@@ -90,7 +91,8 @@ WidgetLayout.propTypes = {
   openLauncherImage: PropTypes.string,
   closeImage: PropTypes.string,
   customComponent: PropTypes.func,
-  displayUnreadCount: PropTypes.bool
+  displayUnreadCount: PropTypes.bool,
+  showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
 };
 
 export default connect(mapStateToProps)(WidgetLayout);
