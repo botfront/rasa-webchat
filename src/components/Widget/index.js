@@ -43,7 +43,57 @@ class Widget extends Component {
   }
 
   componentDidMount() {
-    const { socket, storage } = this.props;
+    if (this.props.connectOn === 'mount') {
+      this.initializeWidget();
+      return;
+    }
+    const { storage } = this.props;
+    const localSession = getLocalSession(storage, SESSION_NAME);
+    const lastUpdate = localSession ? localSession.lastUpdate : 0;
+    if (this.props.autoClearCache) {
+      if ((Date.now() - lastUpdate) < (30 * 1000)) {
+        this.initializeWidget();
+      } else {
+        localStorage.removeItem(SESSION_NAME);
+      }
+    } else {
+      this.props.dispatch(pullSession());
+      if (lastUpdate) this.initializeWidget();
+    }
+  }
+
+  componentDidUpdate() {
+    this.props.dispatch(pullSession());
+    if (this.props.connectOn === 'mount') {
+      this.trySendInitPayload();
+    } else if (this.props.isChatOpen) {
+      if (!this.props.initialized) {
+        this.initializeWidget();
+      }
+      this.trySendInitPayload();
+    }
+    if (this.props.embedded && this.props.initialized) {
+      this.props.dispatch(showChat());
+      this.props.dispatch(openChat());
+    }
+  }
+
+  componentWillUnmount() {
+    socket.close();
+  }
+
+  getSessionId() {
+    const { storage } = this.props;
+    // Get the local session, check if there is an existing session_id
+    const localSession = getLocalSession(storage, SESSION_NAME);
+    const local_id = localSession ? localSession.session_id : null;
+    return local_id;
+  }
+
+  initializeWidget() {
+    const { storage, socket } = this.props;
+
+    socket.createSocket();
 
     socket.on('bot_uttered', (botUttered) => {
       const newMessage = { ...botUttered, text: String(botUttered.text) };
@@ -55,12 +105,12 @@ class Widget extends Component {
     // Request a session from server
     const local_id = this.getSessionId();
     socket.on('connect', () => {
-      socket.emit('session_request', ({ 'session_id': local_id }));
+      socket.emit('session_request', ({ session_id: local_id }));
     });
 
     // When session_confirm is received from the server:
     socket.on('session_confirm', (remote_id) => {
-      console.log(`session_confirm:${socket.id} session_id:${remote_id}`);
+      console.log(`session_confirm:${socket.socket.id} session_id:${remote_id}`);
 
       // Store the initial state to both the redux store and the storage, set connected to true
       this.props.dispatch(connectServer());
@@ -71,13 +121,12 @@ class Widget extends Component {
       start a new session.
       */
       if (local_id !== remote_id) {
-
         // storage.clear();
         // Store the received session_id to storage
 
         storeLocalSession(storage, SESSION_NAME, remote_id);
         this.props.dispatch(pullSession());
-        this.trySendInitPayload()
+        this.trySendInitPayload();
       } else {
         // If this is an existing session, it's possible we changed pages and want to send a
         // user message when we land.
@@ -108,28 +157,6 @@ class Widget extends Component {
     }
   }
 
-  componentDidUpdate() {
-    this.props.dispatch(pullSession());
-    this.trySendInitPayload();
-    if (this.props.embedded && this.props.initialized) {
-      this.props.dispatch(showChat());
-      this.props.dispatch(openChat());
-    }
-  }
-
-  componentWillUnmount() {
-    const { socket } = this.props;
-    socket.close();
-  }
-
-  getSessionId() {
-    const { storage } = this.props;
-    // Get the local session, check if there is an existing session_id
-    const localSession = getLocalSession(storage, SESSION_NAME);
-    const local_id = localSession? localSession.session_id: null;
-    return local_id;
-  }
-
   // TODO: Need to erase redux store on load if localStorage
   // is erased. Then behavior on reload can be consistent with
   // behavior on first load
@@ -153,9 +180,9 @@ class Widget extends Component {
       const session_id = this.getSessionId();
 
       // check that session_id is confirmed
-      if (!session_id) return
-      console.log("sending init payload", session_id)
-      socket.emit('user_uttered', { message: initPayload, customData, session_id: session_id });
+      if (!session_id) return;
+      console.log('sending init payload', session_id);
+      socket.emit('user_uttered', { message: initPayload, customData, session_id });
       this.props.dispatch(initialize());
     }
   }
@@ -262,6 +289,8 @@ Widget.propTypes = {
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
   hideWhenNotConnected: PropTypes.bool,
+  connectOn: PropTypes.oneOf(['mount', 'open']),
+  autoClearCache: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
   isChatVisible: PropTypes.bool,
   isChatOpen: PropTypes.bool,
@@ -281,6 +310,8 @@ Widget.defaultProps = {
   isChatOpen: false,
   isChatVisible: true,
   fullScreenMode: false,
+  connectOn: 'mount',
+  autoClearCache: false,
   displayUnreadCount: false
 };
 
