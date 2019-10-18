@@ -51,7 +51,7 @@ class Widget extends Component {
     const localSession = getLocalSession(storage, SESSION_NAME);
     const lastUpdate = localSession ? localSession.lastUpdate : 0;
     if (this.props.autoClearCache) {
-      if ((Date.now() - lastUpdate) < (30 * 1000)) {
+      if ((Date.now() - lastUpdate) < (30 * 60 * 1000)) {
         this.initializeWidget();
       } else {
         localStorage.removeItem(SESSION_NAME);
