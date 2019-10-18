@@ -7,45 +7,116 @@ import { store, initStore } from '../src/store/store';
 import socket from './socket';
 
 const ConnectedWidget = (props) => {
-  const sock = socket(
+  class Socket {
+    constructor(
+      url,
+      customData,
+      path,
+      protocol,
+      protocolOptions,
+      onSocketEvent
+    ) {
+      this.url = url;
+      this.customData = customData;
+      this.path = path;
+      this.protocol = protocol;
+      this.protocolOptions = protocolOptions;
+      this.onSocketEvent = onSocketEvent;
+      this.socket = null;
+      this.onEvents = [];
+    }
+
+    on(event, callback) {
+      if (!this.socket) {
+        this.onEvents.push({ event, callback });
+      } else {
+        this.socket.on(event, callback);
+      }
+    }
+
+    emit(message, data) {
+      if (this.socket) {
+        this.socket.emit(message, data);
+      }
+    }
+
+    close() {
+      if (this.socket) {
+        this.socket.close();
+      }
+    }
+
+    createSocket() {
+      this.socket = socket(
+        this.url,
+        this.customData,
+        this.path,
+        this.protocol,
+        this.protocolOptions
+      );
+      this.onEvents.forEach((event) => {
+        this.socket.on(event.event, event.callback);
+      });
+      if (this.onSocketEvent.disconnect) {
+        this.socket.on('disconnect', this.onSocketEvent.disconnect);
+      }
+      if (this.onSocketEvent.connect) {
+        this.socket.on('connect', this.onSocketEvent.connect);
+      }
+      this.onEvents = [];
+      Object.keys(this.onSocketEvent).forEach((event) => {
+        this.socket.on(event, this.onSocketEvent[event]);
+      });
+    }
+  }
+
+  const sock = new Socket(
     props.socketUrl,
     props.customData,
     props.socketPath,
     props.protocol,
-    props.protocolOptions
+    props.protocolOptions,
+    props.onSocketEvent
   );
-  const storage = props.params.storage === 'session' ? sessionStorage : localStorage;
+
+  const storage =
+    props.params.storage === 'session' ? sessionStorage : localStorage;
   initStore(
     props.inputTextFieldHint,
     props.connectingText,
     sock,
     storage,
     props.docViewer,
+    props.connectOn
   );
-  return (<Provider store={store}>
-    <Widget
-      socket={sock}
-      interval={props.interval}
-      initPayload={props.initPayload}
-      title={props.title}
-      subtitle={props.subtitle}
-      customData={props.customData}
-      handleNewUserMessage={props.handleNewUserMessage}
-      profileAvatar={props.profileAvatar}
-      showCloseButton={props.showCloseButton}
-      showFullScreenButton={props.showFullScreenButton}
-      hideWhenNotConnected={props.hideWhenNotConnected}
-      fullScreenMode={props.fullScreenMode}
-      badge={props.badge}
-      embedded={props.embedded}
-      params={props.params}
-      storage={storage}
-      openLauncherImage={props.openLauncherImage}
-      closeImage={props.closeImage}
-      customComponent={props.customComponent}
-      displayUnreadCount={props.displayUnreadCount}
-    />
-  </Provider>);
+  return (
+    <Provider store={store}>
+      <Widget
+        interval={props.interval}
+        initPayload={props.initPayload}
+        title={props.title}
+        subtitle={props.subtitle}
+        customData={props.customData}
+        handleNewUserMessage={props.handleNewUserMessage}
+        profileAvatar={props.profileAvatar}
+        showCloseButton={props.showCloseButton}
+        showFullScreenButton={props.showFullScreenButton}
+        hideWhenNotConnected={props.hideWhenNotConnected}
+        connectOn={props.connectOn}
+        autoClearCache={props.autoClearCache}
+        fullScreenMode={props.fullScreenMode}
+        badge={props.badge}
+        embedded={props.embedded}
+        params={props.params}
+        storage={storage}
+        openLauncherImage={props.openLauncherImage}
+        closeImage={props.closeImage}
+        customComponent={props.customComponent}
+        displayUnreadCount={props.displayUnreadCount}
+        socket={sock}
+      />
+    </Provider>
+  );
 };
 
 ConnectedWidget.propTypes = {
@@ -65,6 +136,9 @@ ConnectedWidget.propTypes = {
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
   hideWhenNotConnected: PropTypes.bool,
+  connectOn: PropTypes.oneOf(['mount', 'open']),
+  autoClearCache: PropTypes.bool,
+  onSocketEvent: PropTypes.objectOf(PropTypes.func),
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
   embedded: PropTypes.bool,
@@ -85,6 +159,9 @@ ConnectedWidget.defaultProps = {
   connectingText: 'Waiting for server...',
   fullScreenMode: false,
   hideWhenNotConnected: true,
+  autoClearCache: false,
+  connectOn: 'mount',
+  onSocketEvent: {},
   protocol: 'socketio',
   socketUrl: 'http://localhost',
   protocolOptions: {},
