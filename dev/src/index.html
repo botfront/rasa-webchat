@@ -16,6 +16,10 @@
     title: "DEV Test",
     inputTextFieldHint: "Type a message...",
     connectingText: "Waiting for server...",
+    hideWhenNotConnected: false,
+    onSocketEvent: {
+      'bot_uttered': () => console.log('bot uttered wow'),
+    },
     docViewer: false,
     params: {
       images: {

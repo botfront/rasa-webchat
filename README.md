@@ -83,6 +83,7 @@ function CustomWidget = () => {
       inputTextFieldHint={"Type a message..."}
       connectingText={"Waiting for server..."}
       hideWhenNotConnected
+      connectOn={"mount"}
       embedded={true}
       showFullScreenButton={false}
       openLauncherImage="myCustomOpenImage.png"
@@ -235,6 +236,22 @@ When reconnecting to an existing chat session, the bot will send a message conta
 **Note :** this is an **experimental** feature  
 
 If you add this prop to the component or to the init script, `docViewer=true` , this will treat links in received messages as links to a document ( `.pdf .doc .xlsx` etc. ) and will open them in a popup using `https://docs.google.com/viewer` service
+
+### connectOn
+
+This prop lets you choose when the widget will try connecting to the server. By default, it tries connecting as soon as it mounts. If you select `connectOn='open'` it will only attempt connection when the widget is opened. it can only take the values `mount` and `open`.
+
+### onSocketEvent
+
+This prop lets you call custom code on a specific socket event. Here is what it should look like.
+
+```jsx
+onSocketEvent={{
+  'bot_uttered': () => console.log('the bot said something'),
+  'connect': () => console.log('connection established'),
+  'disconnect': () => doSomeCleanup(),
+}}
+```
 
 ## API
 
