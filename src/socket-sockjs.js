@@ -43,6 +43,7 @@ export default function (socketUrl, customData, _path, options) {
   });
 
   socketProxy.onconnect = () => {
+    socketProxy.connected = true;
     socketProxy.id = extractSessionId(socket);
     socketProxy.customData = customData;
     stomp.subscribe(REPLY_TOPIC, socketProxy.onIncomingMessage);
@@ -85,6 +86,7 @@ export default function (socketUrl, customData, _path, options) {
 
   socket.onclose = () => {
     // eslint-disable-next-line no-console
+    socketProxy.connected = false;
     console.log('Closed sockjs connection');
     socketProxy.emit('disconnect');
   };
