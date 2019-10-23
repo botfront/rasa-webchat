@@ -85,7 +85,9 @@ class Messages extends Component {
         showMessageDate === true ? formatDate : null;
 
       const renderMessageDate = (message) => {
-        if (!dateRenderer) return null;
+        const timestamp = message.get('timestamp');
+
+        if (!dateRenderer || !timestamp) return null;
         const dateToRender = dateRenderer(message.get('timestamp', message));
         return dateToRender
           ? <span className="message-date">{dateRenderer(message.get('timestamp'), message)}</span>
