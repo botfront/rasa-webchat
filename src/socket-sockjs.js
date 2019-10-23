@@ -6,7 +6,7 @@ import { EventEmitter } from 'events';
   This implementation mimics the SocketIO implementation.
 */
 export default function (socketUrl, customData, _path, options) {
-  const socket = SockJS(socketUrl);
+  const socket = SockJS(socketUrl + (_path || ''));
   const stomp = Stomp.over(socket);
 
   const MESSAGES_CHANNEL = options.messagesChannel || '/app/sendMessage';
