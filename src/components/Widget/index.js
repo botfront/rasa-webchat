@@ -285,9 +285,9 @@ class Widget extends Component {
   render() {
     return (
       <WidgetLayout
-        toggleChat={this.toggleConversation}
-        toggleFullScreen={this.toggleFullScreen}
-        onSendMessage={this.handleMessageSubmit}
+        toggleChat={() => this.toggleConversation()}
+        toggleFullScreen={() => this.toggleFullScreen()}
+        onSendMessage={event => this.handleMessageSubmit(event)}
         title={this.props.title}
         subtitle={this.props.subtitle}
         customData={this.props.customData}
