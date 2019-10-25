@@ -6,7 +6,7 @@ import { EventEmitter } from 'events';
   This implementation mimics the SocketIO implementation.
 */
 export default function (socketUrl, customData, _path, options) {
-  const socket = SockJS(socketUrl);
+  const socket = SockJS(socketUrl + (_path || ''));
   const stomp = Stomp.over(socket);
 
   const MESSAGES_CHANNEL = options.messagesChannel || '/app/sendMessage';
@@ -43,6 +43,7 @@ export default function (socketUrl, customData, _path, options) {
   });
 
   socketProxy.onconnect = () => {
+    socketProxy.connected = true;
     socketProxy.id = extractSessionId(socket);
     socketProxy.customData = customData;
     stomp.subscribe(REPLY_TOPIC, socketProxy.onIncomingMessage);
@@ -85,6 +86,7 @@ export default function (socketUrl, customData, _path, options) {
 
   socket.onclose = () => {
     // eslint-disable-next-line no-console
+    socketProxy.connected = false;
     console.log('Closed sockjs connection');
     socketProxy.emit('disconnect');
   };

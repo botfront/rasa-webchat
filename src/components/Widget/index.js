@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -22,138 +21,176 @@ import {
   newUnreadMessage
 } from 'actions';
 
+import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
 import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
 import WidgetLayout from './layout';
 import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
-import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
 
 class Widget extends Component {
-
   constructor(props) {
     super(props);
     this.messages = [];
+
+    const {
+      interval,
+      isChatOpen,
+      dispatch
+    } = this.props;
+
     setInterval(() => {
       if (this.messages.length > 0) {
         this.dispatchMessage(this.messages.shift());
-        if (!this.props.isChatOpen) {
-          this.props.dispatch(newUnreadMessage());
+        if (!isChatOpen) {
+          dispatch(newUnreadMessage());
         }
       }
-    }, this.props.interval);
+    }, interval);
   }
 
   componentDidMount() {
-    if (this.props.connectOn === 'mount') {
+    const {
+      connectOn,
+      autoClearCache,
+      storage,
+      dispatch
+    } = this.props;
+
+    if (connectOn === 'mount') {
       this.initializeWidget();
       return;
     }
-    const { storage } = this.props;
+
     const localSession = getLocalSession(storage, SESSION_NAME);
     const lastUpdate = localSession ? localSession.lastUpdate : 0;
-    if (this.props.autoClearCache) {
+
+    if (autoClearCache) {
       if ((Date.now() - lastUpdate) < (30 * 60 * 1000)) {
         this.initializeWidget();
       } else {
         localStorage.removeItem(SESSION_NAME);
       }
     } else {
-      this.props.dispatch(pullSession());
+      dispatch(pullSession());
       if (lastUpdate) this.initializeWidget();
     }
   }
 
   componentDidUpdate() {
-    this.props.dispatch(pullSession());
-    if (this.props.connectOn === 'mount') {
+    const {
+      connectOn,
+      isChatOpen,
+      dispatch,
+      embedded,
+      initialized
+    } = this.props;
+
+    dispatch(pullSession());
+
+    if (connectOn === 'mount') {
       this.trySendInitPayload();
-    } else if (this.props.isChatOpen) {
-      if (!this.props.initialized) {
+    } else if (isChatOpen) {
+      if (!initialized) {
         this.initializeWidget();
       }
       this.trySendInitPayload();
     }
-    if (this.props.embedded && this.props.initialized) {
-      this.props.dispatch(showChat());
-      this.props.dispatch(openChat());
+
+    if (embedded && initialized) {
+      dispatch(showChat());
+      dispatch(openChat());
     }
   }
 
   componentWillUnmount() {
-    socket.close();
+    const {
+      socket
+    } = this.props;
+
+    if (socket) {
+      socket.close();
+    }
   }
 
   getSessionId() {
     const { storage } = this.props;
     // Get the local session, check if there is an existing session_id
     const localSession = getLocalSession(storage, SESSION_NAME);
-    const local_id = localSession ? localSession.session_id : null;
-    return local_id;
+    const localId = localSession ? localSession.session_id : null;
+    return localId;
   }
 
   initializeWidget() {
-    const { storage, socket } = this.props;
+    const {
+      storage,
+      socket,
+      dispatch,
+      embedded,
+      initialized
+    } = this.props;
 
-    socket.createSocket();
+    if (!socket.isInitialized()) {
+      socket.createSocket();
 
-    socket.on('bot_uttered', (botUttered) => {
-      const newMessage = { ...botUttered, text: String(botUttered.text) };
-      this.messages.push(newMessage);
-    });
+      socket.on('bot_uttered', (botUttered) => {
+        const newMessage = { ...botUttered, text: String(botUttered.text) };
+        this.messages.push(newMessage);
+      });
 
-    this.props.dispatch(pullSession());
+      dispatch(pullSession());
 
-    // Request a session from server
-    const local_id = this.getSessionId();
-    socket.on('connect', () => {
-      socket.emit('session_request', ({ session_id: local_id }));
-    });
+      // Request a session from server
+      const localId = this.getSessionId();
+      socket.on('connect', () => {
+        socket.emit('session_request', ({ session_id: localId }));
+      });
 
-    // When session_confirm is received from the server:
-    socket.on('session_confirm', (remote_id) => {
-      console.log(`session_confirm:${socket.socket.id} session_id:${remote_id}`);
+      // When session_confirm is received from the server:
+      socket.on('session_confirm', (remoteId) => {
+        console.log(`session_confirm:${socket.socket.id} session_id:${remoteId}`);
 
-      // Store the initial state to both the redux store and the storage, set connected to true
-      this.props.dispatch(connectServer());
+        // Store the initial state to both the redux store and the storage, set connected to true
+        dispatch(connectServer());
 
-      /*
-      Check if the session_id is consistent with the server
-      If the local_id is null or different from the remote_id,
-      start a new session.
-      */
-      if (local_id !== remote_id) {
-        // storage.clear();
-        // Store the received session_id to storage
+        /*
+        Check if the session_id is consistent with the server
+        If the localId is null or different from the remote_id,
+        start a new session.
+        */
+        if (localId !== remoteId) {
+          // storage.clear();
+          // Store the received session_id to storage
 
-        storeLocalSession(storage, SESSION_NAME, remote_id);
-        this.props.dispatch(pullSession());
-        this.trySendInitPayload();
-      } else {
-        // If this is an existing session, it's possible we changed pages and want to send a
-        // user message when we land.
-        const nextMessage = window.localStorage.getItem(NEXT_MESSAGE);
+          storeLocalSession(storage, SESSION_NAME, remoteId);
+          dispatch(pullSession());
+          this.trySendInitPayload();
+        } else {
+          // If this is an existing session, it's possible we changed pages and want to send a
+          // user message when we land.
+          const nextMessage = window.localStorage.getItem(NEXT_MESSAGE);
 
-        if (nextMessage !== null) {
-          const { message, expiry } = JSON.parse(nextMessage);
-          window.localStorage.removeItem(NEXT_MESSAGE);
+          if (nextMessage !== null) {
+            const { message, expiry } = JSON.parse(nextMessage);
+            window.localStorage.removeItem(NEXT_MESSAGE);
 
-          if (expiry === 0 || expiry > Date.now()) {
-            this.props.dispatch(addUserMessage(message));
-            this.props.dispatch(emitUserMessage(message));
+            if (expiry === 0 || expiry > Date.now()) {
+              dispatch(addUserMessage(message));
+              dispatch(emitUserMessage(message));
+            }
           }
         }
-      }
-    });
+      });
 
-    socket.on('disconnect', (reason) => {
-      console.log(reason);
-      if (reason !== 'io client disconnect') {
-        this.props.dispatch(disconnectServer());
-      }
-    });
+      socket.on('disconnect', (reason) => {
+        console.log(reason);
+        if (reason !== 'io client disconnect') {
+          dispatch(disconnectServer());
+        }
+      });
+    }
 
-    if (this.props.embedded && this.props.initialized) {
-      this.props.dispatch(showChat());
-      this.props.dispatch(openChat());
+    if (embedded && initialized) {
+      dispatch(showChat());
+      dispatch(openChat());
     }
   }
 
@@ -161,7 +198,7 @@ class Widget extends Component {
   // is erased. Then behavior on reload can be consistent with
   // behavior on first load
 
-  trySendInitPayload = () => {
+  trySendInitPayload() {
     const {
       initPayload,
       customData,
@@ -170,30 +207,32 @@ class Widget extends Component {
       isChatOpen,
       isChatVisible,
       embedded,
-      connected
+      connected,
+      dispatch
     } = this.props;
 
     // Send initial payload when chat is opened or widget is shown
     if (!initialized && connected && (((isChatOpen && isChatVisible) || embedded))) {
       // Only send initial payload if the widget is connected to the server but not yet initialized
 
-      const session_id = this.getSessionId();
+      const sessionId = this.getSessionId();
 
       // check that session_id is confirmed
-      if (!session_id) return;
-      console.log('sending init payload', session_id);
-      socket.emit('user_uttered', { message: initPayload, customData, session_id });
-      this.props.dispatch(initialize());
+      if (!sessionId) return;
+
+      console.log('sending init payload', sessionId);
+      socket.emit('user_uttered', { message: initPayload, customData, session_id: sessionId });
+      dispatch(initialize());
     }
   }
 
-  toggleConversation = () => {
+  toggleConversation() {
     this.props.dispatch(toggleChat());
-  };
+  }
 
-  toggleFullScreen = () => {
+  toggleFullScreen() {
     this.props.dispatch(toggleFullScreen());
-  };
+  }
 
   dispatchMessage(message) {
     if (Object.keys(message).length === 0) {
@@ -233,7 +272,7 @@ class Widget extends Component {
     }
   }
 
-  handleMessageSubmit = (event) => {
+  handleMessageSubmit(event) {
     event.preventDefault();
     const userUttered = event.target.message.value;
     if (userUttered) {
@@ -241,14 +280,14 @@ class Widget extends Component {
       this.props.dispatch(emitUserMessage(userUttered));
     }
     event.target.message.value = '';
-  };
+  }
 
   render() {
     return (
       <WidgetLayout
-        toggleChat={this.toggleConversation}
-        toggleFullScreen={this.toggleFullScreen}
-        onSendMessage={this.handleMessageSubmit}
+        toggleChat={() => this.toggleConversation()}
+        toggleFullScreen={() => this.toggleFullScreen()}
+        onSendMessage={event => this.handleMessageSubmit(event)}
         title={this.props.title}
         subtitle={this.props.subtitle}
         customData={this.props.customData}
@@ -266,6 +305,7 @@ class Widget extends Component {
         closeImage={this.props.closeImage}
         customComponent={this.props.customComponent}
         displayUnreadCount={this.props.displayUnreadCount}
+        showMessageDate={this.props.showMessageDate}
       />
     );
   }
@@ -303,7 +343,8 @@ Widget.propTypes = {
   openLauncherImage: PropTypes.string,
   closeImage: PropTypes.string,
   customComponent: PropTypes.func,
-  displayUnreadCount: PropTypes.bool
+  displayUnreadCount: PropTypes.bool,
+  showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
 };
 
 Widget.defaultProps = {

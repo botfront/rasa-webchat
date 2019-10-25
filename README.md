@@ -40,6 +40,7 @@ In your `<body/>`:
     openLauncherImage: 'myCustomOpenImage.png',
     closeLauncherImage: 'myCustomCloseImage.png',
     displayUnreadCount: true, // --> [view](./assets/unread_count_pastille.png)
+    showMessageDate: false,
     params: {
       images: {
         dims: {
@@ -88,6 +89,7 @@ function CustomWidget = () => {
       openLauncherImage="myCustomOpenImage.png"
       closeLauncherImage="myCustomCloseImage.png"
       displayUnreadCount={true} // --> [view](./assets/unread_count_pastille.png)
+      showMessageDate={false} // display message date, can use fonction as (timestamp, message) => return 'my custom date'
       params={{
         images: {
           dims: {
@@ -331,3 +333,4 @@ RUN mkdir -p /root/.npm
 [@Hub4IT](https://github.com/Hub4IT)
 [@dliuproduction](https://github.com/dliuproduction)
 [@MatthieuJnon](https://github.com/MatthieuJnon)
+[@mofortin](https://github.com/mofortin)

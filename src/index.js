@@ -26,6 +26,10 @@ const ConnectedWidget = (props) => {
       this.onEvents = [];
     }
 
+    isInitialized() {
+      return this.socket !== null && this.socket.connected;
+    }
+
     on(event, callback) {
       if (!this.socket) {
         this.onEvents.push({ event, callback });
@@ -57,12 +61,7 @@ const ConnectedWidget = (props) => {
       this.onEvents.forEach((event) => {
         this.socket.on(event.event, event.callback);
       });
-      if (this.onSocketEvent.disconnect) {
-        this.socket.on('disconnect', this.onSocketEvent.disconnect);
-      }
-      if (this.onSocketEvent.connect) {
-        this.socket.on('connect', this.onSocketEvent.connect);
-      }
+
       this.onEvents = [];
       Object.keys(this.onSocketEvent).forEach((event) => {
         this.socket.on(event, this.onSocketEvent[event]);
@@ -114,6 +113,7 @@ const ConnectedWidget = (props) => {
         customComponent={props.customComponent}
         displayUnreadCount={props.displayUnreadCount}
         socket={sock}
+        showMessageDate={props.showMessageDate}
       />
     </Provider>
   );
@@ -148,7 +148,8 @@ ConnectedWidget.propTypes = {
   closeImage: PropTypes.string,
   docViewer: PropTypes.bool,
   customComponent: PropTypes.func,
-  displayUnreadCount: PropTypes.bool
+  displayUnreadCount: PropTypes.bool,
+  showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
 };
 
 ConnectedWidget.defaultProps = {
@@ -173,7 +174,8 @@ ConnectedWidget.defaultProps = {
   docViewer: false,
   showCloseButton: true,
   showFullScreenButton: false,
-  displayUnreadCount: false
+  displayUnreadCount: false,
+  showMessageDate: false
 };
 
 export default ConnectedWidget;

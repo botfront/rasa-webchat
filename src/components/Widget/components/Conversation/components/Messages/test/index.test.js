@@ -20,6 +20,26 @@ import QuickReply from '../components/QuickReply';
 import Snippet from '../components/Snippet';
 
 describe('<Messages />', () => {
+
+  const RealDate = Date;
+
+  const mockDate = (isoDate) => {
+    global.Date = class extends RealDate {
+      constructor(arg) {
+        super(arg);
+
+        if (arg) { // only overide new Date();
+          return new RealDate(arg);
+        }
+        return new RealDate(isoDate);
+      }
+    };
+  };
+
+  afterEach(() => {
+    global.Date = RealDate;
+  });
+
   const message = createNewMessage('Response message 1');
   const linkSnippet = createLinkSnippet({ title: 'link', link: 'link' });
   const srcVideo = createVideoSnippet({ title: 'video', video: 'video' });
@@ -90,5 +110,50 @@ describe('<Messages />', () => {
 
   it('should render a QuickReply component', () => {
     expect(messagesComponent.find(QuickReply)).toHaveLength(1);
+  });
+
+  describe('-- showMessageDate', () => {
+    const today = new Date('2019-01-15T12:00:00');
+    const createComponent = (showMessageDate, messageToRender = message) =>
+      shallow(
+        (<Messages.WrappedComponent
+          messages={List([
+            messageToRender
+          ])}
+          customComponent={Dummy}
+          showMessageDate={showMessageDate}
+        />)
+      );
+
+    it('should not render message\'s date', () => {
+      expect(createComponent(false).find('.message-date')).toHaveLength(0);
+    });
+
+    it('should render today\'s time', () => {
+      mockDate(today);
+      const messageToRender = createNewMessage('Response message 1');
+      const renderedComponent = createComponent(true, messageToRender);
+      const date = renderedComponent.find('.message-date');
+      expect(date).toHaveLength(1);
+      expect(date.text()).toEqual(today.toLocaleTimeString());
+    });
+
+    it('should render date and time', () => {
+      const twoDaysAgo = new Date('2019-01-13T12:59:00');
+      mockDate(twoDaysAgo);
+      const messageToRender = createNewMessage('Response message 1');
+      mockDate(today);
+      const renderedComponent = createComponent(true, messageToRender);
+      const date = renderedComponent.find('.message-date');
+      expect(date).toHaveLength(1);
+      expect(date.text()).toEqual(`${twoDaysAgo.toLocaleDateString()} ${twoDaysAgo.toLocaleTimeString()}`);
+    });
+
+    it('should render custom date', () => {
+      const renderedComponent = createComponent(() => 'custom date');
+      const date = renderedComponent.find('.message-date');
+      expect(date).toHaveLength(1);
+      expect(date.text()).toEqual('custom date');
+    });
   });
 });

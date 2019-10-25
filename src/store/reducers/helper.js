@@ -3,14 +3,14 @@ import { MESSAGES_TYPES, MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
 import { Video, Image, Message, Snippet, QuickReply } from 'messagesComponents';
 
-
 export function createNewMessage(text, sender) {
   return Map({
     type: MESSAGES_TYPES.TEXT,
     component: Message,
     text,
     sender,
-    showAvatar: sender === MESSAGE_SENDER.RESPONSE
+    showAvatar: sender === MESSAGE_SENDER.RESPONSE,
+    timestamp: new Date().getTime()
   });
 }
 
@@ -23,7 +23,8 @@ export function createLinkSnippet(link, sender) {
     content: link.content,
     target: link.target || '_blank',
     sender,
-    showAvatar: true
+    showAvatar: true,
+    timestamp: new Date().getTime()
   });
 }
 
@@ -34,7 +35,8 @@ export function createVideoSnippet(video, sender) {
     title: video.title,
     video: video.video,
     sender,
-    showAvatar: true
+    showAvatar: true,
+    timestamp: new Date().getTime()
   });
 }
 
@@ -45,7 +47,8 @@ export function createImageSnippet(image, sender) {
     title: image.title,
     image: image.image,
     sender,
-    showAvatar: true
+    showAvatar: true,
+    timestamp: new Date().getTime()
   });
 }
 
@@ -58,7 +61,8 @@ export function createQuickReply(quickReply, sender) {
     quick_replies: List(quickReply.quick_replies),
     sender,
     showAvatar: true,
-    chosenReply: null
+    chosenReply: null,
+    timestamp: new Date().getTime()
   });
 }
 
@@ -68,7 +72,8 @@ export function createComponentMessage(component, props, showAvatar) {
     component,
     props,
     sender: MESSAGE_SENDER.RESPONSE,
-    showAvatar
+    showAvatar,
+    timestamp: new Date().getTime()
   });
 }
 

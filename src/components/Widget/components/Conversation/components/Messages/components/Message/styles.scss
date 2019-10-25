@@ -8,6 +8,7 @@
     display: flex;
     font-size: 14px;
     font-family: $roboto;
+    flex-wrap: wrap;
   
     .markdown {
       p {
@@ -20,7 +21,7 @@
     @include message-bubble($blue-1, $white);
     margin-left: auto;
     overflow-wrap: break-word;
-  
+    
     a {
       color: $turqois-1;
     }

@@ -24,6 +24,7 @@ const Conversation = props =>
       profileAvatar={props.profileAvatar}
       params={props.params}
       customComponent={props.customComponent}
+      showMessageDate={props.showMessageDate}
     />
     <Sender
       sendMessage={props.sendMessage}
@@ -46,7 +47,8 @@ Conversation.propTypes = {
   connected: PropTypes.bool,
   connectingText: PropTypes.string,
   closeImage: PropTypes.string,
-  customComponent: PropTypes.func
+  customComponent: PropTypes.func,
+  showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
 };
 
 export default Conversation;

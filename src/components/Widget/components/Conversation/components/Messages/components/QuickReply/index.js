@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { PROP_TYPES } from 'constants';
 import { addUserMessage, emitUserMessage, setQuickReply, toggleInputDisabled, changeInputFieldHint } from 'actions';
 import Message from '../Message/index';
@@ -11,34 +12,52 @@ class QuickReply extends PureComponent {
     super(props);
     this.handleClick = this.handleClick.bind(this);
 
-    const hint = this.props.message.get('hint');
-    const chosenReply = this.props.getChosenReply(this.props.id);
-    if (!chosenReply && !this.props.inputState) {
+    const {
+      message,
+      getChosenReply,
+      inputState,
+      id
+    } = this.props;
+
+    const hint = message.get('hint');
+    const chosenReply = getChosenReply(id);
+    if (!chosenReply && !inputState) {
       // this.props.toggleInputDisabled();
       // this.props.changeInputFieldHint(hint);
     }
   }
 
   handleClick(reply) {
+    const {
+      chooseReply,
+      id
+    } = this.props;
+
     const payload = reply.payload;
     const title = reply.title;
-    const id = this.props.id;
-    this.props.chooseReply(payload, title, id);
+    chooseReply(payload, title, id);
     // this.props.changeInputFieldHint('Type a message...');
   }
 
   render() {
-    const chosenReply = this.props.getChosenReply(this.props.id);
+    const {
+      message,
+      getChosenReply,
+      isLast,
+      id
+    } = this.props;
+
+    const chosenReply = getChosenReply(id);
     if (chosenReply) {
-      return <Message message={this.props.message} />;
+      return <Message message={message} />;
     }
     return (
-      <div>
-        <Message message={this.props.message} />
-        {this.props.isLast && (
+      <div className="quickReplies-container">
+        <Message message={message} />
+        {isLast && (
         <div className="replies">
-            {this.props.message.get("quick_replies").map((reply, index) => {
-              if(reply.type === 'web_url') {
+            {message.get('quick_replies').map((reply, index) => {
+              if (reply.type === 'web_url') {
                 return (
                   <a
                     key={index}
@@ -52,10 +71,11 @@ class QuickReply extends PureComponent {
                 );
               }
               return (
+                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
                 <div
                   key={index}
                   className={'reply'}
-                  onClick={this.handleClick.bind(this, reply)}
+                  onClick={() => this.handleClick(reply)}
                 >
                   {reply.title}
                 </div>
@@ -63,7 +83,7 @@ class QuickReply extends PureComponent {
             })}
           </div>
         )}
-        </div>
+      </div>
     );
   }
 }
@@ -75,7 +95,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleInputDisabled: _ => dispatch(toggleInputDisabled()),
+  toggleInputDisabled: () => dispatch(toggleInputDisabled()),
   changeInputFieldHint: hint => dispatch(changeInputFieldHint(hint)),
   chooseReply: (payload, title, id) => {
     dispatch(setQuickReply(id, title));
@@ -86,6 +106,10 @@ const mapDispatchToProps = dispatch => ({
 });
 
 QuickReply.propTypes = {
+  getChosenReply: PropTypes.func,
+  chooseReply: PropTypes.func,
+  id: PropTypes.string,
+  isLast: PropTypes.bool,
   message: PROP_TYPES.QUICK_REPLY
 };
 
