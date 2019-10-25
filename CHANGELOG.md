@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.5](https://https///compare/v0.6.4...v0.6.5) (2019-10-25)
+
+
+### Bug Fixes
+
+* duplicate registration of connect and disconnect event ([263b847](https://https///commit/263b847))
+* duplicate user connection and small refactoring ([58e8925](https://https///commit/58e8925))
+* function binding ([0a035c0](https://https///commit/0a035c0))
+* invalid date if timestamp not present ([4c7be48](https://https///commit/4c7be48))
+* link and add container-class to quickreplies ([67f7fcf](https://https///commit/67f7fcf))
+* lost of path in sockjs implementation ([46adcab](https://https///commit/46adcab))
+* message's date CSS and removed seconds from date ([e0fe602](https://https///commit/e0fe602))
+* sockjs duplicate connection ([991cc6a](https://https///commit/991cc6a))
+
+
+### Features
+
+* display message's date on chat ([3fef7c8](https://https///commit/3fef7c8))
+
 ### [0.6.4](https://https///compare/v0.6.3...v0.6.4) (2019-10-18)
 
 
