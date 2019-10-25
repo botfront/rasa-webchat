@@ -18,7 +18,7 @@ const isToday = (date) => {
 const formatDate = (date) => {
   const dateToFormat = new Date(date);
   const showDate = isToday(dateToFormat) ? '' : `${dateToFormat.toLocaleDateString()} `;
-  return `${showDate}${dateToFormat.toLocaleTimeString()}`;
+  return `${showDate}${dateToFormat.toLocaleTimeString('en-US', { timeStyle: 'short' })}`;
 };
 
 const scrollToBottom = () => {
