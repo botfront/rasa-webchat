@@ -35,6 +35,14 @@
   /* For markdown elements created with default styles */
   .message-text {
     margin: 0;
+    .markdown{
+      p{
+        margin-bottom: 1em;
+      }
+      :last-child{
+        margin-bottom: 0px;
+      }
+    }
   }
   
   .avatar {
