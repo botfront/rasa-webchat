@@ -55,7 +55,7 @@
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
     "enzyme": "^2.9.1",
-    "eslint": "^3.19.0",
+    "eslint": "^4.18.2",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-config-prettier": "^1.6.0",
     "eslint-import-resolver-babel-module": "^3.0.0",
