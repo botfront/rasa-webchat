@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.6](https://https///compare/v0.6.5...v0.6.6) (2019-10-30)
+
+
+### Bug Fixes
+
+* margin 0 is prefered to margin 0px ([2c0ca86](https://https///commit/2c0ca86))
+* no margin on last child only applies to <p> ([4fe3e9b](https://https///commit/4fe3e9b))
+
+
+### Features
+
+* add margin to <p> to display newline ([c7df04b](https://https///commit/c7df04b))
+
 ### [0.6.5](https://https///compare/v0.6.4...v0.6.5) (2019-10-25)
 
 
