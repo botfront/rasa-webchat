@@ -70,13 +70,12 @@ class Messages extends Component {
   }
 
   render() {
-    const { displayTypingIndication } = this.props;
+    const { displayTypingIndication, profileAvatar } = this.props;
 
     const renderMessages = () => {
       const {
         messages,
-        showMessageDate,
-        profileAvatar
+        showMessageDate
       } = this.props;
 
       if (messages.isEmpty()) return null;
@@ -98,7 +97,7 @@ class Messages extends Component {
       };
 
       const renderMessage = (message, index) => (
-        <div className="message" key={index}>
+        <div className={`message ${profileAvatar && 'with-avatar'}`} key={index}>
           {
             profileAvatar &&
             message.get('showAvatar') &&
@@ -135,7 +134,11 @@ class Messages extends Component {
       <div id="messages" className="messages-container">
         { renderMessages() }
         {displayTypingIndication && (
-          <div className="message">
+          <div className={`message typing-indication ${profileAvatar && 'with-avatar'}`}>
+            {
+              profileAvatar &&
+              <img src={profileAvatar} className="avatar" alt="profile" />
+            }
             <div className="response">
               <div id="wave">
                 <span className="dot" />

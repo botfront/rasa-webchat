@@ -19,6 +19,7 @@ const Conversation = props =>
       connected={props.connected}
       connectingText={props.connectingText}
       closeImage={props.closeImage}
+      profileAvatar={props.profileAvatar}
     />
     <Messages
       profileAvatar={props.profileAvatar}

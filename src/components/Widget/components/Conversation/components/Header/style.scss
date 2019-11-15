@@ -11,12 +11,25 @@
     text-align: center;
     height: 55px;
     font-family: $roboto;
+    position: relative;
+    .avatar {
+      height: 31px;
+      width: 31px;
+      position: absolute;
+      top: 12px;
+      left: 14px;
+    }
   }
 
   .title {
     font-size: 20px;
     margin: 0;
     font-family: $roboto;
+    position: absolute;
+    left: 20px;
+    &.with-avatar {
+      left: 58px;
+    }
   }
 
   .header-buttons {

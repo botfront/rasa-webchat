@@ -2,10 +2,10 @@
 
 $roboto: 'Roboto', serif;  
 
-@mixin message-bubble($color, $textColor) {
+@mixin message-bubble($color, $textColor, $borderRadius: 15px) {
   background-color: $color;
   color: $textColor;
-  border-radius: 15px;
+  border-radius: $borderRadius;
   padding: 11px 15px;
   max-width: 215px;
   text-align: left;
@@ -14,7 +14,7 @@ $roboto: 'Roboto', serif;
 
 @mixin borderless-message-bubble($color, $textColor) {
     border-color: $color;
-    border-radius: 10px;
+    border-radius: 15px;
     color: $textColor;
     border-style: solid;
     padding: 15px;

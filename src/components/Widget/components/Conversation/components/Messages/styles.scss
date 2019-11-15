@@ -22,7 +22,42 @@
     font-size: 11px;
     color: #a4a7ab;
   }
+  // When we have several messages, the first one of the group
+  .message:first-child:not(:only-child) {
+    .response {
+      border-radius: 0 15px 15px 0;
+    }
+    margin-bottom: 2px;
+  }
+  // When we have several messages, messages that are neither the first, nor the last
+  .message:not(:first-child):not(:last-child):not(:last-child) {
+    .response {
+      border-radius: 0 15px 15px 0;
+    }
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+  // every message in a group that is NOT the first
+  .message:not(:first-child):not(:only-child) {
+    .avatar {
+      display: none;
+    }
+    &.with-avatar {
+      margin-left: 33px;
+    }
+  }
+  // When we have several messages, the last one of the group
+  .message:last-child:not(:only-child) {
+    margin-top: 2px;
+  }
 }
+
+.message.typing-indication {
+  .response {
+    height: 16px;
+  }
+}
+
 
 .messages-container {
   background-color: $white;

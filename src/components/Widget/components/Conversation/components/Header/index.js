@@ -16,10 +16,16 @@ const Header = ({
   showFullScreenButton,
   connected,
   connectingText,
-  closeImage
+  closeImage,
+  profileAvatar
 }) =>
   <div className="header-and-loading">
     <div className="header">
+      {
+        profileAvatar && (
+          <img src={profileAvatar} className="avatar" alt="chat avatar" />
+        )
+      }
       <div className="header-buttons">
         {
           showFullScreenButton &&
@@ -42,15 +48,15 @@ const Header = ({
           </button>
         }
       </div>
-      <h4 className="title">{title}</h4>
+      <h4 className={`title ${profileAvatar && 'with-avatar'}`}>{title}</h4>
       {subtitle && <span>{subtitle}</span>}
     </div>
-  {
-    !connected &&
-    <span className="loading">
-      {connectingText}
-    </span>
-  }
+    {
+      !connected &&
+      <span className="loading">
+        {connectingText}
+      </span>
+    }
   </div>;
 
 Header.propTypes = {
@@ -63,7 +69,8 @@ Header.propTypes = {
   showFullScreenButton: PropTypes.bool,
   connected: PropTypes.bool,
   connectingText: PropTypes.string,
-  closeImage: PropTypes.string
+  closeImage: PropTypes.string,
+  profileAvatar: PropTypes.string
 };
 
 export default Header;
