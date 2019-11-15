@@ -38,37 +38,40 @@ class Messages extends Component {
   getComponentToRender = (message, index, isLast) => {
     const { params } = this.props;
     const ComponentToRender = (() => {
-      switch(message.get('type')){
+      switch (message.get('type')) {
         case MESSAGES_TYPES.TEXT: {
-          return Message
+          return Message;
         }
         case MESSAGES_TYPES.SNIPPET.LINK: {
-          return Snippet
+          return Snippet;
         }
         case MESSAGES_TYPES.VIDREPLY.VIDEO: {
-          return Video
+          return Video;
         }
         case MESSAGES_TYPES.IMGREPLY.IMAGE: {
-          return Image
+          return Image;
         }
         case MESSAGES_TYPES.QUICK_REPLY: {
-          return QuickReply
+          return QuickReply;
         }
         case MESSAGES_TYPES.CUSTOM_COMPONENT:
           return connect(
             store => ({ store }),
             dispatch => ({ dispatch })
           )(this.props.customComponent);
+        default:
+          return null;
       }
-      return null
-    })()
+    })();
     if (message.get('type') === 'component') {
-      return <ComponentToRender id={index} {...message.get('props')} isLast={isLast}/>;
+      return <ComponentToRender id={index} {...message.get('props')} isLast={isLast} />;
     }
     return <ComponentToRender id={index} params={params} message={message} isLast={isLast} />;
   }
 
   render() {
+    const { displayTypingIndication } = this.props;
+
     const renderMessages = () => {
       const {
         messages,
@@ -131,6 +134,17 @@ class Messages extends Component {
     return (
       <div id="messages" className="messages-container">
         { renderMessages() }
+        {displayTypingIndication && (
+          <div className="message">
+            <div className="response">
+              <div id="wave">
+                <span className="dot" />
+                <span className="dot" />
+                <span className="dot" />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -140,9 +154,11 @@ Messages.propTypes = {
   messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
   profileAvatar: PropTypes.string,
   customComponent: PropTypes.func,
-  showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
+  showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  displayTypingIndication: PropTypes.bool.isRequired
 };
 
 export default connect(store => ({
-  messages: store.messages
+  messages: store.messages,
+  displayTypingIndication: store.behavior.get('messageDelayed')
 }))(Messages);

@@ -171,3 +171,10 @@ export function newUnreadMessage() {
   };
 }
 
+export function triggerMessageDelayed(messageDelayed) {
+  return {
+    type: actions.TRIGGER_MESSAGE_DELAY,
+    messageDelayed
+  };
+}
+

@@ -10,7 +10,6 @@ const plugin = {
         socketUrl={args.socketUrl}
         socketPath={args.socketPath}
         protocolOptions={args.protocolOptions}
-        interval={args.interval}
         initPayload={args.initPayload}
         title={args.title}
         subtitle={args.subtitle}
@@ -33,6 +32,7 @@ const plugin = {
         docViewer={args.docViewer}
         displayUnreadCount={args.displayUnreadCount}
         showMessageDate={args.showMessageDate}
+        customMessageDelay={args.customMessageDelay}
       />, document.querySelector(args.selector)
     );
   }

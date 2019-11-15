@@ -13,7 +13,8 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
     docViewer,
     inputTextFieldHint,
     connectingText,
-    unreadCount: 0
+    unreadCount: 0,
+    messageDelayed: false
   });
 
   return function reducer(state = initialState, action) {
@@ -56,6 +57,9 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
       case actionTypes.NEW_UNREAD_MESSAGE: {
         return storeParams(state.set('unreadCount', state.get('unreadCount', 0) + 1));
       }
+      case actionTypes.TRIGGER_MESSAGE_DELAY: {
+        return storeParams(state.set('messageDelayed', action.messageDelayed));
+      }
       // Pull params from storage to redux store
       case actionTypes.PULL_SESSION: {
         const localSession = getLocalSession(storage, SESSION_NAME);
@@ -65,9 +69,8 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
 
         if (localSession && localSession.params) {
           return Map({ ...localSession.params, connected });
-        } else {
-          return state;
         }
+        return state;
       }
       default:
         return state;

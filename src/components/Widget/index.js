@@ -18,7 +18,8 @@ import {
   connectServer,
   disconnectServer,
   pullSession,
-  newUnreadMessage
+  newUnreadMessage,
+  triggerMessageDelayed
 } from 'actions';
 
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
@@ -30,21 +31,7 @@ class Widget extends Component {
   constructor(props) {
     super(props);
     this.messages = [];
-
-    const {
-      interval,
-      isChatOpen,
-      dispatch
-    } = this.props;
-
-    setInterval(() => {
-      if (this.messages.length > 0) {
-        this.dispatchMessage(this.messages.shift());
-        if (!isChatOpen) {
-          dispatch(newUnreadMessage());
-        }
-      }
-    }, interval);
+    this.onGoingMessageDelay = false;
   }
 
   componentDidMount() {
@@ -119,6 +106,39 @@ class Widget extends Component {
     return localId;
   }
 
+  handleMessageReceived(message) {
+    const { dispatch } = this.props;
+    if (!this.onGoingMessageDelay) {
+      this.onGoingMessageDelay = true;
+      dispatch(triggerMessageDelayed(true));
+      this.newMessageTimeout(message);
+    } else {
+      this.messages.push(message);
+    }
+  }
+
+  popLastMessage() {
+    const { dispatch } = this.props;
+    if (this.messages.length) {
+      this.onGoingMessageDelay = true;
+      dispatch(triggerMessageDelayed(true));
+      this.newMessageTimeout(this.messages.shift());
+    }
+  }
+
+  newMessageTimeout(message) {
+    const { dispatch, isChatOpen, customMessageDelay } = this.props;
+    setTimeout(() => {
+      this.dispatchMessage(message);
+      if (!isChatOpen) {
+        dispatch(newUnreadMessage());
+      }
+      dispatch(triggerMessageDelayed(false));
+      this.onGoingMessageDelay = false;
+      this.popLastMessage();
+    }, customMessageDelay(message.text || ''));
+  }
+
   initializeWidget() {
     const {
       storage,
@@ -133,7 +153,7 @@ class Widget extends Component {
 
       socket.on('bot_uttered', (botUttered) => {
         const newMessage = { ...botUttered, text: String(botUttered.text) };
-        this.messages.push(newMessage);
+        this.handleMessageReceived(newMessage);
       });
 
       dispatch(pullSession());
@@ -146,6 +166,7 @@ class Widget extends Component {
 
       // When session_confirm is received from the server:
       socket.on('session_confirm', (remoteId) => {
+        // eslint-disable-next-line no-console
         console.log(`session_confirm:${socket.socket.id} session_id:${remoteId}`);
 
         // Store the initial state to both the redux store and the storage, set connected to true
@@ -181,6 +202,7 @@ class Widget extends Component {
       });
 
       socket.on('disconnect', (reason) => {
+        // eslint-disable-next-line no-console
         console.log(reason);
         if (reason !== 'io client disconnect') {
           dispatch(disconnectServer());
@@ -220,6 +242,7 @@ class Widget extends Component {
       // check that session_id is confirmed
       if (!sessionId) return;
 
+      // eslint-disable-next-line no-console
       console.log('sending init payload', sessionId);
       socket.emit('user_uttered', { message: initPayload, customData, session_id: sessionId });
       dispatch(initialize());
@@ -320,7 +343,6 @@ const mapStateToProps = state => ({
 });
 
 Widget.propTypes = {
-  interval: PropTypes.number,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   customData: PropTypes.shape({}),
   subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
@@ -344,7 +366,8 @@ Widget.propTypes = {
   closeImage: PropTypes.string,
   customComponent: PropTypes.func,
   displayUnreadCount: PropTypes.bool,
-  showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
+  showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  customMessageDelay: PropTypes.func.isRequired
 };
 
 Widget.defaultProps = {
