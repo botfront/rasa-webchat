@@ -64,7 +64,6 @@ class Widget extends Component {
 
   componentDidUpdate() {
     const {
-      connectOn,
       isChatOpen,
       dispatch,
       embedded,
@@ -73,9 +72,7 @@ class Widget extends Component {
 
     dispatch(pullSession());
 
-    if (connectOn === 'mount') {
-      this.trySendInitPayload();
-    } else if (isChatOpen) {
+    if (isChatOpen) {
       if (!initialized) {
         this.initializeWidget();
       }
