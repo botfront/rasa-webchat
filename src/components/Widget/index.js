@@ -268,6 +268,7 @@ class Widget extends Component {
   }
 
   toggleConversation() {
+    this.props.dispatch(setTooltipMessage(null));
     this.props.dispatch(toggleChat());
   }
 
