@@ -1,12 +1,14 @@
 import { Map } from 'immutable';
-import * as actionTypes from '../actions/actionTypes';
 import { SESSION_NAME } from 'constants';
+import * as actionTypes from '../actions/actionTypes';
 import { getLocalSession, storeParamsTo } from './helper';
 
 export default function (inputTextFieldHint, connectingText, storage, docViewer = false) {
   const initialState = Map({
     connected: false,
     initialized: false,
+    tooltipSent: false,
+    tooltipMessage: null,
     isChatVisible: true,
     isChatOpen: false,
     disabledInput: true,
@@ -59,6 +61,12 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
       }
       case actionTypes.TRIGGER_MESSAGE_DELAY: {
         return storeParams(state.set('messageDelayed', action.messageDelayed));
+      }
+      case actionTypes.TRIGGER_TOOLTIP_SENT: {
+        return storeParams(state.set('tooltipSent', true));
+      }
+      case actionTypes.SET_TOOLTIP_MESSAGE: {
+        return storeParams(state.set('tooltipMessage', action.tooltipMessage));
       }
       // Pull params from storage to redux store
       case actionTypes.PULL_SESSION: {

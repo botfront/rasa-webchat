@@ -33,6 +33,7 @@ const plugin = {
         displayUnreadCount={args.displayUnreadCount}
         showMessageDate={args.showMessageDate}
         customMessageDelay={args.customMessageDelay}
+        tooltipPayload={args.tooltipPayload}
       />, document.querySelector(args.selector)
     );
   }

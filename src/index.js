@@ -114,6 +114,7 @@ const ConnectedWidget = (props) => {
         socket={sock}
         showMessageDate={props.showMessageDate}
         customMessageDelay={props.customMessageDelay}
+        tooltipPayload={props.tooltipPayload}
       />
     </Provider>
   );
@@ -149,7 +150,8 @@ ConnectedWidget.propTypes = {
   customComponent: PropTypes.func,
   displayUnreadCount: PropTypes.bool,
   showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  customMessageDelay: PropTypes.func
+  customMessageDelay: PropTypes.func,
+  tooltipPayload: PropTypes.string
 };
 
 ConnectedWidget.defaultProps = {
@@ -180,7 +182,8 @@ ConnectedWidget.defaultProps = {
     if (delay > 2 * 1000) delay = 3 * 1000;
     if (delay < 400) delay = 1000;
     return delay;
-  }
+  },
+  tooltipPayload: null
 };
 
 export default ConnectedWidget;

@@ -178,3 +178,15 @@ export function triggerMessageDelayed(messageDelayed) {
   };
 }
 
+export function setTooltipMessage(tooltipMessage) {
+  return {
+    type: actions.SET_TOOLTIP_MESSAGE,
+    tooltipMessage
+  };
+}
+
+export function triggerTooltipSent() {
+  return {
+    type: actions.TRIGGER_TOOLTIP_SENT
+  };
+}
