@@ -141,7 +141,7 @@ class Widget extends Component {
       socket.createSocket();
 
       socket.on('bot_uttered', (botUttered) => {
-        if (botUttered.metadata && botUttered.metadata.tooltype) {
+        if (botUttered.metadata && botUttered.metadata.tooltip) {
           dispatch(setTooltipMessage(String(botUttered.text)));
           return;
         }
