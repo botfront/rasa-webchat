@@ -13,12 +13,13 @@
     initPayload: "/get_started",
     socketUrl: "http://localhost:5005/",
     socketPath: "/socket.io/",
-    title: "DEV Test",
+    title: "My amazing chat",
+    // subtitle: 'A subtitle',
     inputTextFieldHint: "Type a message...",
     connectingText: "Waiting for server...",
     hideWhenNotConnected: false,
     onSocketEvent: {
-      'bot_uttered': () => console.log('bot uttered wow'),
+      'bot_uttered': () => console.log('bot uttered'),
     },
     docViewer: false,
     params: {

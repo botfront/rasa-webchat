@@ -1,17 +1,18 @@
-# webchat
+# Rasa Webchat
 
-A simple webchat widget to connect with a chatbot. Forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget)
+A simple webchat widget to connect with a chatbot 💬platform. Originally forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget) and optimized for [Rasa](https://github.com/rasaHQ/rasa) and [Botfront](https://github.com/botfront/botfront).
 ## Features
 
 - Text Messages
 - Quick Replies
 - Images and Videos
-- Snippet style for links (only as responses for now)
 - Markdown support
 - Easy to import in a script tag or as a React Component
 - Persistent sessions
+- Typing indications
+- Smart delay between messages
 
-![demonstration](./assets/chat-demonstration.gif)
+<img src="./assets/chat-demonstration.gif" alt="demonstration" width="400"/>
 
 ## Setup
 
@@ -20,12 +21,12 @@ A simple webchat widget to connect with a chatbot. Forked from [react-chat-widge
 In your `<body/>`:
 ```javascript
 <div id="webchat"/>
-<script src="https://storage.googleapis.com/mrbot-cdn/webchat-0.5.8.js"></script>
+<script src="https://storage.googleapis.com/mrbot-cdn/webchat-latest.js"></script>
+// Or you can replace latest with a specific version
 <script>
   WebChat.default.init({
     selector: "#webchat",
     initPayload: "/get_started",
-    interval: 1000, // 1000 ms between each message
     customData: {"userId": "123"}, // arbitrary custom data. Stay minimal as this will be added to the socket
     socketUrl: "http://localhost:5500",
     socketPath: "/socket.io/",
@@ -41,6 +42,12 @@ In your `<body/>`:
     closeLauncherImage: 'myCustomCloseImage.png',
     displayUnreadCount: true, // --> [view](./assets/unread_count_pastille.png)
     showMessageDate: false,
+    tooltipPayload: '/get_tooltip',
+    tooltipDelay: 1000,
+    customMessageDelay: (message) => {
+      if (message.length > 100) return 2000;
+      return 1000;
+    },
     params: {
       images: {
         dims: {
@@ -74,7 +81,6 @@ import { Widget } from 'rasa-webchat';
 function CustomWidget = () => {
   return (
     <Widget
-      interval={2000}
       initPayload={"/get_started"}
       socketUrl={"http://localhost:5500"}
       socketPath={"/socket.io/"}
@@ -90,6 +96,12 @@ function CustomWidget = () => {
       closeLauncherImage="myCustomCloseImage.png"
       displayUnreadCount={true} // --> [view](./assets/unread_count_pastille.png)
       showMessageDate={false} // display message date, can use fonction as (timestamp, message) => return 'my custom date'
+      tooltipPayload='/get_tooltip'
+      tooltipDelay={1000}
+      customMessageDelay{(message) => {
+        if (message.length > 100) return 2000;
+        return 1000;
+      }}
       params={{
         images: {
           dims: {
@@ -215,6 +227,24 @@ message = {
     }
 emit('bot_uttered', message, room=socket_id)
 ```
+###### sending a message to be displayed as a tooltip
+
+You first need to set a tooltipPayload in the props of the component, then, for the answer to that payload, you should define a response with a 
+
+object and a property `tooltip = true`. This message will then be displayed as a tooltip before the widget is opened.
+This works with Botfront, but not yet with vanilla Rasa.
+
+The prop `tooltipDelay` lets you set a delay before calling the payload. It default to 500ms.
+
+```python
+message = {
+  "text": "Hi!",
+  "metadata":{
+    "tooltip": true
+   }
+ }
+emit('bot_uttered', message, room=socket_id)
+```
 
 ## Usage
 
@@ -251,6 +281,38 @@ onSocketEvent={{
   'connect': () => console.log('connection established'),
   'disconnect': () => doSomeCleanup(),
 }}
+```
+
+### tooltip payload
+
+This feature lets you set a tooltipPayload in the props of the component, then, for the answer to that payload, you should define a response with a metada object and a property `tooltip = true`. This message will then be displayed as a tooltip before the widget is opened.
+Disclaimer: This works with Botfront, but not yet with vanilla Rasa. Don't use that feature if you didn't set a metadata tag in your response.
+
+```python
+message = {
+  "text": "Hi!",
+  "metadata":{
+    "tooltip": true
+   }
+ }
+emit('bot_uttered', message, room=socket_id)
+```
+
+### tooltipDelay
+
+This prop is as number, it lets you set a delay in milliseconds before calling the tooltip payload. It defaults to 500ms.
+
+### customMessageDelay
+
+This prop is a function, the function take a message string as an argument. The defined function will be called everytime a message is received and the returned value will be used as a milliseconds delay before displaying a new message.
+This is the default value
+```javascript
+(message) => {
+    let delay = message.length * 30;
+    if (delay > 2 * 1000) delay = 3 * 1000;
+    if (delay < 400) delay = 1000;
+    return delay;
+}
 ```
 
 ## API

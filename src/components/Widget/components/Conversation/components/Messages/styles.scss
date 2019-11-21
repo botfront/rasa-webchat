@@ -22,7 +22,42 @@
     font-size: 11px;
     color: #a4a7ab;
   }
+  // When we have several messages, the first one of the group
+  .message:first-child:not(:only-child) {
+    .response {
+      border-radius: 0 15px 15px 0;
+    }
+    margin-bottom: 2px;
+  }
+  // When we have several messages, messages that are neither the first, nor the last
+  .message:not(:first-child):not(:last-child):not(:last-child) {
+    .response {
+      border-radius: 0 15px 15px 0;
+    }
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+  // every message in a group that is NOT the first
+  .message:not(:first-child):not(:only-child) {
+    .avatar {
+      display: none;
+    }
+    &.with-avatar {
+      margin-left: 33px;
+    }
+  }
+  // When we have several messages, the last one of the group
+  .message:last-child:not(:only-child) {
+    margin-top: 2px;
+  }
 }
+
+.message.typing-indication {
+  .response {
+    height: 16px;
+  }
+}
+
 
 .messages-container {
   background-color: $white;
@@ -50,4 +85,40 @@
   .messages-container {
     @include messages-container-fs;
   }
+}
+
+div#wave {
+	position:relative;
+	text-align:center;
+	width:25px;
+	height:13px;
+	margin-left: auto;
+	margin-right: auto;
+	.dot {
+		display:inline-block;
+		width:5px;
+		height:5px;
+		border-radius:50%;
+		margin-right:3px;
+		background:#939393;
+		animation: wave 1.6s linear infinite;
+
+		&:nth-child(2) {
+			animation-delay: -1.4s;
+		}
+
+		&:nth-child(3) {
+			animation-delay: -1.2s;
+		}
+	}
+}
+
+@keyframes wave {
+	0%, 60%, 100% {
+		transform: initial;
+	}
+
+	30% {
+		transform: translateY(-5px);
+	}
 }

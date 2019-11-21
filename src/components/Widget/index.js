@@ -18,7 +18,10 @@ import {
   connectServer,
   disconnectServer,
   pullSession,
-  newUnreadMessage
+  newUnreadMessage,
+  triggerMessageDelayed,
+  triggerTooltipSent,
+  setTooltipMessage
 } from 'actions';
 
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
@@ -30,30 +33,11 @@ class Widget extends Component {
   constructor(props) {
     super(props);
     this.messages = [];
-
-    const {
-      interval,
-      isChatOpen,
-      dispatch
-    } = this.props;
-
-    setInterval(() => {
-      if (this.messages.length > 0) {
-        this.dispatchMessage(this.messages.shift());
-        if (!isChatOpen) {
-          dispatch(newUnreadMessage());
-        }
-      }
-    }, interval);
+    this.onGoingMessageDelay = false;
   }
 
   componentDidMount() {
-    const {
-      connectOn,
-      autoClearCache,
-      storage,
-      dispatch
-    } = this.props;
+    const { connectOn, autoClearCache, storage, dispatch } = this.props;
 
     if (connectOn === 'mount') {
       this.initializeWidget();
@@ -64,7 +48,7 @@ class Widget extends Component {
     const lastUpdate = localSession ? localSession.lastUpdate : 0;
 
     if (autoClearCache) {
-      if ((Date.now() - lastUpdate) < (30 * 60 * 1000)) {
+      if (Date.now() - lastUpdate < 30 * 60 * 1000) {
         this.initializeWidget();
       } else {
         localStorage.removeItem(SESSION_NAME);
@@ -76,19 +60,11 @@ class Widget extends Component {
   }
 
   componentDidUpdate() {
-    const {
-      connectOn,
-      isChatOpen,
-      dispatch,
-      embedded,
-      initialized
-    } = this.props;
+    const { isChatOpen, dispatch, embedded, initialized } = this.props;
 
     dispatch(pullSession());
 
-    if (connectOn === 'mount') {
-      this.trySendInitPayload();
-    } else if (isChatOpen) {
+    if (isChatOpen) {
       if (!initialized) {
         this.initializeWidget();
       }
@@ -102,13 +78,12 @@ class Widget extends Component {
   }
 
   componentWillUnmount() {
-    const {
-      socket
-    } = this.props;
+    const { socket } = this.props;
 
     if (socket) {
       socket.close();
     }
+    clearTimeout(this.tooltipTimeout);
   }
 
   getSessionId() {
@@ -119,21 +94,61 @@ class Widget extends Component {
     return localId;
   }
 
+  handleMessageReceived(message) {
+    const { dispatch } = this.props;
+    if (!this.onGoingMessageDelay) {
+      this.onGoingMessageDelay = true;
+      dispatch(triggerMessageDelayed(true));
+      this.newMessageTimeout(message);
+    } else {
+      this.messages.push(message);
+    }
+  }
+
+  popLastMessage() {
+    const { dispatch } = this.props;
+    if (this.messages.length) {
+      this.onGoingMessageDelay = true;
+      dispatch(triggerMessageDelayed(true));
+      this.newMessageTimeout(this.messages.shift());
+    }
+  }
+
+  newMessageTimeout(message) {
+    const { dispatch, isChatOpen, customMessageDelay } = this.props;
+    setTimeout(() => {
+      this.dispatchMessage(message);
+      if (!isChatOpen) {
+        dispatch(newUnreadMessage());
+      }
+      dispatch(triggerMessageDelayed(false));
+      this.onGoingMessageDelay = false;
+      this.popLastMessage();
+    }, customMessageDelay(message.text || ''));
+  }
+
   initializeWidget() {
     const {
       storage,
       socket,
       dispatch,
       embedded,
-      initialized
+      initialized,
+      connectOn,
+      tooltipPayload,
+      tooltipDelay
     } = this.props;
 
     if (!socket.isInitialized()) {
       socket.createSocket();
 
       socket.on('bot_uttered', (botUttered) => {
+        if (botUttered.metadata && botUttered.metadata.tooltip) {
+          dispatch(setTooltipMessage(String(botUttered.text)));
+          return;
+        }
         const newMessage = { ...botUttered, text: String(botUttered.text) };
-        this.messages.push(newMessage);
+        this.handleMessageReceived(newMessage);
       });
 
       dispatch(pullSession());
@@ -141,11 +156,12 @@ class Widget extends Component {
       // Request a session from server
       const localId = this.getSessionId();
       socket.on('connect', () => {
-        socket.emit('session_request', ({ session_id: localId }));
+        socket.emit('session_request', { session_id: localId });
       });
 
       // When session_confirm is received from the server:
       socket.on('session_confirm', (remoteId) => {
+        // eslint-disable-next-line no-console
         console.log(`session_confirm:${socket.socket.id} session_id:${remoteId}`);
 
         // Store the initial state to both the redux store and the storage, set connected to true
@@ -163,6 +179,11 @@ class Widget extends Component {
           storeLocalSession(storage, SESSION_NAME, remoteId);
           dispatch(pullSession());
           this.trySendInitPayload();
+          if (connectOn === 'mount' && tooltipPayload) {
+            this.tooltipTimeout = setTimeout(() => {
+              this.trySendTooltipPayload();
+            }, parseInt(tooltipDelay, 10));
+          }
         } else {
           // If this is an existing session, it's possible we changed pages and want to send a
           // user message when we land.
@@ -181,6 +202,7 @@ class Widget extends Component {
       });
 
       socket.on('disconnect', (reason) => {
+        // eslint-disable-next-line no-console
         console.log(reason);
         if (reason !== 'io client disconnect') {
           dispatch(disconnectServer());
@@ -212,7 +234,7 @@ class Widget extends Component {
     } = this.props;
 
     // Send initial payload when chat is opened or widget is shown
-    if (!initialized && connected && (((isChatOpen && isChatVisible) || embedded))) {
+    if (!initialized && connected && ((isChatOpen && isChatVisible) || embedded)) {
       // Only send initial payload if the widget is connected to the server but not yet initialized
 
       const sessionId = this.getSessionId();
@@ -220,13 +242,38 @@ class Widget extends Component {
       // check that session_id is confirmed
       if (!sessionId) return;
 
+      // eslint-disable-next-line no-console
       console.log('sending init payload', sessionId);
       socket.emit('user_uttered', { message: initPayload, customData, session_id: sessionId });
       dispatch(initialize());
     }
   }
 
+  trySendTooltipPayload() {
+    const {
+      tooltipPayload,
+      socket,
+      customData,
+      connected,
+      isChatOpen,
+      dispatch,
+      tooltipSent
+    } = this.props;
+
+    if (connected && !isChatOpen && !tooltipSent) {
+      const sessionId = this.getSessionId();
+
+      if (!sessionId) return;
+
+      socket.emit('user_uttered', { message: tooltipPayload, customData, session_id: sessionId });
+
+      dispatch(triggerTooltipSent());
+    }
+  }
+
   toggleConversation() {
+    this.props.dispatch(setTooltipMessage(null));
+    clearTimeout(this.tooltipTimeout);
     this.props.dispatch(toggleChat());
   }
 
@@ -245,24 +292,30 @@ class Widget extends Component {
       this.props.dispatch(addQuickReply(message));
     } else if (isSnippet(message)) {
       const element = message.attachment.payload.elements[0];
-      this.props.dispatch(addLinkSnippet({
-        title: element.title,
-        content: element.buttons[0].title,
-        link: element.buttons[0].url,
-        target: '_blank'
-      }));
+      this.props.dispatch(
+        addLinkSnippet({
+          title: element.title,
+          content: element.buttons[0].title,
+          link: element.buttons[0].url,
+          target: '_blank'
+        })
+      );
     } else if (isVideo(message)) {
       const element = message.attachment.payload;
-      this.props.dispatch(addVideoSnippet({
-        title: element.title,
-        video: element.src
-      }));
+      this.props.dispatch(
+        addVideoSnippet({
+          title: element.title,
+          video: element.src
+        })
+      );
     } else if (isImage(message)) {
       const element = message.attachment.payload;
-      this.props.dispatch(addImageSnippet({
-        title: element.title,
-        image: element.src
-      }));
+      this.props.dispatch(
+        addImageSnippet({
+          title: element.title,
+          image: element.src
+        })
+      );
     } else {
       // some custom message
       const props = message;
@@ -306,6 +359,7 @@ class Widget extends Component {
         customComponent={this.props.customComponent}
         displayUnreadCount={this.props.displayUnreadCount}
         showMessageDate={this.props.showMessageDate}
+        tooltipPayload={this.props.tooltipPayload}
       />
     );
   }
@@ -316,11 +370,11 @@ const mapStateToProps = state => ({
   connected: state.behavior.get('connected'),
   isChatOpen: state.behavior.get('isChatOpen'),
   isChatVisible: state.behavior.get('isChatVisible'),
-  fullScreenMode: state.behavior.get('fullScreenMode')
+  fullScreenMode: state.behavior.get('fullScreenMode'),
+  tooltipSent: state.behavior.get('tooltipSent')
 });
 
 Widget.propTypes = {
-  interval: PropTypes.number,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   customData: PropTypes.shape({}),
   subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
@@ -344,7 +398,11 @@ Widget.propTypes = {
   closeImage: PropTypes.string,
   customComponent: PropTypes.func,
   displayUnreadCount: PropTypes.bool,
-  showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
+  showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  customMessageDelay: PropTypes.func.isRequired,
+  tooltipPayload: PropTypes.string,
+  tooltipSent: PropTypes.bool.isRequired,
+  tooltipDelay: PropTypes.number.isRequired
 };
 
 Widget.defaultProps = {
@@ -353,7 +411,8 @@ Widget.defaultProps = {
   fullScreenMode: false,
   connectOn: 'mount',
   autoClearCache: false,
-  displayUnreadCount: false
+  displayUnreadCount: false,
+  tooltipPayload: null
 };
 
 export default connect(mapStateToProps)(Widget);

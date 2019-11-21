@@ -171,3 +171,22 @@ export function newUnreadMessage() {
   };
 }
 
+export function triggerMessageDelayed(messageDelayed) {
+  return {
+    type: actions.TRIGGER_MESSAGE_DELAY,
+    messageDelayed
+  };
+}
+
+export function setTooltipMessage(tooltipMessage) {
+  return {
+    type: actions.SET_TOOLTIP_MESSAGE,
+    tooltipMessage
+  };
+}
+
+export function triggerTooltipSent() {
+  return {
+    type: actions.TRIGGER_TOOLTIP_SENT
+  };
+}

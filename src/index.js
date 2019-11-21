@@ -91,7 +91,6 @@ const ConnectedWidget = (props) => {
   return (
     <Provider store={store}>
       <Widget
-        interval={props.interval}
         initPayload={props.initPayload}
         title={props.title}
         subtitle={props.subtitle}
@@ -114,6 +113,9 @@ const ConnectedWidget = (props) => {
         displayUnreadCount={props.displayUnreadCount}
         socket={sock}
         showMessageDate={props.showMessageDate}
+        customMessageDelay={props.customMessageDelay}
+        tooltipPayload={props.tooltipPayload}
+        tooltipDelay={props.tooltipDelay}
       />
     </Provider>
   );
@@ -121,7 +123,6 @@ const ConnectedWidget = (props) => {
 
 ConnectedWidget.propTypes = {
   initPayload: PropTypes.string,
-  interval: PropTypes.number,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   protocol: PropTypes.string,
@@ -149,13 +150,15 @@ ConnectedWidget.propTypes = {
   docViewer: PropTypes.bool,
   customComponent: PropTypes.func,
   displayUnreadCount: PropTypes.bool,
-  showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
+  showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  customMessageDelay: PropTypes.func,
+  tooltipPayload: PropTypes.string,
+  tooltipDelay: PropTypes.number
 };
 
 ConnectedWidget.defaultProps = {
   title: 'Welcome',
   customData: {},
-  interval: 2000,
   inputTextFieldHint: 'Type a message...',
   connectingText: 'Waiting for server...',
   fullScreenMode: false,
@@ -175,7 +178,15 @@ ConnectedWidget.defaultProps = {
   showCloseButton: true,
   showFullScreenButton: false,
   displayUnreadCount: false,
-  showMessageDate: false
+  showMessageDate: false,
+  customMessageDelay: (message) => {
+    let delay = message.length * 30;
+    if (delay > 2 * 1000) delay = 3 * 1000;
+    if (delay < 400) delay = 1000;
+    return delay;
+  },
+  tooltipPayload: null,
+  tooltipDelay: 500
 };
 
 export default ConnectedWidget;

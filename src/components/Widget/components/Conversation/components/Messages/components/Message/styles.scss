@@ -28,7 +28,7 @@
   }
   
   .response {
-    @include message-bubble($grey-2, #000);
+    @include message-bubble($grey-2, #000, 0 15px 15px 15px);
     overflow-wrap: break-word;
   }
   
@@ -43,13 +43,6 @@
         }
       }
     }
-  }
-  
-  .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-    margin-right: 10px;
   }
 
 }
