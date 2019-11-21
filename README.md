@@ -1,6 +1,6 @@
 # Rasa Webchat
 
-A simple webchat widget to connect with a chatbot 💬platform. Originally forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget) and optimized for [Rasa](https://github.com/rasaHQ/rasa) [Botfront](https://github.com/botfront/botfront).
+A simple webchat widget to connect with a chatbot 💬platform. Originally forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget) and optimized for [Rasa](https://github.com/rasaHQ/rasa) and [Botfront](https://github.com/botfront/botfront).
 ## Features
 
 - Text Messages
