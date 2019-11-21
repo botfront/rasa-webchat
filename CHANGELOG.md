@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://https///compare/v0.6.6...v0.7.0) (2019-11-21)
+
+
+### Bug Fixes
+
+* init payload is now sent only when opened ([efebacb](https://https///commit/efebacb))
+
+
+### Features
+
+* added a prop tooltipDelay ([8c8cd95](https://https///commit/8c8cd95))
+* smart typing delay and typing indication ([8738c63](https://https///commit/8738c63))
+* tooltip popup ([04e1279](https://https///commit/04e1279))
+
 ### [0.6.6](https://https///compare/v0.6.5...v0.6.6) (2019-10-30)
 
 
