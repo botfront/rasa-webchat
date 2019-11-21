@@ -1,17 +1,16 @@
 # Rasa Webchat
 
-A simple webchat widget to connect with a chatbot 💬. Forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget) and optimized for [Botfront](https://github.com/botfront/botfront).
+A simple webchat widget to connect with a chatbot 💬platform. Originally forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget) and optimized for [Rasa](https://github.com/rasaHQ/rasa) [Botfront](https://github.com/botfront/botfront).
 ## Features
 
 - Text Messages
 - Quick Replies
 - Images and Videos
-- Snippet style for links (only as responses for now)
 - Markdown support
 - Easy to import in a script tag or as a React Component
 - Persistent sessions
 - Typing indications
-- Smart message delay
+- Smart delay between messages
 
 <img src="./assets/chat-demonstration.gif" alt="demonstration" width="400"/>
 
@@ -217,7 +216,9 @@ emit('bot_uttered', message, room=socket_id)
 ```
 ###### sending a message to be displayed as a tooltip
 
-You first need to set a tooltipPayload in the props of the component, then, for the answer to that payload, you should define a response with a metada object and a property `tooltip = true`. This message will then be displayed as a tooltip before the widget is opened.
+You first need to set a tooltipPayload in the props of the component, then, for the answer to that payload, you should define a response with a 
+
+object and a property `tooltip = true`. This message will then be displayed as a tooltip before the widget is opened.
 This works with Botfront, but not yet with vanilla Rasa.
 ```python
 message = {
