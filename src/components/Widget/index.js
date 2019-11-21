@@ -83,6 +83,7 @@ class Widget extends Component {
     if (socket) {
       socket.close();
     }
+    clearTimeout(this.tooltipTimeout);
   }
 
   getSessionId() {
@@ -134,7 +135,8 @@ class Widget extends Component {
       embedded,
       initialized,
       connectOn,
-      tooltipPayload
+      tooltipPayload,
+      tooltipDelay
     } = this.props;
 
     if (!socket.isInitialized()) {
@@ -178,7 +180,9 @@ class Widget extends Component {
           dispatch(pullSession());
           this.trySendInitPayload();
           if (connectOn === 'mount' && tooltipPayload) {
-            this.trySendTooltipPayload();
+            this.tooltipTimeout = setTimeout(() => {
+              this.trySendTooltipPayload();
+            }, parseInt(tooltipDelay, 10));
           }
         } else {
           // If this is an existing session, it's possible we changed pages and want to send a
@@ -269,6 +273,7 @@ class Widget extends Component {
 
   toggleConversation() {
     this.props.dispatch(setTooltipMessage(null));
+    clearTimeout(this.tooltipTimeout);
     this.props.dispatch(toggleChat());
   }
 
@@ -396,7 +401,8 @@ Widget.propTypes = {
   showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   customMessageDelay: PropTypes.func.isRequired,
   tooltipPayload: PropTypes.string,
-  tooltipSent: PropTypes.bool.isRequired
+  tooltipSent: PropTypes.bool.isRequired,
+  tooltipDelay: PropTypes.number.isRequired
 };
 
 Widget.defaultProps = {

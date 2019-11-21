@@ -43,6 +43,7 @@ In your `<body/>`:
     displayUnreadCount: true, // --> [view](./assets/unread_count_pastille.png)
     showMessageDate: false,
     tooltipPayload: '/get_tooltip',
+    tooltipDelay: 1000,
     customMessageDelay: (message) => {
       if (message.length > 100) return 2000;
       return 1000;
@@ -96,6 +97,7 @@ function CustomWidget = () => {
       displayUnreadCount={true} // --> [view](./assets/unread_count_pastille.png)
       showMessageDate={false} // display message date, can use fonction as (timestamp, message) => return 'my custom date'
       tooltipPayload='/get_tooltip'
+      tooltipDelay={1000}
       customMessageDelay{(message) => {
         if (message.length > 100) return 2000;
         return 1000;
@@ -231,6 +233,9 @@ You first need to set a tooltipPayload in the props of the component, then, for 
 
 object and a property `tooltip = true`. This message will then be displayed as a tooltip before the widget is opened.
 This works with Botfront, but not yet with vanilla Rasa.
+
+The prop `tooltipDelay` lets you set a delay before calling the payload. It default to 500ms.
+
 ```python
 message = {
   "text": "Hi!",
@@ -292,6 +297,10 @@ message = {
  }
 emit('bot_uttered', message, room=socket_id)
 ```
+
+### tooltipDelay
+
+This prop is as number, it lets you set a delay in milliseconds before calling the tooltip payload. It defaults to 500ms.
 
 ### customMessageDelay
 

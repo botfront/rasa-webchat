@@ -34,6 +34,7 @@ const plugin = {
         showMessageDate={args.showMessageDate}
         customMessageDelay={args.customMessageDelay}
         tooltipPayload={args.tooltipPayload}
+        tooltipDelay={args.tooltipDelay}
       />, document.querySelector(args.selector)
     );
   }
