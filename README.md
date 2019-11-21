@@ -21,7 +21,8 @@ A simple webchat widget to connect with a chatbot 💬platform. Originally forke
 In your `<body/>`:
 ```javascript
 <div id="webchat"/>
-<script src="https://storage.googleapis.com/mrbot-cdn/webchat-0.5.8.js"></script>
+<script src="https://storage.googleapis.com/mrbot-cdn/webchat-latest.js"></script>
+// Or you can replace latest with a specific version
 <script>
   WebChat.default.init({
     selector: "#webchat",
@@ -41,6 +42,11 @@ In your `<body/>`:
     closeLauncherImage: 'myCustomCloseImage.png',
     displayUnreadCount: true, // --> [view](./assets/unread_count_pastille.png)
     showMessageDate: false,
+    tooltipPayload: '/get_tooltip',
+    customMessageDelay: (message) => {
+      if (message.length > 100) return 2000;
+      return 1000;
+    },
     params: {
       images: {
         dims: {
@@ -89,6 +95,11 @@ function CustomWidget = () => {
       closeLauncherImage="myCustomCloseImage.png"
       displayUnreadCount={true} // --> [view](./assets/unread_count_pastille.png)
       showMessageDate={false} // display message date, can use fonction as (timestamp, message) => return 'my custom date'
+      tooltipPayload='/get_tooltip'
+      customMessageDelay{(message) => {
+        if (message.length > 100) return 2000;
+        return 1000;
+      }}
       params={{
         images: {
           dims: {
@@ -270,7 +281,7 @@ onSocketEvent={{
 ### tooltip payload
 
 This feature lets you set a tooltipPayload in the props of the component, then, for the answer to that payload, you should define a response with a metada object and a property `tooltip = true`. This message will then be displayed as a tooltip before the widget is opened.
-Disclaimer: This works with Botfront, but not yet with vanilla Rasa.
+Disclaimer: This works with Botfront, but not yet with vanilla Rasa. Don't use that feature if you didn't set a metadata tag in your response.
 
 ```python
 message = {
