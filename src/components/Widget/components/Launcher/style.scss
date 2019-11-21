@@ -57,6 +57,15 @@
     padding: 9px 6px 10px 6px;
     line-height: 1.4em;
     animation: slideUp 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      background-color: rgb(250, 250, 250);
+      transform: translateY(-2px);
+      cursor: pointer;
+      .tooltip-decoration {
+        background: rgb(250, 250, 250);
+      }
+    }
   }
   .tooltip-decoration {
     position: absolute;
@@ -66,6 +75,7 @@
     background: white;
     height: 10px;
     width: 10px;
+    transition: all 0.2s ease-in-out;
   }
 }
 

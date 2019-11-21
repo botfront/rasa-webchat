@@ -20,7 +20,7 @@ const Header = ({
   profileAvatar
 }) =>
   <div className="header-and-loading">
-    <div className="header">
+    <div className={`header ${subtitle ? 'with-subtitle' : ''}`}>
       {
         profileAvatar && (
           <img src={profileAvatar} className="avatar" alt="chat avatar" />
@@ -49,7 +49,7 @@ const Header = ({
         }
       </div>
       <h4 className={`title ${profileAvatar && 'with-avatar'}`}>{title}</h4>
-      {subtitle && <span>{subtitle}</span>}
+      {subtitle && <span className={profileAvatar && 'with-avatar'}>{subtitle}</span>}
     </div>
     {
       !connected &&

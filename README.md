@@ -1,6 +1,6 @@
-# webchat
+# Rasa Webchat
 
-A simple webchat widget to connect with a chatbot. Forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget)
+A simple webchat widget to connect with a chatbot 💬. Forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget) and optimized for Botfront.
 ## Features
 
 - Text Messages
@@ -10,8 +10,10 @@ A simple webchat widget to connect with a chatbot. Forked from [react-chat-widge
 - Markdown support
 - Easy to import in a script tag or as a React Component
 - Persistent sessions
+- Typing indications
+- Smart message delay
 
-![demonstration](./assets/chat-demonstration.gif)
+<img src="./assets/chat-demonstration.gif" alt="demonstration" width="400"/>
 
 ## Setup
 
@@ -213,6 +215,19 @@ message = {
     }
 emit('bot_uttered', message, room=socket_id)
 ```
+###### sending a message to be displayed as a tooltip
+
+You first need to set a tooltipPayload in the props of the component, then, for the answer to that payload, you should define a response with a metada object and a property `tooltip = true`. This message will then be displayed as a tooltip before the widget is opened.
+This works with Botfront, but not yet with vanilla Rasa.
+```python
+message = {
+  "text": "Hi!",
+  "metadata":{
+    "tooltip": true
+   }
+ }
+emit('bot_uttered', message, room=socket_id)
+```
 
 ## Usage
 
@@ -249,6 +264,34 @@ onSocketEvent={{
   'connect': () => console.log('connection established'),
   'disconnect': () => doSomeCleanup(),
 }}
+```
+
+### tooltip payload
+
+This feature lets you set a tooltipPayload in the props of the component, then, for the answer to that payload, you should define a response with a metada object and a property `tooltip = true`. This message will then be displayed as a tooltip before the widget is opened.
+Disclaimer: This works with Botfront, but not yet with vanilla Rasa.
+
+```python
+message = {
+  "text": "Hi!",
+  "metadata":{
+    "tooltip": true
+   }
+ }
+emit('bot_uttered', message, room=socket_id)
+```
+
+### customMessageDelay
+
+This prop is a function, the function take a message string as an argument. The defined function will be called everytime a message is received and the returned value will be used as a milliseconds delay before displaying a new message.
+This is the default value
+```javascript
+(message) => {
+    let delay = message.length * 30;
+    if (delay > 2 * 1000) delay = 3 * 1000;
+    if (delay < 400) delay = 1000;
+    return delay;
+}
 ```
 
 ## API
