@@ -84,9 +84,10 @@ export default function (socketUrl, customData, _path, options) {
 
   stomp.connect({}, socketProxy.onconnect, socketProxy.onerror);
 
-  socket.onclose = () => {
+  stomp.onWebSocketClose = () => {
     // eslint-disable-next-line no-console
     socketProxy.connected = false;
+    // eslint-disable-next-line no-console
     console.log('Closed sockjs connection');
     socketProxy.emit('disconnect');
   };
