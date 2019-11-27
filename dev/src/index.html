@@ -5,16 +5,40 @@
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <body>
-<script src="index.js" type="text/javascript"></script>
+<script src="../../lib/index.js" type="text/javascript"></script>
 <div id="webchat"></div>
 <script>
   WebChat.default.init({
     selector: "#webchat",
     initPayload: "/get_started",
-    socketUrl: "http://localhost:5005/",
-    socketPath: "/socket.io/",
-    title: "My amazing chat",
-    // subtitle: 'A subtitle',
+
+    protocol: "sockjs",
+    socketUrl: "http://localhost:8080",
+    // socketUrl: "https://gateway.development.9201.nonprod.cloud.res.bngf.local/dsp",
+    // socketUrl: "https://apix-pp.bnc.ca/dsp",
+    // socketUrl: "https://gateway.staging.9201.nonprod.cloud.res.bngf.local/dsp",
+    // socketUrl: "https://gateway.9201.cloud.res.bngf.local/dsp",
+    socketPath: "/ws",
+
+    protocolOptions: {
+      messagesChannel: '/app/sendMessage',
+      replyTopic: '/user/queue/reply',
+      subscriptionChannel: '/app/addUser',
+      // authData: "eyJraWQiOiJGWWpMRUdnTnBJbUJzNnVMNnVpb2JkQU1YSGl0X3gtRkFPTTNTM1EwcjZJIiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULnBGR1lVS1ZLNUhpRDd6bG92Y3JUQmhtU1ktcGR1MXF0aWQ4aTA2cTMxOEEiLCJpc3MiOiJodHRwczovL25iYy5va3RhcHJldmlldy5jb20vb2F1dGgyL2F1c2FnaHh3ejBsYlhtc3pxMGg3IiwiYXVkIjoiMTl4enFCbTZkb1V0NzlvUVpPTFkiLCJpYXQiOjE1NzEzMzk4MjQsImV4cCI6MTU3MTM0MDEyNCwiY2lkIjoiMTl4enFCbTZkb1V0NzlvUVpPTFkiLCJ1aWQiOiIwMHVkdXZmaHFoRTd1bzF0bzBoNyIsInNjcCI6WyJyZXRhaWxfY2xpZW50Il0sInN1YiI6IjM0MDE0OTcwMTMxMDcwMDg2NTM0MDE0OTcwMTMxMDcwMDg2NTM0MDE0OTcwMTMxMDcwMDg2NTAxMjM0NTY3ODkiLCJwcmVmZXJyZWRMYW5ndWFnZSI6ImZyIiwiYm5nZklkZW50aXR5U291cmNlIjoiTUNQIiwiZ3JvdXBzIjpbIkNsaWVudC5SZXRhaWwiLCJDbGllbnQuUmV0YWlsLlNCSVAiLCJDbGllbnQiLCJDbGllbnQuUmV0YWlsLlNCSVAuTm9NRkEiXX0.N9pbrYfJmJ_lU9lE2fgsB5kaknTvdUZFWAba3lXzNbIzvg4ABkCTmNrdVs3KxJ5sNecBVudntk1fuuvvJgp-274Rqdh-NxKwyGDjDV2Yv3aLf3wXBjHwIOhOaoecte7fn263RCahIeZDGxQYI8ESrdMmSML8EJVrN1ACatePFIPIAP6j-BVnO0w81KwxZPp3lFn0iGxed6rBNKX2toIHdcyq76DHrXu97bJ8RBX4cQNGBIBVvZuHHOokw0Cl9idQUWXRnk9wqhBubPXg7zpBX065EkOqhSh6RKBE5s0tfoW7l33XGWTOOAEddZ9uDZDMlDg2MjH2wtaKwqfHJmHilw"
+    },
+
+    customData: {
+     language: "fr",
+      // agent: 'test-chatbot',  
+      agent: 'sbip-faq-bot',  
+      bncId: 'fake-bnc-id'
+      // agent: 'echo-bot'
+    },
+    // customData: {
+    //   language: "en",
+    //   agent: 'sanitycheck-chatbot',
+    // },
+    title: "DEV Test",
     inputTextFieldHint: "Type a message...",
     connectingText: "Waiting for server...",
     hideWhenNotConnected: false,
@@ -29,7 +53,7 @@
           height: 200
         }
       },
-      storage: "local"
+      storage: "session"
     }
   })
 </script>
