@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.2](https://https///compare/v0.7.1...v0.7.2) (2019-12-04)
+
+
+### Features
+
+* add disconnect reason in socketjs LEAVE ([290e356](https://https///commit/290e356))
+
 ### [0.7.1](https://https///compare/v0.7.0...v0.7.1) (2019-11-27)
 
 ## [0.7.0](https://https///compare/v0.6.6...v0.7.0) (2019-11-21)
