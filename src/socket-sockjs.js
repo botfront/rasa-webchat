@@ -66,7 +66,7 @@ export default function (socketUrl, customData, _path, options) {
       socketProxy.emit('connect');
     } else if (message.type === 'LEAVE') {
       socket.close();
-      socketProxy.emit('disconnect', 'server left');
+      socketProxy.emit('disconnect', message.reason || 'server left');
     } else if (message.type === 'SESSION_CONFIRM') {
       socketProxy.emit('session_confirm', socketProxy.id);
     } else if (message.type === 'CHAT') {
@@ -84,10 +84,9 @@ export default function (socketUrl, customData, _path, options) {
 
   stomp.connect({}, socketProxy.onconnect, socketProxy.onerror);
 
-  stomp.onWebSocketClose = () => {
+  socket.onclose = () => {
     // eslint-disable-next-line no-console
     socketProxy.connected = false;
-    // eslint-disable-next-line no-console
     console.log('Closed sockjs connection');
     socketProxy.emit('disconnect');
   };
