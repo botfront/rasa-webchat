@@ -22,11 +22,12 @@ export function isImage(message) {
 }
 
 export function isText(message) {
-  return Object.keys(message).length === 1 && Object.keys(message).includes('text');
+  console.log(message)
+  return Object.keys(message).filter(k => k !== 'metadata').length === 1 && Object.keys(message).includes('text');
 }
 
 export function isQR(message) {
-  return Object.keys(message).length === 2
+  return Object.keys(message).filter(k => k !== 'metadata').length === 2
     && Object.keys(message).includes('text')
     && Object.keys(message).includes('quick_replies');
 }
