@@ -114,8 +114,9 @@ class Widget extends Component {
     }
   }
 
-  newMessageTimeout(message) {
+  newMessageTimeout(messageWithMetadata) {
     const { dispatch, isChatOpen, customMessageDelay } = this.props;
+    const { metadata, ...message } = messageWithMetadata;
     setTimeout(() => {
       this.dispatchMessage(message);
       if (!isChatOpen) {
