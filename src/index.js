@@ -113,6 +113,7 @@ const ConnectedWidget = (props) => {
         displayUnreadCount={props.displayUnreadCount}
         socket={sock}
         showMessageDate={props.showMessageDate}
+        linksOpenTab={props.linksOpenTab}
         customMessageDelay={props.customMessageDelay}
         tooltipPayload={props.tooltipPayload}
         tooltipDelay={props.tooltipDelay}
@@ -151,6 +152,7 @@ ConnectedWidget.propTypes = {
   customComponent: PropTypes.func,
   displayUnreadCount: PropTypes.bool,
   showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+  linksOpenTab: PropTypes.bool,
   customMessageDelay: PropTypes.func,
   tooltipPayload: PropTypes.string,
   tooltipDelay: PropTypes.number
@@ -179,6 +181,7 @@ ConnectedWidget.defaultProps = {
   showFullScreenButton: false,
   displayUnreadCount: false,
   showMessageDate: false,
+  linksOpenTab: false,
   customMessageDelay: (message) => {
     let delay = message.length * 30;
     if (delay > 2 * 1000) delay = 3 * 1000;

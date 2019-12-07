@@ -11,3 +11,6 @@ lib
 
 # Test files
 coverage
+
+# VSCode History Ext
+.history

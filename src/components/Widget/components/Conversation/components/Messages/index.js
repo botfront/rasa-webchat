@@ -75,7 +75,7 @@ class Messages extends Component {
     const renderMessages = () => {
       const {
         messages,
-        showMessageDate
+        showMessageDate,
       } = this.props;
 
       if (messages.isEmpty()) return null;

@@ -9,7 +9,7 @@ import './styles.scss';
 
 class Message extends PureComponent {
   render() {
-    const { docViewer } = this.props;
+    const { docViewer, linksOpenTab } = this.props;
     const sender = this.props.message.get('sender');
     const text = this.props.message.get('text');
     return (
@@ -28,8 +28,10 @@ class Message extends PureComponent {
                 link: props =>
                   docViewer ? (
                     <DocViewer src={props.href}>{props.children}</DocViewer>
-                  ) : (
+                  ) : linksOpenTab ? (
                     <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
+                  ) : (
+                    <a href={props.href}>{props.children}</a>
                   )
               }}
             />
