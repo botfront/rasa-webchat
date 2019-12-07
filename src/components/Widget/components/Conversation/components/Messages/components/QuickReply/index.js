@@ -44,16 +44,17 @@ class QuickReply extends PureComponent {
       message,
       getChosenReply,
       isLast,
-      id
+      id,
+      linksOpenTab
     } = this.props;
 
     const chosenReply = getChosenReply(id);
     if (chosenReply) {
-      return <Message message={message} />;
+      return <Message message={message} linksOpenTab={linksOpenTab} />;
     }
     return (
       <div className="quickReplies-container">
-        <Message message={message} />
+        <Message message={message} linksOpenTab={linksOpenTab} />
         {isLast && (
         <div className="replies">
             {message.get('quick_replies').map((reply, index) => {
@@ -110,6 +111,7 @@ QuickReply.propTypes = {
   chooseReply: PropTypes.func,
   id: PropTypes.string,
   isLast: PropTypes.bool,
+  linksOpenTab: PropTypes.bool,
   message: PROP_TYPES.QUICK_REPLY
 };
 

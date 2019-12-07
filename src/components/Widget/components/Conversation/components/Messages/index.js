@@ -36,7 +36,7 @@ class Messages extends Component {
   }
 
   getComponentToRender = (message, index, isLast) => {
-    const { params } = this.props;
+    const { params, linksOpenTab } = this.props;
     const ComponentToRender = (() => {
       switch (message.get('type')) {
         case MESSAGES_TYPES.TEXT: {
@@ -64,9 +64,9 @@ class Messages extends Component {
       }
     })();
     if (message.get('type') === 'component') {
-      return <ComponentToRender id={index} {...message.get('props')} isLast={isLast} />;
+      return <ComponentToRender id={index} {...message.get('props')} isLast={isLast} isLast={isLast} />;
     }
-    return <ComponentToRender id={index} params={params} message={message} isLast={isLast} />;
+    return <ComponentToRender id={index} params={params} message={message} isLast={isLast} linksOpenTab={linksOpenTab} />;
   }
 
   render() {

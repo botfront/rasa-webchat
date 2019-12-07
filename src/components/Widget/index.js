@@ -360,6 +360,7 @@ class Widget extends Component {
         customComponent={this.props.customComponent}
         displayUnreadCount={this.props.displayUnreadCount}
         showMessageDate={this.props.showMessageDate}
+        linksOpenTab={this.props.linksOpenTab}
         tooltipPayload={this.props.tooltipPayload}
       />
     );

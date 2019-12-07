@@ -36,7 +36,6 @@ const plugin = {
         customMessageDelay={args.customMessageDelay}
         tooltipPayload={args.tooltipPayload}
         tooltipDelay={args.tooltipDelay}
-        linksOpenTab={args.linksOpenTab}
       />, document.querySelector(args.selector)
     );
   }

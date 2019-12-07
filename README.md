@@ -42,7 +42,7 @@ In your `<body/>`:
     closeLauncherImage: 'myCustomCloseImage.png',
     displayUnreadCount: true, // --> [view](./assets/unread_count_pastille.png)
     showMessageDate: false,
-    linksOpenTab: false,
+    linksOpenTab: false, // should hrefs set target="_blank"
     tooltipPayload: '/get_tooltip',
     tooltipDelay: 1000,
     customMessageDelay: (message) => {
@@ -97,7 +97,7 @@ function CustomWidget = () => {
       closeLauncherImage="myCustomCloseImage.png"
       displayUnreadCount={true} // --> [view](./assets/unread_count_pastille.png)
       showMessageDate={false} // display message date, can use fonction as (timestamp, message) => return 'my custom date'
-      linksOpenTab={false} // should hrefs set targe="_blank"
+      linksOpenTab={false} // should hrefs set target="_blank"
       tooltipPayload='/get_tooltip'
       tooltipDelay={1000}
       customMessageDelay{(message) => {

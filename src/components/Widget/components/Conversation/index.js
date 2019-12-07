@@ -26,6 +26,7 @@ const Conversation = props =>
       params={props.params}
       customComponent={props.customComponent}
       showMessageDate={props.showMessageDate}
+      linksOpenTab={props.linksOpenTab}
     />
     <Sender
       sendMessage={props.sendMessage}
@@ -49,6 +50,7 @@ Conversation.propTypes = {
   connectingText: PropTypes.string,
   closeImage: PropTypes.string,
   customComponent: PropTypes.func,
+  linksOpenTab: PropTypes.bool,
   showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
 };
 
