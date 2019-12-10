@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.3](https://https///compare/v0.7.2...v0.7.3) (2019-12-10)
+
+
+### Bug Fixes
+
+* detect text and qr messages when incoming metadata present ([8dcba98](https://https///commit/8dcba98))
+* use message.content -- limitation from stompjs ([32b1e0b](https://https///commit/32b1e0b))
+
 ### [0.7.2](https://https///compare/v0.7.1...v0.7.2) (2019-12-04)
 
 
