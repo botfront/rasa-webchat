@@ -38,7 +38,7 @@ describe('Dispatcher', () => {
     expect(sentToSocket[0].message.message).toEqual('/payload');
   });
 
-  it('should only send a message to the socket and add a new message in the store', () => {
+  it('should only send a message to the socket and not add a new message in the store', () => {
     expect(store.getState().messages.size).toEqual(0);
     expect(sentToSocket).toHaveLength(0);
     send('/payload');
