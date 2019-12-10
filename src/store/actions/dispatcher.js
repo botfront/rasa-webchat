@@ -104,3 +104,8 @@ export function pullSession() {
 export function newUnreadMessage() {
   store.dispatch(actions.newUnreadMessage());
 }
+
+export function send(playload, text = '') {
+  store.dispatch(actions.emitUserMessage(playload));
+  if (text !== '') store.dispatch(actions.addUserMessage(text));
+}

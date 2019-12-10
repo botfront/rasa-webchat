@@ -16,7 +16,8 @@ import {
   hideChat,
   toggleFullScreen,
   toggleInputDisabled,
-  dropMessages
+  dropMessages,
+  send
 } from './src/store/actions/dispatcher';
 
 export {
@@ -37,5 +38,6 @@ export {
   hideChat,
   toggleFullScreen,
   toggleInputDisabled,
-  dropMessages
+  dropMessages,
+  send
 };
