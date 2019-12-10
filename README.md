@@ -326,6 +326,7 @@ This is the default value
 | WebChat.show()          | Show the chat widget, send initPayload if the chat is in open state and not initialized                            |
 | WebChat.hide()          | Hide the chat widget                                                                                               |
 | WebChat.isVisible()     | Get the shown/hidden state of the widget                                                                           |
+| WebChat.send(payload, text: optionnal)| send a payload to rasa and display a text message if specified                                                                          |
 
 
 
