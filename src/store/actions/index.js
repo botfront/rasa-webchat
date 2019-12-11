@@ -204,15 +204,10 @@ export function linkTarget(target) {
   };
 }
 
-export function disableInputField() {
+export function userInput(userInputState) {
   return {
-    type: actions.DISABLE_INPUT
-  };
-}
-
-export function hideInputField() {
-  return {
-    type: actions.HIDE_INPUT
+    type: actions.SET_USER_INPUT,
+    userInputState
   };
 }
 

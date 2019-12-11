@@ -22,7 +22,8 @@ import {
   triggerMessageDelayed,
   triggerTooltipSent,
   setTooltipMessage,
-  clearMetadata
+  clearMetadata,
+  userInput
 } from 'actions';
 
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
@@ -130,14 +131,14 @@ class Widget extends Component {
   }
 
   propagateMetadata(metadata) {
+    const {
+      dispatch
+    } = this.props;
     if (metadata.linkTarget) {
 
     }
-    if (metadata.disableInputField) {
-
-    }
-    if (metadata.hideInputField) {
-
+    if (metadata.userInput) {
+      dispatch(userInput(metadata.userInput));
     }
     if (metadata.messageTarget) {
 
@@ -180,7 +181,7 @@ class Widget extends Component {
           dispatch(setTooltipMessage(String(botUttered.text)));
           return;
         }
-        propagateMetadata(botUttered.metadata);
+        this.propagateMetadata(botUttered.metadata);
         const newMessage = { ...botUttered, text: String(botUttered.text) };
         this.handleMessageReceived(newMessage);
       });
