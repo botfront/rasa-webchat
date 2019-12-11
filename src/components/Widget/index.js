@@ -23,7 +23,8 @@ import {
   triggerTooltipSent,
   setTooltipMessage,
   clearMetadata,
-  userInput
+  userInput,
+  linkTarget
 } from 'actions';
 
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
@@ -135,7 +136,7 @@ class Widget extends Component {
       dispatch
     } = this.props;
     if (metadata.linkTarget) {
-
+      dispatch(linkTarget(metadata.linkTarget));
     }
     if (metadata.userInput) {
       dispatch(userInput(metadata.userInput));
@@ -181,7 +182,7 @@ class Widget extends Component {
           dispatch(setTooltipMessage(String(botUttered.text)));
           return;
         }
-        this.propagateMetadata(botUttered.metadata);
+        if (botUttered.metadata) this.propagateMetadata(botUttered.metadata);
         const newMessage = { ...botUttered, text: String(botUttered.text) };
         this.handleMessageReceived(newMessage);
       });
