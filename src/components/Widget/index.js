@@ -23,6 +23,7 @@ import {
   triggerTooltipSent,
   setTooltipMessage,
   emitMessageIfFirst
+  clearMetadata
 } from 'actions';
 
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
@@ -144,6 +145,36 @@ class Widget extends Component {
     }, customMessageDelay(message.text || ''));
   }
 
+  propagateMetadata(metadata) {
+    if (metadata.linkTarget) {
+
+    }
+    if (metadata.disableInputField) {
+
+    }
+    if (metadata.hideInputField) {
+
+    }
+    if (metadata.messageTarget) {
+
+    }
+    if (metadata.pageChangeCallback) {
+
+    }
+    if (metadata.domHighlight) {
+
+    }
+    if (metadata.messageContainerCss) {
+
+    }
+    if (metadata.messageTextCss) {
+
+    }
+    if (metadata.hintText) {
+
+    }
+  }
+
   initializeWidget(sendInitPayload = true) {
     const {
       storage,
@@ -160,10 +191,12 @@ class Widget extends Component {
       socket.createSocket();
 
       socket.on('bot_uttered', (botUttered) => {
+        dispatch(clearMetadata());
         if (botUttered.metadata && botUttered.metadata.tooltip) {
           dispatch(setTooltipMessage(String(botUttered.text)));
           return;
         }
+        propagateMetadata(botUttered.metadata);
         const newMessage = { ...botUttered, text: String(botUttered.text) };
         this.handleMessageReceived(newMessage);
       });
