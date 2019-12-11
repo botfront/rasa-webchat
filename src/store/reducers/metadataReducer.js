@@ -19,7 +19,7 @@ export default function (storage) {
     switch (action.type) {
       // Each change to the redux store's behavior Map gets recorded to storage
       case actionTypes.CLEAR_METADATA: {
-        return storeParams(state.merge(initialState)); // reset the metadata state to its inital state
+        return storeParams(state.merge(initialState)); // reset metadata state to its inital state
       }
       case actionTypes.SET_LINK_TARGET: {
         return storeParams(state.set('linkTarget', action.target));
