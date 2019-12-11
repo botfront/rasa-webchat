@@ -5,8 +5,7 @@ import { storeParamsTo } from './helper';
 export default function (storage) {
   const initialState = Map({
     linkTarget: '',
-    disableInputField: false,
-    hideInputField: false,
+    userInput: '',
     messageTarget: '',
     pageChangeCallback: '',
     domHighlight: {},
@@ -25,11 +24,8 @@ export default function (storage) {
       case actionTypes.SET_LINK_TARGET: {
         return storeParams(state.set('linkTarget', action.target));
       }
-      case actionTypes.DISABLE_INPUT: {
-        return storeParams(state.set('disableInputField', true));
-      }
-      case actionTypes.HIDE_INPUT: {
-        return storeParams(state.set('hideInputField', true));
+      case actionTypes.SET_USER_INPUT: {
+        return storeParams(state.set('userInput', action.userInputState));
       }
       case actionTypes.SET_MESSAGE_TARGET: {
         return storeParams(state.set('messageTarget', action.target));
@@ -49,7 +45,6 @@ export default function (storage) {
       case actionTypes.SET_HINT_TEXT: {
         return storeParams(state.set('hintText', action.hint));
       }
-
       default:
         return state;
     }
