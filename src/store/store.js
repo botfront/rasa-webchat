@@ -4,6 +4,8 @@ import { SESSION_NAME } from 'constants';
 
 import behavior from './reducers/behaviorReducer';
 import messages from './reducers/messagesReducer';
+import metadata from './reducers/metadataReducer';
+
 import { getLocalSession } from './reducers/helper';
 import * as actionTypes from './actions/actionTypes';
 
@@ -44,7 +46,8 @@ function initStore(
   };
   const reducer = combineReducers({
     behavior: behavior(hintText, connectingText, storage, docViewer),
-    messages: messages(storage)
+    messages: messages(storage),
+    metadata: metadata(storage)
   });
 
   /* eslint-disable no-underscore-dangle */

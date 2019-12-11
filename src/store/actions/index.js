@@ -190,3 +190,71 @@ export function triggerTooltipSent() {
     type: actions.TRIGGER_TOOLTIP_SENT
   };
 }
+
+export function clearMetadata() {
+  return {
+    type: actions.CLEAR_METADATA
+  };
+}
+
+export function linkTarget(target) {
+  return {
+    type: actions.SET_LINK_TARGET,
+    target
+  };
+}
+
+export function disableInputField() {
+  return {
+    type: actions.DISABLE_INPUT
+  };
+}
+
+export function hideInputField() {
+  return {
+    type: actions.HIDE_INPUT
+  };
+}
+
+export function messageTarget(target) {
+  return {
+    type: actions.SET_MESSAGE_TARGET,
+    target
+  };
+}
+
+export function pageChangeCallback(regex) {
+  return {
+    type: actions.SET_PAGECHANGE_REGEX,
+    regex
+  };
+}
+
+export function domHighlight() {
+  return {
+    type: actions.SET_DOM_HIGHLIGHT,
+    domHighlight
+  };
+}
+
+export function messageContainerCss(css) {
+  return {
+    type: actions.SET_CONTAINER_CSS,
+    css
+  };
+}
+
+export function messageTextCss(css) {
+  return {
+    type: actions.SET_TEXT_CSS,
+    css
+  };
+}
+
+export function hintText(hint) {
+  return {
+    type: actions.SET_HINT_TEXT,
+    hint
+  };
+}
+
