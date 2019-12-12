@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 import { storeParamsTo } from './helper';
 
 export default function (storage) {
-  const initialState = Map({
+  const defaultValues = Map({
     linkTarget: '',
     userInput: '',
     messageTarget: '',
@@ -11,15 +11,21 @@ export default function (storage) {
     domHighlight: {},
     messageContainerCss: '',
     messageTextCss: '',
-    hintText: ''
+    hintText: '',
+    tooltipMessage: ''
   });
+
+  const initialState = Map({
+    tooltipDisplayed: false,
+    tooltipSent: false
+  }).merge(defaultValues);
 
   return function reducer(state = initialState, action) {
     const storeParams = storeParamsTo(storage);
     switch (action.type) {
       // Each change to the redux store's behavior Map gets recorded to storage
       case actionTypes.CLEAR_METADATA: {
-        return storeParams(state.merge(initialState)); // reset metadata state to its inital state
+        return storeParams(state.merge(defaultValues)); // reset metadata state to its default values
       }
       case actionTypes.SET_LINK_TARGET: {
         return storeParams(state.set('linkTarget', action.target));
@@ -27,8 +33,14 @@ export default function (storage) {
       case actionTypes.SET_USER_INPUT: {
         return storeParams(state.set('userInput', action.userInputState));
       }
-      case actionTypes.SET_MESSAGE_TARGET: {
-        return storeParams(state.set('messageTarget', action.target));
+      case actionTypes.TRIGGER_TOOLTIP_SENT: {
+        return storeParams(state.set('tooltipSent', true));
+      }
+      case actionTypes.SET_TOOLTIP_MESSAGE: {
+        return storeParams(state.set('tooltipMessage', action.tooltipMessage));
+      }
+      case actionTypes.SET_TOOLTIP_DISPLAYED: {
+        return storeParams(state.set('tooltipDisplayed', action.displayed));
       }
       case actionTypes.SET_PAGECHANGE_REGEX: {
         return storeParams(state.set('pageChangeCallback', action.regex));
