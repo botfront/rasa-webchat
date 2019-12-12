@@ -6,7 +6,6 @@ export default function (storage) {
   const defaultValues = Map({
     linkTarget: '',
     userInput: '',
-    messageTarget: '',
     pageChangeCallback: '',
     domHighlight: {},
     messageContainerCss: '',
@@ -25,7 +24,7 @@ export default function (storage) {
     switch (action.type) {
       // Each change to the redux store's behavior Map gets recorded to storage
       case actionTypes.CLEAR_METADATA: {
-        return storeParams(state.merge(defaultValues)); // reset metadata state to its default values
+        return storeParams(state.merge(defaultValues)); // reset metadata to its default values
       }
       case actionTypes.SET_LINK_TARGET: {
         return storeParams(state.set('linkTarget', action.target));
