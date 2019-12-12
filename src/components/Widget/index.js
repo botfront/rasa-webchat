@@ -24,7 +24,8 @@ import {
   setTooltipMessage,
   clearMetadata,
   userInput,
-  linkTarget
+  linkTarget,
+  setTooltipDisplayed
 } from 'actions';
 
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
@@ -131,9 +132,9 @@ class Widget extends Component {
     }, customMessageDelay(message.text || ''));
   }
 
-  propagateMetadata(metadata) {
+  propagateMetadata(metadata, message) {
     const {
-      dispatch
+      dispatch, connected, isChatOpen, tooltipDisplayed
     } = this.props;
     if (metadata.linkTarget) {
       dispatch(linkTarget(metadata.linkTarget));
@@ -141,8 +142,14 @@ class Widget extends Component {
     if (metadata.userInput) {
       dispatch(userInput(metadata.userInput));
     }
-    if (metadata.messageTarget) {
-
+    if (metadata.messageTarget && connected && !isChatOpen) {
+      if (metadata.messageTarget === 'tooltip_init' && tooltipDisplayed) {
+        dispatch(setTooltipMessage(String(message)));
+        dispatch(setTooltipDisplayed(true));
+      }
+      if (metadata.messageTarget === 'tooltip_always' && !isChatOpen) {
+        dispatch(setTooltipMessage(String(message)));
+      }
     }
     if (metadata.pageChangeCallback) {
 
@@ -161,6 +168,14 @@ class Widget extends Component {
     }
   }
 
+  handleBotUtterance(botUtterance) {
+    const { dispatch } = this.props;
+    dispatch(clearMetadata());
+    if (botUtterance.metadata) this.propagateMetadata(botUtterance.metadata, botUtterance.text);
+    const newMessage = { ...botUtterance, text: String(botUtterance.text) };
+    this.handleMessageReceived(newMessage);
+  }
+
   initializeWidget() {
     const {
       storage,
@@ -177,14 +192,7 @@ class Widget extends Component {
       socket.createSocket();
 
       socket.on('bot_uttered', (botUttered) => {
-        dispatch(clearMetadata());
-        if (botUttered.metadata && botUttered.metadata.tooltip) {
-          dispatch(setTooltipMessage(String(botUttered.text)));
-          return;
-        }
-        if (botUttered.metadata) this.propagateMetadata(botUttered.metadata);
-        const newMessage = { ...botUttered, text: String(botUttered.text) };
-        this.handleMessageReceived(newMessage);
+        this.handleBotUtterance(botUttered);
       });
 
       dispatch(pullSession());
@@ -407,7 +415,8 @@ const mapStateToProps = state => ({
   isChatOpen: state.behavior.get('isChatOpen'),
   isChatVisible: state.behavior.get('isChatVisible'),
   fullScreenMode: state.behavior.get('fullScreenMode'),
-  tooltipSent: state.behavior.get('tooltipSent')
+  tooltipSent: state.metadata.get('tooltipSent'),
+  tooltipDisplayed: state.metadata.get('tooltipDisplayed')
 });
 
 Widget.propTypes = {
@@ -438,7 +447,8 @@ Widget.propTypes = {
   customMessageDelay: PropTypes.func.isRequired,
   tooltipPayload: PropTypes.string,
   tooltipSent: PropTypes.bool.isRequired,
-  tooltipDelay: PropTypes.number.isRequired
+  tooltipDelay: PropTypes.number.isRequired,
+  tooltipDisplayed: PropTypes.bool
 };
 
 Widget.defaultProps = {

@@ -69,7 +69,7 @@ Launcher.propTypes = {
 
 const mapStateToProps = state => ({
   unreadCount: state.behavior.get('unreadCount') || 0,
-  tooltipMessage: state.behavior.get('tooltipMessage')
+  tooltipMessage: state.metadata.get('tooltipMessage')
 });
 
 export default connect(mapStateToProps)(Launcher);
