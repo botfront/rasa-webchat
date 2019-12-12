@@ -159,7 +159,7 @@ class Widget extends Component {
       dispatch(userInput(metadata.userInput));
     }
     if (metadata.messageTarget && connected && !isChatOpen) {
-      if (metadata.messageTarget === 'tooltip_init' && tooltipDisplayed) {
+      if (metadata.messageTarget === 'tooltip_init' && !tooltipDisplayed) {
         dispatch(setTooltipMessage(String(message)));
         dispatch(setTooltipDisplayed(true));
       }
