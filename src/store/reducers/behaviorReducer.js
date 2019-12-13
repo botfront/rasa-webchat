@@ -16,7 +16,9 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
     inputTextFieldHint,
     connectingText,
     unreadCount: 0,
-    messageDelayed: false
+    messageDelayed: false,
+    watchUrl: false,
+    oldUrl: ''
   });
 
   return function reducer(state = initialState, action) {
@@ -62,12 +64,13 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
       case actionTypes.TRIGGER_MESSAGE_DELAY: {
         return storeParams(state.set('messageDelayed', action.messageDelayed));
       }
-      case actionTypes.TRIGGER_TOOLTIP_SENT: {
-        return storeParams(state.set('tooltipSent', true));
+      case actionTypes.SET_WATCH_URL: {
+        return storeParams(state.set('watchUrl', action.watch));
       }
-      case actionTypes.SET_TOOLTIP_MESSAGE: {
-        return storeParams(state.set('tooltipMessage', action.tooltipMessage));
+      case actionTypes.SET_OLD_URL: {
+        return storeParams(state.set('oldUrl', action.url));
       }
+
       // Pull params from storage to redux store
       case actionTypes.PULL_SESSION: {
         const localSession = getLocalSession(storage, SESSION_NAME);

@@ -233,12 +233,13 @@ export function messageTarget(target) {
   };
 }
 
-export function pageChangeCallback(regex) {
+export function setPageChangeCallbacks(pageChangeCallbacks) {
   return {
-    type: actions.SET_PAGECHANGE_REGEX,
-    regex
+    type: actions.SET_PAGECHANGE_CALLBACKS,
+    pageChangeCallbacks
   };
 }
+
 
 export function domHighlight() {
   return {
@@ -265,6 +266,21 @@ export function hintText(hint) {
   return {
     type: actions.SET_HINT_TEXT,
     hint
+  };
+}
+
+export function watchUrl(watch) {
+  return {
+    type: actions.SET_WATCH_URL,
+    watch
+  };
+}
+
+
+export function changeOldUrl(url) {
+  return {
+    type: actions.SET_OLD_URL,
+    url
   };
 }
 
