@@ -113,5 +113,34 @@ describe('Metadata', () => {
     expect(store.getState().metadata.get('tooltipMessage')).toEqual('dummy');
     expect(store.getState().metadata.get('tooltipDisplayed')).toEqual(true);
   });
+
+  it('pageCallback should change pageCallback info in store', () => {
+    const botUtter = {
+      text: 'dummy',
+      metadata: {
+        pageChangeCallbacks: {
+          pageChanges: [
+            {
+              url: 'http://google.com',
+              callbackIntent: 'new_intent',
+              regex: true
+            }
+          ],
+          errorIntent: 'error'
+        }
+      }
+    };
+    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    expect(store.getState().metadata.get('pageChangeCallbacks')).toEqual({
+      pageChanges: [
+        {
+          url: 'http://google.com',
+          callbackIntent: 'new_intent',
+          regex: true
+        }
+      ],
+      errorIntent: 'error'
+    });
+  });
 });
 
