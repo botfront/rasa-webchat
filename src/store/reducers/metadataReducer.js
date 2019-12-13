@@ -6,7 +6,7 @@ export default function (storage) {
   const defaultValues = Map({
     linkTarget: '',
     userInput: '',
-    pageChangeCallback: '',
+    pageChangeCallbacks: {},
     domHighlight: {},
     messageContainerCss: '',
     messageTextCss: '',
@@ -41,8 +41,8 @@ export default function (storage) {
       case actionTypes.SET_TOOLTIP_DISPLAYED: {
         return storeParams(state.set('tooltipDisplayed', action.displayed));
       }
-      case actionTypes.SET_PAGECHANGE_REGEX: {
-        return storeParams(state.set('pageChangeCallback', action.regex));
+      case actionTypes.SET_PAGECHANGE_CALLBACKS: {
+        return storeParams(state.set('pageChangeCallbacks', action.pageChangeCallbacks));
       }
       case actionTypes.SET_DOM_HIGHLIGHT: {
         return storeParams(state.set('domHighlight', action.domHighlight));

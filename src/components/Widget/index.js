@@ -25,7 +25,9 @@ import {
   clearMetadata,
   userInput,
   linkTarget,
-  setTooltipDisplayed
+  setTooltipDisplayed,
+  setPageChangeCallbacks,
+  changeOldUrl
 } from 'actions';
 
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
@@ -40,9 +42,10 @@ class Widget extends Component {
     this.onGoingMessageDelay = false;
   }
 
+
   componentDidMount() {
     const { connectOn, autoClearCache, storage, dispatch } = this.props;
-
+    setInterval(() => { this.urlChangeHandler(); }, 500);
     if (connectOn === 'mount') {
       this.initializeWidget();
       return;
@@ -98,6 +101,16 @@ class Widget extends Component {
     return localId;
   }
 
+  urlChangeHandler() {
+    const { dispatch, oldUrl, watchUrl, pageChangeCallbacks } = this.props;
+    if (!watchUrl && !pageChangeCallbacks.pageChanges) return;
+    if (oldUrl !== window.location.href) {
+      const newUrl = window.location.href;
+      dispatch(changeOldUrl(newUrl));
+      if (pageChangeCallbacks.pageChanges) this.checkRegexes(newUrl, pageChangeCallbacks);
+    }
+  }
+
   handleMessageReceived(message) {
     const { dispatch } = this.props;
     if (!this.onGoingMessageDelay) {
@@ -107,6 +120,24 @@ class Widget extends Component {
     } else {
       this.messages.push(message);
     }
+  }
+
+  checkRegexes(url, callbacks) {
+    const { dispatch } = this.props;
+    const { pageChanges, errorIntent } = callbacks;
+    const matched = pageChanges.some((callback) => {
+      if (callback.regex) {
+        if (url.match(callback.url)) {
+          dispatch(emitUserMessage(callback.callbackIntent));
+          return true;
+        }
+      } else if (url === callback.url) {
+        dispatch(emitUserMessage(callback.callbackIntent));
+        return true;
+      }
+      return false;
+    });
+    if (!matched) dispatch(emitUserMessage(errorIntent));
   }
 
   popLastMessage() {
@@ -151,8 +182,8 @@ class Widget extends Component {
         dispatch(setTooltipMessage(String(message)));
       }
     }
-    if (metadata.pageChangeCallback) {
-
+    if (metadata.pageChangeCallbacks) {
+      dispatch(setPageChangeCallbacks(metadata.pageChangeCallbacks));
     }
     if (metadata.domHighlight) {
 
@@ -416,7 +447,10 @@ const mapStateToProps = state => ({
   isChatVisible: state.behavior.get('isChatVisible'),
   fullScreenMode: state.behavior.get('fullScreenMode'),
   tooltipSent: state.metadata.get('tooltipSent'),
-  tooltipDisplayed: state.metadata.get('tooltipDisplayed')
+  tooltipDisplayed: state.metadata.get('tooltipDisplayed'),
+  oldUrl: state.behavior.get('oldUrl'),
+  watchUrl: state.behavior.get('watchUrl'),
+  pageChangeCallbacks: state.metadata.get('pageChangeCallbacks')
 });
 
 Widget.propTypes = {
@@ -448,7 +482,10 @@ Widget.propTypes = {
   tooltipPayload: PropTypes.string,
   tooltipSent: PropTypes.bool.isRequired,
   tooltipDelay: PropTypes.number.isRequired,
-  tooltipDisplayed: PropTypes.bool
+  tooltipDisplayed: PropTypes.bool,
+  oldUrl: PropTypes.string,
+  watchUrl: PropTypes.bool,
+  pageChangeCallbacks: PropTypes.shape({})
 };
 
 Widget.defaultProps = {
@@ -458,7 +495,9 @@ Widget.defaultProps = {
   connectOn: 'mount',
   autoClearCache: false,
   displayUnreadCount: false,
-  tooltipPayload: null
+  tooltipPayload: null,
+  oldUrl: '',
+  watchUrl: false
 };
 
 export default connect(mapStateToProps)(Widget);
