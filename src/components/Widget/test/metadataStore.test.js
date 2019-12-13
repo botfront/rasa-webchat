@@ -6,7 +6,7 @@ import assetMock from 'tests-mocks/fileMock';
 import Widget from '../index';
 import { store, initStore } from '../../../store/store';
 
-describe('Metadata', () => {
+describe('Messages metadata affect store', () => {
   const profile = assetMock;
   const handleUserMessage = jest.fn();
 
@@ -143,4 +143,3 @@ describe('Metadata', () => {
     });
   });
 });
-
