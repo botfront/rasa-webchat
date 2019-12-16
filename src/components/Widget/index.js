@@ -23,11 +23,12 @@ import {
   triggerTooltipSent,
   setTooltipMessage,
   clearMetadata,
-  userInput,
-  linkTarget,
+  setUserInput,
+  setLinkTarget,
   setTooltipDisplayed,
   setPageChangeCallbacks,
-  changeOldUrl
+  changeOldUrl,
+  setDomHighlight
 } from 'actions';
 
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
@@ -167,44 +168,63 @@ class Widget extends Component {
     const {
       dispatch, connected, isChatOpen, tooltipDisplayed
     } = this.props;
-    if (metadata.linkTarget) {
-      dispatch(linkTarget(metadata.linkTarget));
+    const { linkTarget,
+      userInput,
+      messageTarget,
+      pageChangeCallbacks,
+      domHighlight,
+      messageContainerCss,
+      messageTextCss,
+      hintText } = metadata;
+    if (linkTarget) {
+      dispatch(setLinkTarget(linkTarget));
     }
-    if (metadata.userInput) {
-      dispatch(userInput(metadata.userInput));
+    if (userInput) {
+      dispatch(setUserInput(userInput));
     }
-    if (metadata.messageTarget && connected && !isChatOpen) {
-      if (metadata.messageTarget === 'tooltip_init' && !tooltipDisplayed) {
+    if (messageTarget && connected && !isChatOpen) {
+      if (messageTarget === 'tooltip_init' && !tooltipDisplayed) {
         dispatch(setTooltipMessage(String(message)));
         dispatch(setTooltipDisplayed(true));
       }
-      if (metadata.messageTarget === 'tooltip_always' && !isChatOpen) {
+      if (messageTarget === 'tooltip_always' && !isChatOpen) {
         dispatch(setTooltipMessage(String(message)));
       }
     }
-    if (metadata.pageChangeCallbacks) {
-      dispatch(setPageChangeCallbacks(metadata.pageChangeCallbacks));
+    if (pageChangeCallbacks) {
+      dispatch(setPageChangeCallbacks(pageChangeCallbacks));
     }
-    if (metadata.domHighlight) {
+    if (domHighlight) {
+      dispatch(setDomHighlight(domHighlight));
+      if (domHighlight.selector && domHighlight.style) {
+        document.querySelector(domHighlight.selector).setAttribute('style', domHighlight.style);
+      }
+    }
+    if (messageContainerCss) {
 
     }
-    if (metadata.messageContainerCss) {
+    if (messageTextCss) {
 
     }
-    if (metadata.messageTextCss) {
-
-    }
-    if (metadata.hintText) {
+    if (hintText) {
 
     }
   }
 
   handleBotUtterance(botUtterance) {
     const { dispatch } = this.props;
+    this.clearCustomStyle();
     dispatch(clearMetadata());
     if (botUtterance.metadata) this.propagateMetadata(botUtterance.metadata, botUtterance.text);
     const newMessage = { ...botUtterance, text: String(botUtterance.text) };
     this.handleMessageReceived(newMessage);
+  }
+
+  // apply the customstyling from  metadata
+  // add a function in the state to clear the custom styling
+  clearCustomStyle() {
+    const { domHighlight } = this.props;
+    if (domHighlight && Object.keys(domHighlight).length > 0) { document.querySelector(domHighlight.selector).setAttribute('style', ''); }
   }
 
   initializeWidget() {
@@ -450,7 +470,8 @@ const mapStateToProps = state => ({
   tooltipDisplayed: state.metadata.get('tooltipDisplayed'),
   oldUrl: state.behavior.get('oldUrl'),
   watchUrl: state.behavior.get('watchUrl'),
-  pageChangeCallbacks: state.metadata.get('pageChangeCallbacks')
+  pageChangeCallbacks: state.metadata.get('pageChangeCallbacks'),
+  domHighlight: state.metadata.get('domHighligth')
 });
 
 Widget.propTypes = {
@@ -485,7 +506,8 @@ Widget.propTypes = {
   tooltipDisplayed: PropTypes.bool,
   oldUrl: PropTypes.string,
   watchUrl: PropTypes.bool,
-  pageChangeCallbacks: PropTypes.shape({})
+  pageChangeCallbacks: PropTypes.shape({}),
+  domHighlight: PropTypes.shape({})
 };
 
 Widget.defaultProps = {

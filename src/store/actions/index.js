@@ -204,14 +204,14 @@ export function clearMetadata() {
   };
 }
 
-export function linkTarget(target) {
+export function setLinkTarget(target) {
   return {
     type: actions.SET_LINK_TARGET,
     target
   };
 }
 
-export function userInput(userInputState) {
+export function setUserInput(userInputState) {
   return {
     type: actions.SET_USER_INPUT,
     userInputState
@@ -233,7 +233,7 @@ export function setPageChangeCallbacks(pageChangeCallbacks) {
 }
 
 
-export function domHighlight() {
+export function setDomHighlight(domHighlight) {
   return {
     type: actions.SET_DOM_HIGHLIGHT,
     domHighlight
