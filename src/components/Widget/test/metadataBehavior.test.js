@@ -55,7 +55,7 @@ describe('Metadata store affect app behavior', () => {
         isChatOpen={false}
       />
     </Provider>
-
+    , { disableLifecycleMethods: false }
   );
 
   beforeEach(() => sentToSocket = []);
@@ -165,6 +165,32 @@ describe('Metadata store affect app behavior', () => {
     widgetComponent.dive().dive().instance().urlChangeHandler();
     expect(sentToSocket).toHaveLength(1);
     expect(sentToSocket[0].message.message).toEqual('/yes');
+  });
+
+  it('should change the style of a element', () => {
+    // using global.window does not work
+
+    let elemAttributes;
+    const spyFunc = jest.fn(() => ({ setAttribute(attribute, value) {
+      elemAttributes = { attribute, value };
+    } }));
+    Object.defineProperty(document, 'querySelector', { value: spyFunc });
+
+    store.dispatch({ type: 'SET_DOM_HIGHLIGHT',
+      domHighlight: {
+        selector: '.test',
+        style: 'color: red'
+      } });
+
+    widgetComponent.dive().dive().instance().applyCustomStyle();
+
+    expect(elemAttributes).toEqual({ attribute: 'style', value: 'color: red' });
+    expect(spyFunc).toHaveBeenCalled();
+    const botUtter = {
+      text: 'test'
+    };
+    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    expect(elemAttributes).toEqual({ attribute: 'style', value: '' });
   });
 });
 

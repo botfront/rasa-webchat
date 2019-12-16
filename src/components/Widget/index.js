@@ -69,7 +69,7 @@ class Widget extends Component {
 
   componentDidUpdate() {
     const { isChatOpen, dispatch, embedded, initialized, domHighlight } = this.props;
-
+    
     dispatch(pullSession());
 
     if (isChatOpen) {
@@ -83,9 +83,7 @@ class Widget extends Component {
       dispatch(showChat());
       dispatch(openChat());
     }
-    if (domHighlight.selector && domHighlight.style) {
-      document.querySelector(domHighlight.selector).setAttribute('style', domHighlight.style);
-    }
+    this.applyCustomStyle();
   }
 
   componentWillUnmount() {
@@ -220,11 +218,17 @@ class Widget extends Component {
     this.handleMessageReceived(newMessage);
   }
 
-  // apply the customstyling from  metadata
-  // add a function in the state to clear the custom styling
+
   clearCustomStyle() {
     const { domHighlight } = this.props;
     if (domHighlight && Object.keys(domHighlight).length > 0) { document.querySelector(domHighlight.selector).setAttribute('style', ''); }
+  }
+
+  applyCustomStyle() {
+    const { domHighlight } = this.props;
+    if (domHighlight.selector && domHighlight.style) {
+      document.querySelector(domHighlight.selector).setAttribute('style', domHighlight.style);
+    }
   }
 
   initializeWidget() {
@@ -471,7 +475,7 @@ const mapStateToProps = state => ({
   oldUrl: state.behavior.get('oldUrl'),
   watchUrl: state.behavior.get('watchUrl'),
   pageChangeCallbacks: state.metadata.get('pageChangeCallbacks'),
-  domHighlight: state.metadata.get('domHighligth')
+  domHighlight: state.metadata.get('domHighlight')
 });
 
 Widget.propTypes = {
