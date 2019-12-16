@@ -72,7 +72,7 @@ describe('Messages metadata affect store', () => {
     expect(store.getState().metadata.get('userInput')).toEqual('hide');
   });
 
-  it('linktarget should change link targets info in store', () => {
+  it('linktarget metaData should change link targets info in store', () => {
     let botUtter = {
       metadata: {
         linkTarget: '_self'
@@ -91,7 +91,7 @@ describe('Messages metadata affect store', () => {
   });
 
 
-  it('messageTarget should change targets info in store', () => {
+  it('messageTarget metaData should change targets info in store', () => {
     let botUtter = {
       text: 'dummy',
       metadata: {
@@ -114,7 +114,7 @@ describe('Messages metadata affect store', () => {
     expect(store.getState().metadata.get('tooltipDisplayed')).toEqual(true);
   });
 
-  it('pageCallback should change pageCallback info in store', () => {
+  it('pageCallback metaData should change pageCallback info in store', () => {
     const botUtter = {
       text: 'dummy',
       metadata: {
