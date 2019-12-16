@@ -70,7 +70,7 @@ class Widget extends Component {
   }
 
   componentDidUpdate() {
-    const { isChatOpen, dispatch, embedded, initialized } = this.props;
+    const { isChatOpen, dispatch, embedded, initialized, domHighlight } = this.props;
 
     dispatch(pullSession());
 
@@ -84,6 +84,9 @@ class Widget extends Component {
     if (embedded && initialized) {
       dispatch(showChat());
       dispatch(openChat());
+    }
+    if (domHighlight.selector && domHighlight.style) {
+      document.querySelector(domHighlight.selector).setAttribute('style', domHighlight.style);
     }
   }
 
@@ -212,9 +215,6 @@ class Widget extends Component {
     }
     if (domHighlight) {
       dispatch(setDomHighlight(domHighlight));
-      if (domHighlight.selector && domHighlight.style) {
-        document.querySelector(domHighlight.selector).setAttribute('style', domHighlight.style);
-      }
     }
     if (messageContainerCss) {
 
