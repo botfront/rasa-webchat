@@ -142,4 +142,21 @@ describe('Messages metadata affect store', () => {
       errorIntent: 'error'
     });
   });
+
+  it('domHighlight metaData should change domHighlight info in store', () => {
+    const botUtter = {
+      text: 'dummy',
+      metadata: {
+        domHighlight: {
+          selector: '.test',
+          style: 'color: red'
+        }
+      }
+    };
+    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    expect(store.getState().metadata.get('domHighlight')).toEqual({
+      selector: '.test',
+      style: 'color: red'
+    });
+  });
 });
