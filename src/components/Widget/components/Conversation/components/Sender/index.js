@@ -21,7 +21,7 @@ Sender.propTypes = {
   sendMessage: PropTypes.func,
   inputTextFieldHint: PropTypes.string,
   disabledInput: PropTypes.bool,
-  userInput: PropTypes.bool
+  userInput: PropTypes.string
 };
 
 export default connect(mapStateToProps)(Sender);
