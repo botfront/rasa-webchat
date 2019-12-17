@@ -72,7 +72,6 @@ class Widget extends Component {
   componentDidUpdate() {
     const { isChatOpen, dispatch, embedded, initialized, domHighlight } = this.props;
     
-    dispatch(pullSession());
 
     if (isChatOpen) {
       if (!initialized) {
