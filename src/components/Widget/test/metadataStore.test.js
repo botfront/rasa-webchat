@@ -131,7 +131,7 @@ describe('Messages metadata affect store', () => {
       }
     };
     widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
-    expect(store.getState().metadata.get('pageChangeCallbacks')).toEqual({
+    expect(store.getState().metadata.get('pageChangeCallbacks').toJS()).toEqual({
       pageChanges: [
         {
           url: 'http://google.com',
@@ -154,7 +154,7 @@ describe('Messages metadata affect store', () => {
       }
     };
     widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
-    expect(store.getState().metadata.get('domHighlight')).toEqual({
+    expect(store.getState().metadata.get('domHighlight').toJS()).toEqual({
       selector: '.test',
       style: 'color: red'
     });
