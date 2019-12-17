@@ -104,11 +104,13 @@ class Widget extends Component {
 
   urlChangeHandler() {
     const { dispatch, oldUrl, watchUrl, pageChangeCallbacks } = this.props;
-    if (!watchUrl && !pageChangeCallbacks.pageChanges) return;
+    const pageCallbacksJs = pageChangeCallbacks.toJS() || {};
+    if (!watchUrl && !pageCallbacksJs.pageChanges) return;
+
     if (oldUrl !== window.location.href) {
       const newUrl = window.location.href;
       dispatch(changeOldUrl(newUrl));
-      if (pageChangeCallbacks.pageChanges) this.checkRegexes(newUrl, pageChangeCallbacks);
+      if (pageCallbacksJs.pageChanges) this.checkRegexes(newUrl, pageCallbacksJs);
     }
   }
 
@@ -221,13 +223,15 @@ class Widget extends Component {
 
   clearCustomStyle() {
     const { domHighlight } = this.props;
-    if (domHighlight && Object.keys(domHighlight).length > 0) { document.querySelector(domHighlight.selector).setAttribute('style', ''); }
+    const domHighlightJS = domHighlight.toJS() || {};
+    if (domHighlightJS && Object.keys(domHighlightJS).length > 0) { document.querySelector(domHighlightJS.selector).setAttribute('style', ''); }
   }
 
   applyCustomStyle() {
     const { domHighlight } = this.props;
-    if (domHighlight.selector && domHighlight.style) {
-      document.querySelector(domHighlight.selector).setAttribute('style', domHighlight.style);
+    const domHighlightJS = domHighlight.toJS() || {};
+    if (domHighlightJS.selector && domHighlightJS.style) {
+      document.querySelector(domHighlightJS.selector).setAttribute('style', domHighlightJS.style);
     }
   }
 
