@@ -209,6 +209,7 @@ class Widget extends Component {
       }
     }
     if (pageChangeCallbacks) {
+      dispatch(changeOldUrl(window.location.href));
       dispatch(setPageChangeCallbacks(pageChangeCallbacks));
     }
     if (domHighlight) {
