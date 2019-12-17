@@ -1,13 +1,14 @@
-import { Map } from 'immutable';
+import { SESSION_NAME } from 'constants';
+import { Map, fromJS } from 'immutable';
 import * as actionTypes from '../actions/actionTypes';
-import { storeParamsTo } from './helper';
+import { getLocalSession, storeMetadataTo } from './helper';
 
 export default function (storage) {
   const defaultValues = Map({
     linkTarget: '',
     userInput: '',
-    pageChangeCallbacks: {},
-    domHighlight: {},
+    pageChangeCallbacks: Map(),
+    domHighlight: Map(),
     messageContainerCss: '',
     messageTextCss: '',
     hintText: '',
@@ -20,41 +21,48 @@ export default function (storage) {
   }).merge(defaultValues);
 
   return function reducer(state = initialState, action) {
-    const storeParams = storeParamsTo(storage);
+    const storeMetadata = storeMetadataTo(storage);
     switch (action.type) {
       // Each change to the redux store's behavior Map gets recorded to storage
       case actionTypes.CLEAR_METADATA: {
-        return storeParams(state.merge(defaultValues)); // reset metadata to its default values
+        return storeMetadata(state.merge(defaultValues)); // reset metadata to its default values
       }
       case actionTypes.SET_LINK_TARGET: {
-        return storeParams(state.set('linkTarget', action.target));
+        return storeMetadata(state.set('linkTarget', action.target));
       }
       case actionTypes.SET_USER_INPUT: {
-        return storeParams(state.set('userInput', action.userInputState));
+        return storeMetadata(state.set('userInput', action.userInputState));
       }
       case actionTypes.TRIGGER_TOOLTIP_SENT: {
-        return storeParams(state.set('tooltipSent', true));
+        return storeMetadata(state.set('tooltipSent', true));
       }
       case actionTypes.SET_TOOLTIP_MESSAGE: {
-        return storeParams(state.set('tooltipMessage', action.tooltipMessage));
+        return storeMetadata(state.set('tooltipMessage', action.tooltipMessage));
       }
       case actionTypes.SET_TOOLTIP_DISPLAYED: {
-        return storeParams(state.set('tooltipDisplayed', action.displayed));
+        return storeMetadata(state.set('tooltipDisplayed', action.displayed));
       }
       case actionTypes.SET_PAGECHANGE_CALLBACKS: {
-        return storeParams(state.set('pageChangeCallbacks', action.pageChangeCallbacks));
+        return storeMetadata(state.set('pageChangeCallbacks', fromJS(action.pageChangeCallbacks)));
       }
       case actionTypes.SET_DOM_HIGHLIGHT: {
-        return storeParams(state.set('domHighlight', action.domHighlight));
+        return storeMetadata(state.set('domHighlight', fromJS(action.domHighlight)));
       }
       case actionTypes.SET_CONTAINER_CSS: {
-        return storeParams(state.set('messageContainerCss', action.css));
+        return storeMetadata(state.set('messageContainerCss', action.css));
       }
       case actionTypes.SET_TEXT_CSS: {
-        return storeParams(state.set('messageTextCss', action.css));
+        return storeMetadata(state.set('messageTextCss', action.css));
       }
       case actionTypes.SET_HINT_TEXT: {
-        return storeParams(state.set('hintText', action.hint));
+        return storeMetadata(state.set('hintText', action.hint));
+      }
+      case actionTypes.PULL_SESSION: {
+        const localSession = getLocalSession(storage, SESSION_NAME);
+        if (localSession && localSession.metadata) {
+          return fromJS({ ...state.toJS(), ...localSession.metadata });
+        }
+        return state;
       }
       default:
         return state;
