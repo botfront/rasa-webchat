@@ -488,7 +488,7 @@ Widget.propTypes = {
   badge: PropTypes.number,
   socket: PropTypes.shape({}),
   embedded: PropTypes.bool,
-  params: PropTypes.object,
+  params: PropTypes.shape({}),
   connected: PropTypes.bool,
   initialized: PropTypes.bool,
   openLauncherImage: PropTypes.string,
@@ -504,7 +504,8 @@ Widget.propTypes = {
   oldUrl: PropTypes.string,
   watchUrl: PropTypes.bool,
   pageChangeCallbacks: PropTypes.shape({}),
-  domHighlight: PropTypes.shape({})
+  domHighlight: PropTypes.shape({}),
+  storage: PropTypes.shape({})
 };
 
 Widget.defaultProps = {
