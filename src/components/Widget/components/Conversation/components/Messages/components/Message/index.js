@@ -44,7 +44,11 @@ class Message extends PureComponent {
 
 Message.propTypes = {
   message: PROP_TYPES.MESSAGE,
-  docViewer: PropTypes.bool.isRequired
+  docViewer: PropTypes.bool
+};
+
+Message.defaultTypes = {
+  docViewer: false
 };
 
 const mapStateToProps = state => ({

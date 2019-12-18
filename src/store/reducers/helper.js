@@ -108,7 +108,7 @@ export function storeLocalSession(storage, key, sid) {
   const cachedSession = storage.getItem(key);
   let session;
   if (cachedSession) {
-      // Found exisiting session in storage
+    // Found exisiting session in storage
     const parsedSession = JSON.parse(cachedSession);
     session = {
       ...parsedSession,

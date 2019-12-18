@@ -20,7 +20,6 @@ import QuickReply from '../components/QuickReply';
 import Snippet from '../components/Snippet';
 
 describe('<Messages />', () => {
-
   const RealDate = Date;
 
   const mockDate = (isoDate) => {
@@ -135,7 +134,7 @@ describe('<Messages />', () => {
       const renderedComponent = createComponent(true, messageToRender);
       const date = renderedComponent.find('.message-date');
       expect(date).toHaveLength(1);
-      expect(date.text()).toEqual(today.toLocaleTimeString());
+      expect(date.text()).toEqual(today.toLocaleTimeString('en-US', { timeStyle: 'short' }));
     });
 
     it('should render date and time', () => {
@@ -146,7 +145,7 @@ describe('<Messages />', () => {
       const renderedComponent = createComponent(true, messageToRender);
       const date = renderedComponent.find('.message-date');
       expect(date).toHaveLength(1);
-      expect(date.text()).toEqual(`${twoDaysAgo.toLocaleDateString()} ${twoDaysAgo.toLocaleTimeString()}`);
+      expect(date.text()).toEqual(`${twoDaysAgo.toLocaleDateString()} ${twoDaysAgo.toLocaleTimeString('en-US', { timeStyle: 'short' })}`);
     });
 
     it('should render custom date', () => {

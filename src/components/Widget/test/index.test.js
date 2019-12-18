@@ -23,6 +23,12 @@ describe('<Widget />', () => {
       handleNewUserMessage={handleUserMessage}
       profileAvatar={profile}
       dispatch={dispatch}
+      customMessageDelay={() => {}}
+      tooltipSent
+      tooltipDelay={0}
+      socket={{
+        isInitialized: () => true
+      }}
     />
   );
 

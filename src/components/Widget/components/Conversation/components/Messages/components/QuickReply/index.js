@@ -55,7 +55,7 @@ class QuickReply extends PureComponent {
       <div className="quickReplies-container">
         <Message message={message} />
         {isLast && (
-        <div className="replies">
+          <div className="replies">
             {message.get('quick_replies').map((reply, index) => {
               if (reply.type === 'web_url') {
                 return (
@@ -108,7 +108,7 @@ const mapDispatchToProps = dispatch => ({
 QuickReply.propTypes = {
   getChosenReply: PropTypes.func,
   chooseReply: PropTypes.func,
-  id: PropTypes.string,
+  id: PropTypes.number,
   isLast: PropTypes.bool,
   message: PROP_TYPES.QUICK_REPLY
 };

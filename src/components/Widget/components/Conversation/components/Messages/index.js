@@ -23,7 +23,9 @@ const formatDate = (date) => {
 
 const scrollToBottom = () => {
   const messagesDiv = document.getElementById('messages');
-  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  if (messagesDiv) {
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  }
 };
 
 class Messages extends Component {
@@ -158,7 +160,11 @@ Messages.propTypes = {
   profileAvatar: PropTypes.string,
   customComponent: PropTypes.func,
   showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  displayTypingIndication: PropTypes.bool.isRequired
+  displayTypingIndication: PropTypes.bool
+};
+
+Message.defaultTypes = {
+  displayTypingIndication: false
 };
 
 export default connect(store => ({
