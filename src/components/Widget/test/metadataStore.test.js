@@ -82,6 +82,18 @@ describe('Messages metadata affect store', () => {
     expect(store.getState().metadata.get('tooltipDisplayed')).toEqual(true);
 
     botUtter = {
+      text: 'noshow',
+      metadata: {
+        messageTarget: 'tooltip_init'
+      }
+    };
+    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+
+    expect(store.getState().metadata.get('tooltipMessage')).toEqual('');
+    expect(store.getState().metadata.get('tooltipDisplayed')).toEqual(true);
+
+
+    botUtter = {
       text: 'dummy',
       metadata: {
         messageTarget: 'tooltip_always'
@@ -89,6 +101,17 @@ describe('Messages metadata affect store', () => {
     };
     widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
     expect(store.getState().metadata.get('tooltipMessage')).toEqual('dummy');
+    expect(store.getState().metadata.get('tooltipDisplayed')).toEqual(true);
+
+    botUtter = {
+      text: 'new',
+      metadata: {
+        messageTarget: 'tooltip_always'
+      }
+    };
+    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+
+    expect(store.getState().metadata.get('tooltipMessage')).toEqual('new');
     expect(store.getState().metadata.get('tooltipDisplayed')).toEqual(true);
   });
 
