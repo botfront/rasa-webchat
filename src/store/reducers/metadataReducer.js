@@ -9,8 +9,6 @@ export default function (storage) {
     userInput: '',
     pageChangeCallbacks: Map(),
     domHighlight: Map(),
-    messageContainerCss: '',
-    messageTextCss: '',
     hintText: '',
     tooltipMessage: ''
   });
@@ -48,12 +46,7 @@ export default function (storage) {
       case actionTypes.SET_DOM_HIGHLIGHT: {
         return storeMetadata(state.set('domHighlight', fromJS(action.domHighlight)));
       }
-      case actionTypes.SET_CONTAINER_CSS: {
-        return storeMetadata(state.set('messageContainerCss', action.css));
-      }
-      case actionTypes.SET_TEXT_CSS: {
-        return storeMetadata(state.set('messageTextCss', action.css));
-      }
+
       case actionTypes.SET_HINT_TEXT: {
         return storeMetadata(state.set('hintText', action.hint));
       }
