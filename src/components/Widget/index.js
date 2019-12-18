@@ -70,8 +70,8 @@ class Widget extends Component {
   }
 
   componentDidUpdate() {
-    const { isChatOpen, dispatch, embedded, initialized, domHighlight } = this.props;
-    
+    const { isChatOpen, dispatch, embedded, initialized } = this.props;
+
 
     if (isChatOpen) {
       if (!initialized) {
@@ -190,10 +190,8 @@ class Widget extends Component {
       userInput,
       messageTarget,
       pageChangeCallbacks,
-      domHighlight,
-      messageContainerCss,
-      messageTextCss,
-      hintText } = metadata;
+      domHighlight
+    } = metadata;
     if (linkTarget) {
       dispatch(setLinkTarget(linkTarget));
     }
@@ -215,15 +213,6 @@ class Widget extends Component {
     }
     if (domHighlight) {
       dispatch(setDomHighlight(domHighlight));
-    }
-    if (messageContainerCss) {
-
-    }
-    if (messageTextCss) {
-
-    }
-    if (hintText) {
-
     }
   }
 

@@ -248,20 +248,6 @@ export function setDomHighlight(domHighlight) {
   };
 }
 
-export function messageContainerCss(css) {
-  return {
-    type: actions.SET_CONTAINER_CSS,
-    css
-  };
-}
-
-export function messageTextCss(css) {
-  return {
-    type: actions.SET_TEXT_CSS,
-    css
-  };
-}
-
 export function hintText(hint) {
   return {
     type: actions.SET_HINT_TEXT,
