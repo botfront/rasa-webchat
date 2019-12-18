@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 
-import LocalStorageMock from './localStorageMock';
+import LocalStorageMock from '../../../../mocks/localStorageMock';
 import QuickReply from '../components/Conversation/components/Messages/components/QuickReply';
 import { store, initStore } from '../../../store/store';
 
