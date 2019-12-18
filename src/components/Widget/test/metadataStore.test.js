@@ -30,8 +30,7 @@ describe('Messages metadata affect store', () => {
         connected
         isChatOpen={false}
       />
-    </Provider>
-
+    </Provider>, { disableLifecycleMethods: true }
   );
 
   it('userinput metaData should change input info in store', () => {

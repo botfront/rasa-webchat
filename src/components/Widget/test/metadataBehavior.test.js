@@ -33,7 +33,7 @@ describe('Metadata store affect app behavior', () => {
         isChatOpen={false}
       />
     </Provider>
-    , { disableLifecycleMethods: false }
+    , { disableLifecycleMethods: true }
   );
 
   beforeEach(() => sentToSocket = []);
