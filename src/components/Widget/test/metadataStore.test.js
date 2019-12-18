@@ -5,33 +5,12 @@ import { Provider } from 'react-redux';
 import assetMock from 'tests-mocks/fileMock';
 import Widget from '../index';
 import { store, initStore } from '../../../store/store';
+import LocalStorageMock from './localStorageMock';
+
 
 describe('Messages metadata affect store', () => {
   const profile = assetMock;
   const handleUserMessage = jest.fn();
-
-
-  class LocalStorageMock {
-    constructor() {
-      this.store = {};
-    }
-
-    clear() {
-      this.store = {};
-    }
-
-    getItem(key) {
-      return this.store[key] || null;
-    }
-
-    setItem(key, value) {
-      this.store[key] = value.toString();
-    }
-
-    removeItem(key) {
-      delete this.store[key];
-    }
-  }
 
   const localStorage = new LocalStorageMock();
 
