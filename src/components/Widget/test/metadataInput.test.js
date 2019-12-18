@@ -21,12 +21,16 @@ describe('Metadata store affect input behavior', () => {
     </Provider>
   );
 
-  beforeEach(() => { store.dispatch({ type: 'CLEAR_METADATA' }); });
+  beforeEach(() => {
+    store.dispatch({ type: 'CLEAR_METADATA' });
+    senderCompoment.update(); // propagate new store to the compoment
+  });
 
   it('should disable the input', () => {
     expect(senderCompoment.find('.new-message')).toHaveLength(1);
     expect(senderCompoment.find('.new-message').prop('disabled')).toEqual(false);
     store.dispatch({ type: 'SET_USER_INPUT', userInputState: 'disable' });
+    senderCompoment.update(); // propagate new store to the compoment
     expect(senderCompoment.find('.new-message')).toHaveLength(1);
     expect(senderCompoment.find('.new-message').prop('disabled')).toEqual(true);
   });
@@ -36,6 +40,7 @@ describe('Metadata store affect input behavior', () => {
     expect(senderCompoment.find('.new-message')).toHaveLength(1);
     expect(senderCompoment.find('.new-message').prop('disabled')).toEqual(false);
     store.dispatch({ type: 'SET_USER_INPUT', userInputState: 'hide' });
+    senderCompoment.update(); // propagate new store to the compoment
     expect(senderCompoment.find('.new-message')).toHaveLength(0);
   });
 });
