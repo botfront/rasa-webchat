@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import Sender from '../components/Conversation/components/Sender';
 import { store, initStore } from '../../../store/store';
-import LocalStorageMock from './localStorageMock';
+import LocalStorageMock from '../../../../mocks/localStorageMock';
 
 
 describe('Metadata store affect input behavior', () => {

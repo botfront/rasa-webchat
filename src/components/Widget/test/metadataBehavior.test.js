@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import assetMock from 'tests-mocks/fileMock';
 import Widget from '../index';
 import { store, initStore } from '../../../store/store';
-import LocalStorageMock from './localStorageMock';
+import LocalStorageMock from '../../../../mocks/localStorageMock';
 
 
 describe('Metadata store affect app behavior', () => {
