@@ -14,7 +14,7 @@ A simple webchat widget to connect with a chatbot 💬platform. Originally forke
 
 <img src="./assets/chat-demonstration.gif" alt="demonstration" width="400"/>
 
-## Setup
+## Usage
 
 ### In a `<script>` tag
 
@@ -27,36 +27,11 @@ In your `<body/>`:
   WebChat.default.init({
     selector: "#webchat",
     initPayload: "/get_started",
-    customData: {"userId": "123"}, // arbitrary custom data. Stay minimal as this will be added to the socket
+    customData: {"language": "en"}, // arbitrary custom data. Stay minimal as this will be added to the socket
     socketUrl: "http://localhost:5500",
     socketPath: "/socket.io/",
     title: "Title",
     subtitle: "Subtitle",
-    inputTextFieldHint: "Type a message...",
-    connectingText: "Waiting for server...",
-    hideWhenNotConnected: true,
-    fullScreenMode: false,
-    showFullScreenButton: false,
-    profileAvatar: "http://to.avat.ar",
-    openLauncherImage: 'myCustomOpenImage.png',
-    closeLauncherImage: 'myCustomCloseImage.png',
-    displayUnreadCount: true, // --> [view](./assets/unread_count_pastille.png)
-    showMessageDate: false,
-    tooltipPayload: '/get_tooltip',
-    tooltipDelay: 1000,
-    customMessageDelay: (message) => {
-      if (message.length > 100) return 2000;
-      return 1000;
-    },
-    params: {
-      images: {
-        dims: {
-          width: 300,
-          height: 200,
-        }
-      },
-      storage: "local"
-    },
   })
 </script>
 ```
@@ -84,34 +59,8 @@ function CustomWidget = () => {
       initPayload={"/get_started"}
       socketUrl={"http://localhost:5500"}
       socketPath={"/socket.io/"}
-      customData={{"userId": "123"}} // arbitrary custom data. Stay minimal as this will be added to the socket
+      customData={{"language": "en"}} // arbitrary custom data. Stay minimal as this will be added to the socket
       title={"Title"}
-      inputTextFieldHint={"Type a message..."}
-      connectingText={"Waiting for server..."}
-      hideWhenNotConnected
-      connectOn={"mount"}
-      embedded={true}
-      showFullScreenButton={false}
-      openLauncherImage="myCustomOpenImage.png"
-      closeLauncherImage="myCustomCloseImage.png"
-      displayUnreadCount={true} // --> [view](./assets/unread_count_pastille.png)
-      showMessageDate={false} // display message date, can use fonction as (timestamp, message) => return 'my custom date'
-      tooltipPayload='/get_tooltip'
-      tooltipDelay={1000}
-      customMessageDelay{(message) => {
-        if (message.length > 100) return 2000;
-        return 1000;
-      }}
-      params={{
-        images: {
-          dims: {
-            width: 300,
-            height: 200
-          }
-        },
-        storage: "local"
-      }}
-      customComponent={ (messageData) => (<div>Custom React component</div>) }
     />
   )
 }
@@ -120,13 +69,102 @@ function CustomWidget = () => {
 - Make sure to have the prop `embedded`
 set to `true` if you don't want to see the launcher.
 
-### Backend
 
-#### Rasa Core
+## Parameters
+| Prop / Param                 | Default value          | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+|------------------------|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `initPayload`          | `null`             | Payload sent to Rasa when conversation starts                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `socketUrl`            | `null`             | Socket URL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `socketPath`           | `null`             | Close the chat window                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `customData`           | `null`             | Arbitrary object sent with the socket. If using with Botfront, it must include the language (e.g. `{"language": "en"}`)                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `docViewer`            | `false`            | If you add this prop to the component or to the init script, `docViewer=true` , this will treat links in received messages as links to a document ( `.pdf .doc .xlsx` etc. ) and will open them in a popup using `https://docs.google.com/viewer` service                                                                                                                                                                                                                                                                    |
+| `title`                | `'Welcome"`        | Title shown in the header of the widget                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `subtitle`             | `null`             | Subtitle shown under the title in the header of the widget                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `inputTextFieldHint`   | `"Type a message"` | User message input field placeholder                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `hideWhenNotConnected` | `true`             | If `true` the widget will hide when the connection to the socket is lost                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `connectOn`            | `"mount"`          | This prop lets you choose when the widget will try connecting to the server. By default, it tries connecting as soon as it mounts. If you select `connectOn='open'` it will only attempt connection when the widget is opened. it can only take the values `mount` and `open`.                                                                                                                                                                                                                                               |
+| `onSocketEvent`        | `null`             | call custom code on a specific socket event                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `embedded`             | `false`            | Set to `true` if you want to embed the in a web page. The widget will always be open and the `initPayload` will be triggered immediately                                                                                                                                                                                                                                                                                                                                                                                     |
+| `showFullScreenButton` | `false`            | Show a full screen toggle                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `displayUnreadCount`   | `false`            | Path to an image displayed on the launcher when the widget is closed                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `showMessageDate`      | `false`            | Show message date. Can be overriden with a function: `(timestamp, message) => return 'my custom date'`                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `tooltipPayload`       | `null`             | Payload sent for the tooltip. The tooltip response must have                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `tooltipDelay`         | `1000`             | Tooltip payload will be sent 1000 ms after mount                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `customMessageDelay`   | See below          | This prop is a function, the function take a message string as an argument. The defined function will be called everytime a message is received and the returned value will be used as a milliseconds delay before displaying a new message.                                                                                                                                                                                                                                                                                 |
+| `params`               | See below          | Essentially used to customize the image size.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `storage`              | `"local"`          | Specifies the storage location of the conversation state in the browser. `"session"` defines the state to be stored in the session storage. The session storage persists on reload of the page, and is cleared after the browser or tab is closed, or when `sessionStorage.clear()`is called. `"local"` defines the state to be stored in the local stoage. The local storage persists after the the browser is closed, and is cleared when the cookies of the browser are cleared, or when `localStorage.clear()`is called. |
+| `customComponent`      | `null`             | Custom component to be used with custom responses. E.g.: `customComponent={ (messageData) => (<div>Custom React component</div>)` }                                                                                                                                                                                                                                                                                                                                                                                          |
 
-Use the SocketIOInput channel: See [instructions in the Rasa Core documentation](https://rasa.com/docs/core/connectors/#socketio-connector)
+### Additional Examples
 
-If you want to process `customData` in Rasa Core you have to [create a new channel](https://rasa.com/docs/core/connectors/#custom-channels). Use channel `rasa_core.channels.socketio` as a template for your new channel. In such channel `customData` can be retrieved via `data['customData']`. Then you can  modify `sender_id`, save `customData` to the database, fill slots or whatever you need to with your additional data.
+##### `customMessageDelay`
+```javascript
+(message) => {
+    let delay = message.length * 30;
+    if (delay > 2 * 1000) delay = 3 * 1000;
+    if (delay < 400) delay = 1000;
+    return delay;
+}
+```
+
+##### `onSocketEvent`
+```jsx
+onSocketEvent={{
+  'bot_uttered': () => console.log('the bot said something'),
+  'connect': () => console.log('connection established'),
+  'disconnect': () => doSomeCleanup(),
+}}
+```
+
+##### `params`
+
+The `params` props only allows to specify custom image dimensions:
+```jsx
+params={{
+        images: {
+          dims: {
+            width: 300,
+            height: 200
+          }
+        }
+      }}
+```
+
+### Other features
+
+
+#### Sending a message on page load
+
+When reconnecting to an existing chat session, the bot will send a message contained in the localStorage key specified by the `NEXT_MESSAGE` constant. The message should be stringified JSON with a `message` property describing the message and an `expiry` property set to a UNIX timestamp in milliseconds after which this message should not be sent. This is useful if you would like your bot to be able to offer your user to navigate around the site.
+
+
+## API
+
+| Method                                   | Description                                                                                                                                                              |
+|------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `WebChat.toggle()`                       | Toggle the open/close state of the chat window, send initPayload if webchat is not initialized and is toggled open                                                       |
+| `WebChat.open()`                         | Open the chat window, send initPayload if webchat is not initialized                                                                                                     |
+| `WebChat.close()`                        | Close the chat window                                                                                                                                                    |
+| `WebChat.isOpen()`                       | Get the open/closed state of the widget                                                                                                                                  |
+| `WebChat.show()`                         | Show the chat widget, send initPayload if the chat is in open state and not initialized                                                                                  |
+| `WebChat.hide()`                         | Hide the chat widget                                                                                                                                                     |
+| `WebChat.isVisible()`                    | Get the shown/hidden state of the widget                                                                                                                                 |
+| `WebChat.send(payload, text: optionnal)` | send a payload (`/intent{"entity":"value"}` to rasa. If `text` is specified, it will be displayed as a user message. If not specified, no user message will be displayed |                                                                       |
+
+### Backends
+
+The widget can be used with any backend but is primarily designed to be used with [Rasa](https://github.com/rasaHQ/rasa) or [Botfront](https://github.com/botfront/botfront).
+
+#### Rasa
+
+Use the `socketio` channel: See [instructions in the Rasa documentation](https://rasa.com/docs/core/connectors/#socketio-connector)
+
+If you want to process `customData` in Rasa  you have to [create a new channel](https://rasa.com/docs/core/connectors/#custom-channels). Use channel `rasa_core.channels.socketio` as a template for your new channel. In such channel `customData` can be retrieved via `data['customData']`. Then you can  modify `sender_id`, save `customData` to the database, fill slots or whatever you need to with your additional data.
+
+
+#### Botfront
+
+The Rasa Webchat is developped by the [Botfront](https://botront.io) team and it works with Botfront. Make sure to specificy the language in the `customData` prop. E.g. `customData={{language: 'en'}}`. See in [Botfront docs](https://botfront.io/docs/deployment/frontend/#frontend-configure-the-widget) for more details.
 
 #### Others
 Your backend must expose a socket with [socket.io](http://socket.io)
@@ -246,88 +284,6 @@ message = {
 emit('bot_uttered', message, room=socket_id)
 ```
 
-## Usage
-
-### Session Persistence
-
-`storage` specifies the location where the the conversation and state of the WebChat is stored in the browser's storage.
-
-`storage: "session"` defines the state to be stored in the session storage. The session storage persists on reload of the page, and is cleared after the browser or tab is closed, or when `sessionStorage.clear()`is called.
-
-`storage: "local"` defines the state to be stored in the local stoage. The local storage persists after the the browser is closed, and is cleared when the cookies of the browser are cleared, or when `localStorage.clear()`is called.
-
-
-### Sending a message on page load
-
-When reconnecting to an existing chat session, the bot will send a message contained in the localStorage key specified by the `NEXT_MESSAGE` constant. The message should be stringified JSON with a `message` property describing the message and an `expiry` property set to a UNIX timestamp in milliseconds after which this message should not be sent. This is useful if you would like your bot to be able to offer your user to navigate around the site.
-
-### docViewer
-
-**Note :** this is an **experimental** feature  
-
-If you add this prop to the component or to the init script, `docViewer=true` , this will treat links in received messages as links to a document ( `.pdf .doc .xlsx` etc. ) and will open them in a popup using `https://docs.google.com/viewer` service
-
-### connectOn
-
-This prop lets you choose when the widget will try connecting to the server. By default, it tries connecting as soon as it mounts. If you select `connectOn='open'` it will only attempt connection when the widget is opened. it can only take the values `mount` and `open`.
-
-### onSocketEvent
-
-This prop lets you call custom code on a specific socket event. Here is what it should look like.
-
-```jsx
-onSocketEvent={{
-  'bot_uttered': () => console.log('the bot said something'),
-  'connect': () => console.log('connection established'),
-  'disconnect': () => doSomeCleanup(),
-}}
-```
-
-### tooltip payload
-
-This feature lets you set a tooltipPayload in the props of the component, then, for the answer to that payload, you should define a response with a metada object and a property `tooltip = true`. This message will then be displayed as a tooltip before the widget is opened.
-Disclaimer: This works with Botfront, but not yet with vanilla Rasa. Don't use that feature if you didn't set a metadata tag in your response.
-
-```python
-message = {
-  "text": "Hi!",
-  "metadata":{
-    "tooltip": true
-   }
- }
-emit('bot_uttered', message, room=socket_id)
-```
-
-### tooltipDelay
-
-This prop is as number, it lets you set a delay in milliseconds before calling the tooltip payload. It defaults to 500ms.
-
-### customMessageDelay
-
-This prop is a function, the function take a message string as an argument. The defined function will be called everytime a message is received and the returned value will be used as a milliseconds delay before displaying a new message.
-This is the default value
-```javascript
-(message) => {
-    let delay = message.length * 30;
-    if (delay > 2 * 1000) delay = 3 * 1000;
-    if (delay < 400) delay = 1000;
-    return delay;
-}
-```
-
-## API
-
-| Method                  |  Description                                                                                                       |
-|-------------------------|--------------------------------------------------------------------------------------------------------------------|
-| WebChat.toggle()        | Toggle the open/close state of the chat window, send initPayload if webchat is not initialized and is toggled open |
-| WebChat.open()          | Open the chat window, send initPayload if webchat is not initialized                                               |
-| WebChat.close()         | Close the chat window                                                                                              |
-| WebChat.isOpen()     | Get the open/closed state of the widget                                                                               |
-| WebChat.show()          | Show the chat widget, send initPayload if the chat is in open state and not initialized                            |
-| WebChat.hide()          | Hide the chat widget                                                                                               |
-| WebChat.isVisible()     | Get the shown/hidden state of the widget                                                                           |
-
-
 
 ## Styles
 
@@ -375,17 +331,6 @@ hierarchy:
 | .snippet                | a component for describing links                                    |
 | .imageFrame             | a container for sending images                                      |
 | .videoFrame             | a container for sending video                                       |
-
-## Usage with Docker
-
-Since you have to install the package from GitHub, npm will clone the repo to the global .npm directory before
-building the module in your node_modules directory. For this reason docker will have trouble installing the package,
-of course the global .npm directory doesn't exist in the container. To solve this simply add the following line
-in your Dockerfile before the `RUN npm install` command
-
-```docker
-RUN mkdir -p /root/.npm
-```
 
 
 ## Contributors
