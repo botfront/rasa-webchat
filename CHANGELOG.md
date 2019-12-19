@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.4](https://https///compare/v0.7.3...v0.7.4) (2019-12-19)
+
+
+### Features
+
+* add a send function ([#150](https://https//undefined/issues/150)) ([4221e84](https://https///commit/4221e84))
+
 ### [0.7.3](https://https///compare/v0.7.2...v0.7.3) (2019-12-10)
 
 
