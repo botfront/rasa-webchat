@@ -226,13 +226,6 @@ export function setUserInput(userInputState) {
   };
 }
 
-export function messageTarget(target) {
-  return {
-    type: actions.SET_MESSAGE_TARGET,
-    target
-  };
-}
-
 export function setPageChangeCallbacks(pageChangeCallbacks) {
   return {
     type: actions.SET_PAGECHANGE_CALLBACKS,
