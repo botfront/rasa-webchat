@@ -7,7 +7,7 @@ $roboto: 'Roboto', serif;
   color: $textColor;
   border-radius: $borderRadius;
   padding: 11px 15px;
-  max-width: 215px;
+  max-width: 75%;
   text-align: left;
   font-family: $roboto;
 }
@@ -18,7 +18,7 @@ $roboto: 'Roboto', serif;
     color: $textColor;
     border-style: solid;
     padding: 15px;
-    max-width: 215px;
+    max-width: 75%;
     max-height: 1em;
     text-align: center;
     font-family: $roboto;
