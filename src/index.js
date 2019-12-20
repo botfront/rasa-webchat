@@ -179,12 +179,7 @@ ConnectedWidget.defaultProps = {
   showFullScreenButton: false,
   displayUnreadCount: false,
   showMessageDate: false,
-  customMessageDelay: (message) => {
-    let delay = message.length * 30;
-    if (delay > 2 * 1000) delay = 3 * 1000;
-    if (delay < 400) delay = 1000;
-    return delay;
-  },
+  customMessageDelay: m => Math.min(Math.max(m.length * 30, 500), 3000),
   tooltipPayload: null,
   tooltipDelay: 500
 };
