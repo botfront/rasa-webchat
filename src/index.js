@@ -181,8 +181,8 @@ ConnectedWidget.defaultProps = {
   showMessageDate: false,
   customMessageDelay: (message) => {
     let delay = message.length * 30;
-    if (delay > 2 * 1000) delay = 3 * 1000;
-    if (delay < 400) delay = 1000;
+    if (delay > 3 * 1000) delay = 3 * 1000;
+    if (delay < 800) delay = 800;
     return delay;
   },
   tooltipPayload: null,
