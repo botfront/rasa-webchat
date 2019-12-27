@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.7](https://https///compare/v0.7.6...v0.7.7) (2019-12-27)
+
 ### [0.7.6](https://https///compare/v0.7.5...v0.7.6) (2019-12-27)
 
 ### [0.7.5](https://https///compare/v0.7.4...v0.7.5) (2019-12-24)
