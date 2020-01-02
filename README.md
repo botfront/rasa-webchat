@@ -164,7 +164,7 @@ If you want to process `customData` in Rasa  you have to [create a new channel](
 
 #### Botfront
 
-The Rasa Webchat is developped by the [Botfront](https://botront.io) team and it works with Botfront. Make sure to specificy the language in the `customData` prop. E.g. `customData={{language: 'en'}}`. See in [Botfront docs](https://botfront.io/docs/deployment/frontend/#frontend-configure-the-widget) for more details.
+The Rasa Webchat is developped by the [Botfront](https://botfront.io) team and it works with Botfront. Make sure to specificy the language in the `customData` prop. E.g. `customData={{language: 'en'}}`. See in [Botfront docs](https://botfront.io/docs/deployment/frontend/#frontend-configure-the-widget) for more details.
 
 #### Others
 Your backend must expose a socket with [socket.io](http://socket.io)
