@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 
@@ -6,7 +6,7 @@ import Widget from './components/Widget';
 import { store, initStore } from '../src/store/store';
 import socket from './socket';
 
-const ConnectedWidget = (props) => {
+const ConnectedWidget = forwardRef((props, ref) => {
   class Socket {
     constructor(
       url,
@@ -91,6 +91,7 @@ const ConnectedWidget = (props) => {
   return (
     <Provider store={store}>
       <Widget
+        ref={ref}
         initPayload={props.initPayload}
         title={props.title}
         subtitle={props.subtitle}
@@ -119,7 +120,7 @@ const ConnectedWidget = (props) => {
       />
     </Provider>
   );
-};
+});
 
 ConnectedWidget.propTypes = {
   initPayload: PropTypes.string,
