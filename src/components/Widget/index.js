@@ -416,4 +416,4 @@ Widget.defaultProps = {
   tooltipPayload: null
 };
 
-export default connect(mapStateToProps)(Widget);
+export default connect(mapStateToProps, null, null, { withRef: true })(Widget);
