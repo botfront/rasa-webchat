@@ -2,20 +2,19 @@ import { List } from 'immutable';
 import { MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
 import {
-    createQuickReply,
-    createNewMessage,
-    createLinkSnippet,
-    createVideoSnippet,
-    createImageSnippet,
-    createComponentMessage,
-    storeMessageTo,
-    getLocalSession
+  createQuickReply,
+  createNewMessage,
+  createLinkSnippet,
+  createVideoSnippet,
+  createImageSnippet,
+  createComponentMessage,
+  storeMessageTo,
+  getLocalSession
 } from './helper';
 
 import * as actionTypes from '../actions/actionTypes';
 
 export default function (storage) {
-
   const initialState = List([]);
 
   return function reducer(state = initialState, action) {
@@ -23,7 +22,7 @@ export default function (storage) {
     switch (action.type) {
       // Each change to the redux store's message list gets recorded to storage
       case actionTypes.ADD_NEW_USER_MESSAGE: {
-        return storeMessage(state.push(createNewMessage(action.text, MESSAGE_SENDER.CLIENT)))
+        return storeMessage(state.push(createNewMessage(action.text, MESSAGE_SENDER.CLIENT)));
       }
       case actionTypes.ADD_NEW_RESPONSE_MESSAGE: {
         return storeMessage(state.push(createNewMessage(action.text, MESSAGE_SENDER.RESPONSE)));
@@ -50,20 +49,28 @@ export default function (storage) {
         return storeMessage(state.insert(action.index, createNewMessage(action.text, MESSAGE_SENDER.CLIENT)));
       }
       case actionTypes.DROP_MESSAGES: {
-        return storeMessage(initialState)
+        return storeMessage(initialState);
+      }
+      case actionTypes.EMIT_MESSAGE_IF_FIRST: {
+        if (state.size === 0) {
+          if (action.text) {
+            return storeMessage(state.push(createNewMessage(action.text, MESSAGE_SENDER.CLIENT)));
+          }
+          return state;
+        }
+        return state;
       }
       // Pull conversation from storage, parsing as immutable List
       case actionTypes.PULL_SESSION: {
         const localSession = getLocalSession(storage, SESSION_NAME);
         if (localSession) {
           return List(localSession.conversation);
-        } else {
-          return state
         }
+        return state;
       }
       default:
         return state;
     }
-  }
+  };
 }
 

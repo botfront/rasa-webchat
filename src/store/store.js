@@ -27,6 +27,17 @@ function initStore(
           customData: socket.customData,
           session_id
         });
+        break;
+      }
+      case actionTypes.EMIT_MESSAGE_IF_FIRST: {
+        if (store.getState().messages.size === 0) {
+          socket.emit('user_uttered', {
+            message: action.payload,
+            customData: socket.customData,
+            session_id
+          });
+        }
+        break;
       }
       case actionTypes.GET_OPEN_STATE: {
         return store.getState().behavior.get('isChatOpen');

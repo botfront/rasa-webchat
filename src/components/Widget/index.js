@@ -21,7 +21,8 @@ import {
   newUnreadMessage,
   triggerMessageDelayed,
   triggerTooltipSent,
-  setTooltipMessage
+  setTooltipMessage,
+  emitMessageIfFirst
 } from 'actions';
 
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
@@ -34,6 +35,7 @@ class Widget extends Component {
     super(props);
     this.messages = [];
     this.onGoingMessageDelay = false;
+    this.sendMessage = this.sendMessage.bind(this);
   }
 
   componentDidMount() {
@@ -94,6 +96,19 @@ class Widget extends Component {
     return localId;
   }
 
+  sendMessage(payload, text = '', when = 'always') {
+    const { dispatch, initialized } = this.props;
+    if (when === 'always') {
+      dispatch(emitUserMessage(payload));
+      if (text !== '') dispatch(addUserMessage(text));
+    } else if (when === 'init') {
+      if (!initialized) {
+        this.initializeWidget(false);
+      }
+      dispatch(emitMessageIfFirst(payload, text));
+    }
+  }
+
   handleMessageReceived(message) {
     const { dispatch } = this.props;
     if (!this.onGoingMessageDelay) {
@@ -128,7 +143,7 @@ class Widget extends Component {
     }, customMessageDelay(message.text || ''));
   }
 
-  initializeWidget() {
+  initializeWidget(sendInitPayload = true) {
     const {
       storage,
       socket,
@@ -179,7 +194,9 @@ class Widget extends Component {
 
           storeLocalSession(storage, SESSION_NAME, remoteId);
           dispatch(pullSession());
-          this.trySendInitPayload();
+          if (sendInitPayload) {
+            this.trySendInitPayload();
+          }
           if (connectOn === 'mount' && tooltipPayload) {
             this.tooltipTimeout = setTimeout(() => {
               this.trySendTooltipPayload();

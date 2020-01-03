@@ -93,6 +93,14 @@ export function emitUserMessage(text) {
   };
 }
 
+export function emitMessageIfFirst(payload, text = null) {
+  return {
+    type: actions.EMIT_MESSAGE_IF_FIRST,
+    payload,
+    text
+  };
+}
+
 export function addResponseMessage(text) {
   return {
     type: actions.ADD_NEW_RESPONSE_MESSAGE,
