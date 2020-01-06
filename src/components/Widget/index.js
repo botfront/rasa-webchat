@@ -190,7 +190,8 @@ class Widget extends Component {
       userInput,
       messageTarget,
       pageChangeCallbacks,
-      domHighlight
+      domHighlight,
+      forceOpen
     } = metadata;
     if (linkTarget) {
       dispatch(setLinkTarget(linkTarget));
@@ -214,6 +215,9 @@ class Widget extends Component {
     if (domHighlight) {
       dispatch(setDomHighlight(domHighlight));
     }
+    if (forceOpen) {
+      dispatch(openChat());
+  }
   }
 
   handleBotUtterance(botUtterance) {
