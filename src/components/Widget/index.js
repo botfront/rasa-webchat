@@ -217,7 +217,7 @@ class Widget extends Component {
     }
     if (forceOpen) {
       dispatch(openChat());
-  }
+    }
   }
 
   handleBotUtterance(botUtterance) {
@@ -343,15 +343,11 @@ class Widget extends Component {
       isChatVisible,
       embedded,
       connected,
-      dispatch,
-      messagesSize
+      dispatch
     } = this.props;
 
     // Send initial payload when chat is opened or widget is shown
-    if (!initialized
-        && connected
-        && ((isChatOpen && isChatVisible) || embedded)
-        && messagesSize === 0) {
+    if (!initialized && connected && ((isChatOpen && isChatVisible) || embedded)) {
       // Only send initial payload if the widget is connected to the server but not yet initialized
 
       const sessionId = this.getSessionId();
@@ -385,6 +381,7 @@ class Widget extends Component {
       socket.emit('user_uttered', { message: tooltipPayload, customData, session_id: sessionId });
 
       dispatch(triggerTooltipSent());
+      dispatch(initialize());
     }
   }
 
@@ -493,8 +490,7 @@ const mapStateToProps = state => ({
   oldUrl: state.behavior.get('oldUrl'),
   watchUrl: state.behavior.get('watchUrl'),
   pageChangeCallbacks: state.metadata.get('pageChangeCallbacks'),
-  domHighlight: state.metadata.get('domHighlight'),
-  messagesSize: state.messages.size
+  domHighlight: state.metadata.get('domHighlight')
 });
 
 Widget.propTypes = {
@@ -531,8 +527,7 @@ Widget.propTypes = {
   watchUrl: PropTypes.bool,
   pageChangeCallbacks: PropTypes.shape({}),
   domHighlight: PropTypes.shape({}),
-  storage: PropTypes.shape({}),
-  messagesSize: PropTypes.number
+  storage: PropTypes.shape({})
 };
 
 Widget.defaultProps = {
