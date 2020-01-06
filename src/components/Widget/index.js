@@ -289,11 +289,6 @@ class Widget extends Component {
           if (sendInitPayload) {
             this.trySendInitPayload();
           }
-          if (connectOn === 'mount' && tooltipPayload) {
-            this.tooltipTimeout = setTimeout(() => {
-              this.trySendTooltipPayload();
-            }, parseInt(tooltipDelay, 10));
-          }
         } else {
           // If this is an existing session, it's possible we changed pages and want to send a
           // user message when we land.
@@ -308,6 +303,10 @@ class Widget extends Component {
               dispatch(emitUserMessage(message));
             }
           }
+        } if (connectOn === 'mount' && tooltipPayload) {
+          this.tooltipTimeout = setTimeout(() => {
+            this.trySendTooltipPayload();
+          }, parseInt(tooltipDelay, 10));
         }
       });
 
