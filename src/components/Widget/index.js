@@ -104,6 +104,7 @@ class Widget extends Component {
     } else if (when === 'init') {
       if (!initialized) {
         this.initializeWidget(false);
+        dispatch(initialize());
       }
       dispatch(emitMessageIfFirst(payload, text));
     }
