@@ -98,14 +98,14 @@ class Widget extends Component {
 
   sendMessage(payload, text = '', when = 'always') {
     const { dispatch, initialized } = this.props;
+    if (!initialized) {
+      this.initializeWidget(false);
+      dispatch(initialize());
+    }
     if (when === 'always') {
       dispatch(emitUserMessage(payload));
       if (text !== '') dispatch(addUserMessage(text));
     } else if (when === 'init') {
-      if (!initialized) {
-        this.initializeWidget(false);
-        dispatch(initialize());
-      }
       dispatch(emitMessageIfFirst(payload, text));
     }
   }
