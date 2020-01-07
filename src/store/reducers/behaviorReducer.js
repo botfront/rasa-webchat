@@ -1,4 +1,4 @@
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 import { SESSION_NAME } from 'constants';
 import * as actionTypes from '../actions/actionTypes';
 import { getLocalSession, storeParamsTo } from './helper';
@@ -17,8 +17,8 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
     connectingText,
     unreadCount: 0,
     messageDelayed: false,
-    watchUrl: false,
-    oldUrl: ''
+    oldUrl: '',
+    pageChangeCallbacks: Map()
   });
 
   return function reducer(state = initialState, action) {
@@ -64,11 +64,21 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
       case actionTypes.TRIGGER_MESSAGE_DELAY: {
         return storeParams(state.set('messageDelayed', action.messageDelayed));
       }
-      case actionTypes.SET_WATCH_URL: {
-        return storeParams(state.set('watchUrl', action.watch));
-      }
       case actionTypes.SET_OLD_URL: {
         return storeParams(state.set('oldUrl', action.url));
+      }
+      case actionTypes.SET_PAGECHANGE_CALLBACKS: {
+        return storeParams(state.set('pageChangeCallbacks', fromJS(action.pageChangeCallbacks)));
+      }
+      case actionTypes.EVAL_URL: {
+        const newUrl = action.url;
+        const pageCallbacks = state.get('pageChangeCallbacks');
+        const pageCallbacksJs = pageCallbacks ? pageCallbacks.toJS() : {};
+        if (!pageCallbacksJs.pageChanges) return state;
+        if (state.get('oldUrl') !== newUrl) {
+          return storeParams(state.set('oldUrl', newUrl).set('pageChangeCallbacks', Map()));
+        }
+        return state;
       }
 
       // Pull params from storage to redux store
@@ -79,7 +89,7 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
         const connected = state.get('connected');
 
         if (localSession && localSession.params) {
-          return Map({ ...localSession.params, connected });
+          return fromJS({ ...localSession.params, connected });
         }
         return state;
       }

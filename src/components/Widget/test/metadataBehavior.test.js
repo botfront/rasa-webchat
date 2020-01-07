@@ -39,12 +39,6 @@ describe('Metadata store affect app behavior', () => {
   beforeEach(() => sentToSocket = []);
 
   it('should use the callbackIntent on expected url change', () => {
-    // using global.window does not work
-    Object.defineProperty(window.location, 'href', {
-      writable: true,
-      value: 'ipsum.com'
-    });
-
     store.dispatch({ type: 'SET_OLD_URL', url: 'lorem.com' });
     store.dispatch({ type: 'SET_PAGECHANGE_CALLBACKS',
       pageChangeCallbacks: {
@@ -57,19 +51,13 @@ describe('Metadata store affect app behavior', () => {
         ],
         errorIntent: '/no'
       } });
-    widgetComponent.dive().dive().instance().urlChangeHandler();
+    store.dispatch({ type: 'EVAL_URL', url: 'ipsum.com' });
     expect(sentToSocket).toHaveLength(1);
     expect(sentToSocket[0].message.message).toEqual('/yes');
   });
 
 
   it('should use the errorIntent on bad url change', () => {
-    // using global.window does not work
-    Object.defineProperty(window.location, 'href', {
-      writable: true,
-      value: 'dolor.com'
-    });
-
     store.dispatch({ type: 'SET_OLD_URL', url: 'lorem.com' });
     store.dispatch({ type: 'SET_PAGECHANGE_CALLBACKS',
       pageChangeCallbacks: {
@@ -82,18 +70,12 @@ describe('Metadata store affect app behavior', () => {
         ],
         errorIntent: '/no'
       } });
-    widgetComponent.dive().dive().instance().urlChangeHandler();
+    store.dispatch({ type: 'EVAL_URL', url: 'dolor.com' });
     expect(sentToSocket).toHaveLength(1);
     expect(sentToSocket[0].message.message).toEqual('/no');
   });
 
   it('should use the regex for urlchecking', () => {
-    // using global.window does not work
-    Object.defineProperty(window.location, 'href', {
-      writable: true,
-      value: 'dolor/amet/sit.com'
-    });
-
     store.dispatch({ type: 'SET_OLD_URL', url: 'lorem.com' });
     store.dispatch({ type: 'SET_PAGECHANGE_CALLBACKS',
       pageChangeCallbacks: {
@@ -106,17 +88,12 @@ describe('Metadata store affect app behavior', () => {
         ],
         errorIntent: '/no'
       } });
-    widgetComponent.dive().dive().instance().urlChangeHandler();
+    store.dispatch({ type: 'EVAL_URL', url: 'dolor/amet/sit.com' });
     expect(sentToSocket).toHaveLength(1);
     expect(sentToSocket[0].message.message).toEqual('/yes');
   });
 
   it('should use multiple the regex/string for urlchecking', () => {
-    // using global.window does not work
-    Object.defineProperty(window.location, 'href', {
-      writable: true,
-      value: 'elit.com/sed'
-    });
 
     store.dispatch({ type: 'SET_OLD_URL', url: 'lorem.com' });
     store.dispatch({ type: 'SET_PAGECHANGE_CALLBACKS',
@@ -140,7 +117,7 @@ describe('Metadata store affect app behavior', () => {
         ],
         errorIntent: '/no'
       } });
-    widgetComponent.dive().dive().instance().urlChangeHandler();
+    store.dispatch({ type: 'EVAL_URL', url: 'elit.com/sed' });
     expect(sentToSocket).toHaveLength(1);
     expect(sentToSocket[0].message.message).toEqual('/yes');
   });

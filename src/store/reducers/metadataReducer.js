@@ -7,7 +7,6 @@ export default function (storage) {
   const defaultValues = Map({
     linkTarget: '',
     userInput: '',
-    pageChangeCallbacks: Map(),
     domHighlight: Map(),
     hintText: '',
     tooltipMessage: ''
@@ -39,9 +38,6 @@ export default function (storage) {
       }
       case actionTypes.SET_TOOLTIP_DISPLAYED: {
         return storeMetadata(state.set('tooltipDisplayed', action.displayed));
-      }
-      case actionTypes.SET_PAGECHANGE_CALLBACKS: {
-        return storeMetadata(state.set('pageChangeCallbacks', fromJS(action.pageChangeCallbacks)));
       }
       case actionTypes.SET_DOM_HIGHLIGHT: {
         return storeMetadata(state.set('domHighlight', fromJS(action.domHighlight)));

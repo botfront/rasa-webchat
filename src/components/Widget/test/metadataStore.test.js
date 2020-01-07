@@ -132,7 +132,7 @@ describe('Messages metadata affect store', () => {
       }
     };
     widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
-    expect(store.getState().metadata.get('pageChangeCallbacks').toJS()).toEqual({
+    expect(store.getState().behavior.get('pageChangeCallbacks').toJS()).toEqual({
       pageChanges: [
         {
           url: 'http://google.com',

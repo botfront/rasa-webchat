@@ -36,6 +36,6 @@ export const SET_USER_INPUT = 'SET_USER_INPUT';
 export const SET_PAGECHANGE_CALLBACKS = 'SET_PAGECHANGE_CALLBACKS';
 export const SET_DOM_HIGHLIGHT = 'SET_DOM_HIGHLIGHT';
 export const SET_HINT_TEXT = 'SET_HINT_TEXT';
-export const SET_WATCH_URL = 'SET_WATCH_URL';
 export const SET_OLD_URL = 'SET_OLD_URL';
+export const EVAL_URL = 'EVAL_URL';
 

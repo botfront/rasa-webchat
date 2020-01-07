@@ -29,7 +29,8 @@ import {
   setTooltipDisplayed,
   setPageChangeCallbacks,
   changeOldUrl,
-  setDomHighlight
+  setDomHighlight,
+  evalUrl
 } from 'actions';
 
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
@@ -48,7 +49,8 @@ class Widget extends Component {
 
   componentDidMount() {
     const { connectOn, autoClearCache, storage, dispatch } = this.props;
-    setInterval(() => { this.urlChangeHandler(); }, 500);
+
+    setInterval(() => dispatch(evalUrl(window.location.href)), 500);
     if (connectOn === 'mount') {
       this.initializeWidget();
       return;
@@ -118,18 +120,6 @@ class Widget extends Component {
     }
   }
 
-  urlChangeHandler() {
-    const { dispatch, oldUrl, watchUrl, pageChangeCallbacks } = this.props;
-    const pageCallbacksJs = pageChangeCallbacks.toJS() || {};
-    if (!watchUrl && !pageCallbacksJs.pageChanges) return;
-
-    if (oldUrl !== window.location.href) {
-      const newUrl = window.location.href;
-      dispatch(changeOldUrl(newUrl));
-      if (pageCallbacksJs.pageChanges) this.checkRegexes(newUrl, pageCallbacksJs);
-    }
-  }
-
   handleMessageReceived(message) {
     const { dispatch } = this.props;
     if (!this.onGoingMessageDelay) {
@@ -139,24 +129,6 @@ class Widget extends Component {
     } else {
       this.messages.push(message);
     }
-  }
-
-  checkRegexes(url, callbacks) {
-    const { dispatch } = this.props;
-    const { pageChanges, errorIntent } = callbacks;
-    const matched = pageChanges.some((callback) => {
-      if (callback.regex) {
-        if (url.match(callback.url)) {
-          dispatch(emitUserMessage(callback.callbackIntent));
-          return true;
-        }
-      } else if (url === callback.url) {
-        dispatch(emitUserMessage(callback.callbackIntent));
-        return true;
-      }
-      return false;
-    });
-    if (!matched) dispatch(emitUserMessage(errorIntent));
   }
 
   popLastMessage() {
@@ -488,8 +460,7 @@ const mapStateToProps = state => ({
   tooltipSent: state.metadata.get('tooltipSent'),
   tooltipDisplayed: state.metadata.get('tooltipDisplayed'),
   oldUrl: state.behavior.get('oldUrl'),
-  watchUrl: state.behavior.get('watchUrl'),
-  pageChangeCallbacks: state.metadata.get('pageChangeCallbacks'),
+  pageChangeCallbacks: state.behavior.get('pageChangeCallbacks'),
   domHighlight: state.metadata.get('domHighlight')
 });
 
@@ -523,9 +494,6 @@ Widget.propTypes = {
   tooltipSent: PropTypes.bool.isRequired,
   tooltipDelay: PropTypes.number.isRequired,
   tooltipDisplayed: PropTypes.bool,
-  oldUrl: PropTypes.string,
-  watchUrl: PropTypes.bool,
-  pageChangeCallbacks: PropTypes.shape({}),
   domHighlight: PropTypes.shape({}),
   storage: PropTypes.shape({})
 };
@@ -538,8 +506,7 @@ Widget.defaultProps = {
   autoClearCache: false,
   displayUnreadCount: false,
   tooltipPayload: null,
-  oldUrl: '',
-  watchUrl: false
+  oldUrl: ''
 };
 
 export default connect(mapStateToProps, null, null, { withRef: true })(Widget);

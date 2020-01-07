@@ -248,17 +248,17 @@ export function hintText(hint) {
   };
 }
 
-export function watchUrl(watch) {
-  return {
-    type: actions.SET_WATCH_URL,
-    watch
-  };
-}
-
 
 export function changeOldUrl(url) {
   return {
     type: actions.SET_OLD_URL,
+    url
+  };
+}
+
+export function evalUrl(url) {
+  return {
+    type: actions.EVAL_URL,
     url
   };
 }
