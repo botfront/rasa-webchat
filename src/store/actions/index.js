@@ -200,9 +200,10 @@ export function setTooltipDisplayed(displayed) {
   };
 }
 
-export function triggerTooltipSent() {
+export function triggerTooltipSent(payloadSent) {
   return {
-    type: actions.TRIGGER_TOOLTIP_SENT
+    type: actions.TRIGGER_TOOLTIP_SENT,
+    payloadSent
   };
 }
 

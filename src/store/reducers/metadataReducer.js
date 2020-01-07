@@ -14,7 +14,7 @@ export default function (storage) {
 
   const initialState = Map({
     tooltipDisplayed: false,
-    tooltipSent: false
+    tooltipSent: Map()
   }).merge(defaultValues);
 
   return function reducer(state = initialState, action) {
@@ -31,7 +31,7 @@ export default function (storage) {
         return storeMetadata(state.set('userInput', action.userInputState));
       }
       case actionTypes.TRIGGER_TOOLTIP_SENT: {
-        return storeMetadata(state.set('tooltipSent', true));
+        return storeMetadata(state.set('tooltipSent', state.get('tooltipSent').set(action.payloadSent, true)));
       }
       case actionTypes.SET_TOOLTIP_MESSAGE: {
         return storeMetadata(state.set('tooltipMessage', action.tooltipMessage));

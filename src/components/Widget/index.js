@@ -349,14 +349,14 @@ class Widget extends Component {
       tooltipSent
     } = this.props;
 
-    if (connected && !isChatOpen && !tooltipSent) {
+    if (connected && !isChatOpen && !tooltipSent.get(tooltipPayload)) {
       const sessionId = this.getSessionId();
 
       if (!sessionId) return;
 
       socket.emit('user_uttered', { message: tooltipPayload, customData, session_id: sessionId });
 
-      dispatch(triggerTooltipSent());
+      dispatch(triggerTooltipSent(tooltipPayload));
       dispatch(initialize());
     }
   }
@@ -495,7 +495,7 @@ Widget.propTypes = {
   showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   customMessageDelay: PropTypes.func.isRequired,
   tooltipPayload: PropTypes.string,
-  tooltipSent: PropTypes.bool.isRequired,
+  tooltipSent: PropTypes.shape({}),
   tooltipDelay: PropTypes.number.isRequired,
   tooltipDisplayed: PropTypes.bool,
   domHighlight: PropTypes.shape({}),

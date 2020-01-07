@@ -7,7 +7,6 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
   const initialState = Map({
     connected: false,
     initialized: false,
-    tooltipSent: false,
     tooltipMessage: null,
     isChatVisible: true,
     isChatOpen: false,
