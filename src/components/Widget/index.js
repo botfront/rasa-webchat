@@ -22,7 +22,15 @@ import {
   triggerMessageDelayed,
   triggerTooltipSent,
   setTooltipMessage,
-  emitMessageIfFirst
+  emitMessageIfFirst,
+  clearMetadata,
+  setUserInput,
+  setLinkTarget,
+  setTooltipDisplayed,
+  setPageChangeCallbacks,
+  changeOldUrl,
+  setDomHighlight,
+  evalUrl
 } from 'actions';
 
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
@@ -36,11 +44,14 @@ class Widget extends Component {
     this.messages = [];
     this.onGoingMessageDelay = false;
     this.sendMessage = this.sendMessage.bind(this);
+    this.intervalId = null;
   }
+
 
   componentDidMount() {
     const { connectOn, autoClearCache, storage, dispatch } = this.props;
 
+    this.intervalId = setInterval(() => dispatch(evalUrl(window.location.href)), 500);
     if (connectOn === 'mount') {
       this.initializeWidget();
       return;
@@ -64,7 +75,6 @@ class Widget extends Component {
   componentDidUpdate() {
     const { isChatOpen, dispatch, embedded, initialized } = this.props;
 
-    dispatch(pullSession());
 
     if (isChatOpen) {
       if (!initialized) {
@@ -77,6 +87,7 @@ class Widget extends Component {
       dispatch(showChat());
       dispatch(openChat());
     }
+    this.applyCustomStyle();
   }
 
   componentWillUnmount() {
@@ -86,6 +97,7 @@ class Widget extends Component {
       socket.close();
     }
     clearTimeout(this.tooltipTimeout);
+    clearInterval(this.intervalId);
   }
 
   getSessionId() {
@@ -144,6 +156,72 @@ class Widget extends Component {
     }, customMessageDelay(message.text || ''));
   }
 
+  propagateMetadata(metadata, message) {
+    const {
+      dispatch, connected, isChatOpen, tooltipDisplayed
+    } = this.props;
+    const { linkTarget,
+      userInput,
+      messageTarget,
+      pageChangeCallbacks,
+      domHighlight,
+      forceOpen
+    } = metadata;
+    if (linkTarget) {
+      dispatch(setLinkTarget(linkTarget));
+    }
+    if (userInput) {
+      dispatch(setUserInput(userInput));
+    }
+    if (messageTarget && connected && !isChatOpen) {
+      if (messageTarget === 'tooltip_init' && !tooltipDisplayed) {
+        dispatch(setTooltipMessage(String(message)));
+        dispatch(setTooltipDisplayed(true));
+      }
+      if (messageTarget === 'tooltip_always' && !isChatOpen) {
+        dispatch(setTooltipMessage(String(message)));
+      }
+    }
+    if (pageChangeCallbacks) {
+      dispatch(changeOldUrl(window.location.href));
+      dispatch(setPageChangeCallbacks(pageChangeCallbacks));
+    }
+    if (domHighlight) {
+      dispatch(setDomHighlight(domHighlight));
+    }
+    if (forceOpen) {
+      dispatch(openChat());
+    }
+  }
+
+  handleBotUtterance(botUtterance) {
+    const { dispatch } = this.props;
+    this.clearCustomStyle();
+    dispatch(clearMetadata());
+    if (botUtterance.metadata) this.propagateMetadata(botUtterance.metadata, botUtterance.text);
+    const newMessage = { ...botUtterance, text: String(botUtterance.text) };
+    this.handleMessageReceived(newMessage);
+  }
+
+
+  clearCustomStyle() {
+    const { domHighlight } = this.props;
+    const domHighlightJS = domHighlight.toJS() || {};
+    if (domHighlightJS && Object.keys(domHighlightJS).length > 0) {
+      const element = document.querySelector(domHighlightJS.selector);
+      if (element !== null) element.setAttribute('style', '');
+    }
+  }
+
+  applyCustomStyle() {
+    const { domHighlight } = this.props;
+    const domHighlightJS = domHighlight.toJS() || {};
+    if (domHighlightJS.selector && domHighlightJS.css) {
+      const element = document.querySelector(domHighlightJS.selector);
+      if (element !== null) element.setAttribute('style', domHighlightJS.css);
+    }
+  }
+
   initializeWidget(sendInitPayload = true) {
     const {
       storage,
@@ -160,12 +238,7 @@ class Widget extends Component {
       socket.createSocket();
 
       socket.on('bot_uttered', (botUttered) => {
-        if (botUttered.metadata && botUttered.metadata.tooltip) {
-          dispatch(setTooltipMessage(String(botUttered.text)));
-          return;
-        }
-        const newMessage = { ...botUttered, text: String(botUttered.text) };
-        this.handleMessageReceived(newMessage);
+        this.handleBotUtterance(botUttered);
       });
 
       dispatch(pullSession());
@@ -198,11 +271,6 @@ class Widget extends Component {
           if (sendInitPayload) {
             this.trySendInitPayload();
           }
-          if (connectOn === 'mount' && tooltipPayload) {
-            this.tooltipTimeout = setTimeout(() => {
-              this.trySendTooltipPayload();
-            }, parseInt(tooltipDelay, 10));
-          }
         } else {
           // If this is an existing session, it's possible we changed pages and want to send a
           // user message when we land.
@@ -217,6 +285,10 @@ class Widget extends Component {
               dispatch(emitUserMessage(message));
             }
           }
+        } if (connectOn === 'mount' && tooltipPayload) {
+          this.tooltipTimeout = setTimeout(() => {
+            this.trySendTooltipPayload();
+          }, parseInt(tooltipDelay, 10));
         }
       });
 
@@ -279,14 +351,15 @@ class Widget extends Component {
       tooltipSent
     } = this.props;
 
-    if (connected && !isChatOpen && !tooltipSent) {
+    if (connected && !isChatOpen && !tooltipSent.get(tooltipPayload)) {
       const sessionId = this.getSessionId();
 
       if (!sessionId) return;
 
       socket.emit('user_uttered', { message: tooltipPayload, customData, session_id: sessionId });
 
-      dispatch(triggerTooltipSent());
+      dispatch(triggerTooltipSent(tooltipPayload));
+      dispatch(initialize());
     }
   }
 
@@ -390,7 +463,11 @@ const mapStateToProps = state => ({
   isChatOpen: state.behavior.get('isChatOpen'),
   isChatVisible: state.behavior.get('isChatVisible'),
   fullScreenMode: state.behavior.get('fullScreenMode'),
-  tooltipSent: state.behavior.get('tooltipSent')
+  tooltipSent: state.metadata.get('tooltipSent'),
+  tooltipDisplayed: state.metadata.get('tooltipDisplayed'),
+  oldUrl: state.behavior.get('oldUrl'),
+  pageChangeCallbacks: state.behavior.get('pageChangeCallbacks'),
+  domHighlight: state.metadata.get('domHighlight')
 });
 
 Widget.propTypes = {
@@ -410,7 +487,7 @@ Widget.propTypes = {
   badge: PropTypes.number,
   socket: PropTypes.shape({}),
   embedded: PropTypes.bool,
-  params: PropTypes.object,
+  params: PropTypes.shape({}),
   connected: PropTypes.bool,
   initialized: PropTypes.bool,
   openLauncherImage: PropTypes.string,
@@ -420,8 +497,11 @@ Widget.propTypes = {
   showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   customMessageDelay: PropTypes.func.isRequired,
   tooltipPayload: PropTypes.string,
-  tooltipSent: PropTypes.bool.isRequired,
-  tooltipDelay: PropTypes.number.isRequired
+  tooltipSent: PropTypes.shape({}),
+  tooltipDelay: PropTypes.number.isRequired,
+  tooltipDisplayed: PropTypes.bool,
+  domHighlight: PropTypes.shape({}),
+  storage: PropTypes.shape({})
 };
 
 Widget.defaultProps = {
@@ -431,7 +511,8 @@ Widget.defaultProps = {
   connectOn: 'mount',
   autoClearCache: false,
   displayUnreadCount: false,
-  tooltipPayload: null
+  tooltipPayload: null,
+  oldUrl: ''
 };
 
 export default connect(mapStateToProps, null, null, { withRef: true })(Widget);

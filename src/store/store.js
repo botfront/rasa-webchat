@@ -4,6 +4,8 @@ import { SESSION_NAME } from 'constants';
 
 import behavior from './reducers/behaviorReducer';
 import messages from './reducers/messagesReducer';
+import metadata from './reducers/metadataReducer';
+
 import { getLocalSession } from './reducers/helper';
 import * as actionTypes from './actions/actionTypes';
 
@@ -48,14 +50,47 @@ function initStore(
       case actionTypes.GET_FULLSCREEN_STATE: {
         return store.getState().behavior.get('fullScreenMode');
       }
-    }
+      case actionTypes.EVAL_URL: {
+        const pageCallbacks = store.getState().behavior.get('pageChangeCallbacks');
+        const pageCallbacksJs = pageCallbacks ?  pageCallbacks.toJS() : {};
 
+        const newUrl = action.url;
+        const emitMessage = (message) => {
+          socket.emit('user_uttered', {
+            message,
+            customData: socket.customData,
+            session_id
+          });
+        };
+
+        if (!pageCallbacksJs.pageChanges) break;
+
+        if (store.getState().behavior.get('oldUrl') !== newUrl) {
+          const { pageChanges, errorIntent } = pageCallbacksJs;
+          const matched = pageChanges.some((callback) => {
+            if (callback.regex) {
+              if (newUrl.match(callback.url)) {
+                emitMessage(callback.callbackIntent);
+                return true;
+              }
+            } else if (newUrl === callback.url) {
+              emitMessage(callback.callbackIntent);
+              return true;
+            }
+            return false;
+          });
+          if (!matched) emitMessage(errorIntent);
+        }
+        break;
+      }
+    }
     // console.log('Middleware triggered:', action);
     next(action);
   };
   const reducer = combineReducers({
     behavior: behavior(hintText, connectingText, storage, docViewer),
-    messages: messages(storage)
+    messages: messages(storage),
+    metadata: metadata(storage)
   });
 
   /* eslint-disable no-underscore-dangle */

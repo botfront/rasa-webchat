@@ -92,11 +92,15 @@ export function getLocalSession(storage, key) {
     const formattedParams = parsedSession.params
       ? parsedSession.params
       : {};
+    const formattedMetadata = parsedSession.metadata
+      ? parsedSession.metadata
+      : {};
     // Create a new session to return
     session = {
       ...parsedSession,
       conversation: formattedConversation,
-      params: formattedParams
+      params: formattedParams,
+      metadata: formattedMetadata
     };
   }
   // Returns a formatted session object if any found, otherwise return undefined
@@ -148,4 +152,18 @@ export const storeParamsTo = storage => (params) => {
   };
   storage.setItem(SESSION_NAME, JSON.stringify(newSession));
   return params;
+};
+
+
+export const storeMetadataTo = storage => (metadata) => {
+  // Store a params List to storage
+  const localSession = getLocalSession(storage, SESSION_NAME);
+  const newSession = {
+    // Since immutable Map is not a native JS object, store conversation as array
+    ...localSession,
+    metadata: metadata.toJS(),
+    lastUpdate: Date.now()
+  };
+  storage.setItem(SESSION_NAME, JSON.stringify(newSession));
+  return metadata;
 };

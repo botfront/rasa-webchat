@@ -3,13 +3,15 @@ import { Map } from 'immutable';
 import { createStore, combineReducers } from 'redux';
 import { mount } from 'enzyme';
 import behavior from '../../../../../store/reducers/behaviorReducer';
+import metadata from '../../../../../store/reducers/metadataReducer';
+
 
 import Launcher from '../index';
 
-const appReducer = combineReducers({ behavior: behavior() });
+const appReducer = combineReducers({ behavior: behavior(), metadata: metadata() });
 const rootReducer = (state, action) => appReducer(state, action);
 
-const storeFactory = initialState => createStore(rootReducer, { behavior: Map(initialState) });
+const storeFactory = initialState => createStore(rootReducer, { behavior: Map(initialState), metadata: Map() });
 
 describe('<Launcher />', () => {
   const createLauncherComponent = ({

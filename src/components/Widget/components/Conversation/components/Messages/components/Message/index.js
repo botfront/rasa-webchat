@@ -9,7 +9,7 @@ import './styles.scss';
 
 class Message extends PureComponent {
   render() {
-    const { docViewer } = this.props;
+    const { docViewer, linkTarget } = this.props;
     const sender = this.props.message.get('sender');
     const text = this.props.message.get('text');
     return (
@@ -29,7 +29,7 @@ class Message extends PureComponent {
                   docViewer ? (
                     <DocViewer src={props.href}>{props.children}</DocViewer>
                   ) : (
-                    <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>
+                    <a href={props.href} target={linkTarget} rel="noopener noreferrer">{props.children}</a>
                   )
               }}
             />
@@ -44,14 +44,17 @@ class Message extends PureComponent {
 
 Message.propTypes = {
   message: PROP_TYPES.MESSAGE,
-  docViewer: PropTypes.bool
+  docViewer: PropTypes.bool,
+  linkTarget: PropTypes.string
 };
 
 Message.defaultTypes = {
-  docViewer: false
+  docViewer: false,
+  linkTarget: '_blank'
 };
 
 const mapStateToProps = state => ({
+  linkTarget: state.metadata.get('linkTarget'),
   docViewer: state.behavior.get('docViewer')
 });
 

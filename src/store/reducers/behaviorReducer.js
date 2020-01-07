@@ -1,4 +1,4 @@
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 import { SESSION_NAME } from 'constants';
 import * as actionTypes from '../actions/actionTypes';
 import { getLocalSession, storeParamsTo } from './helper';
@@ -7,7 +7,6 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
   const initialState = Map({
     connected: false,
     initialized: false,
-    tooltipSent: false,
     tooltipMessage: null,
     isChatVisible: true,
     isChatOpen: false,
@@ -16,7 +15,9 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
     inputTextFieldHint,
     connectingText,
     unreadCount: 0,
-    messageDelayed: false
+    messageDelayed: false,
+    oldUrl: '',
+    pageChangeCallbacks: Map()
   });
 
   return function reducer(state = initialState, action) {
@@ -62,12 +63,23 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
       case actionTypes.TRIGGER_MESSAGE_DELAY: {
         return storeParams(state.set('messageDelayed', action.messageDelayed));
       }
-      case actionTypes.TRIGGER_TOOLTIP_SENT: {
-        return storeParams(state.set('tooltipSent', true));
+      case actionTypes.SET_OLD_URL: {
+        return storeParams(state.set('oldUrl', action.url));
       }
-      case actionTypes.SET_TOOLTIP_MESSAGE: {
-        return storeParams(state.set('tooltipMessage', action.tooltipMessage));
+      case actionTypes.SET_PAGECHANGE_CALLBACKS: {
+        return storeParams(state.set('pageChangeCallbacks', fromJS(action.pageChangeCallbacks)));
       }
+      case actionTypes.EVAL_URL: {
+        const newUrl = action.url;
+        const pageCallbacks = state.get('pageChangeCallbacks');
+        const pageCallbacksJs = pageCallbacks ? pageCallbacks.toJS() : {};
+        if (!pageCallbacksJs.pageChanges) return state;
+        if (state.get('oldUrl') !== newUrl) {
+          return storeParams(state.set('oldUrl', newUrl).set('pageChangeCallbacks', Map()));
+        }
+        return state;
+      }
+
       // Pull params from storage to redux store
       case actionTypes.PULL_SESSION: {
         const localSession = getLocalSession(storage, SESSION_NAME);
@@ -76,7 +88,7 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
         const connected = state.get('connected');
 
         if (localSession && localSession.params) {
-          return Map({ ...localSession.params, connected });
+          return fromJS({ ...localSession.params, connected });
         }
         return state;
       }
