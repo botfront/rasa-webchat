@@ -123,7 +123,6 @@ describe('Metadata store affect app behavior', () => {
   });
 
   it('should change the style of a element', () => {
-    // using global.window does not work
 
     let elemAttributes;
     const spyFunc = jest.fn(() => ({ setAttribute(attribute, value) {
@@ -134,7 +133,7 @@ describe('Metadata store affect app behavior', () => {
     store.dispatch({ type: 'SET_DOM_HIGHLIGHT',
       domHighlight: {
         selector: '.test',
-        style: 'color: red'
+        css: 'color: red'
       } });
 
     widgetComponent.dive().dive().instance().applyCustomStyle();

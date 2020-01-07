@@ -205,14 +205,18 @@ class Widget extends Component {
   clearCustomStyle() {
     const { domHighlight } = this.props;
     const domHighlightJS = domHighlight.toJS() || {};
-    if (domHighlightJS && Object.keys(domHighlightJS).length > 0) { document.querySelector(domHighlightJS.selector).setAttribute('style', ''); }
+    if (domHighlightJS && Object.keys(domHighlightJS).length > 0) {
+      const element = document.querySelector(domHighlightJS.selector);
+      if (element !== null) element.setAttribute('style', '');
+    }
   }
 
   applyCustomStyle() {
     const { domHighlight } = this.props;
     const domHighlightJS = domHighlight.toJS() || {};
-    if (domHighlightJS.selector && domHighlightJS.style) {
-      document.querySelector(domHighlightJS.selector).setAttribute('style', domHighlightJS.style);
+    if (domHighlightJS.selector && domHighlightJS.css) {
+      const element = document.querySelector(domHighlightJS.selector);
+      if (element !== null) element.setAttribute('style', domHighlightJS.css);
     }
   }
 
