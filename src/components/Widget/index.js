@@ -44,13 +44,14 @@ class Widget extends Component {
     this.messages = [];
     this.onGoingMessageDelay = false;
     this.sendMessage = this.sendMessage.bind(this);
+    this.intervalId = null;
   }
 
 
   componentDidMount() {
     const { connectOn, autoClearCache, storage, dispatch } = this.props;
 
-    setInterval(() => dispatch(evalUrl(window.location.href)), 500);
+    this.intervalId = setInterval(() => dispatch(evalUrl(window.location.href)), 500);
     if (connectOn === 'mount') {
       this.initializeWidget();
       return;
@@ -96,6 +97,7 @@ class Widget extends Component {
       socket.close();
     }
     clearTimeout(this.tooltipTimeout);
+    clearInterval(this.intervalId);
   }
 
   getSessionId() {
