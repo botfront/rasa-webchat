@@ -5,6 +5,7 @@ import {
   toggleFullScreen,
   toggleChat,
   openChat,
+  closeChat,
   showChat,
   addUserMessage,
   emitUserMessage,
@@ -164,7 +165,8 @@ class Widget extends Component {
       userInput,
       pageChangeCallbacks,
       domHighlight,
-      forceOpen
+      forceOpen,
+      forceClose
     } = metadata;
     if (linkTarget) {
       dispatch(setLinkTarget(linkTarget));
@@ -181,6 +183,9 @@ class Widget extends Component {
     }
     if (forceOpen) {
       dispatch(openChat());
+    }
+    if (forceClose) {
+      dispatch(closeChat());
     }
   }
 
