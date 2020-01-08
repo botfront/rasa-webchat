@@ -193,12 +193,6 @@ export function setTooltipMessage(tooltipMessage) {
   };
 }
 
-export function setTooltipDisplayed(displayed) {
-  return {
-    type: actions.SET_TOOLTIP_DISPLAYED,
-    displayed
-  };
-}
 
 export function triggerTooltipSent(payloadSent) {
   return {
