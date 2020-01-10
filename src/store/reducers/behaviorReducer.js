@@ -3,7 +3,13 @@ import { SESSION_NAME } from 'constants';
 import * as actionTypes from '../actions/actionTypes';
 import { getLocalSession, storeParamsTo } from './helper';
 
-export default function (inputTextFieldHint, connectingText, storage, docViewer = false) {
+export default function (
+  inputTextFieldHint,
+  connectingText,
+  storage,
+  docViewer = false,
+  onWidgetEvent
+) {
   const initialState = Map({
     connected: false,
     initialized: false,
@@ -25,21 +31,32 @@ export default function (inputTextFieldHint, connectingText, storage, docViewer 
     switch (action.type) {
       // Each change to the redux store's behavior Map gets recorded to storage
       case actionTypes.SHOW_CHAT: {
-        return storeParams(state.update('isChatVisible', isChatVisible => true));
+        onWidgetEvent.onChatVisisble();
+        return storeParams(state.update('isChatVisible', () => true));
       }
       case actionTypes.HIDE_CHAT: {
-        return storeParams(state.update('isChatVisible', isChatVisible => false));
+        onWidgetEvent.onChatHidden();
+        return storeParams(state.update('isChatVisible', () => false));
       }
       case actionTypes.TOGGLE_CHAT: {
+        if (state.get('isChatOpen', false)) {
+          onWidgetEvent.onChatClose();
+        } else {
+          onWidgetEvent.onChatOpen();
+        }
+
         return storeParams(state.update('isChatOpen', isChatOpen => !isChatOpen).set('unreadCount', 0));
       }
       case actionTypes.OPEN_CHAT: {
-        return storeParams(state.update('isChatOpen', isChatOpen => true).set('unreadCount', 0));
+        onWidgetEvent.onChatOpen();
+        return storeParams(state.update('isChatOpen', () => true).set('unreadCount', 0));
       }
       case actionTypes.CLOSE_CHAT: {
-        return storeParams(state.update('isChatOpen', isChatOpen => false));
+        onWidgetEvent.onChatClose();
+        return storeParams(state.update('isChatOpen', () => false));
       }
       case actionTypes.TOGGLE_FULLSCREEN: {
+        onWidgetEvent.onChatFullScreen();
         return storeParams(state.update('fullScreenMode', fullScreenMode => !fullScreenMode));
       }
       case actionTypes.TOGGLE_INPUT_DISABLED: {

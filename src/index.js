@@ -86,7 +86,8 @@ const ConnectedWidget = forwardRef((props, ref) => {
     sock,
     storage,
     props.docViewer,
-    props.connectOn
+    props.connectOn,
+    props.onWidgetEvent
   );
   return (
     <Provider store={store}>
@@ -154,7 +155,13 @@ ConnectedWidget.propTypes = {
   showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   customMessageDelay: PropTypes.func,
   tooltipPayload: PropTypes.string,
-  tooltipDelay: PropTypes.number
+  tooltipDelay: PropTypes.number,
+  onWidgetEvent: PropTypes.shape({
+    onChatOpen: PropTypes.func,
+    onChatClose: PropTypes.func,
+    onChatVisible: PropTypes.func,
+    onChatHidden: PropTypes.func
+  })
 };
 
 ConnectedWidget.defaultProps = {
@@ -187,7 +194,13 @@ ConnectedWidget.defaultProps = {
     return delay;
   },
   tooltipPayload: null,
-  tooltipDelay: 500
+  tooltipDelay: 500,
+  onWidgetEvent: {
+    onChatOpen: () => {},
+    onChatClose: () => {},
+    onChatVisible: () => {},
+    onChatHidden: () => {}
+  }
 };
 
 export default ConnectedWidget;
