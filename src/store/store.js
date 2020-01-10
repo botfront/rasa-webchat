@@ -16,9 +16,7 @@ function initStore(
   connectingText,
   socket,
   storage,
-  docViewer = false,
-  connectOn,
-  onWidgetEvent,
+  docViewer = false
 ) {
   const customMiddleWare = store => next => (action) => {
     const session_id = getLocalSession(storage, SESSION_NAME)
@@ -90,7 +88,7 @@ function initStore(
     next(action);
   };
   const reducer = combineReducers({
-    behavior: behavior(hintText, connectingText, storage, docViewer, onWidgetEvent),
+    behavior: behavior(hintText, connectingText, storage, docViewer),
     messages: messages(storage),
     metadata: metadata(storage)
   });

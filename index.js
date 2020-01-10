@@ -35,7 +35,6 @@ const plugin = {
         customMessageDelay={args.customMessageDelay}
         tooltipPayload={args.tooltipPayload}
         tooltipDelay={args.tooltipDelay}
-        onWidgetEvent={args.onWidgetEvent}
       />, document.querySelector(args.selector)
     );
   }
