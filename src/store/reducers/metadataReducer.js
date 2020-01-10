@@ -13,7 +13,6 @@ export default function (storage) {
   });
 
   const initialState = Map({
-    tooltipDisplayed: false,
     tooltipSent: Map()
   }).merge(defaultValues);
 
@@ -35,9 +34,6 @@ export default function (storage) {
       }
       case actionTypes.SET_TOOLTIP_MESSAGE: {
         return storeMetadata(state.set('tooltipMessage', action.tooltipMessage));
-      }
-      case actionTypes.SET_TOOLTIP_DISPLAYED: {
-        return storeMetadata(state.set('tooltipDisplayed', action.displayed));
       }
       case actionTypes.SET_DOM_HIGHLIGHT: {
         return storeMetadata(state.set('domHighlight', fromJS(action.domHighlight)));

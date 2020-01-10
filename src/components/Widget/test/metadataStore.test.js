@@ -68,53 +68,6 @@ describe('Messages metadata affect store', () => {
     expect(store.getState().metadata.get('linkTarget')).toEqual('_blank');
   });
 
-
-  it('messageTarget metaData should change targets info in store', () => {
-    let botUtter = {
-      text: 'dummy',
-      metadata: {
-        messageTarget: 'tooltip_init'
-      }
-    };
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
-
-    expect(store.getState().metadata.get('tooltipMessage')).toEqual('dummy');
-    expect(store.getState().metadata.get('tooltipDisplayed')).toEqual(true);
-
-    botUtter = {
-      text: 'noshow',
-      metadata: {
-        messageTarget: 'tooltip_init'
-      }
-    };
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
-
-    expect(store.getState().metadata.get('tooltipMessage')).toEqual('');
-    expect(store.getState().metadata.get('tooltipDisplayed')).toEqual(true);
-
-
-    botUtter = {
-      text: 'dummy',
-      metadata: {
-        messageTarget: 'tooltip_always'
-      }
-    };
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
-    expect(store.getState().metadata.get('tooltipMessage')).toEqual('dummy');
-    expect(store.getState().metadata.get('tooltipDisplayed')).toEqual(true);
-
-    botUtter = {
-      text: 'new',
-      metadata: {
-        messageTarget: 'tooltip_always'
-      }
-    };
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
-
-    expect(store.getState().metadata.get('tooltipMessage')).toEqual('new');
-    expect(store.getState().metadata.get('tooltipDisplayed')).toEqual(true);
-  });
-
   it('pageCallback metaData should change pageCallback info in store', () => {
     const botUtter = {
       text: 'dummy',

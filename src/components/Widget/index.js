@@ -5,6 +5,7 @@ import {
   toggleFullScreen,
   toggleChat,
   openChat,
+  closeChat,
   showChat,
   addUserMessage,
   emitUserMessage,
@@ -26,7 +27,6 @@ import {
   clearMetadata,
   setUserInput,
   setLinkTarget,
-  setTooltipDisplayed,
   setPageChangeCallbacks,
   changeOldUrl,
   setDomHighlight,
@@ -149,6 +149,7 @@ class Widget extends Component {
       this.dispatchMessage(message);
       if (!isChatOpen) {
         dispatch(newUnreadMessage());
+        dispatch(setTooltipMessage(String(message.text)));
       }
       dispatch(triggerMessageDelayed(false));
       this.onGoingMessageDelay = false;
@@ -156,31 +157,22 @@ class Widget extends Component {
     }, customMessageDelay(message.text || ''));
   }
 
-  propagateMetadata(metadata, message) {
+  propagateMetadata(metadata) {
     const {
-      dispatch, connected, isChatOpen, tooltipDisplayed
+      dispatch
     } = this.props;
     const { linkTarget,
       userInput,
-      messageTarget,
       pageChangeCallbacks,
       domHighlight,
-      forceOpen
+      forceOpen,
+      forceClose
     } = metadata;
     if (linkTarget) {
       dispatch(setLinkTarget(linkTarget));
     }
     if (userInput) {
       dispatch(setUserInput(userInput));
-    }
-    if (messageTarget && connected && !isChatOpen) {
-      if (messageTarget === 'tooltip_init' && !tooltipDisplayed) {
-        dispatch(setTooltipMessage(String(message)));
-        dispatch(setTooltipDisplayed(true));
-      }
-      if (messageTarget === 'tooltip_always' && !isChatOpen) {
-        dispatch(setTooltipMessage(String(message)));
-      }
     }
     if (pageChangeCallbacks) {
       dispatch(changeOldUrl(window.location.href));
@@ -192,13 +184,16 @@ class Widget extends Component {
     if (forceOpen) {
       dispatch(openChat());
     }
+    if (forceClose) {
+      dispatch(closeChat());
+    }
   }
 
   handleBotUtterance(botUtterance) {
     const { dispatch } = this.props;
     this.clearCustomStyle();
     dispatch(clearMetadata());
-    if (botUtterance.metadata) this.propagateMetadata(botUtterance.metadata, botUtterance.text);
+    if (botUtterance.metadata) this.propagateMetadata(botUtterance.metadata);
     const newMessage = { ...botUtterance, text: String(botUtterance.text) };
     this.handleMessageReceived(newMessage);
   }
@@ -464,7 +459,6 @@ const mapStateToProps = state => ({
   isChatVisible: state.behavior.get('isChatVisible'),
   fullScreenMode: state.behavior.get('fullScreenMode'),
   tooltipSent: state.metadata.get('tooltipSent'),
-  tooltipDisplayed: state.metadata.get('tooltipDisplayed'),
   oldUrl: state.behavior.get('oldUrl'),
   pageChangeCallbacks: state.behavior.get('pageChangeCallbacks'),
   domHighlight: state.metadata.get('domHighlight')
@@ -499,7 +493,6 @@ Widget.propTypes = {
   tooltipPayload: PropTypes.string,
   tooltipSent: PropTypes.shape({}),
   tooltipDelay: PropTypes.number.isRequired,
-  tooltipDisplayed: PropTypes.bool,
   domHighlight: PropTypes.shape({}),
   storage: PropTypes.shape({})
 };
