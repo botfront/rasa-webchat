@@ -35,24 +35,24 @@ export default function (
         return storeParams(state.update('isChatVisible', () => true));
       }
       case actionTypes.HIDE_CHAT: {
-        onWidgetEvent.onChatHidden();
+        if (onWidgetEvent.onChatHidden) onWidgetEvent.onChatHidden();
         return storeParams(state.update('isChatVisible', () => false));
       }
       case actionTypes.TOGGLE_CHAT: {
-        if (state.get('isChatOpen', false)) {
+        if (state.get('isChatOpen', false) && onWidgetEvent.onChatClose) {
           onWidgetEvent.onChatClose();
-        } else {
+        } else if (onWidgetEvent.onChatOpen) {
           onWidgetEvent.onChatOpen();
         }
 
         return storeParams(state.update('isChatOpen', isChatOpen => !isChatOpen).set('unreadCount', 0));
       }
       case actionTypes.OPEN_CHAT: {
-        onWidgetEvent.onChatOpen();
+        if (onWidgetEvent.onChatOpen) onWidgetEvent.onChatOpen();
         return storeParams(state.update('isChatOpen', () => true).set('unreadCount', 0));
       }
       case actionTypes.CLOSE_CHAT: {
-        onWidgetEvent.onChatClose();
+        if (onWidgetEvent.onChatClose) onWidgetEvent.onChatClose();
         return storeParams(state.update('isChatOpen', () => false));
       }
       case actionTypes.TOGGLE_FULLSCREEN: {

@@ -17,7 +17,6 @@ function initStore(
   socket,
   storage,
   docViewer = false,
-  connectOn,
   onWidgetEvent,
 ) {
   const customMiddleWare = store => next => (action) => {
