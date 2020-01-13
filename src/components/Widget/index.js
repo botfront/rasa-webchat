@@ -45,6 +45,7 @@ class Widget extends Component {
     this.onGoingMessageDelay = false;
     this.sendMessage = this.sendMessage.bind(this);
     this.intervalId = null;
+    this.eventListenerCleaner = () => {};
   }
 
 
@@ -173,7 +174,8 @@ class Widget extends Component {
       pageChangeCallbacks,
       domHighlight,
       forceOpen,
-      forceClose
+      forceClose,
+      pageEventCallbacks
     } = metadata;
     if (linkTarget) {
       dispatch(setLinkTarget(linkTarget));
@@ -194,17 +196,45 @@ class Widget extends Component {
     if (forceClose) {
       dispatch(closeChat());
     }
+    if (pageEventCallbacks) {
+      this.eventListenerCleaner = this.addCustomsEventListeners(pageEventCallbacks.pageEvents);
+    }
   }
 
   handleBotUtterance(botUtterance) {
     const { dispatch } = this.props;
     this.clearCustomStyle();
+    this.eventListenerCleaner();
     dispatch(clearMetadata());
     if (botUtterance.metadata) this.propagateMetadata(botUtterance.metadata);
     const newMessage = { ...botUtterance, text: String(botUtterance.text) };
     this.handleMessageReceived(newMessage);
   }
 
+  addCustomsEventListeners(pageEventCallbacks) {
+    const sendPayload = payload => (() => { this.sendMessage(payload); });
+    const eventsListeners = [];
+
+    pageEventCallbacks.forEach((pageEvent) => {
+      const { event, payload, selector } = pageEvent;
+      if (event && payload && selector) {
+        const elem = document.querySelector(selector);
+        if (elem) {
+          const payloadSender = sendPayload(payload);
+          eventsListeners.push({ event, payloadSender });
+          elem.addEventListener(event, sendPayload(payload));
+        }
+      }
+    });
+
+    const cleaner = () => {
+      eventsListeners.forEach((eventsListener) => {
+        removeEventListener(eventsListener.event, eventsListener.payloadSender);
+      });
+    };
+
+    return cleaner;
+  }
 
   clearCustomStyle() {
     const { domHighlight, defaultHighlightClassname } = this.props;
