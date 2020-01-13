@@ -118,6 +118,8 @@ const ConnectedWidget = forwardRef((props, ref) => {
         customMessageDelay={props.customMessageDelay}
         tooltipPayload={props.tooltipPayload}
         tooltipDelay={props.tooltipDelay}
+        defaultHighlightCss={props.defaultHighlightCss}
+        defaultHighlightAnimation={props.defaultHighlightAnimation}
       />
     </Provider>
   );
@@ -161,7 +163,9 @@ ConnectedWidget.propTypes = {
     onChatClose: PropTypes.func,
     onChatVisible: PropTypes.func,
     onChatHidden: PropTypes.func
-  })
+  }),
+  defaultHighlightCss: PropTypes.string,
+  defaultHighlightAnimation: PropTypes.string
 };
 
 ConnectedWidget.defaultProps = {
