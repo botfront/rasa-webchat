@@ -49,13 +49,20 @@ class Widget extends Component {
 
 
   componentDidMount() {
-    const { connectOn, autoClearCache, storage, dispatch } = this.props;
+    const { connectOn, autoClearCache, storage, dispatch, defaultHighlightAnimation } = this.props;
 
     this.intervalId = setInterval(() => dispatch(evalUrl(window.location.href)), 500);
     if (connectOn === 'mount') {
       this.initializeWidget();
       return;
     }
+
+
+    // add the default highlight css to the document
+    const styleNode = document.createElement('style');
+    styleNode.innerHTML = defaultHighlightAnimation;
+    document.body.appendChild(styleNode);
+
 
     const localSession = getLocalSession(storage, SESSION_NAME);
     const lastUpdate = localSession ? localSession.lastUpdate : 0;
@@ -209,11 +216,12 @@ class Widget extends Component {
   }
 
   applyCustomStyle() {
-    const { domHighlight } = this.props;
+    const { domHighlight, defaultHighlightCss } = this.props;
     const domHighlightJS = domHighlight.toJS() || {};
-    if (domHighlightJS.selector && domHighlightJS.css) {
+    if (domHighlightJS.selector) {
+      const highlightStyle = domHighlightJS.css !== '' ? domHighlightJS.css : defaultHighlightCss;
       const element = document.querySelector(domHighlightJS.selector);
-      if (element !== null) element.setAttribute('style', domHighlightJS.css);
+      if (element !== null) element.setAttribute('style', highlightStyle);
     }
   }
 
@@ -495,7 +503,9 @@ Widget.propTypes = {
   tooltipDelay: PropTypes.number.isRequired,
   domHighlight: PropTypes.shape({}),
   storage: PropTypes.shape({}),
-  disableTooltips: PropTypes.bool
+  disableTooltips: PropTypes.bool,
+  defaultHighlightAnimation: PropTypes.string,
+  defaultHighlightCss: PropTypes.string
 };
 
 Widget.defaultProps = {
@@ -507,7 +517,14 @@ Widget.defaultProps = {
   displayUnreadCount: false,
   tooltipPayload: null,
   oldUrl: '',
-  disableTooltips: false
+  disableTooltips: false,
+  defaultHighlightCss: 'animation: blinker 0.5s linear infinite alternate;',
+  defaultHighlightAnimation: `@keyframes default-botfront-blinker-animation {
+    to {
+      outline-style: solid;
+      outline-color: green;
+    }
+  }`
 };
 
 export default connect(mapStateToProps, null, null, { forwardRef: true })(Widget);
