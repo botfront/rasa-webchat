@@ -212,24 +212,26 @@ class Widget extends Component {
   }
 
   addCustomsEventListeners(pageEventCallbacks) {
-    const sendPayload = payload => (() => { this.sendMessage(payload); });
     const eventsListeners = [];
 
     pageEventCallbacks.forEach((pageEvent) => {
       const { event, payload, selector } = pageEvent;
+      const sendPayload = () => {
+        this.sendMessage(payload);
+      };
+
       if (event && payload && selector) {
         const elem = document.querySelector(selector);
         if (elem) {
-          const payloadSender = sendPayload(payload);
-          eventsListeners.push({ event, payloadSender });
-          elem.addEventListener(event, sendPayload(payload));
+          eventsListeners.push({ elem, event, sendPayload });
+          elem.addEventListener(event, sendPayload);
         }
       }
     });
 
     const cleaner = () => {
       eventsListeners.forEach((eventsListener) => {
-        removeEventListener(eventsListener.event, eventsListener.payloadSender);
+        eventsListener.elem.removeEventListener(eventsListener.event, eventsListener.sendPayload);
       });
     };
 
