@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.9](https://https///compare/v0.7.8...v0.7.9) (2020-01-15)
+
+
+### Features
+
+* add widget even callback ([904cdf1](https://https///commit/904cdf1))
+* allows the use of ref ([c8f7688](https://https///commit/c8f7688))
+* domHightlight metadata support ([6a9a8d2](https://https///commit/6a9a8d2))
+* forceOpen metadata support ([9034e62](https://https///commit/9034e62))
+* new launcher icon ([4d3675b](https://https///commit/4d3675b))
+
 ### [0.7.8](https://https///compare/v0.7.4...v0.7.8) (2019-12-27)
 
 ### [0.7.4](https://https///compare/v0.7.3...v0.7.4) (2019-12-19)
