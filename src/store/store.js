@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 
 import { SESSION_NAME } from 'constants';
 
@@ -53,7 +53,7 @@ function initStore(
       }
       case actionTypes.EVAL_URL: {
         const pageCallbacks = store.getState().behavior.get('pageChangeCallbacks');
-        const pageCallbacksJs = pageCallbacks ?  pageCallbacks.toJS() : {};
+        const pageCallbacksJs = pageCallbacks ? pageCallbacks.toJS() : {};
 
         const newUrl = action.url;
         const emitMessage = (message) => {
@@ -94,14 +94,15 @@ function initStore(
     metadata: metadata(storage)
   });
 
-  /* eslint-disable no-underscore-dangle */
+
+  // eslint-disable-next-line no-underscore-dangle
+  const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
   store = createStore(
     reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-      window.__REDUX_DEVTOOLS_EXTENSION__(),
-    applyMiddleware(customMiddleWare)
+    composeEnhancer(applyMiddleware(customMiddleWare)),
   );
-  /* eslint-enable */
 }
+
 
 export { initStore, store };

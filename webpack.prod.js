@@ -6,6 +6,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
   // entry: ['babel-polyfill', './index.js'],
   entry: './index.js',
+  externals: {
+    react: 'react',
+    reactDOM: 'react-dom'
+  },
   output: {
     path: path.join(__dirname, '/lib'),
     filename: 'index.js',
