@@ -2,7 +2,6 @@
 
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const EsmWebpackPlugin = require("@purtuga/esm-webpack-plugin");
 
 module.exports = [{
   // entry: ['babel-polyfill', './index.js'],
@@ -68,7 +67,7 @@ module.exports = [{
     path: path.join(__dirname, '/module'),
     filename: 'index.js',
     library: 'WebChat',
-    libraryTarget: 'var'
+    libraryTarget: 'umd'
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -102,6 +101,6 @@ module.exports = [{
       }
     ]
   },
-  plugins: [new CleanWebpackPlugin(['module']), new EsmWebpackPlugin()]
+  plugins: [new CleanWebpackPlugin(['module'])]
 }
 ];
