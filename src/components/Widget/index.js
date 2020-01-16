@@ -221,10 +221,12 @@ class Widget extends Component {
       };
 
       if (event && payload && selector) {
-        const elem = document.querySelector(selector);
-        if (elem) {
-          eventsListeners.push({ elem, event, sendPayload });
-          elem.addEventListener(event, sendPayload);
+        const elemList = document.querySelectorAll(selector);
+        if (elemList.length > 0) {
+          elemList.forEach((elem) => {
+            eventsListeners.push({ elem, event, sendPayload });
+            elem.addEventListener(event, sendPayload);
+          });
         }
       }
     });
