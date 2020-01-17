@@ -31,7 +31,7 @@ export default function (
     switch (action.type) {
       // Each change to the redux store's behavior Map gets recorded to storage
       case actionTypes.SHOW_CHAT: {
-        onWidgetEvent.onChatVisisble();
+        if (onWidgetEvent.onChatVisible) onWidgetEvent.onChatVisible();
         return storeParams(state.update('isChatVisible', () => true));
       }
       case actionTypes.HIDE_CHAT: {
@@ -56,7 +56,7 @@ export default function (
         return storeParams(state.update('isChatOpen', () => false));
       }
       case actionTypes.TOGGLE_FULLSCREEN: {
-        onWidgetEvent.onChatFullScreen();
+        if (onWidgetEvent.onChatFullScreen) onWidgetEvent.onChatFullScreen();
         return storeParams(state.update('fullScreenMode', fullScreenMode => !fullScreenMode));
       }
       case actionTypes.TOGGLE_INPUT_DISABLED: {
