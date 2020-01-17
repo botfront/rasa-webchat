@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.10](https://https///compare/v0.7.9...v0.7.10) (2020-01-17)
+
+
+### Bug Fixes
+
+* typo in onWidgetEvent ([c6d8588](https://https///commit/c6d8588))
+
 ### [0.7.9](https://https///compare/v0.7.8...v0.7.9) (2020-01-15)
 
 
