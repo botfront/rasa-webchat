@@ -31,7 +31,7 @@ export default function (
     switch (action.type) {
       // Each change to the redux store's behavior Map gets recorded to storage
       case actionTypes.SHOW_CHAT: {
-        onWidgetEvent.onChatVisisble();
+        onWidgetEvent.onChatVisible();
         return storeParams(state.update('isChatVisible', () => true));
       }
       case actionTypes.HIDE_CHAT: {
