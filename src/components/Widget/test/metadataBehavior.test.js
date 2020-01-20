@@ -51,12 +51,16 @@ describe('Metadata store affect app behavior', () => {
         const index = classes.indexOf(className);
         classes.splice(index, 1);
       }
-    },
+    }
+  }
+  ));
 
+  const querySelectorAllspyFunc = jest.fn(() => ([{
     addEventListener(event, handler) {
       eventListener = { event, handler };
-    } }));
+    } }]));
   Object.defineProperty(document, 'querySelector', { value: spyFunc });
+  Object.defineProperty(document, 'querySelectorAll', { value: querySelectorAllspyFunc });
 
   beforeEach(() => sentToSocket = []);
 
