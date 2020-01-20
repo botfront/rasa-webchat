@@ -211,7 +211,7 @@ class Widget extends Component {
     const domHighlightJS = domHighlight.toJS() || {};
     if (domHighlightJS.selector) {
       const element = document.querySelector(domHighlightJS.selector);
-      switch (domHighlightJS.type) {
+      switch (domHighlightJS.style) {
         case 'custom':
           element.setAttribute('style', '');
           break;
@@ -233,7 +233,7 @@ class Widget extends Component {
     const domHighlightJS = domHighlight.toJS() || {};
     if (domHighlightJS.selector) {
       const element = document.querySelector(domHighlightJS.selector);
-      switch (domHighlightJS.type) {
+      switch (domHighlightJS.style) {
         case 'custom':
           element.setAttribute('style', domHighlightJS.css);
           break;

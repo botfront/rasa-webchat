@@ -144,7 +144,7 @@ describe('Metadata store affect app behavior', () => {
     store.dispatch({ type: 'SET_DOM_HIGHLIGHT',
       domHighlight: {
         selector: '.test',
-        type: 'custom',
+        style: 'custom',
         css: 'color: red'
       } });
 
@@ -169,7 +169,7 @@ describe('Metadata store affect app behavior', () => {
     store.dispatch({ type: 'SET_DOM_HIGHLIGHT',
       domHighlight: {
         selector: '.test',
-        type: 'default',
+        style: 'default',
         css: ''
       } });
 
@@ -188,7 +188,7 @@ describe('Metadata store affect app behavior', () => {
     store.dispatch({ type: 'SET_DOM_HIGHLIGHT',
       domHighlight: {
         selector: '.test',
-        type: 'class',
+        style: 'class',
         css: 'highlight-class'
       } });
 
