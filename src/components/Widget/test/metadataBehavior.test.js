@@ -37,9 +37,22 @@ describe('Metadata store affect app behavior', () => {
   );
 
   let elemAttributes;
-  const spyFunc = jest.fn(() => ({ setAttribute(attribute, value) {
-    elemAttributes = { attribute, value };
-  } }));
+  const classes = [];
+  const spyFunc = jest.fn(() => ({
+    setAttribute(attribute, value) {
+      elemAttributes = { attribute, value };
+    },
+    classList: {
+      add(className) {
+        classes.push(className);
+      },
+      remove(className) {
+        const index = classes.indexOf(className);
+        classes.splice(index, 1);
+      }
+    }
+  })
+  );
   Object.defineProperty(document, 'querySelector', { value: spyFunc });
 
   beforeEach(() => sentToSocket = []);
@@ -131,6 +144,7 @@ describe('Metadata store affect app behavior', () => {
     store.dispatch({ type: 'SET_DOM_HIGHLIGHT',
       domHighlight: {
         selector: '.test',
+        type: 'custom',
         css: 'color: red'
       } });
 
@@ -149,6 +163,7 @@ describe('Metadata store affect app behavior', () => {
     store.dispatch({ type: 'SET_DOM_HIGHLIGHT',
       domHighlight: {
         selector: '.test',
+        type: 'default',
         css: ''
       } });
 
@@ -161,6 +176,25 @@ describe('Metadata store affect app behavior', () => {
     };
     widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
     expect(elemAttributes).toEqual({ attribute: 'style', value: '' });
+  });
+
+  it('should apply the specified class to an element', () => {
+    store.dispatch({ type: 'SET_DOM_HIGHLIGHT',
+      domHighlight: {
+        selector: '.test',
+        type: 'class',
+        css: 'highlight-class'
+      } });
+
+    widgetComponent.dive().dive().instance().applyCustomStyle();
+
+    expect(classes).toEqual(['highlight-class']);
+    expect(spyFunc).toHaveBeenCalled();
+    const botUtter = {
+      text: 'test'
+    };
+    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    expect(classes).toEqual([]);
   });
 });
 
