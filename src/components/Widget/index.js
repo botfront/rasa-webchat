@@ -207,21 +207,46 @@ class Widget extends Component {
 
 
   clearCustomStyle() {
-    const { domHighlight } = this.props;
+    const { domHighlight, defaultHighlightClassname } = this.props;
     const domHighlightJS = domHighlight.toJS() || {};
-    if (domHighlightJS && Object.keys(domHighlightJS).length > 0) {
+    if (domHighlightJS.selector) {
       const element = document.querySelector(domHighlightJS.selector);
-      if (element !== null) element.setAttribute('style', '');
+      switch (domHighlightJS.type) {
+        case 'custom':
+          element.setAttribute('style', '');
+          break;
+        case 'class':
+          element.classList.remove(domHighlightJS.css);
+          break;
+        default:
+          if (defaultHighlightClassname !== '') {
+            element.classList.remove(defaultHighlightClassname);
+          } else {
+            element.setAttribute('style', '');
+          }
+      }
     }
   }
 
   applyCustomStyle() {
-    const { domHighlight, defaultHighlightCss } = this.props;
+    const { domHighlight, defaultHighlightCss, defaultHighlightClassname } = this.props;
     const domHighlightJS = domHighlight.toJS() || {};
     if (domHighlightJS.selector) {
-      const highlightStyle = domHighlightJS.css !== '' ? domHighlightJS.css : defaultHighlightCss;
       const element = document.querySelector(domHighlightJS.selector);
-      if (element !== null) element.setAttribute('style', highlightStyle);
+      switch (domHighlightJS.type) {
+        case 'custom':
+          element.setAttribute('style', domHighlightJS.css);
+          break;
+        case 'class':
+          element.classList.add(domHighlightJS.css);
+          break;
+        default:
+          if (defaultHighlightClassname !== '') {
+            element.classList.add(defaultHighlightClassname);
+          } else {
+            element.setAttribute('style', defaultHighlightCss);
+          }
+      }
     }
   }
 
@@ -505,7 +530,8 @@ Widget.propTypes = {
   storage: PropTypes.shape({}),
   disableTooltips: PropTypes.bool,
   defaultHighlightAnimation: PropTypes.string,
-  defaultHighlightCss: PropTypes.string
+  defaultHighlightCss: PropTypes.string,
+  defaultHighlightClassname: PropTypes.string
 };
 
 Widget.defaultProps = {
@@ -518,6 +544,7 @@ Widget.defaultProps = {
   tooltipPayload: null,
   oldUrl: '',
   disableTooltips: false,
+  defaultHighlightClassname: '',
   defaultHighlightCss: 'animation: blinker 0.5s linear infinite alternate;',
   defaultHighlightAnimation: `@keyframes default-botfront-blinker-animation {
     to {
