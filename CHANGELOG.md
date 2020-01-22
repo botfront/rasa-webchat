@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.11](https://https///compare/v0.7.10...v0.7.11) (2020-01-22)
+
+
+### Bug Fixes
+
+* wrong parameters in initStore ([75fec82](https://https///commit/75fec82))
+
 ### [0.7.10](https://https///compare/v0.7.9...v0.7.10) (2020-01-17)
 
 
