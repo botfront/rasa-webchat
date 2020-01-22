@@ -143,13 +143,13 @@ class Widget extends Component {
   }
 
   newMessageTimeout(messageWithMetadata) {
-    const { dispatch, isChatOpen, customMessageDelay } = this.props;
+    const { dispatch, isChatOpen, customMessageDelay, disableTooltips } = this.props;
     const { metadata, ...message } = messageWithMetadata;
     setTimeout(() => {
       this.dispatchMessage(message);
       if (!isChatOpen) {
         dispatch(newUnreadMessage());
-        dispatch(setTooltipMessage(String(message.text)));
+        if (!disableTooltips) dispatch(setTooltipMessage(String(message.text)));
       }
       dispatch(triggerMessageDelayed(false));
       this.onGoingMessageDelay = false;
@@ -494,7 +494,8 @@ Widget.propTypes = {
   tooltipSent: PropTypes.shape({}),
   tooltipDelay: PropTypes.number.isRequired,
   domHighlight: PropTypes.shape({}),
-  storage: PropTypes.shape({})
+  storage: PropTypes.shape({}),
+  disableTooltips: PropTypes.bool
 };
 
 Widget.defaultProps = {
@@ -505,7 +506,8 @@ Widget.defaultProps = {
   autoClearCache: false,
   displayUnreadCount: false,
   tooltipPayload: null,
-  oldUrl: ''
+  oldUrl: '',
+  disableTooltips: false
 };
 
 export default connect(mapStateToProps, null, null, { withRef: true })(Widget);

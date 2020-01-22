@@ -117,6 +117,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
         customMessageDelay={props.customMessageDelay}
         tooltipPayload={props.tooltipPayload}
         tooltipDelay={props.tooltipDelay}
+        disableTooltips={props.disableTooltips}
       />
     </Provider>
   );
@@ -160,7 +161,8 @@ ConnectedWidget.propTypes = {
     onChatClose: PropTypes.func,
     onChatVisible: PropTypes.func,
     onChatHidden: PropTypes.func
-  })
+  }),
+  disableTooltips: PropTypes.bool
 };
 
 ConnectedWidget.defaultProps = {
@@ -199,7 +201,8 @@ ConnectedWidget.defaultProps = {
     onChatClose: () => {},
     onChatVisible: () => {},
     onChatHidden: () => {}
-  }
+  },
+  disableTooltips: false
 };
 
 export default ConnectedWidget;

@@ -36,6 +36,7 @@ const plugin = {
         tooltipPayload={args.tooltipPayload}
         tooltipDelay={args.tooltipDelay}
         onWidgetEvent={args.onWidgetEvent}
+        disableTooltips={args.disableTooltips}
       />, document.querySelector(args.selector)
     );
   }
