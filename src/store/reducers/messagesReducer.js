@@ -1,4 +1,4 @@
-import { List } from 'immutable';
+import { List, fromJS } from 'immutable';
 import { MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
 import {
@@ -61,8 +61,7 @@ export default function (storage) {
         return state;
       }
       case actionTypes.SET_CUSTOM_CSS: {
-        return storeMessage(state.update(state.length - 1, message => (
-          { ...message, customCss: action.customCss })));
+        return storeMessage(state.update(state.size - 1, message => message.set('customCss', fromJS(action.customCss))));
       }
       // Pull conversation from storage, parsing as immutable List
       case actionTypes.PULL_SESSION: {

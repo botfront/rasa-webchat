@@ -12,9 +12,23 @@ class Message extends PureComponent {
     const { docViewer, linkTarget } = this.props;
     const sender = this.props.message.get('sender');
     const text = this.props.message.get('text');
+    const customCss = this.props.message.get('customCss') && this.props.message.get('customCss').toJS();
+
+    if (customCss && customCss.style === 'class') {
+      customCss.css = customCss.css.replace(/^\./, '');
+    }
     return (
-      <div className={sender}>
-        <div className="message-text">
+      <div
+        className={sender === 'response' && customCss && customCss.style === 'class' ?
+          `response ${customCss.css}` :
+          sender}
+        style={{ cssText: sender === 'response' && customCss && customCss.style === 'custom' ?
+          customCss.css :
+          undefined }}
+      >
+        <div
+          className="message-text"
+        >
           {sender === 'response' ? (
             <ReactMarkdown
               className={'markdown'}

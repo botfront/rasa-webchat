@@ -444,13 +444,14 @@ class Widget extends Component {
     if (Object.keys(message).length === 0) {
       return;
     }
+    const { customCss, ...messageClean } = message;
 
-    if (isText(message)) {
-      this.props.dispatch(addResponseMessage(message.text));
-    } else if (isQR(message)) {
-      this.props.dispatch(addQuickReply(message));
-    } else if (isSnippet(message)) {
-      const element = message.attachment.payload.elements[0];
+    if (isText(messageClean)) {
+      this.props.dispatch(addResponseMessage(messageClean.text));
+    } else if (isQR(messageClean)) {
+      this.props.dispatch(addQuickReply(messageClean));
+    } else if (isSnippet(messageClean)) {
+      const element = messageClean.attachment.payload.elements[0];
       this.props.dispatch(
         addLinkSnippet({
           title: element.title,
@@ -459,16 +460,16 @@ class Widget extends Component {
           target: '_blank'
         })
       );
-    } else if (isVideo(message)) {
-      const element = message.attachment.payload;
+    } else if (isVideo(messageClean)) {
+      const element = messageClean.attachment.payload;
       this.props.dispatch(
         addVideoSnippet({
           title: element.title,
           video: element.src
         })
       );
-    } else if (isImage(message)) {
-      const element = message.attachment.payload;
+    } else if (isImage(messageClean)) {
+      const element = messageClean.attachment.payload;
       this.props.dispatch(
         addImageSnippet({
           title: element.title,
@@ -477,12 +478,12 @@ class Widget extends Component {
       );
     } else {
       // some custom message
-      const props = message;
+      const props = messageClean;
       if (this.props.customComponent) {
         this.props.dispatch(renderCustomComponent(this.props.customComponent, props, true));
       }
     }
-    if (message.customCss) {
+    if (customCss) {
       this.props.dispatch(setCustomCss(message.customCss));
     }
   }
