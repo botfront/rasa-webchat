@@ -38,6 +38,7 @@ describe('Metadata store affect app behavior', () => {
 
   let elemAttributes;
   const classes = [];
+  let eventListener;
   const spyFunc = jest.fn(() => ({
     setAttribute(attribute, value) {
       elemAttributes = { attribute, value };
@@ -51,9 +52,15 @@ describe('Metadata store affect app behavior', () => {
         classes.splice(index, 1);
       }
     }
-  })
-  );
+  }
+  ));
+
+  const querySelectorAllspyFunc = jest.fn(() => ([{
+    addEventListener(event, handler) {
+      eventListener = { event, handler };
+    } }]));
   Object.defineProperty(document, 'querySelector', { value: spyFunc });
+  Object.defineProperty(document, 'querySelectorAll', { value: querySelectorAllspyFunc });
 
   beforeEach(() => sentToSocket = []);
 
@@ -195,6 +202,26 @@ describe('Metadata store affect app behavior', () => {
     };
     widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
     expect(classes).toEqual([]);
+  });
+  it('pageEventCallback should add event listener on page', () => {
+    const botUtter = {
+      text: 'dummy',
+      metadata: {
+        pageEventCallbacks: {
+          pageEvents: [
+            {
+              selector: 'body',
+              payload: '/new_intent',
+              event: 'click'
+            }
+          ]
+        }
+      }
+    };
+
+    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    expect(eventListener.event).toEqual('click');
+    expect(eventListener.handler).toBeInstanceOf(Function);
   });
 });
 
