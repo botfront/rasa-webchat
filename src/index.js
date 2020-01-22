@@ -86,7 +86,6 @@ const ConnectedWidget = forwardRef((props, ref) => {
     sock,
     storage,
     props.docViewer,
-    props.connectOn,
     props.onWidgetEvent
   );
   return (
