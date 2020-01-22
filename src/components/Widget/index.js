@@ -44,6 +44,7 @@ class Widget extends Component {
     this.messages = [];
     this.onGoingMessageDelay = false;
     this.sendMessage = this.sendMessage.bind(this);
+    this.dispatch = this.props.dispatch.bind(this);
     this.intervalId = null;
     this.eventListenerCleaner = () => {};
   }
@@ -172,7 +173,6 @@ class Widget extends Component {
     const { linkTarget,
       userInput,
       pageChangeCallbacks,
-      domHighlight,
       forceOpen,
       forceClose,
       pageEventCallbacks
@@ -187,9 +187,9 @@ class Widget extends Component {
       dispatch(changeOldUrl(window.location.href));
       dispatch(setPageChangeCallbacks(pageChangeCallbacks));
     }
-    if (domHighlight) {
+    /* if (domHighlight) {
       dispatch(setDomHighlight(domHighlight));
-    }
+    } */
     if (forceOpen) {
       dispatch(openChat());
     }
