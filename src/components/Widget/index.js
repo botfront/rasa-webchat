@@ -43,6 +43,7 @@ class Widget extends Component {
     super(props);
     this.messages = [];
     this.onGoingMessageDelay = false;
+    console.log(this.props.dispatch);
     this.sendMessage = this.sendMessage.bind(this);
     this.dispatch = this.props.dispatch.bind(this);
     this.intervalId = null;
