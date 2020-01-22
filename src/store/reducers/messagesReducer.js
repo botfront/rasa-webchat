@@ -60,6 +60,10 @@ export default function (storage) {
         }
         return state;
       }
+      case actionTypes.SET_CUSTOM_CSS: {
+        return storeMessage(state.update(state.length - 1, message => (
+          { ...message, customCss: action.customCss })));
+      }
       // Pull conversation from storage, parsing as immutable List
       case actionTypes.PULL_SESSION: {
         const localSession = getLocalSession(storage, SESSION_NAME);
