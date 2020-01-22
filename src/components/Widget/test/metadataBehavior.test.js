@@ -36,6 +36,25 @@ describe('Metadata store affect app behavior', () => {
     , { disableLifecycleMethods: true }
   );
 
+  let elemAttributes;
+  const classes = [];
+  const spyFunc = jest.fn(() => ({
+    setAttribute(attribute, value) {
+      elemAttributes = { attribute, value };
+    },
+    classList: {
+      add(className) {
+        classes.push(className);
+      },
+      remove(className) {
+        const index = classes.indexOf(className);
+        classes.splice(index, 1);
+      }
+    }
+  })
+  );
+  Object.defineProperty(document, 'querySelector', { value: spyFunc });
+
   beforeEach(() => sentToSocket = []);
 
   it('should use the callbackIntent on expected url change', () => {
@@ -94,7 +113,6 @@ describe('Metadata store affect app behavior', () => {
   });
 
   it('should use multiple the regex/string for urlchecking', () => {
-
     store.dispatch({ type: 'SET_OLD_URL', url: 'lorem.com' });
     store.dispatch({ type: 'SET_PAGECHANGE_CALLBACKS',
       pageChangeCallbacks: {
@@ -123,16 +141,10 @@ describe('Metadata store affect app behavior', () => {
   });
 
   it('should change the style of a element', () => {
-
-    let elemAttributes;
-    const spyFunc = jest.fn(() => ({ setAttribute(attribute, value) {
-      elemAttributes = { attribute, value };
-    } }));
-    Object.defineProperty(document, 'querySelector', { value: spyFunc });
-
     store.dispatch({ type: 'SET_DOM_HIGHLIGHT',
       domHighlight: {
         selector: '.test',
+        style: 'custom',
         css: 'color: red'
       } });
 
@@ -145,6 +157,44 @@ describe('Metadata store affect app behavior', () => {
     };
     widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
     expect(elemAttributes).toEqual({ attribute: 'style', value: '' });
+  });
+
+  it('should apply the default the style to an element', () => {
+    store.dispatch({ type: 'SET_DOM_HIGHLIGHT',
+      domHighlight: {
+        selector: '.test',
+        style: 'default',
+        css: ''
+      } });
+
+    widgetComponent.dive().dive().instance().applyCustomStyle();
+
+    expect(elemAttributes).toEqual({ attribute: 'style', value: 'animation: blinker 0.5s linear infinite alternate;' });
+    expect(spyFunc).toHaveBeenCalled();
+    const botUtter = {
+      text: 'test'
+    };
+    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    expect(elemAttributes).toEqual({ attribute: 'style', value: '' });
+  });
+
+  it('should apply the specified class to an element', () => {
+    store.dispatch({ type: 'SET_DOM_HIGHLIGHT',
+      domHighlight: {
+        selector: '.test',
+        style: 'class',
+        css: 'highlight-class'
+      } });
+
+    widgetComponent.dive().dive().instance().applyCustomStyle();
+
+    expect(classes).toEqual(['highlight-class']);
+    expect(spyFunc).toHaveBeenCalled();
+    const botUtter = {
+      text: 'test'
+    };
+    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    expect(classes).toEqual([]);
   });
 });
 
