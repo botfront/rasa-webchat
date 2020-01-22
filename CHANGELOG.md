@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.12](https://https///compare/v0.7.11...v0.7.12) (2020-01-22)
+
+
+### Bug Fixes
+
+* reverted to opening links in new tab ([50b4b63](https://https///commit/50b4b63))
+
 ### [0.7.11](https://https///compare/v0.7.10...v0.7.11) (2020-01-22)
 
 
