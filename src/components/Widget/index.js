@@ -510,4 +510,4 @@ Widget.defaultProps = {
   disableTooltips: false
 };
 
-export default connect(mapStateToProps, null, null, { withRef: true })(Widget);
+export default connect(mapStateToProps, null, null, { forwardRef: true })(Widget);
