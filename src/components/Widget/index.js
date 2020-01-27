@@ -45,12 +45,12 @@ class Widget extends Component {
     this.onGoingMessageDelay = false;
     console.log(this.props.dispatch);
     this.sendMessage = this.sendMessage.bind(this);
-    this.dispatch = this.props.dispatch.bind(this);
+    this.dispatcher = this.dispatchMessage.bind(this);
     this.intervalId = null;
     this.eventListenerCleaner = () => {};
   }
 
-
+ 
   componentDidMount() {
     const { connectOn, autoClearCache, storage, dispatch, defaultHighlightAnimation } = this.props;
 
@@ -60,6 +60,7 @@ class Widget extends Component {
       return;
     }
 
+   
 
     // add the default highlight css to the document
     const styleNode = document.createElement('style');
@@ -116,6 +117,10 @@ class Widget extends Component {
     const localSession = getLocalSession(storage, SESSION_NAME);
     const localId = localSession ? localSession.session_id : null;
     return localId;
+  }
+
+  dispatchWrapper(dataToDispatch) {
+    this.props.dispatch(dataToDispatch);
   }
 
   sendMessage(payload, text = '', when = 'always') {
