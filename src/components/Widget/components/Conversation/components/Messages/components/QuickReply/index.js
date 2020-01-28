@@ -61,7 +61,7 @@ class QuickReply extends PureComponent {
                 return (
                   <a
                     key={index}
-                    href={reply.payload}
+                    href={reply.url}
                     target={linkTarget}
                     rel="noopener noreferrer"
                     className={'reply'}

@@ -26,7 +26,7 @@ describe('link target', () => {
           type: 'web_url',
           content_type: 'text',
           title: 'google',
-          payload: 'http://www.google.ca'
+          url: 'http://www.google.ca'
         }
       ]
     } });
