@@ -9,8 +9,6 @@ import metadata from './reducers/metadataReducer';
 import { getLocalSession } from './reducers/helper';
 import * as actionTypes from './actions/actionTypes';
 
-let store = 'call initStore first';
-
 function initStore(
   hintText,
   connectingText,
@@ -98,11 +96,11 @@ function initStore(
   // eslint-disable-next-line no-underscore-dangle
   const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-  store = createStore(
+  return createStore(
     reducer,
     composeEnhancer(applyMiddleware(customMiddleWare)),
   );
 }
 
 
-export { initStore, store };
+export { initStore };

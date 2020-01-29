@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 
 import Widget from './components/Widget';
-import { store, initStore } from '../src/store/store';
+import { initStore } from '../src/store/store';
 import socket from './socket';
+
+let store = null;
 
 const ConnectedWidget = forwardRef((props, ref) => {
   class Socket {
@@ -80,14 +82,16 @@ const ConnectedWidget = forwardRef((props, ref) => {
 
   const storage =
     props.params.storage === 'session' ? sessionStorage : localStorage;
-  initStore(
-    props.inputTextFieldHint,
-    props.connectingText,
-    sock,
-    storage,
-    props.docViewer,
-    props.onWidgetEvent
-  );
+  if (!store) {
+    store = initStore(
+      props.inputTextFieldHint,
+      props.connectingText,
+      sock,
+      storage,
+      props.docViewer,
+      props.onWidgetEvent
+    );
+  }
   return (
     <Provider store={store}>
       <Widget
