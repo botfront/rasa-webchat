@@ -4,20 +4,20 @@ import { Provider } from 'react-redux';
 
 import assetMock from 'tests-mocks/fileMock';
 import Widget from '../index';
-import { store, initStore } from '../../../store/store';
+import { initStore } from '../../../store/store';
 import LocalStorageMock from '../../../../mocks/localStorageMock';
 
+const localStorage = new LocalStorageMock();
+let sentToSocket = [];
+const mockSocket = {
+  emit: jest.fn((action, message) => sentToSocket.push({ action, message }))
+};
+const store = initStore('dummy', 'dummy', mockSocket, localStorage);
 
 describe('Metadata store affect app behavior', () => {
   const profile = assetMock;
   const handleUserMessage = jest.fn();
 
-  const localStorage = new LocalStorageMock();
-  let sentToSocket = [];
-  const mockSocket = {
-    emit: jest.fn((action, message) => sentToSocket.push({ action, message }))
-  };
-  initStore('dummy', 'dummy', mockSocket, localStorage);
   store.dispatch({
     type: 'CONNECT' });
   const widgetComponent = shallow(
@@ -94,7 +94,6 @@ describe('Metadata store affect app behavior', () => {
   });
 
   it('should use multiple the regex/string for urlchecking', () => {
-
     store.dispatch({ type: 'SET_OLD_URL', url: 'lorem.com' });
     store.dispatch({ type: 'SET_PAGECHANGE_CALLBACKS',
       pageChangeCallbacks: {
@@ -123,7 +122,6 @@ describe('Metadata store affect app behavior', () => {
   });
 
   it('should change the style of a element', () => {
-
     let elemAttributes;
     const spyFunc = jest.fn(() => ({ setAttribute(attribute, value) {
       elemAttributes = { attribute, value };
@@ -136,14 +134,20 @@ describe('Metadata store affect app behavior', () => {
         css: 'color: red'
       } });
 
-    widgetComponent.dive().dive().instance().applyCustomStyle();
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .applyCustomStyle();
 
     expect(elemAttributes).toEqual({ attribute: 'style', value: 'color: red' });
     expect(spyFunc).toHaveBeenCalled();
     const botUtter = {
       text: 'test'
     };
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .handleBotUtterance(botUtter);
     expect(elemAttributes).toEqual({ attribute: 'style', value: '' });
   });
 });

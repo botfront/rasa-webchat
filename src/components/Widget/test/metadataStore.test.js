@@ -4,18 +4,17 @@ import { Provider } from 'react-redux';
 
 import assetMock from 'tests-mocks/fileMock';
 import Widget from '../index';
-import { store, initStore } from '../../../store/store';
+import { initStore } from '../../../store/store';
 import LocalStorageMock from '../../../../mocks/localStorageMock';
 
+const localStorage = new LocalStorageMock();
+const store = initStore('dummy', 'dummy', 'dummy', localStorage);
 
 describe('Messages metadata affect store', () => {
   const profile = assetMock;
   const handleUserMessage = jest.fn();
 
-  const localStorage = new LocalStorageMock();
 
-
-  initStore('dummy', 'dummy', 'dummy', localStorage);
   store.dispatch({
     type: 'CONNECT' });
   const widgetComponent = shallow(
@@ -39,14 +38,20 @@ describe('Messages metadata affect store', () => {
         userInput: 'disable'
       }
     };
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .handleBotUtterance(botUtter);
     expect(store.getState().metadata.get('userInput')).toEqual('disable');
     botUtter = {
       metadata: {
         userInput: 'hide'
       }
     };
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .handleBotUtterance(botUtter);
     expect(store.getState().metadata.get('userInput')).toEqual('hide');
   });
 
@@ -56,7 +61,10 @@ describe('Messages metadata affect store', () => {
         linkTarget: '_self'
       }
     };
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .handleBotUtterance(botUtter);
     expect(store.getState().metadata.get('linkTarget')).toEqual('_self');
 
     botUtter = {
@@ -64,7 +72,10 @@ describe('Messages metadata affect store', () => {
         linkTarget: '_blank'
       }
     };
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .handleBotUtterance(botUtter);
     expect(store.getState().metadata.get('linkTarget')).toEqual('_blank');
   });
 
@@ -84,7 +95,10 @@ describe('Messages metadata affect store', () => {
         }
       }
     };
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .handleBotUtterance(botUtter);
     expect(store.getState().behavior.get('pageChangeCallbacks').toJS()).toEqual({
       pageChanges: [
         {
@@ -107,7 +121,10 @@ describe('Messages metadata affect store', () => {
         }
       }
     };
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .handleBotUtterance(botUtter);
     expect(store.getState().metadata.get('domHighlight').toJS()).toEqual({
       selector: '.test',
       style: 'color: red'

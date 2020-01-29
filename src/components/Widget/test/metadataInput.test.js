@@ -3,14 +3,14 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 
 import Sender from '../components/Conversation/components/Sender';
-import { store, initStore } from '../../../store/store';
+import { initStore } from '../../../store/store';
 import LocalStorageMock from '../../../../mocks/localStorageMock';
 
+const localStorage = new LocalStorageMock();
+const stubSocket = jest.fn();
+const store = initStore('dummy', 'dummy', stubSocket, localStorage);
 
 describe('Metadata store affect input behavior', () => {
-  const localStorage = new LocalStorageMock();
-  const stubSocket = jest.fn();
-  initStore('dummy', 'dummy', stubSocket, localStorage);
   const senderCompoment = mount(
     <Provider store={store}>
       <Sender

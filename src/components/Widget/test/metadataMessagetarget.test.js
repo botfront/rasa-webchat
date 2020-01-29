@@ -4,13 +4,13 @@ import { mount } from 'enzyme';
 
 import LocalStorageMock from '../../../../mocks/localStorageMock';
 import Launcher from '../components/Launcher';
-import { store, initStore } from '../../../store/store';
+import { initStore } from '../../../store/store';
+
+const localStorage = new LocalStorageMock();
+const stubSocket = jest.fn();
+const store = initStore('dummy', 'dummy', stubSocket, localStorage);
 
 describe('message target store affect app behavior', () => {
-  const localStorage = new LocalStorageMock();
-  const stubSocket = jest.fn();
-  initStore('dummy', 'dummy', stubSocket, localStorage);
-
   const launcherCompoment = mount(
     <Provider store={store}>
       <Launcher

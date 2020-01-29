@@ -1,4 +1,4 @@
-import { initStore, store } from '../store';
+import { initStore } from '../store';
 import { send } from './dispatcher';
 
 
@@ -13,25 +13,25 @@ describe('Dispatcher', () => {
     emit: jest.fn((action, message) => sentToSocket.push({ action, message }))
   };
 
-  initStore('dummy',
+  let store = initStore('dummy',
     'dummy',
     mockSocket,
     localStorageMock,
     false
-);
+  );
   beforeEach(() => {
     sentToSocket = [];
-    initStore('dummy',
-    'dummy',
-    mockSocket,
-    localStorageMock,
-    false
-);
+    store = initStore('dummy',
+      'dummy',
+      mockSocket,
+      localStorageMock,
+      false
+    );
   });
   it('should send a message to the socket and add a new message in the store', () => {
     expect(store.getState().messages.size).toEqual(0);
     expect(sentToSocket).toHaveLength(0);
-    send('/payload', 'test');
+    send('/payload', 'test', store);
     expect(store.getState().messages.size).toEqual(1);
     expect(store.getState().messages.get(0).get('text')).toEqual('test');
     expect(sentToSocket).toHaveLength(1);
@@ -41,7 +41,7 @@ describe('Dispatcher', () => {
   it('should only send a message to the socket and not add a new message in the store', () => {
     expect(store.getState().messages.size).toEqual(0);
     expect(sentToSocket).toHaveLength(0);
-    send('/payload');
+    send('/payload', undefined, store);
     expect(store.getState().messages.size).toEqual(0);
     expect(sentToSocket).toHaveLength(1);
     expect(sentToSocket[0].message.message).toEqual('/payload');

@@ -4,14 +4,13 @@ import { mount } from 'enzyme';
 
 import LocalStorageMock from '../../../../mocks/localStorageMock';
 import QuickReply from '../components/Conversation/components/Messages/components/QuickReply';
-import { store, initStore } from '../../../store/store';
+import { initStore } from '../../../store/store';
+
+const localStorage = new LocalStorageMock();
+const stubSocket = jest.fn();
+const store = initStore('dummy', 'dummy', stubSocket, localStorage);
 
 describe('link target', () => {
-  const localStorage = new LocalStorageMock();
-  const stubSocket = jest.fn();
-  initStore('dummy', 'dummy', stubSocket, localStorage);
-
-
   store.dispatch({ type: 'ADD_QUICK_REPLY',
     quickReply: {
       text: 'test',

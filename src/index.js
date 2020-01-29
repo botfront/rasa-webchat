@@ -6,7 +6,8 @@ import Widget from './components/Widget';
 import { initStore } from '../src/store/store';
 import socket from './socket';
 
-let store = null;
+// eslint-disable-next-line import/no-mutable-exports
+export let store = null;
 
 const ConnectedWidget = forwardRef((props, ref) => {
   class Socket {
