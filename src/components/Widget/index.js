@@ -45,6 +45,7 @@ class Widget extends Component {
     this.onGoingMessageDelay = false;
     this.sendMessage = this.sendMessage.bind(this);
     this.intervalId = null;
+    this.eventListenerCleaner = () => {};
   }
 
 
@@ -173,7 +174,8 @@ class Widget extends Component {
       pageChangeCallbacks,
       domHighlight,
       forceOpen,
-      forceClose
+      forceClose,
+      pageEventCallbacks
     } = metadata;
     if (linkTarget) {
       dispatch(setLinkTarget(linkTarget));
@@ -194,17 +196,49 @@ class Widget extends Component {
     if (forceClose) {
       dispatch(closeChat());
     }
+    if (pageEventCallbacks) {
+      this.eventListenerCleaner = this.addCustomsEventListeners(pageEventCallbacks.pageEvents);
+    }
   }
 
   handleBotUtterance(botUtterance) {
     const { dispatch } = this.props;
     this.clearCustomStyle();
+    this.eventListenerCleaner();
     dispatch(clearMetadata());
     if (botUtterance.metadata) this.propagateMetadata(botUtterance.metadata);
     const newMessage = { ...botUtterance, text: String(botUtterance.text) };
     this.handleMessageReceived(newMessage);
   }
 
+  addCustomsEventListeners(pageEventCallbacks) {
+    const eventsListeners = [];
+
+    pageEventCallbacks.forEach((pageEvent) => {
+      const { event, payload, selector } = pageEvent;
+      const sendPayload = () => {
+        this.sendMessage(payload);
+      };
+
+      if (event && payload && selector) {
+        const elemList = document.querySelectorAll(selector);
+        if (elemList.length > 0) {
+          elemList.forEach((elem) => {
+            eventsListeners.push({ elem, event, sendPayload });
+            elem.addEventListener(event, sendPayload);
+          });
+        }
+      }
+    });
+
+    const cleaner = () => {
+      eventsListeners.forEach((eventsListener) => {
+        eventsListener.elem.removeEventListener(eventsListener.event, eventsListener.sendPayload);
+      });
+    };
+
+    return cleaner;
+  }
 
   clearCustomStyle() {
     const { domHighlight, defaultHighlightClassname } = this.props;
