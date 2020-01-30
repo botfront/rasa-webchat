@@ -84,7 +84,6 @@ class Widget extends Component {
   componentDidUpdate() {
     const { isChatOpen, dispatch, embedded, initialized } = this.props;
 
-
     if (isChatOpen) {
       if (!initialized) {
         this.initializeWidget();
@@ -317,13 +316,19 @@ class Widget extends Component {
       });
 
       // When session_confirm is received from the server:
-      socket.on('session_confirm', (remoteId) => {
+      socket.on('session_confirm', (sessionObject) => {
+        let remoteId;
+        if (typeof sessionObject === 'object' && sessionObject !== null) {
+          remoteId = sessionObject.session_id;
+        } else {
+          remoteId = sessionObject;
+        }
+
         // eslint-disable-next-line no-console
         console.log(`session_confirm:${socket.socket.id} session_id:${remoteId}`);
-
         // Store the initial state to both the redux store and the storage, set connected to true
         dispatch(connectServer());
-
+        
         /*
         Check if the session_id is consistent with the server
         If the localId is null or different from the remote_id,
