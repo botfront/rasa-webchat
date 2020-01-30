@@ -255,7 +255,10 @@ describe('Metadata store affect app behavior', () => {
       }
     };
 
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .handleBotUtterance(botUtter);
     expect(eventListener.event).toEqual('click');
     expect(eventListener.handler).toBeInstanceOf(Function);
   });
