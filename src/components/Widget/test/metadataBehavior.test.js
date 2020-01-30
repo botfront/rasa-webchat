@@ -65,38 +65,56 @@ describe('Metadata store affect app behavior', () => {
   beforeEach(() => sentToSocket = []);
 
   it('should use the callbackIntent on expected url change', () => {
-    store.dispatch({ type: 'SET_OLD_URL', url: 'lorem.com' });
+    store.dispatch({ type: 'SET_OLD_URL', url: 'http://lorem.com' });
     store.dispatch({ type: 'SET_PAGECHANGE_CALLBACKS',
       pageChangeCallbacks: {
         pageChanges: [
           {
-            url: 'ipsum.com',
+            url: 'http://ipsum.com/cool',
             callbackIntent: '/yes',
             regex: false
           }
         ],
         errorIntent: '/no'
       } });
-    store.dispatch({ type: 'EVAL_URL', url: 'ipsum.com' });
+    store.dispatch({ type: 'EVAL_URL', url: 'http://ipsum.com/cool' });
+    expect(sentToSocket).toHaveLength(1);
+    expect(sentToSocket[0].message.message).toEqual('/yes');
+  });
+
+  it('should ignore host and use the callbackIntent on expected url change', () => {
+    store.dispatch({ type: 'SET_OLD_URL', url: 'http://lorem.com/blo' });
+    store.dispatch({ type: 'SET_PAGECHANGE_CALLBACKS',
+      pageChangeCallbacks: {
+        pageChanges: [
+          {
+            url: 'http://ipsum.com/bla',
+            callbackIntent: '/yes',
+            regex: false
+          }
+        ],
+        errorIntent: '/no'
+      } });
+    store.dispatch({ type: 'EVAL_URL', url: 'http://lorem.com/bla' });
     expect(sentToSocket).toHaveLength(1);
     expect(sentToSocket[0].message.message).toEqual('/yes');
   });
 
 
   it('should use the errorIntent on bad url change', () => {
-    store.dispatch({ type: 'SET_OLD_URL', url: 'lorem.com' });
+    store.dispatch({ type: 'SET_OLD_URL', url: 'http://lorem.com/bou' });
     store.dispatch({ type: 'SET_PAGECHANGE_CALLBACKS',
       pageChangeCallbacks: {
         pageChanges: [
           {
-            url: 'ipsum.com',
+            url: 'http://ipsum.com/bla',
             callbackIntent: '/yes',
             regex: false
           }
         ],
         errorIntent: '/no'
       } });
-    store.dispatch({ type: 'EVAL_URL', url: 'dolor.com' });
+    store.dispatch({ type: 'EVAL_URL', url: 'http://dolor.com/blo' });
     expect(sentToSocket).toHaveLength(1);
     expect(sentToSocket[0].message.message).toEqual('/no');
   });
@@ -120,7 +138,7 @@ describe('Metadata store affect app behavior', () => {
   });
 
   it('should use multiple the regex/string for urlchecking', () => {
-    store.dispatch({ type: 'SET_OLD_URL', url: 'lorem.com' });
+    store.dispatch({ type: 'SET_OLD_URL', url: 'http://lorem.com' });
     store.dispatch({ type: 'SET_PAGECHANGE_CALLBACKS',
       pageChangeCallbacks: {
         pageChanges: [
@@ -135,14 +153,14 @@ describe('Metadata store affect app behavior', () => {
             regex: false
           },
           {
-            url: /elit.+sed/,
+            url: /http:\/\/elit.+sed/,
             callbackIntent: '/yes',
             regex: true
           }
         ],
         errorIntent: '/no'
       } });
-    store.dispatch({ type: 'EVAL_URL', url: 'elit.com/sed' });
+    store.dispatch({ type: 'EVAL_URL', url: 'http://elit.com/sed' });
     expect(sentToSocket).toHaveLength(1);
     expect(sentToSocket[0].message.message).toEqual('/yes');
   });
@@ -237,7 +255,10 @@ describe('Metadata store affect app behavior', () => {
       }
     };
 
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .handleBotUtterance(botUtter);
     expect(eventListener.event).toEqual('click');
     expect(eventListener.handler).toBeInstanceOf(Function);
   });
