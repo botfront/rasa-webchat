@@ -173,14 +173,20 @@ describe('Metadata store affect app behavior', () => {
         css: ''
       } });
 
-    widgetComponent.dive().dive().instance().applyCustomStyle();
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .applyCustomStyle();
 
     expect(elemAttributes).toEqual({ attribute: 'style', value: 'animation: blinker 0.5s linear infinite alternate;' });
     expect(spyFunc).toHaveBeenCalled();
     const botUtter = {
       text: 'test'
     };
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .handleBotUtterance(botUtter);
     expect(elemAttributes).toEqual({ attribute: 'style', value: '' });
   });
 
@@ -192,14 +198,20 @@ describe('Metadata store affect app behavior', () => {
         css: 'highlight-class'
       } });
 
-    widgetComponent.dive().dive().instance().applyCustomStyle();
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .applyCustomStyle();
 
     expect(classes).toEqual(['highlight-class']);
     expect(spyFunc).toHaveBeenCalled();
     const botUtter = {
       text: 'test'
     };
-    widgetComponent.dive().dive().instance().handleBotUtterance(botUtter);
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .handleBotUtterance(botUtter);
     expect(classes).toEqual([]);
   });
 });
