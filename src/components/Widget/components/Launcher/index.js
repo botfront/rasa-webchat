@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ReactMarkdown from 'react-markdown';
 import openLauncher from 'assets/launcher_button.svg';
 import close from 'assets/clear-button.svg';
 import Badge from './components/Badge';
@@ -16,7 +17,8 @@ const Launcher = ({
   closeImage,
   unreadCount,
   displayUnreadCount,
-  tooltipMessage
+  tooltipMessage,
+  linkTarget
 }) => {
   const className = ['launcher'];
   if (isChatOpen) className.push('hide-sm');
@@ -24,7 +26,21 @@ const Launcher = ({
 
   const renderToolTip = () => (
     <div className="tooltip-body">
-      {tooltipMessage}
+      <ReactMarkdown
+        className={'markdown'}
+        source={tooltipMessage}
+        linkTarget={(url) => {
+          if (!url.startsWith('mailto') && !url.startsWith('javascript')) return '_blank';
+          return undefined;
+        }}
+        transformLinkUri={null}
+        renderers={{
+          // eslint-disable-next-line react/display-name
+          link: props =>
+            <a href={props.href} target={linkTarget || '_blank'} rel="noopener noreferrer">{props.children}</a>
+        }}
+      />
+
       <div className="tooltip-decoration" />
     </div>
   );
@@ -64,12 +80,14 @@ Launcher.propTypes = {
   closeImage: PropTypes.string,
   unreadCount: PropTypes.number,
   displayUnreadCount: PropTypes.bool,
-  tooltipMessage: PropTypes.string
+  tooltipMessage: PropTypes.string,
+  linkTarget: PropTypes.string
 };
 
 const mapStateToProps = state => ({
   unreadCount: state.behavior.get('unreadCount') || 0,
-  tooltipMessage: state.metadata.get('tooltipMessage')
+  tooltipMessage: state.metadata.get('tooltipMessage'),
+  linkTarget: state.metadata.get('linkTarget')
 });
 
 export default connect(mapStateToProps)(Launcher);
