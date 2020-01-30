@@ -5,13 +5,13 @@ import { fromJS } from 'immutable';
 
 import LocalStorageMock from '../../../../mocks/localStorageMock';
 import Message from '../components/Conversation/components/Messages/components/Message';
-import { store, initStore } from '../../../store/store';
-
+import { initStore } from '../../../store/store';
 
 describe('Message custom Css', () => {
   const localStorage = new LocalStorageMock();
   const stubSocket = jest.fn();
-  initStore('dummy', 'dummy', stubSocket, localStorage);
+  const store = initStore('dummy', 'dummy', stubSocket, localStorage);
+
   const messages = [];
   // a response with customcss of type custom
   messages.push({
@@ -40,7 +40,7 @@ describe('Message custom Css', () => {
     timestamp: 1580141564886,
     customCss: { css: 'color:red;', style: 'custom' } });
 
-  it('should render a quick reply with a link to google targeting self', () => {
+  it('check that a custom style is correctly applied', () => {
     const messageComponent = mount(
       <Provider store={store}>
         <Message
@@ -56,7 +56,7 @@ describe('Message custom Css', () => {
     expect(messageComponent.find('div.response').prop('className')).toEqual('response');
   });
 
-  it('should render a quick reply with a link to google targeting self', () => {
+  it('check that a class style is correctly applied', () => {
     const messageComponent = mount(
       <Provider store={store}>
         <Message
@@ -72,7 +72,7 @@ describe('Message custom Css', () => {
     expect(messageComponent.find('div.response').prop('style')).toEqual({ cssText: undefined });
   });
 
-  it('should render a quick reply with a link to google targeting self', () => {
+  it('check that a  style cannot be applied to a user message', () => {
     const messageComponent = mount(
       <Provider store={store}>
         <Message
