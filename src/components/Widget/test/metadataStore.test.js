@@ -9,6 +9,7 @@ import LocalStorageMock from '../../../../mocks/localStorageMock';
 
 const localStorage = new LocalStorageMock();
 const store = initStore('dummy', 'dummy', 'dummy', localStorage);
+jest.useFakeTimers();
 
 describe('Messages metadata affect store', () => {
   const profile = assetMock;
@@ -42,6 +43,9 @@ describe('Messages metadata affect store', () => {
       .dive()
       .instance()
       .handleBotUtterance(botUtter);
+    expect(setTimeout).toHaveBeenCalledTimes(1);
+    jest.runOnlyPendingTimers();
+
     expect(store.getState().metadata.get('userInput')).toEqual('disable');
     botUtter = {
       metadata: {
@@ -52,6 +56,8 @@ describe('Messages metadata affect store', () => {
       .dive()
       .instance()
       .handleBotUtterance(botUtter);
+    expect(setTimeout).toHaveBeenCalledTimes(2);
+    jest.runOnlyPendingTimers();
     expect(store.getState().metadata.get('userInput')).toEqual('hide');
   });
 
@@ -65,6 +71,8 @@ describe('Messages metadata affect store', () => {
       .dive()
       .instance()
       .handleBotUtterance(botUtter);
+    expect(setTimeout).toHaveBeenCalledTimes(3);
+    jest.runOnlyPendingTimers();
     expect(store.getState().metadata.get('linkTarget')).toEqual('_self');
 
     botUtter = {
@@ -76,6 +84,8 @@ describe('Messages metadata affect store', () => {
       .dive()
       .instance()
       .handleBotUtterance(botUtter);
+    expect(setTimeout).toHaveBeenCalledTimes(4);
+    jest.runOnlyPendingTimers();
     expect(store.getState().metadata.get('linkTarget')).toEqual('_blank');
   });
 
@@ -99,6 +109,8 @@ describe('Messages metadata affect store', () => {
       .dive()
       .instance()
       .handleBotUtterance(botUtter);
+    expect(setTimeout).toHaveBeenCalledTimes(5);
+    jest.runOnlyPendingTimers();
     expect(store.getState().behavior.get('pageChangeCallbacks').toJS()).toEqual({
       pageChanges: [
         {
@@ -125,9 +137,58 @@ describe('Messages metadata affect store', () => {
       .dive()
       .instance()
       .handleBotUtterance(botUtter);
+    expect(setTimeout).toHaveBeenCalledTimes(6);
+    jest.runOnlyPendingTimers();
     expect(store.getState().metadata.get('domHighlight').toJS()).toEqual({
       selector: '.test',
       style: 'color: red'
     });
+    // clear the dom highlight store so the next test does not try to remove it from the DOM
+    store.dispatch({ type: 'SET_DOM_HIGHLIGHT',
+      domHighlight: {} });
+  });
+
+  it('customCss metaData should change customCss info for the stored message in store', () => {
+    const botUtter = {
+      text: 'dummy',
+      metadata: {
+        customCss: {
+          css: 'color:red;',
+          style: 'custom'
+        }
+      }
+    };
+
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .handleBotUtterance(botUtter);
+    expect(setTimeout).toHaveBeenCalledTimes(7);
+    jest.runOnlyPendingTimers();
+    expect(store.getState().messages
+      .get(store.getState().messages.size - 1)
+      .toJS()
+      .customCss)
+      .toEqual({
+        css: 'color:red;',
+        style: 'custom'
+      });
+    const botUtter2 = {
+      text: 'dummy',
+      metadata: {
+      }
+    };
+
+    widgetComponent.dive().dive().dive().dive()
+      .dive()
+      .instance()
+      .handleBotUtterance(botUtter2);
+    expect(setTimeout).toHaveBeenCalledTimes(8);
+    jest.runOnlyPendingTimers();
+    expect(store.getState().messages
+      .get(store.getState().messages.size - 1)
+      .toJS()
+      .customCss)
+      .toEqual(undefined);
   });
 });

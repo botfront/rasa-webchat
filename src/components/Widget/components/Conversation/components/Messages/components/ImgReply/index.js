@@ -8,12 +8,24 @@ class ImgReply extends PureComponent {
     const { params: { images: { dims = {} } = {} } } = this.props;
     const { width, height } = dims;
     // Convert map to object
-    const message = [...this.props.message.entries()].reduce( (acc, e) => ( 
-      acc[e[0]] = e[1], 
-      acc), {});
+    const message = this.props.message.toJS();
     const { title, image } = message;
+    const customCss = this.props.message.get('customCss') && this.props.message.get('customCss').toJS();
+
+    if (customCss && customCss.style === 'class') {
+      customCss.css = customCss.css.replace(/^\./, '');
+    }
+
     return (
-      <div className="image">
+
+      <div
+        className={customCss && customCss.style === 'class' ?
+          `image ${customCss.css}` :
+          'image'}
+        style={{ cssText: customCss && customCss.style === 'custom' ?
+          customCss.css :
+          undefined }}
+      >
         <b className="image-title">
           { title }
         </b>
@@ -31,6 +43,6 @@ ImgReply.propTypes = {
 
 ImgReply.defaultProps = {
   params: {}
-}
+};
 
 export default ImgReply;

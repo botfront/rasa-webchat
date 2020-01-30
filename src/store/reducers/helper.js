@@ -86,7 +86,7 @@ export function getLocalSession(storage, key) {
     const parsedSession = JSON.parse(cachedSession);
     // Format conversation from array of object to immutable Map for use by messages components
     const formattedConversation = parsedSession.conversation
-      ? Object.values(parsedSession.conversation).map(item => Map(item))
+      ? parsedSession.conversation
       : [];
     // Check if params is undefined
     const formattedParams = parsedSession.params
@@ -134,7 +134,7 @@ export const storeMessageTo = storage => (conversation) => {
   const newSession = {
     // Since immutable List is not a native JS object, store conversation as array
     ...localSession,
-    conversation: [...Array.from(conversation)],
+    conversation: conversation.toJS(),
     lastUpdate: Date.now()
   };
   storage.setItem(SESSION_NAME, JSON.stringify(newSession));

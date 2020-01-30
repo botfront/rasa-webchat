@@ -258,3 +258,10 @@ export function evalUrl(url) {
   };
 }
 
+export function setCustomCss(customCss) {
+  return {
+    type: actions.SET_CUSTOM_CSS,
+    customCss
+  };
+}
+
