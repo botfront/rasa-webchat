@@ -103,9 +103,9 @@ export default function (
 
         // Do not persist connected state
         const connected = state.get('connected');
-
+        const messageDelayed = state.get('messageDelayed');
         if (localSession && localSession.params) {
-          return fromJS({ ...localSession.params, connected });
+          return fromJS({ ...localSession.params, connected, messageDelayed });
         }
         return state;
       }
