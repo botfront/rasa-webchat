@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.16](https://https///compare/v0.7.15...v0.7.16) (2020-01-30)
+
+
+### Features
+
+* initial support for pageEventCallbacks ([caf129b](https://https///commit/caf129b3b1d07c829732dde9c9d29d5d9c8311ce))
+
+
+### Bug Fixes
+
+* webchat stuck on typing after refresh ([6d6d2f2](https://https///commit/6d6d2f2c08b571c028bda225eb8443b5b4aeb3dc))
+
 ### [0.7.15](https://https///compare/v0.7.14...v0.7.15) (2020-01-29)
 
 ### [0.7.14](https://https///compare/v0.7.13...v0.7.14) (2020-01-29)
