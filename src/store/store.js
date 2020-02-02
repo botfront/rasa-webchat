@@ -34,11 +34,15 @@ function initStore(
       : null;
     switch (action.type) {
       case actionTypes.EMIT_NEW_USER_MESSAGE: {
+        console.log('socket is gonna emit');
+        console.log('user_uttered marker', socket.marker);
         socket.emit('user_uttered', {
           message: action.text,
           customData: socket.customData,
           session_id
         });
+        console.log('seesion id', session_id);
+        console.log('custom data', socket.customData);
         break;
       }
       case actionTypes.EMIT_MESSAGE_IF_FIRST: {

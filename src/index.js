@@ -27,6 +27,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
       this.onSocketEvent = onSocketEvent;
       this.socket = null;
       this.onEvents = [];
+      this.marker = Math.random();
     }
 
     isInitialized() {
