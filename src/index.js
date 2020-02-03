@@ -75,7 +75,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
 
   let sock = null;
 
-  if (!store || !store.socketRef) {
+  if (!store || !store.socket.socketRef) {
     sock = new Socket(
       props.socketUrl,
       props.customData,
@@ -88,7 +88,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
 
   const storage =
     props.params.storage === 'session' ? sessionStorage : localStorage;
-  if (!store || (sock && (sock.marker !== store.socketRef))) {
+  if (!store || (sock && (sock.marker !== store.socket.socketRef))) {
     store = initStore(
       props.inputTextFieldHint,
       props.connectingText,
@@ -97,7 +97,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
       props.docViewer,
       props.onWidgetEvent
     );
-    store.socketRef = sock.marker;
+    store.socket = sock;
   }
   return (
     <Provider store={store}>
@@ -123,7 +123,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
         closeImage={props.closeImage}
         customComponent={props.customComponent}
         displayUnreadCount={props.displayUnreadCount}
-        socket={sock}
+        socket={store.socket}
         showMessageDate={props.showMessageDate}
         customMessageDelay={props.customMessageDelay}
         tooltipPayload={props.tooltipPayload}
