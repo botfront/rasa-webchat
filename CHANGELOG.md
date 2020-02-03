@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.17](https://https///compare/v0.7.16...v0.7.17) (2020-02-03)
+
+
+### Bug Fixes
+
+* fixed socket update on props update ([ccfbb40](https://https///commit/ccfbb408e898ca9a940ec234aaa0dcbf643765b0))
+
 ### [0.7.16](https://https///compare/v0.7.15...v0.7.16) (2020-01-30)
 
 
