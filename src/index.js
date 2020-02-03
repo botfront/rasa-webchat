@@ -88,7 +88,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
 
   const storage =
     props.params.storage === 'session' ? sessionStorage : localStorage;
-  if (!store || sock.marker !== store.socketRef) {
+  if (!store || (sock && (sock.marker !== store.socketRef))) {
     store = initStore(
       props.inputTextFieldHint,
       props.connectingText,
