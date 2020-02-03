@@ -73,14 +73,18 @@ const ConnectedWidget = forwardRef((props, ref) => {
     }
   }
 
-  const sock = new Socket(
-    props.socketUrl,
-    props.customData,
-    props.socketPath,
-    props.protocol,
-    props.protocolOptions,
-    props.onSocketEvent
-  );
+  let sock = null;
+
+  if (!store.socketRef) {
+    sock = new Socket(
+      props.socketUrl,
+      props.customData,
+      props.socketPath,
+      props.protocol,
+      props.protocolOptions,
+      props.onSocketEvent
+    );
+  }
 
   const storage =
     props.params.storage === 'session' ? sessionStorage : localStorage;
