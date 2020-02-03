@@ -217,7 +217,7 @@ class Widget extends Component {
     pageEventCallbacks.forEach((pageEvent) => {
       const { event, payload, selector } = pageEvent;
       const sendPayload = () => {
-        this.sendMessage(payload);
+        this.sendMessage(payload.match(/^\//) ? payload : `/${payload}`);
       };
 
       if (event && payload && selector) {

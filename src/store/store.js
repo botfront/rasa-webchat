@@ -62,6 +62,8 @@ function initStore(
           });
         };
 
+        const payloadFormat = pl => (pl.match(/^\//) ? pl : `/${pl}`);
+
         if (!pageCallbacksJs.pageChanges) break;
 
         if (store.getState().behavior.get('oldUrl') !== newUrl) {
@@ -69,16 +71,17 @@ function initStore(
           const matched = pageChanges.some((callback) => {
             if (callback.regex) {
               if (newUrl.match(callback.url)) {
-                emitMessage(callback.callbackIntent);
+                const payload = callback.callbackIntent;
+                emitMessage(payloadFormat(callback.callbackIntent));
                 return true;
               }
             } else if (newUrl === callback.url) {
-              emitMessage(callback.callbackIntent);
+              emitMessage(payloadFormat(callback.callbackIntent));
               return true;
             }
             return false;
           });
-          if (!matched) emitMessage(errorIntent);
+          if (!matched) emitMessage(payloadFormat(errorIntent));
         }
         break;
       }
