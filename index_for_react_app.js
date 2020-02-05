@@ -1,4 +1,4 @@
-import ConnectedWidget from './src';
+import ConnectedWidget, { NotConnectedWidget } from './src';
 import {
   addUserMessage,
   addResponseMessage,
@@ -22,6 +22,7 @@ import {
 
 export {
   ConnectedWidget as Widget,
+  NotConnectedWidget,
   addUserMessage,
   addResponseMessage,
   addLinkSnippet,

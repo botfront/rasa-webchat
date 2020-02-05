@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Widget, toggleChat, openChat, closeChat, showChat, hideChat, isOpen, isVisible, send } from './index_for_react_app';
+import { Widget, NotConnectedWidget, toggleChat, openChat, closeChat, showChat, hideChat, isOpen, isVisible, send } from './index_for_react_app';
 
 const plugin = {
   init: (args) => {
@@ -45,6 +45,7 @@ const plugin = {
 export {
   plugin as default,
   Widget,
+  NotConnectedWidget,
   toggleChat as toggle,
   openChat as open,
   closeChat as close,
