@@ -217,3 +217,5 @@ ConnectedWidget.defaultProps = {
 };
 
 export default ConnectedWidget;
+
+export { Widget as NotConnectedWidget };
