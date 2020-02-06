@@ -4,28 +4,39 @@
     <title>Botfront - Web Chat</title>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<body style="background: greenyellow;">
+<body style="background: white;">
   <a href="#" onclick="WebChat.send('/chitchat.greet')">Send chitchat.greet without text</a>
   <br />
   <a href="#" onclick="WebChat.send('/chitchat.greet', 'salut')">Send chitchat.greet with text</a>
+  <h1 class="test"> test</h1>
 <script src="index.js"  type="text/javascript"></script>
 <div id="webchat"></div>
 <script>
   WebChat.default.init({
     selector: "#webchat",
-    initPayload: "/intro_registered_accounts",
+    initPayload: "/utter_hi",
     socketUrl: "http://localhost:5005/",
     tooltipPayload: "/tooltip_registered_accounts",
     tooltipDelay: 40000,
     socketPath: "/socket.io/",
     customData: {
-      language: 'fr'
+      language: 'en'
     },
     // subtitle: 'A subtitle',
     inputTextFieldHint: "Type a message...",
     connectingText: "Waiting for server...",
     profileAvatar: "https://storage.googleapis.com/dev-media-store-botfront-cloud/logo_square_circle_white_bg256.jpg",
     hideWhenNotConnected: false,
+    defaultHighlightAnimation: `@keyframes default-botfront-blinker-animation {
+      from {
+      outline-style: none;
+      outline-color: red;
+    }
+    to {
+      outline-style: solid;
+      outline-color: red;
+    }
+  }`,
     onSocketEvent: {
       'bot_uttered': () => console.log('bot uttered'),
     },

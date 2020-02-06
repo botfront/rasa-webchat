@@ -127,6 +127,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
         disableTooltips={props.disableTooltips}
         defaultHighlightCss={props.defaultHighlightCss}
         defaultHighlightAnimation={props.defaultHighlightAnimation}
+        defaultHighlightClassname={props.defaultHighlightClassname}
       />
     </Provider>
   );

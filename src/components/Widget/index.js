@@ -53,17 +53,15 @@ class Widget extends Component {
   componentDidMount() {
     const { connectOn, autoClearCache, storage, dispatch, defaultHighlightAnimation } = this.props;
 
+    const styleNode = document.createElement('style');
+    styleNode.innerHTML = defaultHighlightAnimation;
+    document.body.appendChild(styleNode);
+
     this.intervalId = setInterval(() => dispatch(evalUrl(window.location.href)), 500);
     if (connectOn === 'mount') {
       this.initializeWidget();
       return;
     }
-
-
-    // add the default highlight css to the document
-    const styleNode = document.createElement('style');
-    styleNode.innerHTML = defaultHighlightAnimation;
-    document.body.appendChild(styleNode);
 
 
     const localSession = getLocalSession(storage, SESSION_NAME);
@@ -328,7 +326,7 @@ class Widget extends Component {
         console.log(`session_confirm:${socket.socket.id} session_id:${remoteId}`);
         // Store the initial state to both the redux store and the storage, set connected to true
         dispatch(connectServer());
-        
+
         /*
         Check if the session_id is consistent with the server
         If the localId is null or different from the remote_id,
@@ -593,8 +591,12 @@ Widget.defaultProps = {
   oldUrl: '',
   disableTooltips: false,
   defaultHighlightClassname: '',
-  defaultHighlightCss: 'animation: blinker 0.5s linear infinite alternate;',
+  defaultHighlightCss: 'animation: 0.5s linear infinite alternate default-botfront-blinker-animation;',
   defaultHighlightAnimation: `@keyframes default-botfront-blinker-animation {
+    from {
+      outline-color: green;
+      outline-style: none;
+    }
     to {
       outline-style: solid;
       outline-color: green;
