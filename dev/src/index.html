@@ -4,7 +4,7 @@
     <title>Botfront - Web Chat</title>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<body style="background: white;">
+<body style="background: greenyellow;">
   <a href="#" onclick="WebChat.send('/chitchat.greet')">Send chitchat.greet without text</a>
   <br />
   <a href="#" onclick="WebChat.send('/chitchat.greet', 'salut')">Send chitchat.greet with text</a>
@@ -14,13 +14,13 @@
 <script>
   WebChat.default.init({
     selector: "#webchat",
-    initPayload: "/utter_hi",
+    initPayload: "/intro_registered_accounts",
     socketUrl: "http://localhost:5005/",
     tooltipPayload: "/tooltip_registered_accounts",
     tooltipDelay: 40000,
     socketPath: "/socket.io/",
     customData: {
-      language: 'en'
+      language: 'fr'
     },
     // subtitle: 'A subtitle',
     inputTextFieldHint: "Type a message...",

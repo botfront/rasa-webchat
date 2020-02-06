@@ -326,7 +326,6 @@ class Widget extends Component {
         console.log(`session_confirm:${socket.socket.id} session_id:${remoteId}`);
         // Store the initial state to both the redux store and the storage, set connected to true
         dispatch(connectServer());
-
         /*
         Check if the session_id is consistent with the server
         If the localId is null or different from the remote_id,
