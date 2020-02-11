@@ -1,4 +1,4 @@
-import { Map, List } from 'immutable';
+import { Map, fromJS } from 'immutable';
 import { MESSAGES_TYPES, MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
 import { Video, Image, Message, Snippet, QuickReply } from 'messagesComponents';
@@ -58,7 +58,7 @@ export function createQuickReply(quickReply, sender) {
     component: QuickReply,
     text: quickReply.text,
     hint: quickReply.hint || 'Select an option...',
-    quick_replies: List(quickReply.quick_replies),
+    quick_replies: fromJS(quickReply.quick_replies),
     sender,
     showAvatar: true,
     chosenReply: null,
