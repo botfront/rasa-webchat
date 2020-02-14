@@ -68,13 +68,12 @@ export default function (socketUrl, customData, _path, options) {
       socket.close();
       socketProxy.emit('disconnect', message.content || 'server left');
     } else if (message.type === 'SESSION_CONFIRM') {
-      socketProxy.emit('session_confirm', socketProxy.id);
+      const props = JSON.parse(message.content)
+      socketProxy.emit('session_confirm', {session_id: socketProxy.id, ...props});
     } else if (message.type === 'CHAT') {
       const agentMessage = JSON.parse(message.content);
       delete agentMessage.recipient_id;
       socketProxy.emit('bot_uttered', agentMessage);
-    } else if (message.type === 'SESSION_CONFIRM') {
-      socketProxy.emit('session_confirm', message.content);
     }
   };
 
