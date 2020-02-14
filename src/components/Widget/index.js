@@ -249,19 +249,21 @@ class Widget extends Component {
     const domHighlightJS = domHighlight.toJS() || {};
     if (domHighlightJS.selector) {
       const element = document.querySelector(domHighlightJS.selector);
-      switch (domHighlightJS.style) {
-        case 'custom':
-          element.setAttribute('style', '');
-          break;
-        case 'class':
-          element.classList.remove(domHighlightJS.css);
-          break;
-        default:
-          if (defaultHighlightClassname !== '') {
-            element.classList.remove(defaultHighlightClassname);
-          } else {
+      if (element) {
+        switch (domHighlightJS.style) {
+          case 'custom':
             element.setAttribute('style', '');
-          }
+            break;
+          case 'class':
+            element.classList.remove(domHighlightJS.css);
+            break;
+          default:
+            if (defaultHighlightClassname !== '') {
+              element.classList.remove(defaultHighlightClassname);
+            } else {
+              element.setAttribute('style', '');
+            }
+        }
       }
     }
   }
@@ -271,19 +273,21 @@ class Widget extends Component {
     const domHighlightJS = domHighlight.toJS() || {};
     if (domHighlightJS.selector) {
       const element = document.querySelector(domHighlightJS.selector);
-      switch (domHighlightJS.style) {
-        case 'custom':
-          element.setAttribute('style', domHighlightJS.css);
-          break;
-        case 'class':
-          element.classList.add(domHighlightJS.css);
-          break;
-        default:
-          if (defaultHighlightClassname !== '') {
-            element.classList.add(defaultHighlightClassname);
-          } else {
-            element.setAttribute('style', defaultHighlightCss);
-          }
+      if (element) {
+        switch (domHighlightJS.style) {
+          case 'custom':
+            element.setAttribute('style', domHighlightJS.css);
+            break;
+          case 'class':
+            element.classList.add(domHighlightJS.css);
+            break;
+          default:
+            if (defaultHighlightClassname !== '') {
+              element.classList.add(defaultHighlightClassname);
+            } else {
+              element.setAttribute('style', defaultHighlightCss);
+            }
+        }
       }
     }
   }
