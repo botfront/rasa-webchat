@@ -203,7 +203,7 @@ describe('Metadata store affect app behavior', () => {
       .instance()
       .applyCustomStyle();
 
-    expect(elemAttributes).toEqual({ attribute: 'style', value: 'animation: blinker 0.5s linear infinite alternate;' });
+    expect(elemAttributes).toEqual({ attribute: 'style', value: 'animation: 0.5s linear infinite alternate default-botfront-blinker-animation;' });
     expect(spyFunc).toHaveBeenCalled();
     const botUtter = {
       text: 'test'

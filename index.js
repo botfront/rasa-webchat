@@ -37,6 +37,9 @@ const plugin = {
         tooltipDelay={args.tooltipDelay}
         onWidgetEvent={args.onWidgetEvent}
         disableTooltips={args.disableTooltips}
+        defaultHighlightCss={args.defaultHighlightCss}
+        defaultHighlightAnimation={args.defaultHighlightAnimation}
+        defaultHighlightClassname={args.defaultHighlightClassname}
       />, document.querySelector(args.selector)
     );
   }
