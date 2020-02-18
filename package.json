@@ -1,6 +1,6 @@
 {
   "name": "rasa-webchat",
-  "version": "0.7.17",
+  "version": "0.7.19",
   "description": "Chat web widget for React apps and Rasa Core chatbots",
   "module": "module/index.js",
   "main": "lib/index.js",

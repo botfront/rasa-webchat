@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.19](https://https///compare/v0.7.17...v0.7.19) (2020-02-18)
+
+
+### Features
+
+* **sockjs:** session_confirm can contain props ([5f60300](https://https///commit/5f60300813ce25dd3bc15d6d35de37e640621e6c))
+* **sockjs:** session_confirm can contain props ([0102be5](https://https///commit/0102be559b662a954c85428c5f067848d2ab8c29))
+
+
+### Bug Fixes
+
+* crash when trying to hightlight with bad selector ([289b104](https://https///commit/289b1044e3f766eabd9ce506265c5d17507fc29a))
+* default css animations ([dd365ba](https://https///commit/dd365ba0ef7b31e28fa167e924204c2d420d643e))
+* quick replies after refresh ([2fb4c1d](https://https///commit/2fb4c1ddfd25f1dc8c2a13a72a7f4ce7d41c1716))
+
 ### [0.7.17](https://https///compare/v0.7.16...v0.7.17) (2020-02-03)
 
 
