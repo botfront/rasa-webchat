@@ -247,8 +247,8 @@ class Widget extends Component {
     const { domHighlight, defaultHighlightClassname } = this.props;
     const domHighlightJS = domHighlight.toJS() || {};
     if (domHighlightJS.selector) {
-      const element = document.querySelector(domHighlightJS.selector);
-      if (element) {
+      const elements = document.querySelectorAll(domHighlightJS.selector);
+      elements.forEach((element) => {
         switch (domHighlightJS.style) {
           case 'custom':
             element.setAttribute('style', '');
@@ -263,7 +263,7 @@ class Widget extends Component {
               element.setAttribute('style', '');
             }
         }
-      }
+      });
     }
   }
 
@@ -271,8 +271,8 @@ class Widget extends Component {
     const { domHighlight, defaultHighlightCss, defaultHighlightClassname } = this.props;
     const domHighlightJS = domHighlight.toJS() || {};
     if (domHighlightJS.selector) {
-      const element = document.querySelector(domHighlightJS.selector);
-      if (element) {
+      const elements = document.querySelectorAll(domHighlightJS.selector);
+      elements.forEach((element) => {
         switch (domHighlightJS.style) {
           case 'custom':
             element.setAttribute('style', domHighlightJS.css);
@@ -287,7 +287,7 @@ class Widget extends Component {
               element.setAttribute('style', defaultHighlightCss);
             }
         }
-      }
+      });
     }
   }
 
