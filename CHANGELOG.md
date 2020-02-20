@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.21](https://https///compare/v0.7.20...v0.7.21) (2020-02-20)
+
+
+### Features
+
+* sockjs transport can receive multiple messages at once ([ad108de](https://https///commit/ad108de2db807b564c58a99554d5e565c6426801))
+
 ### [0.7.20](https://https///compare/v0.7.19...v0.7.20) (2020-02-18)
 
 ### [0.7.19](https://https///compare/v0.7.17...v0.7.19) (2020-02-18)
