@@ -61,6 +61,11 @@ export default function (socketUrl, customData, _path, options) {
     console.log(error);
   };
 
+  const emitBotUtteredMessage = (message) => {
+      delete message.recipient_id;
+      socketProxy.emit('bot_uttered', message);
+  }
+
   socketProxy.onIncomingMessage = (payload) => {
     const message = JSON.parse(payload.body);
 
@@ -74,8 +79,11 @@ export default function (socketUrl, customData, _path, options) {
       socketProxy.emit('session_confirm', {session_id: socketProxy.id, ...props});
     } else if (message.type === 'CHAT') {
       const agentMessage = JSON.parse(message.content);
-      delete agentMessage.recipient_id;
-      socketProxy.emit('bot_uttered', agentMessage);
+      if (agentMessage instanceof Array) {
+        agentMessage.forEach(message => emitBotUtteredMessage(message))
+      } else {
+        emitBotUtteredMessage(agentMessage);
+      }
     }
   };
 
