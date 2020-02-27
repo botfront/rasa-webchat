@@ -1,5 +1,6 @@
 import { store } from '../../index';
 import * as actions from './index';
+import { INITIALIZE } from './actionTypes';
 
 export function isOpen() {
   return store.dispatch(actions.getOpenState());
@@ -10,6 +11,7 @@ export function isVisible() {
 }
 
 export function initialize() {
+  console.log('INITIALIZE')
   store.dispatch(actions.initialize());
 }
 

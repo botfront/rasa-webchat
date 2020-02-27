@@ -116,10 +116,9 @@ class Widget extends Component {
   }
 
   sendMessage(payload, text = '', when = 'always') {
-    const { dispatch, initialized } = this.props;
-    if (!initialized) {
+    const { dispatch, connected, socket} = this.props;
+    if (!connected) {
       this.initializeWidget(false);
-      dispatch(initialize());
     }
     if (when === 'always') {
       dispatch(emitUserMessage(payload));
@@ -306,7 +305,6 @@ class Widget extends Component {
     console.log('state init', initialized)
     if (!socket.isInitialized()) {
       console.log('socket was not init');
-      console.log('socket', socket.marker);
       socket.createSocket();
 
       socket.on('bot_uttered', (botUttered) => {
