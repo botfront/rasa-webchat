@@ -28,12 +28,12 @@ const ConnectedWidget = forwardRef((props, ref) => {
       this.socket = null;
       this.onEvents = [];
       this.marker = Math.random();
-      console.log('marker', this.marker);
     }
 
     isInitialized() {
-      console.log('marker?', this.marker);
-      console.log('is socket connected ?', JSON.stringify(this.socket));
+      console.log('is it init', this.socket !== null && this.socket.connected);
+      console.log('marker', this.marker);
+      console.log('socket',this.socket);
       return this.socket !== null && this.socket.connected;
     }
 
@@ -53,6 +53,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
 
     close() {
       if (this.socket) {
+        console.log('closed')
         this.socket.close();
       }
     }
@@ -65,6 +66,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
         this.protocol,
         this.protocolOptions
       );
+      console.log('created new socket')
       this.onEvents.forEach((event) => {
         this.socket.on(event.event, event.callback);
       });
@@ -73,8 +75,8 @@ const ConnectedWidget = forwardRef((props, ref) => {
       Object.keys(this.onSocketEvent).forEach((event) => {
         this.socket.on(event, this.onSocketEvent[event]);
       });
-    }
   }
+}
 
   const sock = new Socket(
     props.socketUrl,

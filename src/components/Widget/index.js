@@ -303,6 +303,7 @@ class Widget extends Component {
       tooltipDelay
     } = this.props;
     console.log('trying to init socket');
+    console.log('state init', initialized)
     if (!socket.isInitialized()) {
       console.log('socket was not init');
       console.log('socket', socket.marker);
