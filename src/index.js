@@ -33,7 +33,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
     isInitialized() {
       console.log('is it init', this.socket !== null && this.socket.connected);
       console.log('marker', this.marker);
-      console.log('socket',this.socket);
+      console.log('socket', this.socket);
       return this.socket !== null;
     }
 
@@ -53,25 +53,24 @@ const ConnectedWidget = forwardRef((props, ref) => {
 
     close() {
       if (this.socket) {
-        console.log('closed')
+        console.log('closed');
         this.socket.close();
       }
     }
 
     createSocket() {
-      console.log('trying to create socket')
-      if (this.socket === null) {
-        console.log('new socket')
-        this.socket = socket(
-          this.url,
-          this.customData,
-          this.path,
-          this.protocol,
-          this.protocolOptions
-        );
-      }
-      console.log('already exist')
-      
+      console.log('trying to create socket');
+      // if (this.socket === null) {
+      console.log('new socket');
+      this.socket = socket(
+        this.url,
+        this.customData,
+        this.path,
+        this.protocol,
+        this.protocolOptions
+      );
+      // console.log('already exist')
+
       this.onEvents.forEach((event) => {
         this.socket.on(event.event, event.callback);
       });
@@ -80,8 +79,8 @@ const ConnectedWidget = forwardRef((props, ref) => {
       Object.keys(this.onSocketEvent).forEach((event) => {
         this.socket.on(event, this.onSocketEvent[event]);
       });
+    }
   }
-}
 
   const sock = new Socket(
     props.socketUrl,
