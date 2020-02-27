@@ -32,7 +32,8 @@ const ConnectedWidget = forwardRef((props, ref) => {
     }
 
     isInitialized() {
-      console.log('is socket init ?', this.marker);
+      console.log('marker?', this.marker);
+      console.log('is socket connected ?', this.socket.connected);
       return this.socket !== null && this.socket.connected;
     }
 
