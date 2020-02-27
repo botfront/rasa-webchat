@@ -59,13 +59,16 @@ const ConnectedWidget = forwardRef((props, ref) => {
     }
 
     createSocket() {
-      this.socket = socket(
-        this.url,
-        this.customData,
-        this.path,
-        this.protocol,
-        this.protocolOptions
-      );
+      if(!this.socket){
+        this.socket = socket(
+          this.url,
+          this.customData,
+          this.path,
+          this.protocol,
+          this.protocolOptions
+        );
+      }
+      
       console.log('created new socket')
       this.onEvents.forEach((event) => {
         this.socket.on(event.event, event.callback);
