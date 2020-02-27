@@ -302,8 +302,10 @@ class Widget extends Component {
       tooltipPayload,
       tooltipDelay
     } = this.props;
-
+    console.log('trying to init socket');
     if (!socket.isInitialized()) {
+      console.log('socket was not init');
+      console.log('socket', socket.marker);
       socket.createSocket();
 
       socket.on('bot_uttered', (botUttered) => {
@@ -316,6 +318,7 @@ class Widget extends Component {
       const localId = this.getSessionId();
       socket.on('connect', () => {
         socket.emit('session_request', { session_id: localId });
+        console.log('emit req');
       });
 
       // When session_confirm is received from the server:
