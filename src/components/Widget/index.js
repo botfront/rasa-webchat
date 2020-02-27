@@ -57,8 +57,8 @@ class Widget extends Component {
     const styleNode = document.createElement('style');
     styleNode.innerHTML = defaultHighlightAnimation;
     document.body.appendChild(styleNode);
-
-    this.intervalId = setInterval(() => dispatch(evalUrl(window.location.href)), 500);
+    console.log('mount');
+    // this.intervalId = setInterval(() => dispatch(evalUrl(window.location.href)), 500);
     if (connectOn === 'mount') {
       this.initializeWidget();
       return;
