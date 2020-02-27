@@ -120,6 +120,7 @@ class Widget extends Component {
     if (!connected) {
       this.initializeWidget(false);
     }
+    dispatch(initialize())
     if (when === 'always') {
       dispatch(emitUserMessage(payload));
       if (text !== '') dispatch(addUserMessage(text));
