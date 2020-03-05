@@ -9,7 +9,7 @@ export default function (storage) {
     userInput: '',
     domHighlight: Map(),
     hintText: '',
-    tooltipMessage: ''
+    showTooltip: false
   });
 
   const initialState = Map({
@@ -32,8 +32,8 @@ export default function (storage) {
       case actionTypes.TRIGGER_TOOLTIP_SENT: {
         return storeMetadata(state.set('tooltipSent', state.get('tooltipSent').set(action.payloadSent, true)));
       }
-      case actionTypes.SET_TOOLTIP_MESSAGE: {
-        return storeMetadata(state.set('tooltipMessage', action.tooltipMessage));
+      case actionTypes.SHOW_TOOLTIP: {
+        return storeMetadata(state.set('showTooltip', action.visible));
       }
       case actionTypes.SET_DOM_HIGHLIGHT: {
         return storeMetadata(state.set('domHighlight', fromJS(action.domHighlight)));

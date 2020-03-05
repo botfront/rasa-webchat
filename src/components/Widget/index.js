@@ -22,7 +22,7 @@ import {
   newUnreadMessage,
   triggerMessageDelayed,
   triggerTooltipSent,
-  setTooltipMessage,
+  showTooltip,
   emitMessageIfFirst,
   clearMetadata,
   setUserInput,
@@ -156,7 +156,7 @@ class Widget extends Component {
       this.dispatchMessage(message);
       if (!isChatOpen) {
         dispatch(newUnreadMessage());
-        if (!disableTooltips) dispatch(setTooltipMessage(String(message.text)));
+        if (!disableTooltips) dispatch(showTooltip(true));
       }
       dispatch(triggerMessageDelayed(false));
       this.onGoingMessageDelay = false;
@@ -438,7 +438,7 @@ class Widget extends Component {
   }
 
   toggleConversation() {
-    this.props.dispatch(setTooltipMessage(null));
+    this.props.dispatch(showTooltip(false));
     clearTimeout(this.tooltipTimeout);
     this.props.dispatch(toggleChat());
   }

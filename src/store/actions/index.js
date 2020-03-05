@@ -186,10 +186,10 @@ export function triggerMessageDelayed(messageDelayed) {
   };
 }
 
-export function setTooltipMessage(tooltipMessage) {
+export function showTooltip(visible) {
   return {
-    type: actions.SET_TOOLTIP_MESSAGE,
-    tooltipMessage
+    type: actions.SHOW_TOOLTIP,
+    visible
   };
 }
 

@@ -17,8 +17,8 @@ const Launcher = ({
   closeImage,
   unreadCount,
   displayUnreadCount,
-  tooltipMessage,
-  linkTarget
+  showTooltip,
+  lastMessage,
 }) => {
   const className = ['launcher'];
   if (isChatOpen) className.push('hide-sm');
@@ -51,7 +51,7 @@ const Launcher = ({
         <div className="unread-count-pastille">{unreadCount}</div>
       )}
       <img src={openLauncherImage || openLauncher} className="open-launcher" alt="" />
-      {tooltipMessage && renderToolTip()}
+      {showTooltip && renderToolTip()}
     </div>
   );
 
@@ -80,13 +80,14 @@ Launcher.propTypes = {
   closeImage: PropTypes.string,
   unreadCount: PropTypes.number,
   displayUnreadCount: PropTypes.bool,
-  tooltipMessage: PropTypes.string,
-  linkTarget: PropTypes.string
+  showTooltip: PropTypes.bool,
+  lastMessage: ImmutablePropTypes.map,
 };
 
 const mapStateToProps = state => ({
+  lastMessage: state.messages.get(-1) || new Map(),
   unreadCount: state.behavior.get('unreadCount') || 0,
-  tooltipMessage: state.metadata.get('tooltipMessage'),
+  showTooltip: state.metadata.get('showTooltip'),
   linkTarget: state.metadata.get('linkTarget')
 });
 
