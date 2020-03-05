@@ -22,7 +22,7 @@ describe('message target store affect app behavior', () => {
   );
 
   it('should render a tooltip', () => {
-    store.dispatch({ type: 'SET_TOOLTIP_MESSAGE', tooltipMessage: 'hey' });
+    store.dispatch({ type: 'SHOW_TOOLTIP', visible: true });
     launcherCompoment.update();
     expect(launcherCompoment.find('.tooltip-body')).toHaveLength(1);
     expect(launcherCompoment.find('.tooltip-body').text()).toEqual('hey');
