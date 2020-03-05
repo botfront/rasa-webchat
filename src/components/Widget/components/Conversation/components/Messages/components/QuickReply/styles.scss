@@ -4,39 +4,11 @@
 .conversation-container {
 
   .replies {
-    margin: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    overflow: auto;
-    font-size: 14px;
-    font-family: $roboto;
+    @include replies;
   }
   
   .reply {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-    border-color: $blue-2;
-    border-radius: 15px;
-    border-width: 1px;
-    color: $blue-2;
-    border-style: solid;
-    padding-right: 8px;
-    padding-left: 8px;
-    padding-bottom: 4px;
-    padding-top: 4px;
-    max-width: 215px;
-    min-height: 1.7em;
-    text-align: center;
-    font-family: $roboto;
-    cursor: pointer;
-    margin: 0.25em;
+    @include reply;
   }
   
   .response {

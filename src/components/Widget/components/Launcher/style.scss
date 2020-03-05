@@ -66,6 +66,14 @@
         background: rgb(250, 250, 250);
       }
     }
+    .replies {
+      @include replies;
+    }
+    
+    .reply {
+      @include reply;
+    }
+
   }
   .tooltip-decoration {
     position: absolute;
