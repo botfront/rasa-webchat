@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ReactMarkdown from 'react-markdown';
+import { Map } from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import { MESSAGES_TYPES } from 'constants';
+import { Image, Message, QuickReply } from 'messagesComponents';
 import openLauncher from 'assets/launcher_button.svg';
 import close from 'assets/clear-button.svg';
 import Badge from './components/Badge';
@@ -18,29 +21,36 @@ const Launcher = ({
   unreadCount,
   displayUnreadCount,
   showTooltip,
-  lastMessage,
+  lastMessage
 }) => {
   const className = ['launcher'];
   if (isChatOpen) className.push('hide-sm');
   if (fullScreenMode) className.push(`full-screen${isChatOpen ? '  hide' : ''}`);
 
+
+  const getComponentToRender = (message) => {
+    const ComponentToRender = (() => {
+      switch (message.get('type')) {
+        case MESSAGES_TYPES.TEXT: {
+          return Message;
+        }
+        case MESSAGES_TYPES.IMGREPLY.IMAGE: {
+          return Image;
+        }
+        case MESSAGES_TYPES.QUICK_REPLY: {
+          return QuickReply;
+        }
+        default:
+          return null;
+      }
+    })();
+    return <ComponentToRender id={-1} params={{}} message={message} isLast />;
+  };
+
   const renderToolTip = () => (
     <div className="tooltip-body">
-      <ReactMarkdown
-        className={'markdown'}
-        source={tooltipMessage}
-        linkTarget={(url) => {
-          if (!url.startsWith('mailto') && !url.startsWith('javascript')) return '_blank';
-          return undefined;
-        }}
-        transformLinkUri={null}
-        renderers={{
-          // eslint-disable-next-line react/display-name
-          link: props =>
-            <a href={props.href} target={linkTarget || '_blank'} rel="noopener noreferrer">{props.children}</a>
-        }}
-      />
 
+      {getComponentToRender(lastMessage)}
       <div className="tooltip-decoration" />
     </div>
   );
@@ -81,7 +91,7 @@ Launcher.propTypes = {
   unreadCount: PropTypes.number,
   displayUnreadCount: PropTypes.bool,
   showTooltip: PropTypes.bool,
-  lastMessage: ImmutablePropTypes.map,
+  lastMessage: ImmutablePropTypes.map
 };
 
 const mapStateToProps = state => ({
