@@ -134,9 +134,15 @@ class Widget extends Component {
     }
   }
 
-  handleMessageReceived(message) {
-    const { dispatch } = this.props;
-    if (!this.onGoingMessageDelay) {
+  handleMessageReceived(messageWithMetadata) {
+    const { dispatch, isChatOpen, disableTooltips } = this.props;
+    // we extract metadata so we are sure it does not interfer with type checking of the message
+    const { metadata, ...message } = messageWithMetadata;
+    if (!isChatOpen) {
+      this.dispatchMessage(message);
+      dispatch(newUnreadMessage());
+      if (!disableTooltips) dispatch(showTooltip(true));
+    } else if (!this.onGoingMessageDelay) {
       this.onGoingMessageDelay = true;
       dispatch(triggerMessageDelayed(true));
       this.newMessageTimeout(message);
@@ -154,15 +160,10 @@ class Widget extends Component {
     }
   }
 
-  newMessageTimeout(messageWithMetadata) {
-    const { dispatch, isChatOpen, customMessageDelay, disableTooltips } = this.props;
-    const { metadata, ...message } = messageWithMetadata;
+  newMessageTimeout(message) {
+    const { dispatch, customMessageDelay } = this.props;
     setTimeout(() => {
       this.dispatchMessage(message);
-      if (!isChatOpen) {
-        dispatch(newUnreadMessage());
-        if (!disableTooltips) dispatch(showTooltip(true));
-      }
       dispatch(triggerMessageDelayed(false));
       this.onGoingMessageDelay = false;
       this.popLastMessage();
