@@ -66,9 +66,6 @@
       .tooltip-decoration {
         background: rgb(250, 250, 250);
       }
-      .tooltip-close {
-        visibility: visible;
-      }
     }
     .image-details {
       object-fit: scale-down;
@@ -98,21 +95,6 @@
       height: 100%;
       border-radius: 9px;
     }
-  
-    .tooltip-close {
-      visibility: hidden;
-      position: absolute;
-      top: 5px;
-      right: 10px;
-      color: red;
-      height: 15px;
-      width: 15px;
-      transition: all 0.2s ease-in-out;
-      button{
-        border: none;
-        padding: 0;
-      }
-  }
   }
   .tooltip-decoration {
     position: absolute;
@@ -129,7 +111,20 @@
    margin-top:1.5rem
   }
 
- 
+  .tooltip-close {
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    color: red;
+    height: 15px;
+    width: 15px;
+    transition: all 0.2s ease-in-out;
+    button{
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+  }
 }
 
 @keyframes slideUp {
