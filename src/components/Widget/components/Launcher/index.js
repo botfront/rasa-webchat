@@ -5,11 +5,14 @@ import { Map } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { MESSAGES_TYPES } from 'constants';
 import { Image, Message, QuickReply } from 'messagesComponents';
+import { showTooltip as showTooltipAction } from 'actions';
 import openLauncher from 'assets/launcher_button.svg';
+import closeIcon from 'assets/clear-button-grey.svg';
 import close from 'assets/clear-button.svg';
 import Badge from './components/Badge';
 
 import './style.scss';
+
 
 const Launcher = ({
   toggle,
@@ -21,7 +24,8 @@ const Launcher = ({
   unreadCount,
   displayUnreadCount,
   showTooltip,
-  lastMessage
+  lastMessage,
+  closeTooltip
 }) => {
   const className = ['launcher'];
   if (isChatOpen) className.push('hide-sm');
@@ -47,10 +51,20 @@ const Launcher = ({
     return <ComponentToRender id={-1} params={{}} message={message} isLast />;
   };
 
+
   const renderToolTip = () => (
     <div className="tooltip-body">
-
-      {getComponentToRender(lastMessage)}
+      <div className="tooltip-close" >
+        <button onClick={(e) => { e.stopPropagation(); closeTooltip(); }}>
+          <img
+            src={closeIcon}
+            alt="close"
+          />
+        </button>
+      </div>
+      <div className="tooltip-response">
+        {getComponentToRender(lastMessage)}
+      </div>
       <div className="tooltip-decoration" />
     </div>
   );
@@ -101,4 +115,8 @@ const mapStateToProps = state => ({
   linkTarget: state.metadata.get('linkTarget')
 });
 
-export default connect(mapStateToProps)(Launcher);
+const mapDispatchToProps = dispatch => ({
+  closeTooltip: () => dispatch(showTooltipAction(false))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Launcher);

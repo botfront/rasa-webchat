@@ -106,6 +106,25 @@
     transition: all 0.2s ease-in-out;
     clip-path: polygon(100% 50%, 50% 0, 50% 100%);
   }
+
+  .tooltip-response {
+   margin-top:1.5rem
+  }
+
+  .tooltip-close {
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    color: red;
+    height: 15px;
+    width: 15px;
+    transition: all 0.2s ease-in-out;
+    button{
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+  }
 }
 
 @keyframes slideUp {
