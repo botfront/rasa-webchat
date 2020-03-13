@@ -39,7 +39,13 @@ describe('Metadata store affect app behavior', () => {
   let elemAttributes;
   const classes = [];
   let eventListener;
-  const spyFunc = jest.fn(() => ({
+
+
+  const querySelectorAllspyFunc = jest.fn(() => ([{
+    addEventListener(event, handler) {
+      eventListener = { event, handler };
+    },
+
     setAttribute(attribute, value) {
       elemAttributes = { attribute, value };
     },
@@ -51,15 +57,7 @@ describe('Metadata store affect app behavior', () => {
         const index = classes.indexOf(className);
         classes.splice(index, 1);
       }
-    }
-  }
-  ));
-
-  const querySelectorAllspyFunc = jest.fn(() => ([{
-    addEventListener(event, handler) {
-      eventListener = { event, handler };
     } }]));
-  Object.defineProperty(document, 'querySelector', { value: spyFunc });
   Object.defineProperty(document, 'querySelectorAll', { value: querySelectorAllspyFunc });
 
   beforeEach(() => sentToSocket = []);
@@ -179,7 +177,7 @@ describe('Metadata store affect app behavior', () => {
       .applyCustomStyle();
 
     expect(elemAttributes).toEqual({ attribute: 'style', value: 'color: red' });
-    expect(spyFunc).toHaveBeenCalled();
+    expect(querySelectorAllspyFunc).toHaveBeenCalled();
     const botUtter = {
       text: 'test'
     };
@@ -204,7 +202,7 @@ describe('Metadata store affect app behavior', () => {
       .applyCustomStyle();
 
     expect(elemAttributes).toEqual({ attribute: 'style', value: 'animation: 0.5s linear infinite alternate default-botfront-blinker-animation;' });
-    expect(spyFunc).toHaveBeenCalled();
+    expect(querySelectorAllspyFunc).toHaveBeenCalled();
     const botUtter = {
       text: 'test'
     };
@@ -229,7 +227,7 @@ describe('Metadata store affect app behavior', () => {
       .applyCustomStyle();
 
     expect(classes).toEqual(['highlight-class']);
-    expect(spyFunc).toHaveBeenCalled();
+    expect(querySelectorAllspyFunc).toHaveBeenCalled();
     const botUtter = {
       text: 'test'
     };
