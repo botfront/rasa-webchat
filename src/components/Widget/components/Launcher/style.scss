@@ -75,7 +75,8 @@
     }
     .replies {
       @include replies;
-      margin-left: 4px;
+      justify-content: center;
+      margin-left: 10px;
     }
     
     .reply {
@@ -83,8 +84,9 @@
     }
 
     .response {
-      text-align: left;
-       margin-left: 10px;
+      text-align: center;
+      margin-left: 10px;
+      margin-right: 10px;
     }
     .image-frame {
       object-position: 0 0;
