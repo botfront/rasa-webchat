@@ -13,7 +13,6 @@ export default function (
   const initialState = Map({
     connected: false,
     initialized: false,
-    tooltipMessage: null,
     isChatVisible: true,
     isChatOpen: false,
     disabledInput: true,
