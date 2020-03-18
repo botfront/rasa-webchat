@@ -29,16 +29,28 @@ function initStore(
   onWidgetEvent,
 ) {
   const customMiddleWare = store => next => (action) => {
-    const session_id = getLocalSession(storage, SESSION_NAME)
+    let sessionId = getLocalSession(storage, SESSION_NAME)
       ? getLocalSession(storage, SESSION_NAME).session_id
       : null;
+    if (!sessionId && socket.sessionId) {
+      sessionId = socket.sessionId;
+    }
     switch (action.type) {
       case actionTypes.EMIT_NEW_USER_MESSAGE: {
-        socket.emit('user_uttered', {
-          message: action.text,
-          customData: socket.customData,
-          session_id
-        });
+        const emit = () => socket.emit(
+          'user_uttered', {
+            message: action.text,
+            customData: socket.customData,
+            session_id: sessionId
+          }
+        );
+        if (socket.sessionConfirmed) {
+          emit();
+        } else {
+          socket.on('session_confirm', () => {
+            emit();
+          });
+        }
         break;
       }
       case actionTypes.EMIT_MESSAGE_IF_FIRST: {
@@ -46,7 +58,7 @@ function initStore(
           socket.emit('user_uttered', {
             message: action.payload,
             customData: socket.customData,
-            session_id
+            session_id: sessionId
           });
         }
         break;
@@ -69,7 +81,7 @@ function initStore(
           socket.emit('user_uttered', {
             message,
             customData: socket.customData,
-            session_id
+            session_id: sessionId
           });
         };
 
@@ -99,6 +111,9 @@ function initStore(
           });
           if (!matched) emitMessage(errorIntent);
         }
+        break;
+      }
+      default: {
         break;
       }
     }
