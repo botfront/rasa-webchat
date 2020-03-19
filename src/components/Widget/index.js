@@ -117,15 +117,20 @@ class Widget extends Component {
 
   sendMessage(payload, text = '', when = 'always') {
     const { dispatch, initialized } = this.props;
+    const emit = () => {
+      if (when === 'always') {
+        dispatch(emitUserMessage(payload));
+        if (text !== '') dispatch(addUserMessage(text));
+      } else if (when === 'init') {
+        dispatch(emitMessageIfFirst(payload, text));
+      }
+    };
     if (!initialized) {
       this.initializeWidget(false);
       dispatch(initialize());
-    }
-    if (when === 'always') {
-      dispatch(emitUserMessage(payload));
-      if (text !== '') dispatch(addUserMessage(text));
-    } else if (when === 'init') {
-      dispatch(emitMessageIfFirst(payload, text));
+      emit();
+    } else {
+      emit();
     }
   }
 
@@ -302,7 +307,6 @@ class Widget extends Component {
       tooltipPayload,
       tooltipDelay
     } = this.props;
-
     if (!socket.isInitialized()) {
       socket.createSocket();
 
@@ -320,12 +324,9 @@ class Widget extends Component {
 
       // When session_confirm is received from the server:
       socket.on('session_confirm', (sessionObject) => {
-        let remoteId;
-        if (typeof sessionObject === 'object' && sessionObject !== null) {
-          remoteId = sessionObject.session_id;
-        } else {
-          remoteId = sessionObject;
-        }
+        const remoteId = (sessionObject && sessionObject.session_id)
+          ? sessionObject.session_id
+          : sessionObject;
 
         // eslint-disable-next-line no-console
         console.log(`session_confirm:${socket.socket.id} session_id:${remoteId}`);

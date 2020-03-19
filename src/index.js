@@ -62,6 +62,14 @@ const ConnectedWidget = forwardRef((props, ref) => {
         this.protocol,
         this.protocolOptions
       );
+      // We set a function on session_confirm here so as to avoid any race condition
+      // this will be called first and will set those parameters for everyone to use.
+      this.socket.on('session_confirm', (sessionObject) => {
+        this.sessionConfirmed = true;
+        this.sessionId = (sessionObject && sessionObject.session_id)
+          ? sessionObject.session_id
+          : sessionObject;
+      });
       this.onEvents.forEach((event) => {
         this.socket.on(event.event, event.callback);
       });
