@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.22](https://https///compare/v0.7.21...v0.7.22) (2020-03-19)
+
+
+### Features
+
+* close button for tooltips ([229d90d](https://https///commit/229d90df95d56de5e717cbb1483235c753e14802))
+* support images in tooltips ([104644d](https://https///commit/104644d4623c82e061f317a8eecbb3de7aee41a6))
+* support quick replies in tooltips ([09e9f97](https://https///commit/09e9f9735a469efa219db3af7b1dea5c943b35e9))
+
+
+### Bug Fixes
+
+* removed session_confirm race condition ([ed16933](https://https///commit/ed1693336a72de15fde7a46295b3386921d7bcf3))
+
 ### [0.7.21](https://https///compare/v0.7.20...v0.7.21) (2020-02-20)
 
 
