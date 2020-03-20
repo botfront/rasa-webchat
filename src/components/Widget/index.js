@@ -43,10 +43,12 @@ class Widget extends Component {
   constructor(props) {
     super(props);
     this.messages = [];
+    this.delayedMessage = null;
+    this.messageDelayTimeout = null;
     this.onGoingMessageDelay = false;
     this.sendMessage = this.sendMessage.bind(this);
     this.intervalId = null;
-    this.eventListenerCleaner = () => {};
+    this.eventListenerCleaner = () => { };
   }
 
 
@@ -134,9 +136,15 @@ class Widget extends Component {
     }
   }
 
-  handleMessageReceived(message) {
-    const { dispatch } = this.props;
-    if (!this.onGoingMessageDelay) {
+  handleMessageReceived(messageWithMetadata) {
+    const { dispatch, isChatOpen, disableTooltips } = this.props;
+    // we extract metadata so we are sure it does not interfer with type checking of the message
+    const { metadata, ...message } = messageWithMetadata;
+    if (!isChatOpen) {
+      this.dispatchMessage(message);
+      dispatch(newUnreadMessage());
+      if (!disableTooltips) dispatch(showTooltip(true));
+    } else if (!this.onGoingMessageDelay) {
       this.onGoingMessageDelay = true;
       dispatch(triggerMessageDelayed(true));
       this.newMessageTimeout(message);
@@ -154,15 +162,11 @@ class Widget extends Component {
     }
   }
 
-  newMessageTimeout(messageWithMetadata) {
-    const { dispatch, isChatOpen, customMessageDelay, disableTooltips } = this.props;
-    const { metadata, ...message } = messageWithMetadata;
-    setTimeout(() => {
+  newMessageTimeout(message) {
+    const { dispatch, customMessageDelay } = this.props;
+    this.delayedMessage = message;
+    this.messageDelayTimeout = setTimeout(() => {
       this.dispatchMessage(message);
-      if (!isChatOpen) {
-        dispatch(newUnreadMessage());
-        if (!disableTooltips) dispatch(showTooltip(true));
-      }
       dispatch(triggerMessageDelayed(false));
       this.onGoingMessageDelay = false;
       this.popLastMessage();
@@ -439,9 +443,30 @@ class Widget extends Component {
   }
 
   toggleConversation() {
-    this.props.dispatch(showTooltip(false));
+    const {
+      isChatOpen,
+      dispatch,
+      disableTooltips
+    } = this.props;
+    if (isChatOpen && this.delayedMessage) {
+      if (!disableTooltips) dispatch(showTooltip(true));
+      clearTimeout(this.messageDelayTimeout);
+      this.dispatchMessage(this.delayedMessage);
+      dispatch(newUnreadMessage());
+      this.onGoingMessageDelay = false;
+      dispatch(triggerMessageDelayed(false));
+      this.messages.forEach((message) => {
+        this.dispatchMessage(message);
+        dispatch(newUnreadMessage());
+      });
+
+      this.messages = [];
+      this.delayedMessage = null;
+    } else {
+      this.props.dispatch(showTooltip(false));
+    }
     clearTimeout(this.tooltipTimeout);
-    this.props.dispatch(toggleChat());
+    dispatch(toggleChat());
   }
 
   toggleFullScreen() {
