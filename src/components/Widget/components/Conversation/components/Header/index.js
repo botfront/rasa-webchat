@@ -19,19 +19,19 @@ const Header = ({
   closeImage,
   profileAvatar
 }) =>
-  <div className="header-and-loading">
-    <div className={`header ${subtitle ? 'with-subtitle' : ''}`}>
+  <div className="rw-header-and-loading">
+    <div className={`rw-header ${subtitle ? 'rw-with-subtitle' : ''}`}>
       {
         profileAvatar && (
-          <img src={profileAvatar} className="avatar" alt="chat avatar" />
+          <img src={profileAvatar} className="rw-avatar" alt="chat avatar" />
         )
       }
-      <div className="header-buttons">
+      <div className="rw-header-buttons">
         {
           showFullScreenButton &&
-          <button className="toggle-fullscreen-button" onClick={toggleFullScreen}>
+          <button className="rw-toggle-fullscreen-button" onClick={toggleFullScreen}>
             <img
-              className={`toggle-fullscreen ${fullScreenMode ? 'fullScreenExitImage' : 'fullScreenImage'}`}
+              className={`rw-toggle-fullscreen ${fullScreenMode ? 'rw-fullScreenExitImage' : 'rw-fullScreenImage'}`}
               src={fullScreenMode ? fullscreenExit : fullscreen}
               alt="toggle fullscreen"
             />
@@ -39,21 +39,21 @@ const Header = ({
         }
         {
           showCloseButton &&
-          <button className="close-button" onClick={toggleChat}>
+          <button className="rw-close-button" onClick={toggleChat}>
             <img
-              className={`close ${closeImage ? '' : 'default'}`}
+              className={`rw-close ${closeImage ? '' : 'rw-default'}`}
               src={closeImage || close}
               alt="close"
             />
           </button>
         }
       </div>
-      <h4 className={`title ${profileAvatar && 'with-avatar'}`}>{title}</h4>
-      {subtitle && <span className={profileAvatar && 'with-avatar'}>{subtitle}</span>}
+      <h4 className={`rw-title ${profileAvatar && 'rw-with-avatar'}`}>{title}</h4>
+      {subtitle && <span className={profileAvatar && 'rw-with-avatar'}>{subtitle}</span>}
     </div>
     {
       !connected &&
-      <span className="loading">
+      <span className="rw-loading">
         {connectingText}
       </span>
     }

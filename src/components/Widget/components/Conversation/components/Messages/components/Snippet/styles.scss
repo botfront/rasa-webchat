@@ -1,23 +1,26 @@
 @import "variables.scss";
-@import "common.scss";
+.#{$namespace}widget-wrapper-css {
 
-.conversation-container {
-  .snippet {
-    @include message-bubble($grey-2, #000);
-  }
-  
-  .snippet-title {
-    margin: 0;
-  }
-  
-  .snippet-details {
-    border-left: 2px solid $green-1;
-    margin-top: 5px;
-    padding-left: 10px;
-  }
-  
-  .link {
-    font-family: $roboto;
+  @import "common.scss";
+
+  .#{$namespace}conversation-container {
+    .#{$namespace}snippet {
+      @include message-bubble($grey-2, #000);
+    }
+    
+    .#{$namespace}snippet-title {
+      margin: 0;
+    }
+    
+    .#{$namespace}snippet-details {
+      border-left: 2px solid $green-1;
+      margin-top: 5px;
+      padding-left: 10px;
+    }
+    
+    .#{$namespace}link {
+      font-family: $roboto;
+    }
   }
 }
 

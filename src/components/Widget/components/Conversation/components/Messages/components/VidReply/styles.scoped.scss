@@ -1,0 +1,12 @@
+@import "variables.scss";
+@import "common.scss";
+
+.#{$namespace}conversation-container {
+  .#{$namespace}videoFrame {
+    width: 300px;
+    height: 200px;
+    margin-top: 10px;
+    border: none;
+  }
+}
+

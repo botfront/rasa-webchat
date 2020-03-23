@@ -1,49 +1,51 @@
 @import "variables.scss";
-@import "common.scss";
+.#{$namespace}widget-wrapper-css {
 
-.conversation-container {
-  
-  .message {
-    margin: 10px;
-    display: flex;
-    font-size: 14px;
-    font-family: $roboto;
-    flex-wrap: wrap;
-  
-    .markdown {
-      p {
-        margin: 0;
-      }
-    }
-  }
-  
-  .client {
-    @include message-bubble($blue-1, $white);
-    margin-left: auto;
-    overflow-wrap: break-word;
+  @import "common.scss";
+
+  .#{$namespace}conversation-container {
     
-    a {
-      color: $turqois-1;
-    }
-  }
-  
-  .response {
-    @include message-bubble($grey-2, #000, 0 15px 15px 15px);
-    overflow-wrap: break-word;
-  }
-  
-  /* For markdown elements created with default styles */
-  .message-text {
-    margin: 0;
-    .markdown{
-      p{
-        margin-bottom: 1em;
-        &:last-child{
-          margin-bottom: 0;
+    .#{$namespace}message {
+      margin: 10px;
+      display: flex;
+      font-size: 14px;
+      font-family: $roboto;
+      flex-wrap: wrap;
+    
+      .#{$namespace}markdown {
+        p {
+          margin: 0;
         }
       }
     }
+    
+    .#{$namespace}client {
+      @include message-bubble($blue-1, $white);
+      margin-left: auto;
+      overflow-wrap: break-word;
+      
+      a {
+        color: $turqois-1;
+      }
+    }
+    
+    .#{$namespace}response {
+      @include message-bubble($grey-2, #000, 0 15px 15px 15px);
+      overflow-wrap: break-word;
+    }
+    
+    /* For markdown elements created with default styles */
+    .#{$namespace}message-text {
+      margin: 0;
+      .#{$namespace}markdown{
+        p{
+          margin-bottom: 1em;
+          &:last-child{
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
   }
-
 }
-

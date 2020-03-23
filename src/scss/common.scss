@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Poppins');
 
-$roboto: 'Roboto', serif;  
+$roboto: 'Poppins', serif;  
 
 @mixin message-bubble($color, $textColor, $borderRadius: 15px) {
   background-color: $color;
@@ -66,7 +66,7 @@ $roboto: 'Roboto', serif;
 }
 
 @mixin header-icon-fs {
-  &.default {
+  &.#{$namespace}default {
     width: 20px;
     height: 20px;
 

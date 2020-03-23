@@ -270,7 +270,7 @@ emit('bot_uttered', message, room=socket_id)
 ```
 ###### sending a message to be displayed as a tooltip
 
-You first need to set a tooltipPayload in the props of the component, then, for the answer to that payload, you should define a response with a 
+You first need to set a tooltipPayload in the props of the component, then, for the answer to that payload, you should define a response with an 
 
 object and a property `tooltip = true`. This message will then be displayed as a tooltip before the widget is opened.
 This works with Botfront, but not yet with vanilla Rasa.
@@ -290,50 +290,52 @@ emit('bot_uttered', message, room=socket_id)
 
 ## Styles
 
+From version 0.8 we started prefixing all css classes, if you already had css styling for the widget, just prepend `rw-` to all the classes you changed.
+
 hierarchy:
 ```
-.conversation-container
-  |-- .header
-        |-- .title
-        |-- .close-function
-        |-- .loading
-  |-- .messages-container
-        |-- .message
-              |-- .client
-              |-- .response
-        |-- .replies
-              |-- .reply
-              |-- .response
-        |-- .snippet
-              |-- .snippet-title
-              |-- .snippet-details
-              |-- .link
-        |-- .imageFrame
-        |-- .videoFrame
-  |-- .sender
-        |-- .new-message
-        |-- .send
+.rw-conversation-container
+  |-- .rw-header
+        |-- .rw-title
+        |-- .rw-close-function
+        |-- .rw-loading
+  |-- .rw-messages-container
+        |-- .rw-message
+              |-- .rw-client
+              |-- .rw-response
+        |-- .rw-replies
+              |-- .rw-reply
+              |-- .rw-response
+        |-- .rw-snippet
+              |-- .rw-snippet-title
+              |-- .rw-snippet-details
+              |-- .rw-link
+        |-- .rw-imageFrame
+        |-- .rw-videoFrame
+  |-- .rw-sender
+        |-- .rw-new-message
+        |-- .rw-send
 ```
 
 | Class                   |  Description                                                        |
 |-------------------------|---------------------------------------------------------------------|
-| .widget-container       | The div containing the chatbox of the default version               |
-| .widget-embedded        | div of the embedded chatbox (using embedded prop)                   |
-| .full-screen            | div of the fullscreen chatbox (using fullScreenMode prop)           |
-| .conversation-container | the parent div containing the header, message-container and sender  |
-| .messages-container     | the central area where the messages appear                          |
-| .sender                 | div of the bottom area which prompts user input                     |
-| .new-message            | the text input element of sender                                    |
-| .send                   | the send icon element of sender                                     |
-| .header                 | div of the top area with the chatbox header                         |
-| .title                  | the title element of the header                                     |
-| .close-button           | the close icon of the header                                        |
-| .loading                | the loading status element of the header                            |
-| .message                | the boxes holding the messages of client and response               |
-| .replies                | the area that gives quick reply options                             |
-| .snippet                | a component for describing links                                    |
-| .imageFrame             | a container for sending images                                      |
-| .videoFrame             | a container for sending video                                       |
+| .rw-widget-container       | The div containing the chatbox of the default version               |
+| .rw-widget-embedded        | div of the embedded chatbox (using embedded prop)                   |
+| .rw-full-screen            | div of the fullscreen chatbox (using fullScreenMode prop)           |
+| .rw-conversation-container | the parent div containing the header, message-container and sender  |
+| .rw-messages-container     | the central area where the messages appear                          |
+| .rw-sender                 | div of the bottom area which prompts user input                     |
+| .rw-new-message            | the text input element of sender                                    |
+| .rw-send                   | the send icon element of sender                                     |
+| .rw-header                 | div of the top area with the chatbox header                         |
+| .rw-title                  | the title element of the header                                     |
+| .rw-close-button           | the close icon of the header                                        |
+| .rw-loading                | the loading status element of the header                            |
+| .rw-message                | the boxes holding the messages of client and response               |
+| .rw-replies                | the area that gives quick reply options                             |
+| .rw-snippet                | a component for describing links                                    |
+| .rw-imageFrame             | a container for sending images                                      |
+| .rw-videoFrame             | a container for sending video                                       |
 
 
 ## Contributors
