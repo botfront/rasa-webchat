@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://https///compare/v0.7.23...v0.8.0) (2020-03-25)
+
+
+### Bug Fixes
+
+* message duplicate appearing as a tooltip when closing the chat ([9586994](https://https///commit/958699441987579e8290687343335e619e7d102a))
+
 ### [0.7.23](https://https///compare/v0.7.22...v0.7.23) (2020-03-20)
 
 ### [0.7.22](https://https///compare/v0.7.21...v0.7.22) (2020-03-19)
