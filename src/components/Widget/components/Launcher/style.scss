@@ -7,14 +7,6 @@
           margin: 10px;
       }
   }
-  .#{$namespace}widget-container > .#{$namespace}conversation-container {
-      .#{$namespace}title{
-          color: white;
-      }
-      .#{$namespace}message.#{$namespace}typing-indication .#{$namespace}response {
-          height: 37px;
-      }
-  }
 
   .#{$namespace}launcher {
       background-color: $tertiary;
@@ -51,7 +43,7 @@
 
       #messages {
           @media screen and (min-width: 800px){
-              height: 545px;
+              height: 510px;
               max-height: 50vh;
           }
       }
@@ -197,7 +189,7 @@
 
     .#{$namespace}tooltip-close {
       position: absolute;
-      top: 2px;
+      top: 7px;
       right: 10px;
       color: red;
       height: 15px;
