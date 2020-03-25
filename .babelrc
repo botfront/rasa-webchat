@@ -1,11 +1,11 @@
 {
   "presets": [
-    "env",
-    "react"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
   "plugins": [
     "transform-class-properties",
-    "transform-object-rest-spread",
+    "@babel/plugin-proposal-object-rest-spread",
     ["module-resolver", {
       "root": ["./src"],
       "alias": {

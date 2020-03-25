@@ -6,10 +6,10 @@ import send from 'assets/send_button.svg';
 import './style.scss';
 
 const Sender = ({ sendMessage, inputTextFieldHint, disabledInput, userInput }) => (userInput === 'hide' ? <div /> : (
-  <form className="sender" onSubmit={sendMessage}>
-    <input type="text" className="new-message" name="message" placeholder={inputTextFieldHint} disabled={disabledInput || userInput === 'disable'} autoFocus autoComplete="off" />
-    <button type="submit" className="send">
-      <img src={send} className="send-icon" alt="send" />
+  <form className="rw-sender" onSubmit={sendMessage}>
+    <input type="text" className="rw-new-message" name="message" placeholder={inputTextFieldHint} disabled={disabledInput || userInput === 'disable'} autoFocus autoComplete="off" />
+    <button type="submit" className="rw-send">
+      <img src={send} className="rw-send-icon" alt="send" />
     </button>
   </form>));
 const mapStateToProps = state => ({

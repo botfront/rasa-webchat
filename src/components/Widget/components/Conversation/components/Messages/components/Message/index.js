@@ -20,18 +20,18 @@ class Message extends PureComponent {
     return (
       <div
         className={sender === 'response' && customCss && customCss.style === 'class' ?
-          `response ${customCss.css}` :
-          sender}
+          `rw-response ${customCss.css}` :
+          `rw-${sender}`}
         style={{ cssText: sender === 'response' && customCss && customCss.style === 'custom' ?
           customCss.css :
           undefined }}
       >
         <div
-          className="message-text"
+          className="rw-message-text"
         >
           {sender === 'response' ? (
             <ReactMarkdown
-              className={'markdown'}
+              className={'rw-markdown'}
               source={text}
               linkTarget={(url) => {
                 if (!url.startsWith('mailto') && !url.startsWith('javascript')) return '_blank';

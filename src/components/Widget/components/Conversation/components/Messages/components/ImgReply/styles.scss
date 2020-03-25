@@ -1,18 +1,21 @@
 @import "variables.scss";
-@import "common.scss";
+.#{$namespace}widget-wrapper-css {
 
-.conversation-container {
-  .image-details {
-    object-fit: scale-down;
-    max-width: 100%;
-    margin-top: 10px;
-  }
-  
-  .image-frame {
-    object-position: 0 0;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    border-radius: 15px;
+  @import "common.scss";
+
+  .#{$namespace}conversation-container {
+    .#{$namespace}image-details {
+      object-fit: scale-down;
+      max-width: 100%;
+      margin-top: 10px;
+    }
+    
+    .#{$namespace}image-frame {
+      object-position: 0 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+    }
   }
 }

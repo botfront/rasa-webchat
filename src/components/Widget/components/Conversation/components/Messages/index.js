@@ -94,16 +94,16 @@ class Messages extends Component {
         if (!dateRenderer || !timestamp) return null;
         const dateToRender = dateRenderer(message.get('timestamp', message));
         return dateToRender
-          ? <span className="message-date">{dateRenderer(message.get('timestamp'), message)}</span>
+          ? <span className="rw-message-date">{dateRenderer(message.get('timestamp'), message)}</span>
           : null;
       };
 
       const renderMessage = (message, index) => (
-        <div className={`message ${profileAvatar && 'with-avatar'}`} key={index}>
+        <div className={`rw-message ${profileAvatar && 'rw-with-avatar'}`} key={index}>
           {
             profileAvatar &&
             message.get('showAvatar') &&
-            <img src={profileAvatar} className="avatar" alt="profile" />
+            <img src={profileAvatar} className="rw-avatar" alt="profile" />
           }
           { this.getComponentToRender(message, index, index === messages.size - 1) }
           { renderMessageDate(message) }
@@ -126,26 +126,26 @@ class Messages extends Component {
       groups.push(group); // finally push last group of messages.
 
       return groups.map((g, index) => (
-        <div className={`group-message from-${g.from}`} key={`group_${index}`}>
+        <div className={`rw-group-message rw-from-${g.from}`} key={`group_${index}`}>
           {g.messages}
         </div>
       ));
     };
 
     return (
-      <div id="messages" className="messages-container">
+      <div id="messages" className="rw-messages-container">
         { renderMessages() }
         {displayTypingIndication && (
-          <div className={`message typing-indication ${profileAvatar && 'with-avatar'}`}>
+          <div className={`rw-message rw-typing-indication ${profileAvatar && 'rw-with-avatar'}`}>
             {
               profileAvatar &&
-              <img src={profileAvatar} className="avatar" alt="profile" />
+              <img src={profileAvatar} className="rw-avatar" alt="profile" />
             }
-            <div className="response">
+            <div className="rw-response">
               <div id="wave">
-                <span className="dot" />
-                <span className="dot" />
-                <span className="dot" />
+                <span className="rw-dot" />
+                <span className="rw-dot" />
+                <span className="rw-dot" />
               </div>
             </div>
           </div>

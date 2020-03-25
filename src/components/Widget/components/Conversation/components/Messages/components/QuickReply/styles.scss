@@ -1,29 +1,31 @@
 @import "variables.scss";
-@import "common.scss";
+.#{$namespace}widget-wrapper-css {
 
-.conversation-container {
+  @import "common.scss";
 
-  .replies {
-    @include replies;
-  }
-  
-  .reply {
-    @include reply;
-  }
-  
-  .response {
-    @include message-bubble($grey-2, #000, 0 15px 15px 15px);
+  .#{$namespace}conversation-container {
+
+    .#{$namespace}replies {
+      @include replies;
+    }
+    
+    .#{$namespace}reply {
+      @include reply;
+    }
+    
+    .#{$namespace}response {
+      @include message-bubble($grey-2, #000, 0 15px 15px 15px);
+
+    }
+    
+    .#{$namespace}avatar {
+      width: 17px;
+      height: 17px;
+      border-radius: 100%;
+      margin-right: 6px;
+      position: relative;
+      bottom: 5px;
+    }
 
   }
-  
-  .avatar {
-    width: 17px;
-    height: 17px;
-    border-radius: 100%;
-    margin-right: 6px;
-    position: relative;
-    bottom: 5px;
-  }
-
 }
-

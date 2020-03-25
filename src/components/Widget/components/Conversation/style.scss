@@ -1,41 +1,44 @@
-@import "common.scss";
 @import "variables.scss";
-@import "animation.scss";
+.#{$namespace}widget-wrapper-css {
 
-.conversation-container {
-  @include animation(0, 0.5s, slide-in);
-  border-radius: 10px;
-  box-shadow: 0px 2px 10px 1px $grey-3;
-  overflow: hidden;
-  width: 370px;
-}
+  @import "common.scss";
+  @import "animation.scss";
 
-.slide-out {
-  @include animation(0, 0.5s, slide-out);
-}
-
-.widget-embedded {
-  .conversation-container {
-    @include animation(0, 0s, slide-in); // disable animation
-    @include conversation-container-fs;
-    overflow: unset;
+  .#{$namespace}conversation-container {
+    @include animation(0, 0.5s, slide-in);
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px 1px $grey-3;
+    overflow: hidden;
+    width: 370px;
   }
 
-  .slide-out {
-    @include animation(0, 0s, slide-out); // disable animation
+  .#{$namespace}slide-out {
+    @include animation(0, 0.5s, slide-out);
   }
-}
 
-.full-screen {
+  .#{$namespace}widget-embedded {
+    .#{$namespace}conversation-container {
+      @include animation(0, 0s, slide-in); // disable animation
+      @include conversation-container-fs;
+      overflow: unset;
+    }
 
-  .conversation-container {
-    border-radius: 0;
-    @include conversation-container-fs;
+    .#{$namespace}slide-out {
+      @include animation(0, 0s, slide-out); // disable animation
+    }
   }
-}
 
-@media screen and (max-width: 800px) {
-  .conversation-container {
-    @include conversation-container-fs;
+  .#{$namespace}full-screen {
+
+    .#{$namespace}conversation-container {
+      border-radius: 0;
+      @include conversation-container-fs;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    .#{$namespace}conversation-container {
+      @include conversation-container-fs;
+    }
   }
 }

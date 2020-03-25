@@ -26,11 +26,11 @@ class ImgReply extends PureComponent {
           customCss.css :
           undefined }}
       >
-        <b className="image-title">
+        <b className="rw-image-title">
           { title }
         </b>
-        <div className="image-details" style={{ width, height }}>
-          <img className="image-frame" src={image} />
+        <div className="rw-image-details" style={{ width, height }}>
+          <img className="rw-image-frame" src={image} />
         </div>
       </div>
     );

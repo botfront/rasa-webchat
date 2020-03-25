@@ -7,9 +7,9 @@ import Launcher from './components/Launcher';
 import './style.scss';
 
 const WidgetLayout = (props) => {
-  const classes = props.embedded ? ['widget-embedded'] : ['widget-container'];
+  const classes = props.embedded ? ['rw-widget-embedded'] : ['rw-widget-container'];
   if (props.fullScreenMode) {
-    classes.push('full-screen');
+    classes.push('rw-full-screen');
   }
   const showCloseButton =
     props.showCloseButton !== undefined ? props.showCloseButton : !props.embedded;
@@ -17,44 +17,46 @@ const WidgetLayout = (props) => {
   const chatShowing = props.isChatOpen || props.embedded;
 
   if (chatShowing && !props.embedded) {
-    classes.push('chat-open');
+    classes.push('rw-chat-open');
   }
 
   return isVisible ? (
-    <div className={classes.join(' ')}>
-      {chatShowing && (
-        <Conversation
-          title={props.title}
-          subtitle={props.subtitle}
-          sendMessage={props.onSendMessage}
-          profileAvatar={props.profileAvatar}
-          toggleChat={props.toggleChat}
-          isChatOpen={props.isChatOpen}
-          toggleFullScreen={props.toggleFullScreen}
-          fullScreenMode={props.fullScreenMode}
-          disabledInput={props.disabledInput}
-          params={props.params}
-          showFullScreenButton={props.showFullScreenButton}
-          {...{ showCloseButton }}
-          connected={props.connected}
-          connectingText={props.connectingText}
-          closeImage={props.closeImage}
-          customComponent={props.customComponent}
-          showMessageDate={props.showMessageDate}
-        />
-      )}
-      {!props.embedded && (
-        <Launcher
-          toggle={props.toggleChat}
-          isChatOpen={props.isChatOpen}
-          badge={props.badge}
-          fullScreenMode={props.fullScreenMode}
-          openLauncherImage={props.openLauncherImage}
-          closeImage={props.closeImage}
-          displayUnreadCount={props.displayUnreadCount}
-          tooltipPayload={props.tooltipPayload}
-        />
-      )}
+    <div className="rw-widget-wrapper-css">
+      <div className={classes.join(' ')}>
+        {chatShowing && (
+          <Conversation
+            title={props.title}
+            subtitle={props.subtitle}
+            sendMessage={props.onSendMessage}
+            profileAvatar={props.profileAvatar}
+            toggleChat={props.toggleChat}
+            isChatOpen={props.isChatOpen}
+            toggleFullScreen={props.toggleFullScreen}
+            fullScreenMode={props.fullScreenMode}
+            disabledInput={props.disabledInput}
+            params={props.params}
+            showFullScreenButton={props.showFullScreenButton}
+            {...{ showCloseButton }}
+            connected={props.connected}
+            connectingText={props.connectingText}
+            closeImage={props.closeImage}
+            customComponent={props.customComponent}
+            showMessageDate={props.showMessageDate}
+          />
+        )}
+        {!props.embedded && (
+          <Launcher
+            toggle={props.toggleChat}
+            isChatOpen={props.isChatOpen}
+            badge={props.badge}
+            fullScreenMode={props.fullScreenMode}
+            openLauncherImage={props.openLauncherImage}
+            closeImage={props.closeImage}
+            displayUnreadCount={props.displayUnreadCount}
+            tooltipPayload={props.tooltipPayload}
+          />
+        )}
+      </div>
     </div>
   ) : null;
 };
