@@ -167,6 +167,7 @@ class Widget extends Component {
     this.delayedMessage = message;
     this.messageDelayTimeout = setTimeout(() => {
       this.dispatchMessage(message);
+      this.delayedMessage = null;
       dispatch(triggerMessageDelayed(false));
       this.onGoingMessageDelay = false;
       this.popLastMessage();
