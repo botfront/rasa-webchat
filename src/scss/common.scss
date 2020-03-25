@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins');
+@import url('https://fonts.googleapis.com/css?family=Inter');
 
-$roboto: 'Poppins', serif;  
+$fontfamily: 'Inter', sans-serif;  
 
 @mixin message-bubble($color, $textColor, $borderRadius: 15px) {
   background-color: $color;
@@ -9,7 +9,7 @@ $roboto: 'Poppins', serif;
   padding: 11px 15px;
   max-width: 215px;
   text-align: left;
-  font-family: $roboto;
+  font-family: $fontfamily;
 }
 
 @mixin borderless-message-bubble($color, $textColor) {
@@ -21,7 +21,7 @@ $roboto: 'Poppins', serif;
     max-width: 215px;
     max-height: 1em;
     text-align: center;
-    font-family: $roboto;
+    font-family: $fontfamily;
   }
 
 @mixin widget-container-fs {
@@ -139,7 +139,7 @@ $roboto: 'Poppins', serif;
   max-width: 215px;
   min-height: 1.7em;
   text-align: center;
-  font-family: $roboto;
+  font-family: $fontfamily;
   cursor: pointer;
   margin: 0.25em;
 }
@@ -150,5 +150,5 @@ $roboto: 'Poppins', serif;
   flex-wrap: wrap;
   overflow: auto;
   font-size: 14px;
-  font-family: $roboto;
+  font-family: $fontfamily;
 }
