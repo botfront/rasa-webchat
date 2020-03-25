@@ -1,19 +1,62 @@
-# Rasa Webchat ![npm](https://img.shields.io/npm/v/rasa-webchat)
+<p align="center">
 
-A simple webchat widget to connect with a chatbot 💬platform. Originally forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget) and optimized for [Rasa](https://github.com/rasaHQ/rasa) and [Botfront](https://github.com/botfront/botfront).
-## Features
+<a href="https://www.npmjs.com/package/botfront">
+    <img alt="npm" src="https://img.shields.io/npm/v/rasa-webchat.svg">
+</a>
+<a href='https://github.com/botfront/botfront/blob/master/LICENSE'>
+    <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg">
+</a>
+<a href='https://spectrum.chat/botfront'>
+    <img alt="License" src="https://withspectrum.github.io/badge/badge.svg">
+</a>
+</p>
+<h1 align="center">Rasa Webchat 💬</h1>
+<h5 align="center">
+ A chat widget to deploy virtual assistants made with <a href="https://github.com/rasaHQ/rasa">Rasa</a> or <a href="https://github.com/botfront/botfront?utm_source=rasa_webchat">Botfront</a> on any website.
 
-- Text Messages
-- Quick Replies
-- Images and Videos
-- Markdown support
-- Easy to import in a script tag or as a React Component
-- Persistent sessions
-- Typing indications
-- Smart delay between messages
+</h5>
+<a href="https://botfront.io">
+</a>
 
-<img src="./assets/chat-demonstration.gif" alt="demonstration" width="400"/>
+<table>
+  <tr>
+  <td width="50%">
+    <h2>Features</h2>
+    <ul>
+    <li>Text Messages</li>
+    <li>Quick Replies</li>
+    <li>Images and Videos</li>
+    <li>Markdown support</li>
+    <li>Persistent sessions</li>
+    <li>Typing indications</li>
+    <li>Smart delay between messages</li>
+    <li>Easy to import in a script tag or as a React Component</li>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    </ul>
+  </td>
+  <td width="50%">
+  <img align="center" src="./assets/chat-demonstration.gif" alt="demonstration" width="400">
+  </td>
+ </tr>
 
+</table>
+<table>
+<tr>
+<td>
+<h2 align="center">Check Out Our Other Project</h2>
+<a href="https://github.com/botfront/botfront?utm_source=rasa_webchat">
+<img align="center" src="https://github.com/botfront/botfront/raw/master/botfront_animation.gif" alt="demonstration" width="100%">
+</a>
+</td>
+</tr>
+</table>
 ## Usage
 
 ### In a `<script>` tag
@@ -68,6 +111,7 @@ function CustomWidget = () => {
 
 - Make sure to have the prop `embedded`
 set to `true` if you don't want to see the launcher.
+
 
 
 ## Parameters
