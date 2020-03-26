@@ -85,6 +85,7 @@
     height: 60px;
     margin: 0;
     width: 60px;
+    box-sizing: border-box;
 
     &:focus {
       outline: none;
