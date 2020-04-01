@@ -48,6 +48,7 @@
       font-family: $fontfamily;
       position: absolute;
       left: 20px;
+      font-weight: 700;
       &.#{$namespace}with-avatar {
         left: 58px;
       }
