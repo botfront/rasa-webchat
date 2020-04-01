@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.2](https://https///compare/v0.8.1...v0.8.2) (2020-04-01)
+
+
+### Bug Fixes
+
+* subtitles display ([3f330f7](https://https///commit/3f330f7ffac1ada84c51348a43899c2fd993aacc))
+
 ### [0.8.1](https://https///compare/v0.8.0...v0.8.1) (2020-03-26)
 
 ## [0.8.0](https://https///compare/v0.7.23...v0.8.0) (2020-03-25)
