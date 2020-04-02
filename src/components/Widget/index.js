@@ -96,7 +96,6 @@ class Widget extends Component {
       dispatch(showChat());
       dispatch(openChat());
     }
-    this.applyCustomStyle();
   }
 
   componentWillUnmount() {
@@ -143,7 +142,10 @@ class Widget extends Component {
     if (!isChatOpen) {
       this.dispatchMessage(message);
       dispatch(newUnreadMessage());
-      if (!disableTooltips) dispatch(showTooltip(true));
+      if (!disableTooltips) {
+        dispatch(showTooltip(true));
+        this.applyCustomStyle();
+      }
     } else if (!this.onGoingMessageDelay) {
       this.onGoingMessageDelay = true;
       dispatch(triggerMessageDelayed(true));
@@ -168,6 +170,7 @@ class Widget extends Component {
     this.messageDelayTimeout = setTimeout(() => {
       this.dispatchMessage(message);
       this.delayedMessage = null;
+      this.applyCustomStyle();
       dispatch(triggerMessageDelayed(false));
       this.onGoingMessageDelay = false;
       this.popLastMessage();
@@ -215,7 +218,6 @@ class Widget extends Component {
     this.clearCustomStyle();
     this.eventListenerCleaner();
     dispatch(clearMetadata());
-
     if (botUtterance.metadata) this.propagateMetadata(botUtterance.metadata);
     const newMessage = { ...botUtterance, text: String(botUtterance.text) };
     if (botUtterance.metadata && botUtterance.metadata.customCss) {
@@ -460,6 +462,7 @@ class Widget extends Component {
         this.dispatchMessage(message);
         dispatch(newUnreadMessage());
       });
+      this.applyCustomStyle();
 
       this.messages = [];
       this.delayedMessage = null;
