@@ -75,7 +75,7 @@ class QuickReply extends PureComponent {
                 <div
                   key={index}
                   className={'rw-reply'}
-                  onClick={() => this.handleClick(reply)}
+                  onClick={(e) => { e.stopPropagation(); this.handleClick(reply); }}
                 >
                   {reply.get('title')}
                 </div>
