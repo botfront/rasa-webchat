@@ -101,8 +101,7 @@
     }
     .#{$namespace}replies {
       @include replies;
-      justify-content: center;
-      margin-left: 10px;
+      margin-left: 4px;
     }
     
     .#{$namespace}reply {
@@ -110,9 +109,8 @@
     }
 
     .#{$namespace}response {
-      text-align: center;
+      text-align: left;
       margin-left: 10px;
-      margin-right: 10px;
     }
     .#{$namespace}image-frame {
       object-position: 0 0;
