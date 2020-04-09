@@ -85,8 +85,8 @@ export function toggleFullScreen() {
   store.dispatch(actions.toggleFullScreen());
 }
 
-export function toggleInputDisabled() {
-  store.dispatch(actions.toggleInputDisabled());
+export function toggleInputDisabled(disable) {
+  store.dispatch(actions.toggleInputDisabled(disable));
 }
 
 export function changeInputFieldHint(hint) {
