@@ -27,13 +27,13 @@
       .#{$namespace}message {
           font-size: 16px;
           line-height: 20px;
-          font-family: 'Poppins' !important;
+          font-family: $fontfamily !important;
       }
 
       .#{$namespace}replies {
           font-size: 16px;
           line-height: 20px;
-          font-family: 'Poppins' !important;
+          font-family: $fontfamily !important;
       }
 
       #messages {
