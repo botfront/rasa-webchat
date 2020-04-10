@@ -22,7 +22,7 @@ const formatDate = (date) => {
 };
 
 const scrollToBottom = () => {
-  const messagesDiv = document.getElementById('messages');
+  const messagesDiv = document.getElementById('rw-messages');
   if (messagesDiv) {
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
   }
@@ -133,7 +133,7 @@ class Messages extends Component {
     };
 
     return (
-      <div id="messages" className="rw-messages-container">
+      <div id="rw-messages" className="rw-messages-container">
         { renderMessages() }
         {displayTypingIndication && (
           <div className={`rw-message rw-typing-indication ${profileAvatar && 'rw-with-avatar'}`}>

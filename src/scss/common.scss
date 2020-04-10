@@ -51,7 +51,7 @@ $fontfamily: 'Inter', sans-serif;
 @mixin header-button-fs {
   @include center;
   display: inline-block;
-  background-color: $blue-1;
+  background-color: $tertiary;
   border: 0;
   width: 40px;
   cursor: pointer;
@@ -147,8 +147,9 @@ $fontfamily: 'Inter', sans-serif;
 @mixin replies {
   margin: 10px;
   display: flex;
+  line-height: 20px;
   flex-wrap: wrap;
   overflow: auto;
-  font-size: 14px;
+  font-size: 16px;
   font-family: $fontfamily;
 }
