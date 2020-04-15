@@ -302,21 +302,25 @@ class Widget extends Component {
       });
       // We check that the method is here to prevent crashes on unsupported browsers.
       if (elements[0] && elements[0].scrollIntoView) {
-        if (/Mobi/.test(navigator.userAgent)) {
-          elements[0].scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
-        } else {
-          const rectangle = elements[0].getBoundingClientRect();
+        // If I don't use a timeout, the scrollToBottom in messages.jsx
+        // seems to override that scrolling
+        setTimeout(() => {
+          if (/Mobi/.test(navigator.userAgent)) {
+            elements[0].scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
+          } else {
+            const rectangle = elements[0].getBoundingClientRect();
 
-          const ElemIsInViewPort = (
-            rectangle.top >= 0 &&
-              rectangle.left >= 0 &&
-              rectangle.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-              rectangle.right <= (window.innerWidth || document.documentElement.clientWidth)
-          );
-          if (!ElemIsInViewPort) {
-            elements[0].scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'smooth' });
+            const ElemIsInViewPort = (
+              rectangle.top >= 0 &&
+                rectangle.left >= 0 &&
+                rectangle.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rectangle.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+            if (!ElemIsInViewPort) {
+              elements[0].scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'smooth' });
+            }
           }
-        }
+        }, 50);
       }
     }
   }
