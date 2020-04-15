@@ -314,7 +314,7 @@ class Widget extends Component {
               rectangle.right <= (window.innerWidth || document.documentElement.clientWidth)
           );
           if (!ElemIsInViewPort) {
-            elements[0].scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
+            elements[0].scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'smooth' });
           }
         }
       }
@@ -643,14 +643,19 @@ Widget.defaultProps = {
   oldUrl: '',
   disableTooltips: false,
   defaultHighlightClassname: '',
-  defaultHighlightCss: 'animation: 0.5s linear infinite alternate default-botfront-blinker-animation;',
+  defaultHighlightCss: 'animation: 0.5s linear infinite alternate default-botfront-blinker-animation; outline-style: solid;',
+  // unfortunately it looks like outline-style is not an animatable property on Safari
   defaultHighlightAnimation: `@keyframes default-botfront-blinker-animation {
-    from {
-      outline-color: green;
-      outline-style: none;
+    0% {
+      outline-color: rgba(0,255,0,0);
     }
-    to {
-      outline-style: solid;
+    49% {
+      outline-color: rgba(0,255,0,0);
+    }
+    50% {
+      outline-color:green;
+    }
+    100% {
       outline-color: green;
     }
   }`
