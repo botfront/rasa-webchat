@@ -306,7 +306,7 @@ class Widget extends Component {
         // seems to override that scrolling
         setTimeout(() => {
           if (/Mobi/.test(navigator.userAgent)) {
-            elements[0].scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
+            elements[0].scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'smooth' });
           } else {
             const rectangle = elements[0].getBoundingClientRect();
 
