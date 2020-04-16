@@ -1,95 +1,119 @@
 @import "variables.scss";
-.#{$namespace}widget-wrapper-css {
 
-  @import "common.scss";
+@import "common.scss";
 
-  .#{$namespace}conversation-container {
-    .#{$namespace}header {
-      background-color: $blue-1;
-      color: $white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      height: 55px;
-      font-family: $fontfamily;
-      position: relative;
-      .#{$namespace}avatar {
-        all: initial;
-        height: 31px;
-        width: 31px;
-        position: absolute;
-        top: 12px;
-        left: 14px;
-      }
-    }
-
-    .#{$namespace}header.#{$namespace}with-subtitle {
-      height: 70px;
-      .#{$namespace}avatar {
-        top: 20px;
-      }
-      .#{$namespace}title {
-        top:11px;
-      }
-      span {
-        bottom: 12px;
-        position: absolute;
-        left: 22px;
-        &.#{$namespace}with-avatar {
-          left: 60px;
-        }
-      }
-    }
-
-    .#{$namespace}title {
-      font-size: 20px;
-      margin: 0;
-      font-family: $fontfamily;
+.#{$namespace}conversation-container {
+  .#{$namespace}header {
+    background-color: $tertiary;
+    color: $white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 55px;
+    font-family: $fontfamily;
+    position: relative;
+    .#{$namespace}avatar {
+      all: initial;
+      height: 31px;
+      width: 31px;
       position: absolute;
-      left: 20px;
-      font-weight: 700;
+      top: 12px;
+      left: 14px;
+    }
+  }
+
+  .#{$namespace}header.#{$namespace}with-subtitle {
+    height: 70px;
+    .#{$namespace}avatar {
+      top: 20px;
+    }
+    .#{$namespace}title {
+      top:11px;
+    }
+    span {
+      bottom: 12px;
+      position: absolute;
+      left: 22px;
       &.#{$namespace}with-avatar {
-        left: 58px;
+        left: 60px;
       }
     }
+  }
 
-    .#{$namespace}header-buttons {
-      @include header-buttons-fs;
-    }
-
-    .#{$namespace}close-button {
-      display: none;
-    }
-
-    .#{$namespace}toggle-fullscreen-button {
-      @include header-button-fs;
-    }
-
-    .#{$namespace}toggle-fullscreen {
-      @include header-icon-fs;
-    }
-
-    .#{$namespace}loading {
-      background-color: $grey-3;
-      color: $white;
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      padding: 5px 0 5px;
-      font-family: $fontfamily;
-      font-size: 14px;
+  .#{$namespace}title {
+    font-size: 20px;
+    margin: 0;
+    font-family: $fontfamily;
+    position: absolute;
+    left: 20px;
+    font-weight: 700;
+    &.#{$namespace}with-avatar {
+      left: 58px;
     }
   }
 
-  .#{$namespace}widget-embedded {
-    .#{$namespace}header {
-      display: none;
-    }
+  .#{$namespace}header-buttons {
+    @include header-buttons-fs;
   }
 
-  .#{$namespace}full-screen {
+  .#{$namespace}close-button {
+    display: none;
+  }
 
+  .#{$namespace}toggle-fullscreen-button {
+    @include header-button-fs;
+  }
+
+  .#{$namespace}toggle-fullscreen {
+    @include header-icon-fs;
+  }
+
+  .#{$namespace}loading {
+    background-color: $grey-3;
+    color: $white;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 5px 0 5px;
+    font-family: $fontfamily;
+    font-size: 14px;
+  }
+}
+
+&.#{$namespace}widget-embedded {
+  .#{$namespace}header {
+    display: none;
+  }
+}
+
+.#{$namespace}full-screen {
+
+  .#{$namespace}header {
+    @include header-fs;
+  }
+
+  .#{$namespace}title {
+    @include title-fs;
+  }
+
+  .#{$namespace}close-button,
+  .#{$namespace}toggle-fullscreen-button {
+    @include header-button-fs;
+  }
+
+  .#{$namespace}close,
+  .#{$namespace}toggle-fullscreen {
+    @include header-icon-fs;
+  }
+
+  .#{$namespace}loading {
+    @include loading-fs;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .#{$namespace}conversation-container {
     .#{$namespace}header {
       @include header-fs;
     }
@@ -98,46 +122,20 @@
       @include title-fs;
     }
 
-    .#{$namespace}close-button,
-    .#{$namespace}toggle-fullscreen-button {
+    .#{$namespace}close-button {
       @include header-button-fs;
     }
 
-    .#{$namespace}close,
-    .#{$namespace}toggle-fullscreen {
+    .#{$namespace}close {
       @include header-icon-fs;
+    }
+
+    .#{$namespace}toggle-fullscreen-button, .#{$namespace}w-.toggle-fullscreen {
+      display: none;
     }
 
     .#{$namespace}loading {
       @include loading-fs;
-    }
-  }
-
-  @media screen and (max-width: 800px) {
-    .#{$namespace}conversation-container {
-      .#{$namespace}header {
-        @include header-fs;
-      }
-
-      .#{$namespace}title {
-        @include title-fs;
-      }
-
-      .#{$namespace}close-button {
-        @include header-button-fs;
-      }
-
-      .#{$namespace}close {
-        @include header-icon-fs;
-      }
-
-      .#{$namespace}toggle-fullscreen-button, .#{$namespace}w-.toggle-fullscreen {
-        display: none;
-      }
-
-      .#{$namespace}loading {
-        @include loading-fs;
-      }
     }
   }
 }

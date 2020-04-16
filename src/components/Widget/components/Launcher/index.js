@@ -75,7 +75,7 @@ const Launcher = ({
         <div className="rw-unread-count-pastille">{unreadCount}</div>
       )}
       <img src={openLauncherImage || openLauncher} className="rw-open-launcher" alt="" />
-      {showTooltip && renderToolTip()}
+      {showTooltip && lastMessage.get('sender') === 'response' && renderToolTip()}
     </div>
   );
 
