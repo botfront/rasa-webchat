@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.7](https://https///compare/v0.8.6...v0.8.7) (2020-04-16)
+
+
+### Bug Fixes
+
+* scroll to highlight centered on mobile ([560e44b](https://https///commit/560e44b077b55d8a3038736e62bd88a040dcefe9))
+
 ### [0.8.6](https://https///compare/v0.8.5...v0.8.6) (2020-04-16)
 
 
