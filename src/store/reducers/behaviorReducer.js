@@ -59,6 +59,11 @@ export default function (
         return storeParams(state.update('fullScreenMode', fullScreenMode => !fullScreenMode));
       }
       case actionTypes.TOGGLE_INPUT_DISABLED: {
+        const disable = action.disable;
+        if (disable !== undefined && disable !== null) {
+          return storeParams(state.update('disabledInput', () => disable));
+        }
+
         return storeParams(state.update('disabledInput', disabledInput => !disabledInput));
       }
       case actionTypes.CHANGE_INPUT_FIELD_HINT: {
