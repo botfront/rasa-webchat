@@ -69,6 +69,7 @@
 
   .#{$namespace}tooltip-body {
     background-color: white;
+    box-sizing: border-box;
     border-radius: 8px;
     position: absolute;
     right: 78px;
@@ -80,7 +81,10 @@
     line-height: 1.4em;
     animation: slideUp 0.3s ease-in-out;
     transition: all 0.2s ease-in-out;
-    max-width: 50vw;
+    @media screen and (max-width: 800px){
+      right: 74px;
+      width: calc(100vw - 90px);
+    }
     &:hover {
       background-color: rgb(250, 250, 250);
       transform: translateY(-2px);
@@ -127,6 +131,7 @@
     width: 12px;
     transition: all 0.2s ease-in-out;
     clip-path: polygon(100% 50%, 50% 0, 50% 100%);
+    -webkit-clip-path: polygon(100% 50%, 50% 0, 50% 100%);
   }
 
   .#{$namespace}tooltip-response {
@@ -142,6 +147,8 @@
     width: 15px;
     transition: all 0.2s ease-in-out;
     button{
+      // or else the default background color for a button on MOBILE is grey.
+      background-color: white;
       cursor: pointer;
       border: none;
       padding: 0;
@@ -166,10 +173,6 @@
 }
 
 @media screen and (max-width: 800px) {
-  .#{$namespace}launcher {
-    @include launcher-fs;
-  }
-
   .#{$namespace}hide-sm {
     display: none;
   }

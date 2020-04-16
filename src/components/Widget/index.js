@@ -300,6 +300,28 @@ class Widget extends Component {
             }
         }
       });
+      // We check that the method is here to prevent crashes on unsupported browsers.
+      if (elements[0] && elements[0].scrollIntoView) {
+        // If I don't use a timeout, the scrollToBottom in messages.jsx
+        // seems to override that scrolling
+        setTimeout(() => {
+          if (/Mobi/.test(navigator.userAgent)) {
+            elements[0].scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
+          } else {
+            const rectangle = elements[0].getBoundingClientRect();
+
+            const ElemIsInViewPort = (
+              rectangle.top >= 0 &&
+                rectangle.left >= 0 &&
+                rectangle.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rectangle.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+            if (!ElemIsInViewPort) {
+              elements[0].scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'smooth' });
+            }
+          }
+        }, 50);
+      }
     }
   }
 
@@ -625,14 +647,19 @@ Widget.defaultProps = {
   oldUrl: '',
   disableTooltips: false,
   defaultHighlightClassname: '',
-  defaultHighlightCss: 'animation: 0.5s linear infinite alternate default-botfront-blinker-animation;',
+  defaultHighlightCss: 'animation: 0.5s linear infinite alternate default-botfront-blinker-animation; outline-style: solid;',
+  // unfortunately it looks like outline-style is not an animatable property on Safari
   defaultHighlightAnimation: `@keyframes default-botfront-blinker-animation {
-    from {
-      outline-color: green;
-      outline-style: none;
+    0% {
+      outline-color: rgba(0,255,0,0);
     }
-    to {
-      outline-style: solid;
+    49% {
+      outline-color: rgba(0,255,0,0);
+    }
+    50% {
+      outline-color:green;
+    }
+    100% {
       outline-color: green;
     }
   }`
