@@ -21,7 +21,7 @@ const Sender = ({ sendMessage, inputTextFieldHint, disabledInput, userInput }) =
     userInput === 'hide' ? <div /> : (
       <form className="rw-sender" onSubmit={handleSubmit}>
         <input type="text" onChange={handleChange} className="rw-new-message" name="message" placeholder={inputTextFieldHint} disabled={disabledInput || userInput === 'disable'} autoFocus autoComplete="off" />
-        <button type="submit" className="rw-send">
+        <button type="submit" className="rw-send" disabled={!(inputValue && inputValue.length > 0)}>
           <Send className="rw-send-icon" ready={inputValue && inputValue.length > 0} alt="send" />
         </button>
       </form>));
