@@ -1,6 +1,5 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 
-import { SESSION_NAME } from 'constants';
 
 import behavior from './reducers/behaviorReducer';
 import messages from './reducers/messagesReducer';
@@ -27,10 +26,11 @@ function initStore(
   storage,
   docViewer = false,
   onWidgetEvent,
+  storageKey,
 ) {
   const customMiddleWare = store => next => (action) => {
-    let sessionId = getLocalSession(storage, SESSION_NAME)
-      ? getLocalSession(storage, SESSION_NAME).session_id
+    let sessionId = getLocalSession(storage, storageKey)
+      ? getLocalSession(storage, storageKey).session_id
       : null;
     if (!sessionId && socket.sessionId) {
       sessionId = socket.sessionId;
@@ -121,9 +121,9 @@ function initStore(
     next(action);
   };
   const reducer = combineReducers({
-    behavior: behavior(hintText, connectingText, storage, docViewer, onWidgetEvent),
-    messages: messages(storage),
-    metadata: metadata(storage)
+    behavior: behavior(hintText, connectingText, storage, docViewer, onWidgetEvent, storageKey),
+    messages: messages(storage, storageKey),
+    metadata: metadata(storage, storageKey)
   });
 
 

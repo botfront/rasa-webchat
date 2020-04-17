@@ -40,6 +40,7 @@ const plugin = {
         defaultHighlightCss={args.defaultHighlightCss}
         defaultHighlightAnimation={args.defaultHighlightAnimation}
         defaultHighlightClassname={args.defaultHighlightClassname}
+        storageKey={args.storageKey}
       />, document.querySelector(args.selector)
     );
   }

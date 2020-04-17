@@ -34,7 +34,7 @@ import {
   setCustomCss
 } from 'actions';
 
-import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
+import { NEXT_MESSAGE } from 'constants';
 import { isVideo, isImage, isQR, isText, isCarousel } from './msgProcessor';
 import WidgetLayout from './layout';
 import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
@@ -53,7 +53,7 @@ class Widget extends Component {
 
 
   componentDidMount() {
-    const { connectOn, autoClearCache, storage, dispatch, defaultHighlightAnimation } = this.props;
+    const { connectOn, autoClearCache, storage, dispatch, defaultHighlightAnimation, storageKey } = this.props;
 
     // add the default highlight css to the document
     const styleNode = document.createElement('style');
@@ -67,14 +67,14 @@ class Widget extends Component {
     }
 
 
-    const localSession = getLocalSession(storage, SESSION_NAME);
+    const localSession = getLocalSession(storage, storageKey);
     const lastUpdate = localSession ? localSession.lastUpdate : 0;
 
     if (autoClearCache) {
       if (Date.now() - lastUpdate < 30 * 60 * 1000) {
         this.initializeWidget();
       } else {
-        localStorage.removeItem(SESSION_NAME);
+        localStorage.removeItem(storageKey);
       }
     } else {
       dispatch(pullSession());
@@ -109,9 +109,9 @@ class Widget extends Component {
   }
 
   getSessionId() {
-    const { storage } = this.props;
+    const { storage, storageKey } = this.props;
     // Get the local session, check if there is an existing session_id
-    const localSession = getLocalSession(storage, SESSION_NAME);
+    const localSession = getLocalSession(storage, storageKey);
     const localId = localSession ? localSession.session_id : null;
     return localId;
   }
@@ -334,7 +334,8 @@ class Widget extends Component {
       initialized,
       connectOn,
       tooltipPayload,
-      tooltipDelay
+      tooltipDelay,
+      storageKey
     } = this.props;
     if (!socket.isInitialized()) {
       socket.createSocket();
@@ -373,7 +374,7 @@ class Widget extends Component {
           // storage.clear();
           // Store the received session_id to storage
 
-          storeLocalSession(storage, SESSION_NAME, remoteId);
+          storeLocalSession(storage, storageKey, remoteId);
           dispatch(pullSession());
           if (sendInitPayload) {
             this.trySendInitPayload();
@@ -627,6 +628,7 @@ Widget.propTypes = {
   tooltipDelay: PropTypes.number.isRequired,
   domHighlight: PropTypes.shape({}),
   storage: PropTypes.shape({}),
+  storageKey: PropTypes.string,
   disableTooltips: PropTypes.bool,
   defaultHighlightAnimation: PropTypes.string,
   defaultHighlightCss: PropTypes.string,
@@ -642,6 +644,7 @@ Widget.defaultProps = {
   displayUnreadCount: false,
   tooltipPayload: null,
   oldUrl: '',
+  storageKey: 'chat_session',
   disableTooltips: false,
   defaultHighlightClassname: '',
   defaultHighlightCss: 'animation: 0.5s linear infinite alternate default-botfront-blinker-animation; outline-style: solid;',

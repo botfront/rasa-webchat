@@ -1,5 +1,4 @@
 import { Map, fromJS } from 'immutable';
-import { SESSION_NAME } from 'constants';
 import * as actionTypes from '../actions/actionTypes';
 import { getLocalSession, storeParamsTo } from './helper';
 
@@ -9,6 +8,7 @@ export default function (
   storage,
   docViewer = false,
   onWidgetEvent = {},
+  storageKey
 ) {
   const initialState = Map({
     connected: false,
@@ -26,7 +26,7 @@ export default function (
   });
 
   return function reducer(state = initialState, action) {
-    const storeParams = storeParamsTo(storage);
+    const storeParams = storeParamsTo(storage, storageKey);
     switch (action.type) {
       // Each change to the redux store's behavior Map gets recorded to storage
       case actionTypes.SHOW_CHAT: {
@@ -103,7 +103,7 @@ export default function (
 
       // Pull params from storage to redux store
       case actionTypes.PULL_SESSION: {
-        const localSession = getLocalSession(storage, SESSION_NAME);
+        const localSession = getLocalSession(storage, storageKey);
 
         // Do not persist connected state
         const connected = state.get('connected');

@@ -99,7 +99,8 @@ const ConnectedWidget = forwardRef((props, ref) => {
       sock,
       storage,
       props.docViewer,
-      props.onWidgetEvent
+      props.onWidgetEvent,
+      props.storageKey
     );
     store.socketRef = sock.marker;
   }
@@ -123,6 +124,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
         embedded={props.embedded}
         params={props.params}
         storage={storage}
+        storageKey={props.storageKey}
         openLauncherImage={props.openLauncherImage}
         closeImage={props.closeImage}
         customComponent={props.customComponent}
@@ -181,6 +183,7 @@ ConnectedWidget.propTypes = {
     onChatHidden: PropTypes.func
   }),
   disableTooltips: PropTypes.bool,
+  storageKey: PropTypes.string,
   defaultHighlightCss: PropTypes.string,
   defaultHighlightAnimation: PropTypes.string
 };
@@ -203,6 +206,7 @@ ConnectedWidget.defaultProps = {
   params: {
     storage: 'local'
   },
+  storageKey: 'chat_session',
   docViewer: false,
   showCloseButton: true,
   showFullScreenButton: false,

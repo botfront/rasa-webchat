@@ -1,5 +1,5 @@
 import { Map, fromJS } from 'immutable';
-import { MESSAGES_TYPES, MESSAGE_SENDER, SESSION_NAME } from 'constants';
+import { MESSAGES_TYPES, MESSAGE_SENDER } from 'constants';
 
 import { Video, Image, Message, Carousel, QuickReply } from 'messagesComponents';
 
@@ -124,42 +124,43 @@ export function storeLocalSession(storage, key, sid) {
   storage.setItem(key, JSON.stringify(session));
 }
 
-export const storeMessageTo = storage => (conversation) => {
+export const storeMessageTo = (storage, storageKey) => (conversation) => {
   // Store a conversation List to storage
-  const localSession = getLocalSession(storage, SESSION_NAME);
+  const localSession = getLocalSession(storage, storageKey);
   const newSession = {
     // Since immutable List is not a native JS object, store conversation as array
     ...localSession,
     conversation: conversation.toJS(),
     lastUpdate: Date.now()
   };
-  storage.setItem(SESSION_NAME, JSON.stringify(newSession));
+  storage.setItem(storageKey, JSON.stringify(newSession));
   return conversation;
 };
 
-export const storeParamsTo = storage => (params) => {
+export const storeParamsTo = (storage, storageKey) => (params) => {
   // Store a params List to storage
-  const localSession = getLocalSession(storage, SESSION_NAME);
+  const localSession = getLocalSession(storage, storageKey);
   const newSession = {
     // Since immutable Map is not a native JS object, store conversation as array
     ...localSession,
     params: params.toJS(),
     lastUpdate: Date.now()
   };
-  storage.setItem(SESSION_NAME, JSON.stringify(newSession));
+  storage.setItem(storageKey, JSON.stringify(newSession));
   return params;
 };
 
 
-export const storeMetadataTo = storage => (metadata) => {
+export const storeMetadataTo = (storage, storageKey) => (metadata) => {
   // Store a params List to storage
-  const localSession = getLocalSession(storage, SESSION_NAME);
+  const localSession = getLocalSession(storage, storageKey);
   const newSession = {
     // Since immutable Map is not a native JS object, store conversation as array
     ...localSession,
     metadata: metadata.toJS(),
     lastUpdate: Date.now()
   };
-  storage.setItem(SESSION_NAME, JSON.stringify(newSession));
+  storage.setItem(storageKey, JSON.stringify(newSession));
   return metadata;
 };
+

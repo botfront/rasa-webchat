@@ -1,5 +1,5 @@
 import { List, fromJS } from 'immutable';
-import { MESSAGE_SENDER, SESSION_NAME } from 'constants';
+import { MESSAGE_SENDER } from 'constants';
 
 import {
   createQuickReply,
@@ -14,11 +14,12 @@ import {
 
 import * as actionTypes from '../actions/actionTypes';
 
-export default function (storage) {
+
+export default function (storage, storageKey) {
   const initialState = List([]);
 
   return function reducer(state = initialState, action) {
-    const storeMessage = storeMessageTo(storage);
+    const storeMessage = storeMessageTo(storage, storageKey);
     switch (action.type) {
       // Each change to the redux store's message list gets recorded to storage
       case actionTypes.ADD_NEW_USER_MESSAGE: {
@@ -65,7 +66,7 @@ export default function (storage) {
       }
       // Pull conversation from storage, parsing as immutable List
       case actionTypes.PULL_SESSION: {
-        const localSession = getLocalSession(storage, SESSION_NAME);
+        const localSession = getLocalSession(storage, storageKey);
         if (localSession) {
           return fromJS(localSession.conversation);
         }

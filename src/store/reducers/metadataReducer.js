@@ -1,9 +1,8 @@
-import { SESSION_NAME } from 'constants';
 import { Map, fromJS } from 'immutable';
 import * as actionTypes from '../actions/actionTypes';
 import { getLocalSession, storeMetadataTo } from './helper';
 
-export default function (storage) {
+export default function (storage, storageKey) {
   const defaultValues = Map({
     linkTarget: '',
     userInput: '',
@@ -17,7 +16,7 @@ export default function (storage) {
   }).merge(defaultValues);
 
   return function reducer(state = initialState, action) {
-    const storeMetadata = storeMetadataTo(storage);
+    const storeMetadata = storeMetadataTo(storage, storageKey);
     switch (action.type) {
       // Each change to the redux store's behavior Map gets recorded to storage
       case actionTypes.CLEAR_METADATA: {
@@ -42,7 +41,7 @@ export default function (storage) {
         return storeMetadata(state.set('hintText', action.hint));
       }
       case actionTypes.PULL_SESSION: {
-        const localSession = getLocalSession(storage, SESSION_NAME);
+        const localSession = getLocalSession(storage, storageKey);
         if (localSession && localSession.metadata) {
           return fromJS({ ...state.toJS(), ...localSession.metadata });
         }
