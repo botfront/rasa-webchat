@@ -1,0 +1,61 @@
+@import "variables.scss";
+@import "common.scss";
+
+.#{$namespace}carousel-container {
+    @include message-bubble($grey-2, #000);
+    max-width: none;
+    max-height: 330px;
+    height: 330px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding-left: 12px;
+
+    .#{$namespace}carousel-card {
+        display: inline-block;
+        width: 170px;
+        height: 322px;
+        margin: 3px 10px 3px 1px;
+        border: solid 1px $grey-1;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+
+        .#{$namespace}carousel-card-image {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            display: block;
+            // this is so that it's not empty while loading
+            background-color: $grey-3;
+        }
+
+        .#{$namespace}carousel-card-title {
+            display: block;
+            margin: 7px 10px 2px 9px;
+            font-weight: 500;
+        }
+
+        .#{$namespace}carousel-card-subtitle {
+            display: block;
+            margin: 0 9px 8px 9px;
+            opacity: 0.5;
+            font-size: 0.8em;
+            white-space: normal;
+            line-height: initial;
+        }
+
+        .#{$namespace}carousel-buttons-container {
+            position: absolute;
+            width: 100%;
+            top: 173px;
+            .#{$namespace}reply {
+                min-height: 21px;
+                margin: 5px 10px;
+                font-size: 0.9em;
+                justify-content: center;
+            }
+        }
+
+    }
+}
