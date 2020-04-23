@@ -250,10 +250,7 @@ message = {
 emit('bot_uttered', message, room=socket_id)
 ```
 
-###### sending a link Snippet
-
-Admittedly a bit far fetched, thinking that Snippets would evolve to carousels
-of generic templates :)
+###### sending a Carousel
 
 ```python
 message = {
@@ -264,9 +261,16 @@ message = {
       "elements":[
         {
           "title":"Title",
+          "subtitle":"Subtitle",
           "buttons":[ {
             "title":"Link name",
-            "url": "http://link.url"
+            "type":"web_url",
+            "url":"http://link.url"
+          },
+          {
+            "title":"postback name",
+            "type":"postback",
+            "payload":"/an.intent"
           }
         ]
       }

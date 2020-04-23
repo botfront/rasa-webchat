@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
-export const SESSION_NAME = "chat_session";
+export const SESSION_NAME = 'chat_session';
 
 export const MESSAGE_SENDER = {
   CLIENT: 'client',
@@ -10,9 +10,7 @@ export const MESSAGE_SENDER = {
 
 export const MESSAGES_TYPES = {
   TEXT: 'text',
-  SNIPPET: {
-    LINK: 'snippet'
-  },
+  CAROUSEL: 'carousel',
   VIDREPLY: {
     VIDEO: 'vidreply'
   },
@@ -23,6 +21,18 @@ export const MESSAGES_TYPES = {
   CUSTOM_COMPONENT: 'component'
 };
 
+const replybuttons = PropTypes.shape({
+  title: PropTypes.string,
+  url: PropTypes.string,
+  payload: PropTypes.string,
+  type: PropTypes.string
+});
+
+const senderType = PropTypes.oneOf([
+  MESSAGE_SENDER.CLIENT,
+  MESSAGE_SENDER.RESPONSE
+]);
+
 export const NEXT_MESSAGE = 'mrbot_next_message';
 
 export const PROP_TYPES = {
@@ -31,32 +41,26 @@ export const PROP_TYPES = {
     type: PropTypes.oneOf([
       MESSAGES_TYPES.TEXT,
       MESSAGES_TYPES.QUICK_REPLY,
-      MESSAGES_TYPES.SNIPPET.LINK,
+      MESSAGES_TYPES.CAROUSEL,
       MESSAGES_TYPES.IMGREPLY.IMAGE,
       MESSAGES_TYPES.VIDREPLY.VIDEO
     ]),
     id: PropTypes.number,
     text: PropTypes.string,
-    sender: PropTypes.oneOf([
-      MESSAGE_SENDER.CLIENT,
-      MESSAGE_SENDER.RESPONSE
-    ])
+    sender: senderType
   }),
 
-  SNIPPET: ImmutablePropTypes.contains({
-    type: PropTypes.oneOf([
-      MESSAGES_TYPES.TEXT,
-      MESSAGES_TYPES.SNIPPET.LINK
-    ]),
+  CAROUSEL: ImmutablePropTypes.contains({
     id: PropTypes.number,
-    title: PropTypes.string,
-    link: PropTypes.string,
-    content: PropTypes.string,
-    target: PropTypes.string,
-    sender: PropTypes.oneOf([
-      MESSAGE_SENDER.CLIENT,
-      MESSAGE_SENDER.RESPONSE
-    ])
+    elements: ImmutablePropTypes.listOf(
+      ImmutablePropTypes.mapContains({
+        title: PropTypes.string,
+        subtitle: PropTypes.string,
+        imageUrl: PropTypes.string,
+        buttons: ImmutablePropTypes.listOf(replybuttons),
+        defaultActions: replybuttons
+      })),
+    sender: senderType
   }),
 
   VIDREPLY: ImmutablePropTypes.contains({
@@ -67,10 +71,7 @@ export const PROP_TYPES = {
     id: PropTypes.number,
     title: PropTypes.string,
     src: PropTypes.string,
-    sender: PropTypes.oneOf([
-      MESSAGE_SENDER.CLIENT,
-      MESSAGE_SENDER.RESPONSE
-    ])
+    sender: senderType
   }),
 
   IMGREPLY: ImmutablePropTypes.contains({
@@ -81,10 +82,7 @@ export const PROP_TYPES = {
     id: PropTypes.number,
     title: PropTypes.string,
     src: PropTypes.string,
-    sender: PropTypes.oneOf([
-      MESSAGE_SENDER.CLIENT,
-      MESSAGE_SENDER.RESPONSE
-    ])
+    sender: senderType
   }),
 
   QUICK_REPLY: ImmutablePropTypes.contains({
@@ -94,15 +92,8 @@ export const PROP_TYPES = {
     id: PropTypes.number,
     text: PropTypes.string,
     hint: PropTypes.string,
-    quick_replies: ImmutablePropTypes.listOf(
-        PropTypes.shape({
-          title: PropTypes.string,
-          payload: PropTypes.string
-        })),
-    sender: PropTypes.oneOf([
-      MESSAGE_SENDER.CLIENT,
-      MESSAGE_SENDER.RESPONSE
-    ]),
+    quick_replies: ImmutablePropTypes.listOf(replybuttons),
+    sender: senderType,
     chooseReply: PropTypes.func,
     getChosenReply: PropTypes.func,
     toggleInputDisabled: PropTypes.func,

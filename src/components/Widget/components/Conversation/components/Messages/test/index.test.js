@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 
 import {
   createNewMessage,
-  createLinkSnippet,
   createVideoSnippet,
   createImageSnippet,
   createComponentMessage,
@@ -16,8 +15,6 @@ import Video from '../components/VidReply';
 import Image from '../components/ImgReply';
 import Message from '../components/Message';
 import QuickReply from '../components/QuickReply';
-
-import Snippet from '../components/Snippet';
 
 describe('<Messages />', () => {
   const RealDate = Date;
@@ -40,7 +37,6 @@ describe('<Messages />', () => {
   });
 
   const message = createNewMessage('Response message 1');
-  const linkSnippet = createLinkSnippet({ title: 'link', link: 'link' });
   const srcVideo = createVideoSnippet({ title: 'video', video: 'video' });
   const srcImage = createImageSnippet({
     title: 'image',
@@ -73,7 +69,6 @@ describe('<Messages />', () => {
 
   const responseMessages = List([
     message,
-    linkSnippet,
     srcVideo,
     srcImage,
     customComp,
@@ -89,10 +84,6 @@ describe('<Messages />', () => {
 
   it('should render a Message component', () => {
     expect(messagesComponent.find(Message)).toHaveLength(1);
-  });
-
-  it('should render a Snippet component', () => {
-    expect(messagesComponent.find(Snippet)).toHaveLength(1);
   });
 
   it('should render a Video component', () => {

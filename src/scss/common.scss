@@ -142,6 +142,7 @@ $fontfamily: 'Inter', sans-serif;
   font-family: $fontfamily;
   cursor: pointer;
   margin: 0.25em;
+  text-decoration: unset;
 }
 
 @mixin replies {
