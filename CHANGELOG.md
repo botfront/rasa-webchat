@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.8](https://https///compare/v0.8.7...v0.8.8) (2020-04-24)
+
+
+### Features
+
+* allow disabling/enabling input ([333baea](https://https///commit/333baea0c1b87c6d7a99455a0902a6a0f927b20d))
+* change the color of the send button when input is not empty ([#214](https://https//undefined/issues/214)) ([bd75cc5](https://https///commit/bd75cc50b39aab935e6b54281c7d7caa87a9b4c5))
+
 ### [0.8.7](https://https///compare/v0.8.6...v0.8.7) (2020-04-16)
 
 
