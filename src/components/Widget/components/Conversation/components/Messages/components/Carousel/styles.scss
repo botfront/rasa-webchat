@@ -10,13 +10,14 @@
     overflow-y: hidden;
     white-space: nowrap;
     padding-left: 12px;
+    padding-right: 0;
 
     .#{$namespace}carousel-card {
         display: inline-block;
-        width: 170px;
-        height: 322px;
+        width: 220px;
+        height: 324px;
         margin: 3px 10px 3px 1px;
-        border: solid 1px $grey-1;
+        box-shadow: 4px 2px 12px 1px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
         overflow: hidden;
         position: relative;
@@ -28,12 +29,16 @@
             display: block;
             // this is so that it's not empty while loading
             background-color: $grey-3;
+            cursor: pointer;
         }
 
         .#{$namespace}carousel-card-title {
             display: block;
             margin: 7px 10px 2px 9px;
             font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
         }
 
         .#{$namespace}carousel-card-subtitle {
@@ -41,21 +46,29 @@
             margin: 0 9px 8px 9px;
             opacity: 0.5;
             font-size: 0.8em;
+            height: 64px;
+            overflow: hidden;
             white-space: normal;
             line-height: initial;
+            cursor: pointer;
         }
 
         .#{$namespace}carousel-buttons-container {
             position: absolute;
             width: 100%;
-            top: 173px;
+            top: 205px;
             .#{$namespace}reply {
                 min-height: 21px;
                 margin: 5px 10px;
                 font-size: 0.9em;
                 justify-content: center;
+                outline: none;
+                span {
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
             }
         }
-
     }
 }

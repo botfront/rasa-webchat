@@ -143,6 +143,10 @@ $fontfamily: 'Inter', sans-serif;
   cursor: pointer;
   margin: 0.25em;
   text-decoration: unset;
+  &:hover {
+    border-color: $blue-1;
+    color: $blue-1;
+  }
 }
 
 @mixin replies {
