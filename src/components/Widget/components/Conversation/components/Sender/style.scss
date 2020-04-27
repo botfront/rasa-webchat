@@ -13,7 +13,7 @@
   
   .#{$namespace}new-message {
     font-size: 1em;
-    width: 100%;
+    width: calc(100% - 40px); // padding-left (15px) + width (35px - 2 * 5px = 25px) = 40px
     border: 0;
     background-color: $grey-2;
     padding-left: 15px;
