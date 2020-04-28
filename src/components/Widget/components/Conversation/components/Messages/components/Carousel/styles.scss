@@ -39,6 +39,8 @@
             overflow: hidden;
             text-overflow: ellipsis;
             cursor: pointer;
+            text-decoration: none;
+            color: inherit;
         }
 
         .#{$namespace}carousel-card-subtitle {
@@ -46,11 +48,13 @@
             margin: 0 9px 8px 9px;
             opacity: 0.5;
             font-size: 0.8em;
-            height: 64px;
+            height: 5em;
             overflow: hidden;
             white-space: normal;
             line-height: initial;
             cursor: pointer;
+            text-decoration: none;
+            color: inherit;
         }
 
         .#{$namespace}carousel-buttons-container {
