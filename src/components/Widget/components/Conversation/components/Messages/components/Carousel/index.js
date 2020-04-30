@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { addUserMessage, emitUserMessage } from 'actions';
 import { PROP_TYPES } from 'constants';
+import Arrow from 'assets/arrow.svg';
 
 import './styles.scss';
 
@@ -133,7 +134,9 @@ const Carousel = (props) => {
             onClick={handleLeftArrow}
             role="button"
             tabIndex={0}
-          />
+          >
+            <img className="rw-arrow" src={Arrow} alt="left carousel arrow" />
+          </div>
         )}
         {rightButton && (
           // eslint-disable-next-line jsx-a11y/no-static-element-interactions
@@ -142,7 +145,9 @@ const Carousel = (props) => {
             onClick={handleRightArrow}
             role="button"
             tabIndex={0}
-          />
+          >
+            <img className="rw-arrow" src={Arrow} alt="right carousel arrow" />
+          </div>
         )}
       </div>
     </React.Fragment>

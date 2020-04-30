@@ -61,7 +61,7 @@
         .#{$namespace}carousel-buttons-container {
             position: absolute;
             width: 100%;
-            top: 205px;
+            top: 210px;
             .#{$namespace}reply {
                 min-height: 21px;
                 margin: 5px 10px;
@@ -98,10 +98,16 @@
         border-radius: 11px;
         transition: all 0.2s ease-in-out;
         cursor: pointer;
-        box-shadow: 0px 2px 8px 4px rgba(200, 200, 200, 0.2);
+        box-shadow: 0px 2px 8px 4px rgba(200, 200, 200, 0.35);
         &:hover {
-            box-shadow: 0px 2px 8px 4px rgba(200, 200, 200, 0.2);
+            box-shadow: 0px 2px 8px 4px rgba(200, 200, 200, 0.25);
             top: calc(40% - 2px);
+        }
+        outline: none;
+        img.#{$namespace}arrow {
+            position: absolute;
+            height: 100%;
+            left: 3px;
         }
     }
 
@@ -112,5 +118,8 @@
 
     .#{$namespace}right-arrow {
         right: 10px;
+        img.#{$namespace}arrow {
+            transform: rotate(180deg);
+        }
     }
 }
