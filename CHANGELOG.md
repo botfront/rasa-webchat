@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### Bug Fixes
+
+* The quick replies weren't able to deal with other targets than "_blank" ([#118](https://github.com/botfront/rasa-webchat/issues/118))
+
 ### [0.8.8](https://https///compare/v0.8.7...v0.8.8) (2020-04-24)
 
 

@@ -44,8 +44,7 @@ class QuickReply extends PureComponent {
       message,
       getChosenReply,
       isLast,
-      id,
-      linkTarget
+      id
     } = this.props;
     const chosenReply = getChosenReply(id);
     if (chosenReply) {
@@ -58,10 +57,12 @@ class QuickReply extends PureComponent {
           <div className="rw-replies">
             {message.get('quick_replies').map((reply, index) => {
               if (reply.get('type') === 'web_url') {
+                var url = reply.get('url')
+                var linkTarget = (!url.startsWith('mailto') && !url.startsWith('javascript')) ? '_blank' : undefined;                
                 return (
                   <a
                     key={index}
-                    href={reply.get('url')}
+                    href={url}
                     target={linkTarget || '_blank'}
                     rel="noopener noreferrer"
                     className={'rw-reply'}
