@@ -18,6 +18,9 @@ describe('Messages metadata affect store', () => {
 
   store.dispatch({
     type: 'CONNECT' });
+  store.dispatch({
+    type: 'OPEN_CHAT' });
+  })
   const widgetComponent = shallow(
     <Provider store={store}>
       <Widget
@@ -28,7 +31,7 @@ describe('Messages metadata affect store', () => {
         connectOn="open"
         customMessageDelay={() => {}}
         connected
-        isChatOpen={false}
+        isChatOpen
       />
     </Provider>, { disableLifecycleMethods: true }
   );

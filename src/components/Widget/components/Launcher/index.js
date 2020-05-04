@@ -109,7 +109,7 @@ Launcher.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  lastMessage: state.messages.get(-1) || new Map(),
+  lastMessage: (state.messages && state.messages.get(-1)) || new Map(),
   unreadCount: state.behavior.get('unreadCount') || 0,
   showTooltip: state.metadata.get('showTooltip'),
   linkTarget: state.metadata.get('linkTarget')

@@ -27,21 +27,21 @@ describe('Metadata store affect input behavior', () => {
   });
 
   it('should disable the input', () => {
-    expect(senderCompoment.find('.new-message')).toHaveLength(1);
-    expect(senderCompoment.find('.new-message').prop('disabled')).toEqual(false);
+    expect(senderCompoment.find('.rw-new-message')).toHaveLength(1);
+    expect(senderCompoment.find('.rw-new-message').prop('disabled')).toEqual(false);
     store.dispatch({ type: 'SET_USER_INPUT', userInputState: 'disable' });
     senderCompoment.update(); // propagate new store to the compoment
-    expect(senderCompoment.find('.new-message')).toHaveLength(1);
-    expect(senderCompoment.find('.new-message').prop('disabled')).toEqual(true);
+    expect(senderCompoment.find('.rw-new-message')).toHaveLength(1);
+    expect(senderCompoment.find('.rw-new-message').prop('disabled')).toEqual(true);
   });
 
 
   it('should hide the input', () => {
-    expect(senderCompoment.find('.new-message')).toHaveLength(1);
-    expect(senderCompoment.find('.new-message').prop('disabled')).toEqual(false);
+    expect(senderCompoment.find('.rw-new-message')).toHaveLength(1);
+    expect(senderCompoment.find('.rw-new-message').prop('disabled')).toEqual(false);
     store.dispatch({ type: 'SET_USER_INPUT', userInputState: 'hide' });
     senderCompoment.update(); // propagate new store to the compoment
-    expect(senderCompoment.find('.new-message')).toHaveLength(0);
+    expect(senderCompoment.find('.rw-new-message')).toHaveLength(0);
   });
 });
 

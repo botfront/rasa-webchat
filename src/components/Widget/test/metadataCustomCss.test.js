@@ -52,8 +52,7 @@ describe('Message custom Css', () => {
         />
       </Provider>
     );
-    expect(messageComponent.find('div.response').prop('style')).toEqual({ cssText: 'color:red;' });
-    expect(messageComponent.find('div.response').prop('className')).toEqual('response');
+    expect(messageComponent.find('div.rw-response').prop('style')).toEqual({ cssText: 'color:red;' });
   });
 
   it('check that a class style is correctly applied', () => {
@@ -68,8 +67,8 @@ describe('Message custom Css', () => {
         />
       </Provider>
     );
-    expect(messageComponent.find('div.response').prop('className')).toEqual('response test-class');
-    expect(messageComponent.find('div.response').prop('style')).toEqual({ cssText: undefined });
+    expect(messageComponent.find('div.rw-response').prop('className')).toEqual('rw-response test-class');
+    expect(messageComponent.find('div.rw-response').prop('style')).toEqual({ cssText: undefined });
   });
 
   it('check that a  style cannot be applied to a user message', () => {
@@ -84,7 +83,7 @@ describe('Message custom Css', () => {
         />
       </Provider>
     );
-    expect(messageComponent.find('div.client').prop('className')).toEqual('client');
-    expect(messageComponent.find('div.client').prop('style')).toEqual({ cssText: undefined });
+    expect(messageComponent.find('div.rw-client').prop('className')).toEqual('rw-client');
+    expect(messageComponent.find('div.rw-client').prop('style')).toEqual({ cssText: undefined });
   });
 });
