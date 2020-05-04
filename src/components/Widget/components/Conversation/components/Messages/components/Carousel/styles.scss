@@ -100,7 +100,11 @@
         cursor: pointer;
         box-shadow: 0px 2px 8px 4px rgba(200, 200, 200, 0.35);
         &:hover {
-            box-shadow: 0px 2px 8px 4px rgba(200, 200, 200, 0.25);
+            box-shadow: 0px 3px 8px 4px rgba(200, 200, 200, 0.2);
+            top: calc(40% - 3px);
+        }
+        &:active {
+            box-shadow: 0px 2px 8px 4px rgba(200, 200, 200, 0.3);
             top: calc(40% - 2px);
         }
         outline: none;

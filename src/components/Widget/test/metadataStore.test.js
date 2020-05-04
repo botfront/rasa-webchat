@@ -20,7 +20,6 @@ describe('Messages metadata affect store', () => {
     type: 'CONNECT' });
   store.dispatch({
     type: 'OPEN_CHAT' });
-  })
   const widgetComponent = shallow(
     <Provider store={store}>
       <Widget
