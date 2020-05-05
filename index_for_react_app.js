@@ -2,7 +2,7 @@ import ConnectedWidget from './src';
 import {
   addUserMessage,
   addResponseMessage,
-  addLinkSnippet,
+  addCarousel,
   addVideoSnippet,
   addImageSnippet,
   addQuickReply,
@@ -24,7 +24,7 @@ export {
   ConnectedWidget as Widget,
   addUserMessage,
   addResponseMessage,
-  addLinkSnippet,
+  addCarousel,
   addVideoSnippet,
   addImageSnippet,
   addQuickReply,

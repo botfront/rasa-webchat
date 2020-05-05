@@ -52,7 +52,7 @@ class QuickReply extends PureComponent {
       return <Message message={message} />;
     }
     return (
-      <div className="rw-quickReplies-container">
+      <div>
         <Message message={message} />
         {isLast && (
           <div className="rw-replies">

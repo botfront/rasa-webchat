@@ -109,10 +109,10 @@ export function addResponseMessage(text) {
   };
 }
 
-export function addLinkSnippet(link) {
+export function addCarousel(carousel) {
   return {
-    type: actions.ADD_NEW_LINK_SNIPPET,
-    link
+    type: actions.ADD_CAROUSEL,
+    carousel
   };
 }
 

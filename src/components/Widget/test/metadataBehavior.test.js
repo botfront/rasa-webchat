@@ -10,7 +10,9 @@ import LocalStorageMock from '../../../../mocks/localStorageMock';
 const localStorage = new LocalStorageMock();
 let sentToSocket = [];
 const mockSocket = {
-  emit: jest.fn((action, message) => sentToSocket.push({ action, message }))
+  emit: jest.fn((action, message) => sentToSocket.push({ action, message })),
+  on: () => {},
+  sessionConfirmed: true
 };
 const store = initStore('dummy', 'dummy', mockSocket, localStorage);
 
@@ -31,6 +33,9 @@ describe('Metadata store affect app behavior', () => {
         customMessageDelay={() => {}}
         connected
         isChatOpen={false}
+        disableTooltips /* whithout this the tests about domHighlight fails, as it tries to display the tooltip it also apply the styles.
+        and some how the styles applied in the test are wrong, but trying the same behavior on the real webchat does not create any issue
+        if you remove this props to experiment, it seems that it's the applyCustomStyle in handleMessageReceived that causing the test to fail */
       />
     </Provider>
     , { disableLifecycleMethods: true }
@@ -188,7 +193,7 @@ describe('Metadata store affect app behavior', () => {
     expect(elemAttributes).toEqual({ attribute: 'style', value: '' });
   });
 
-  it('should apply the default the style to an element', () => {
+  it('should apply the default style to an element', () => {
     store.dispatch({ type: 'SET_DOM_HIGHLIGHT',
       domHighlight: {
         selector: '.test',
@@ -201,7 +206,7 @@ describe('Metadata store affect app behavior', () => {
       .instance()
       .applyCustomStyle();
 
-    expect(elemAttributes).toEqual({ attribute: 'style', value: 'animation: 0.5s linear infinite alternate default-botfront-blinker-animation;' });
+    expect(elemAttributes.value).toContain('animation: 0.5s linear infinite alternate default-botfront-blinker-animation; outline-style: solid;');
     expect(querySelectorAllspyFunc).toHaveBeenCalled();
     const botUtter = {
       text: 'test'

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Inter:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Inter:400,500,700&display=swap');
 
 $fontfamily: 'Inter', sans-serif;  
 
@@ -142,6 +142,11 @@ $fontfamily: 'Inter', sans-serif;
   font-family: $fontfamily;
   cursor: pointer;
   margin: 0.25em;
+  text-decoration: unset;
+  &:hover {
+    border-color: $blue-1;
+    color: $blue-1;
+  }
 }
 
 @mixin replies {

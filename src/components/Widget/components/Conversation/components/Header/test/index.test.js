@@ -16,7 +16,7 @@ describe('<Header />', () => {
     const fullScreenMode = false;
     const showFullScreenButton = true;
     const headerComponent = createHeader({ toggle, fullScreenMode, showFullScreenButton });
-    headerComponent.find('.toggle-fullscreen-button').simulate('click');
+    headerComponent.find('.rw-toggle-fullscreen-button').simulate('click');
     expect(toggle).toBeCalled();
   });
 
@@ -25,7 +25,7 @@ describe('<Header />', () => {
     const fullScreenMode = false;
     const showFullScreenButton = true;
     const headerComponent = createHeader({ toggle, fullScreenMode, showFullScreenButton });
-    expect(headerComponent.find('.fullScreenImage')).toHaveLength(1);
+    expect(headerComponent.find('.rw-fullScreenImage')).toHaveLength(1);
   });
 
   it('should render the fullscreen exit image when fullScreenMode = true', () => {
@@ -33,7 +33,7 @@ describe('<Header />', () => {
     const fullScreenMode = true;
     const showFullScreenButton = true;
     const headerComponent = createHeader({ toggle, fullScreenMode, showFullScreenButton });
-    expect(headerComponent.find('.fullScreenExitImage')).toHaveLength(1);
+    expect(headerComponent.find('.rw-fullScreenExitImage')).toHaveLength(1);
   });
 
   it('should not render the fullscreen toggle button when showFullScreenButton = false', () => {
@@ -41,6 +41,6 @@ describe('<Header />', () => {
     const fullScreen = true;
     const showFullScreenButton = false;
     const headerComponent = createHeader({ toggle, fullScreen, showFullScreenButton });
-    expect(headerComponent.find('.toggle-fullscreen-button')).toHaveLength(0);
+    expect(headerComponent.find('.rw-toggle-fullscreen-button')).toHaveLength(0);
   });
 });

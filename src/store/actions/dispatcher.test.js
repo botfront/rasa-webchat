@@ -10,7 +10,9 @@ describe('Dispatcher', () => {
     clear: jest.fn()
   };
   const mockSocket = {
-    emit: jest.fn((action, message) => sentToSocket.push({ action, message }))
+    emit: jest.fn((action, message) => sentToSocket.push({ action, message })),
+    on: () => {},
+    sessionConfirmed: true
   };
 
   let store = initStore('dummy',

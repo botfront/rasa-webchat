@@ -4,7 +4,7 @@ import { MESSAGE_SENDER, SESSION_NAME } from 'constants';
 import {
   createQuickReply,
   createNewMessage,
-  createLinkSnippet,
+  createCarousel,
   createVideoSnippet,
   createImageSnippet,
   createComponentMessage,
@@ -27,8 +27,8 @@ export default function (storage) {
       case actionTypes.ADD_NEW_RESPONSE_MESSAGE: {
         return storeMessage(state.push(createNewMessage(action.text, MESSAGE_SENDER.RESPONSE)));
       }
-      case actionTypes.ADD_NEW_LINK_SNIPPET: {
-        return storeMessage(state.push(createLinkSnippet(action.link, MESSAGE_SENDER.RESPONSE)));
+      case actionTypes.ADD_CAROUSEL: {
+        return storeMessage(state.push(createCarousel(action.carousel, MESSAGE_SENDER.RESPONSE)));
       }
       case actionTypes.ADD_NEW_VIDEO_VIDREPLY: {
         return storeMessage(state.push(createVideoSnippet(action.video, MESSAGE_SENDER.RESPONSE)));
