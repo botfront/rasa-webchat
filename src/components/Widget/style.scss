@@ -67,7 +67,7 @@
   align-items: flex-end;
   justify-content: flex-end;
 
-  .#{$namespace}full-screen.#{$namespace}chat-open {
+  &.#{$namespace}full-screen.#{$namespace}chat-open {
     @include widget-container-fs;
   }
   p {

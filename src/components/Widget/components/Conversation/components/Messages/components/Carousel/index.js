@@ -23,7 +23,7 @@ const Carousel = (props) => {
 
   const handleScroll = () => {
     const current = scrollContainer.current;
-    if (scrollContainer.current.scrollLeft > 0) {
+    if (current.scrollLeft > 0) {
       setLeftButton(true);
     } else {
       setLeftButton(false);
