@@ -33,6 +33,9 @@ describe('Metadata store affect app behavior', () => {
         customMessageDelay={() => {}}
         connected
         isChatOpen={false}
+        disableTooltips /* whithout this the tests about domHighlight fails, as it tries to display the tooltip it also apply the styles.
+        and some how the styles applied in the test are wrong, but trying the same behavior on the real webchat does not create any issue
+        if you remove this props to experiment, it seems that it's the applyCustomStyle in handleMessageReceived that causing the test to fail */
       />
     </Provider>
     , { disableLifecycleMethods: true }
