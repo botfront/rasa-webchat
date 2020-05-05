@@ -23,7 +23,7 @@ const Carousel = (props) => {
 
   const handleScroll = () => {
     const current = scrollContainer.current;
-    if (scrollContainer.current.scrollLeft > 0) {
+    if (current.scrollLeft > 0) {
       setLeftButton(true);
     } else {
       setLeftButton(false);
@@ -49,6 +49,8 @@ const Carousel = (props) => {
     });
   };
 
+  const { linkTarget } = props;
+
   return (
     <React.Fragment>
       <div className="rw-carousel-container" ref={scrollContainer} onScroll={() => handleScroll()}>
@@ -61,7 +63,7 @@ const Carousel = (props) => {
             <div className="rw-carousel-card" key={index}>
               <a
                 href={defaultActionUrl}
-                target="_blank"
+                target={linkTarget || '_blank'}
                 rel="noopener noreferrer"
                 onClick={() => handleClick(carouselCard.default_action)}
               >
@@ -78,7 +80,7 @@ const Carousel = (props) => {
               <a
                 className="rw-carousel-card-title"
                 href={defaultActionUrl}
-                target="_blank"
+                target={linkTarget || '_blank'}
                 rel="noopener noreferrer"
                 onClick={() => handleClick(carouselCard.default_action)}
               >
@@ -87,7 +89,7 @@ const Carousel = (props) => {
               <a
                 className="rw-carousel-card-subtitle"
                 href={defaultActionUrl}
-                target="_blank"
+                target={linkTarget || '_blank'}
                 rel="noopener noreferrer"
                 onClick={() => handleClick(carouselCard.default_action)}
               >
@@ -100,7 +102,7 @@ const Carousel = (props) => {
                       <a
                         key={buttonIndex}
                         href={button.url}
-                        target="_blank"
+                        target={linkTarget || '_blank'}
                         rel="noopener noreferrer"
                         className="rw-reply"
                       >
@@ -158,8 +160,13 @@ Carousel.propTypes = {
   message: PROP_TYPES.CAROUSEL,
   // completely bugged, it's actually used in handle click
   // eslint-disable-next-line react/no-unused-prop-types
-  chooseReply: PropTypes.func.isRequired
+  chooseReply: PropTypes.func.isRequired,
+  linkTarget: PropTypes.string
 };
+
+const mapStateToProps = state => ({
+  linkTarget: state.metadata.get('linkTarget')
+});
 
 const mapDispatchToProps = dispatch => ({
   chooseReply: (payload, title) => {
@@ -168,4 +175,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(() => ({}), mapDispatchToProps)(Carousel);
+export default connect(mapStateToProps, mapDispatchToProps)(Carousel);
