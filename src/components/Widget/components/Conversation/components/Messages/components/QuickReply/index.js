@@ -51,19 +51,18 @@ class QuickReply extends PureComponent {
       return <Message message={message} />;
     }
     return (
-      <div className="rw-quickReplies-container">
+      <div>
         <Message message={message} />
         {isLast && (
           <div className="rw-replies">
             {message.get('quick_replies').map((reply, index) => {
               if (reply.get('type') === 'web_url') {
                 var url = reply.get('url')
-                var linkTarget = (!url.startsWith('mailto') && !url.startsWith('javascript')) ? '_blank' : undefined;                
                 return (
                   <a
                     key={index}
                     href={url}
-                    target={linkTarget || '_blank'}
+                    target={(!url.startsWith('mailto') && !url.startsWith('javascript')) ? '_blank' : '_self'}
                     rel="noopener noreferrer"
                     className={'rw-reply'}
                   >

@@ -16,10 +16,10 @@ describe('link target', () => {
       text: 'test',
       quick_replies: [
         {
-          type: 'postback',
+          type: 'web_url',
           content_type: 'text',
-          title: 'Button title 1',
-          payload: '/payload1'
+          title: 'google',
+          url: 'http://www.google.ca'
         },
         {
           type: 'web_url',
@@ -35,6 +35,7 @@ describe('link target', () => {
         }
       ]
     } });
+    
   const quickReplyComponent = mount(
     <Provider store={store}>
       <QuickReply
@@ -46,31 +47,36 @@ describe('link target', () => {
       />
     </Provider>
   );
-
-  it('should render a quick reply with a link to google targeting blank', () => {
-    store.dispatch({ type: 'SET_LINK_TARGET' });
-    quickReplyComponent.update();
-    expect(quickReplyComponent.find('a.reply')).toHaveLength(1);
-    expect(quickReplyComponent.find('a.reply').text()).toEqual('google');
-    expect(quickReplyComponent.find('a.reply').prop('href')).toEqual('http://www.google.ca');
-    expect(quickReplyComponent.find('a.reply').prop('target')).toEqual('_blank');
+  
+  quickReplyComponent.update();
+  
+  it('should render a quick reply with a link to google targeting blank', () => {    
+    var cmps = quickReplyComponent.find('a.rw-reply');
+    expect(cmps).toHaveLength(3);
+    
+    var cmp = cmps.at(0);
+    expect(cmp.text()).toEqual('google');
+    expect(cmp.prop('href')).toEqual('http://www.google.ca');
+    expect(cmp.prop('target')).toEqual('_blank');
   });
 
-  it('should render a quick reply with a link to google targeting self', () => {
-    store.dispatch({ type: 'SET_LINK_TARGET' });
-    quickReplyComponent.update();
-    expect(quickReplyComponent.find('a.reply')).toHaveLength(1);
-    expect(quickReplyComponent.find('a.reply').text()).toEqual('google');
-    expect(quickReplyComponent.find('a.reply').prop('href')).toEqual('javascript:alert("http://www.google.ca")');
-    expect(quickReplyComponent.find('a.reply').prop('target')).toEqual('_self');
+  it('should render a quick reply with a link to google targeting self', () => {    
+    var cmps = quickReplyComponent.find('a.rw-reply');
+    expect(cmps).toHaveLength(3);
+    
+    var cmp = cmps.at(1);
+    expect(cmp.text()).toEqual('google');
+    expect(cmp.prop('href')).toEqual('javascript:alert("http://www.google.ca")');
+    expect(cmp.prop('target')).toEqual('_self');
   });
   
-  it('should render a quick reply with a link to google targeting self', () => {
-    store.dispatch({ type: 'SET_LINK_TARGET' });
-    quickReplyComponent.update();
-    expect(quickReplyComponent.find('a.reply')).toHaveLength(1);
-    expect(quickReplyComponent.find('a.reply').text()).toEqual('mail');
-    expect(quickReplyComponent.find('a.reply').prop('href')).toEqual('mailto:someone@somewhere.com');
-    expect(quickReplyComponent.find('a.reply').prop('target')).toEqual('_self');
+  it('should render a quick reply with a link to mail targeting self', () => {    
+    var cmps = quickReplyComponent.find('a.rw-reply');
+    expect(cmps).toHaveLength(3);
+    
+    var cmp = cmps.at(2);
+    expect(cmp.text()).toEqual('mail');
+    expect(cmp.prop('href')).toEqual('mailto:someone@somewhere.com');
+    expect(cmp.prop('target')).toEqual('_self');
   });
 });

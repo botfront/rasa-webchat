@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 
 import {
   createNewMessage,
-  createLinkSnippet,
   createVideoSnippet,
   createImageSnippet,
   createComponentMessage,
@@ -16,8 +15,6 @@ import Video from '../components/VidReply';
 import Image from '../components/ImgReply';
 import Message from '../components/Message';
 import QuickReply from '../components/QuickReply';
-
-import Snippet from '../components/Snippet';
 
 describe('<Messages />', () => {
   const RealDate = Date;
@@ -40,7 +37,6 @@ describe('<Messages />', () => {
   });
 
   const message = createNewMessage('Response message 1');
-  const linkSnippet = createLinkSnippet({ title: 'link', link: 'link' });
   const srcVideo = createVideoSnippet({ title: 'video', video: 'video' });
   const srcImage = createImageSnippet({
     title: 'image',
@@ -73,7 +69,6 @@ describe('<Messages />', () => {
 
   const responseMessages = List([
     message,
-    linkSnippet,
     srcVideo,
     srcImage,
     customComp,
@@ -89,10 +84,6 @@ describe('<Messages />', () => {
 
   it('should render a Message component', () => {
     expect(messagesComponent.find(Message)).toHaveLength(1);
-  });
-
-  it('should render a Snippet component', () => {
-    expect(messagesComponent.find(Snippet)).toHaveLength(1);
   });
 
   it('should render a Video component', () => {
@@ -125,14 +116,14 @@ describe('<Messages />', () => {
       );
 
     it('should not render message\'s date', () => {
-      expect(createComponent(false).find('.message-date')).toHaveLength(0);
+      expect(createComponent(false).find('.rw-message-date')).toHaveLength(0);
     });
 
     it('should render today\'s time', () => {
       mockDate(today);
       const messageToRender = createNewMessage('Response message 1');
       const renderedComponent = createComponent(true, messageToRender);
-      const date = renderedComponent.find('.message-date');
+      const date = renderedComponent.find('.rw-message-date');
       expect(date).toHaveLength(1);
       expect(date.text()).toEqual(today.toLocaleTimeString('en-US', { timeStyle: 'short' }));
     });
@@ -143,14 +134,14 @@ describe('<Messages />', () => {
       const messageToRender = createNewMessage('Response message 1');
       mockDate(today);
       const renderedComponent = createComponent(true, messageToRender);
-      const date = renderedComponent.find('.message-date');
+      const date = renderedComponent.find('.rw-message-date');
       expect(date).toHaveLength(1);
       expect(date.text()).toEqual(`${twoDaysAgo.toLocaleDateString()} ${twoDaysAgo.toLocaleTimeString('en-US', { timeStyle: 'short' })}`);
     });
 
     it('should render custom date', () => {
       const renderedComponent = createComponent(() => 'custom date');
-      const date = renderedComponent.find('.message-date');
+      const date = renderedComponent.find('.rw-message-date');
       expect(date).toHaveLength(1);
       expect(date.text()).toEqual('custom date');
     });

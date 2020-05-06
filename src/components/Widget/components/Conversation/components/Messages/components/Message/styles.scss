@@ -11,6 +11,7 @@
     display: flex;
     font-family: $fontfamily;
     flex-wrap: wrap;
+    position: relative;
   
     .#{$namespace}markdown {
       p {

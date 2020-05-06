@@ -8,7 +8,7 @@ export default function (
   connectingText,
   storage,
   docViewer = false,
-  onWidgetEvent
+  onWidgetEvent = {},
 ) {
   const initialState = Map({
     connected: false,

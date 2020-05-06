@@ -34,7 +34,7 @@ class Message extends PureComponent {
               className={'rw-markdown'}
               source={text}
               linkTarget={(url) => {
-                if (!url.startsWith('mailto') && !url.startsWith('javascript')) return '_blank';
+                if (url.startsWith('mailto') || url.startsWith('javascript')) return '_self'; else return '_blank';
                 return undefined;
               }}
               transformLinkUri={null}
@@ -43,7 +43,7 @@ class Message extends PureComponent {
                   docViewer ? (
                     <DocViewer src={props.href}>{props.children}</DocViewer>
                   ) : (
-                    <a href={props.href} target={linkTarget || '_blank'} rel="noopener noreferrer">{props.children}</a>
+                    <a href={props.href} target={props.target || '_blank'} rel="noopener noreferrer">{props.children}</a>
                   )
               }}
             />

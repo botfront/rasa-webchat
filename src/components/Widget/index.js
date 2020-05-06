@@ -10,7 +10,7 @@ import {
   addUserMessage,
   emitUserMessage,
   addResponseMessage,
-  addLinkSnippet,
+  addCarousel,
   addVideoSnippet,
   addImageSnippet,
   addQuickReply,
@@ -35,7 +35,7 @@ import {
 } from 'actions';
 
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
-import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
+import { isVideo, isImage, isQR, isText, isCarousel } from './msgProcessor';
 import WidgetLayout from './layout';
 import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
 
@@ -340,6 +340,8 @@ class Widget extends Component {
       socket.createSocket();
 
       socket.on('bot_uttered', (botUttered) => {
+        // botUttered.attachment.payload.elements = [botUttered.attachment.payload.elements];
+        // console.log(botUttered);
         this.handleBotUtterance(botUttered);
       });
 
@@ -509,15 +511,9 @@ class Widget extends Component {
       this.props.dispatch(addResponseMessage(messageClean.text));
     } else if (isQR(messageClean)) {
       this.props.dispatch(addQuickReply(messageClean));
-    } else if (isSnippet(messageClean)) {
-      const element = messageClean.attachment.payload.elements[0];
+    } else if (isCarousel(messageClean)) {
       this.props.dispatch(
-        addLinkSnippet({
-          title: element.title,
-          content: element.buttons[0].title,
-          link: element.buttons[0].url,
-          target: '_blank'
-        })
+        addCarousel(messageClean)
       );
     } else if (isVideo(messageClean)) {
       const element = messageClean.attachment.payload;

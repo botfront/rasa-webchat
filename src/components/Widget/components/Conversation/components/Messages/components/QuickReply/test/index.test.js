@@ -46,8 +46,8 @@ describe('<QuickReply />', () => {
   );
 
   it('should render a quick reply with a link to google', () => {
-    expect(quickReplyComponent.find('a.reply')).toHaveLength(1);
-    expect(quickReplyComponent.find('a.reply').html()).toEqual('google');
-    expect(quickReplyComponent.find('a.reply').prop('href')).toEqual('http://www.google.ca');
+    expect(quickReplyComponent.find('a.rw-reply')).toHaveLength(1);
+    expect(quickReplyComponent.find('a.rw-reply').html()).toEqual('google');
+    expect(quickReplyComponent.find('a.rw-reply').prop('href')).toEqual('http://www.google.ca');
   });
 });
