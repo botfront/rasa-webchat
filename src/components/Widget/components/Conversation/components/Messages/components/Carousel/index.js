@@ -21,7 +21,7 @@ const Carousel = (props) => {
   const scrollContainer = useRef();
   const [leftButton, setLeftButton] = useState(false);
   const [rightButton, setRightButton] = useState(true);
-  const { assistBackgoundColor, assistTextColor } = useContext(ThemeContext);
+  const { mainColor, assistTextColor } = useContext(ThemeContext);
 
 
   const handleScroll = () => {
@@ -110,7 +110,7 @@ const Carousel = (props) => {
                         target={linkTarget || '_blank'}
                         rel="noopener noreferrer"
                         className="rw-reply"
-                        style={{ borderColor: assistBackgoundColor, color: assistBackgoundColor }}
+                        style={{ borderColor: mainColor, color: mainColor }}
                       >
                         <span>{button.title}</span>
                       </a>
@@ -124,7 +124,7 @@ const Carousel = (props) => {
                       onClick={() => handleClick(button)}
                       role="button"
                       tabIndex={0}
-                      style={{ borderColor: assistBackgoundColor, color: assistBackgoundColor }}
+                      style={{ borderColor: mainColor, color: mainColor }}
                     >
                       <span>{button.title}</span>
                     </div>

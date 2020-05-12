@@ -64,7 +64,7 @@ class Buttons extends PureComponent {
                     target={linkTarget || '_blank'}
                     rel="noopener noreferrer"
                     className={'rw-reply'}
-                    style={{ borderColor: assistBackgoundColor, color: assistBackgoundColor }}
+                    style={{ borderColor: mainColor, color: mainColor }}
                   >
                     {reply.get('title')}
                   </a>
@@ -76,7 +76,7 @@ class Buttons extends PureComponent {
                   key={index}
                   className={'rw-reply'}
                   onClick={(e) => { e.stopPropagation(); this.handleClick(reply); }}
-                  style={{ borderColor: assistBackgoundColor, color: assistBackgoundColor }}
+                  style={{ borderColor: mainColor, color: mainColor }}
                 >
                   {reply.get('title')}
                 </div>
