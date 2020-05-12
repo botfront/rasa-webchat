@@ -21,7 +21,7 @@ const Carousel = (props) => {
   const scrollContainer = useRef();
   const [leftButton, setLeftButton] = useState(false);
   const [rightButton, setRightButton] = useState(true);
-  const { assistBackgoundColor } = useContext(ThemeContext);
+  const { assistBackgoundColor, assistTextColor } = useContext(ThemeContext);
 
 
   const handleScroll = () => {
@@ -86,6 +86,7 @@ const Carousel = (props) => {
                 target={linkTarget || '_blank'}
                 rel="noopener noreferrer"
                 onClick={() => handleClick(carouselCard.default_action)}
+                style={{ color: assistTextColor }}
               >
                 {carouselCard.title}
               </a>
@@ -95,6 +96,7 @@ const Carousel = (props) => {
                 target={linkTarget || '_blank'}
                 rel="noopener noreferrer"
                 onClick={() => handleClick(carouselCard.default_action)}
+                style={{ color: assistTextColor }}
               >
                 {carouselCard.subtitle}
               </a>
