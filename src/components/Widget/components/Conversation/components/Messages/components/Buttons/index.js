@@ -6,6 +6,8 @@ import { addUserMessage, emitUserMessage, setButtons, toggleInputDisabled, chang
 import Message from '../Message/index';
 
 import './styles.scss';
+import ThemeContext from '../../../../../../ThemeContext';
+
 
 class Buttons extends PureComponent {
   constructor(props) {
@@ -42,6 +44,12 @@ class Buttons extends PureComponent {
   renderButtons(message, buttons, persit) {
     const { isLast, linkTarget
     } = this.props;
+    const { mainColor } = this.context;
+
+    const chosenReply = getChosenReply(id);
+    if (chosenReply) {
+      return <Message message={message} />;
+    }
     return (
       <div>
         <Message message={message} />
@@ -56,6 +64,7 @@ class Buttons extends PureComponent {
                     target={linkTarget || '_blank'}
                     rel="noopener noreferrer"
                     className={'rw-reply'}
+                    style={{ borderColor: assistBackgoundColor, color: assistBackgoundColor }}
                   >
                     {reply.get('title')}
                   </a>
@@ -67,6 +76,7 @@ class Buttons extends PureComponent {
                   key={index}
                   className={'rw-reply'}
                   onClick={(e) => { e.stopPropagation(); this.handleClick(reply); }}
+                  style={{ borderColor: assistBackgoundColor, color: assistBackgoundColor }}
                 >
                   {reply.get('title')}
                 </div>
@@ -100,6 +110,7 @@ class Buttons extends PureComponent {
   }
 }
 
+QuickReply.contextType = ThemeContext;
 
 const mapStateToProps = state => ({
   getChosenReply: id => state.messages.get(id).get('chosenReply'),

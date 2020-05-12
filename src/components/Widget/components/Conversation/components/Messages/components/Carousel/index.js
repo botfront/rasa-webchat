@@ -1,10 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { addUserMessage, emitUserMessage } from 'actions';
 import { PROP_TYPES } from 'constants';
 import Arrow from 'assets/arrow.svg';
+import ThemeContext from '../../../../../../ThemeContext';
 
 import './styles.scss';
 
@@ -20,6 +21,8 @@ const Carousel = (props) => {
   const scrollContainer = useRef();
   const [leftButton, setLeftButton] = useState(false);
   const [rightButton, setRightButton] = useState(true);
+  const { assistBackgoundColor } = useContext(ThemeContext);
+
 
   const handleScroll = () => {
     const current = scrollContainer.current;
@@ -105,6 +108,7 @@ const Carousel = (props) => {
                         target={linkTarget || '_blank'}
                         rel="noopener noreferrer"
                         className="rw-reply"
+                        style={{ borderColor: assistBackgoundColor, color: assistBackgoundColor }}
                       >
                         <span>{button.title}</span>
                       </a>
@@ -118,6 +122,7 @@ const Carousel = (props) => {
                       onClick={() => handleClick(button)}
                       role="button"
                       tabIndex={0}
+                      style={{ borderColor: assistBackgoundColor, color: assistBackgoundColor }}
                     >
                       <span>{button.title}</span>
                     </div>
@@ -155,6 +160,7 @@ const Carousel = (props) => {
     </React.Fragment>
   );
 };
+
 
 Carousel.propTypes = {
   message: PROP_TYPES.CAROUSEL,

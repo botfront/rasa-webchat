@@ -118,6 +118,7 @@ $fontfamily: 'Inter', sans-serif;
 }
 
 @mixin reply {
+  opacity: 0.75;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -144,8 +145,7 @@ $fontfamily: 'Inter', sans-serif;
   margin: 0.25em;
   text-decoration: unset;
   &:hover {
-    border-color: $blue-1;
-    color: $blue-1;
+    opacity: 1;
   }
 }
 
