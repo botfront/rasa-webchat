@@ -7,6 +7,7 @@ import { MESSAGES_TYPES } from 'constants';
 import { Video, Image, Message, Carousel, Buttons } from 'messagesComponents';
 
 import './styles.scss';
+import ThemeContext from '../../../../ThemeContext';
 
 const isToday = (date) => {
   const today = new Date();
@@ -133,7 +134,7 @@ class Messages extends Component {
     };
 
     return (
-      <div id="rw-messages" className="rw-messages-container">
+      <div id="rw-messages" style={{ backgroundColor: conversationBackgroundColor }} className="rw-messages-container">
         {renderMessages()}
         {displayTypingIndication && (
           <div className={`rw-message rw-typing-indication ${profileAvatar && 'rw-with-avatar'}`}>
@@ -154,7 +155,7 @@ class Messages extends Component {
     );
   }
 }
-
+Messages.contextType = ThemeContext;
 Messages.propTypes = {
   messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
   profileAvatar: PropTypes.string,
