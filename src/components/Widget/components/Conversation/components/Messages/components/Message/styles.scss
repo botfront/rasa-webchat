@@ -22,7 +22,7 @@
   
   .#{$namespace}client {
     @include message-bubble($blue-1, $white);
-    background-color: $tertiary !important;
+    background-color: $tertiary ;
     max-width: 85%;
     margin-left: auto;
     overflow-wrap: break-word;
