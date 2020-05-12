@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
+import ThemeContext from '../src/components/Widget/ThemeContext';
 
 function Send({ ready }) {
+  const { mainColor } = useContext(ThemeContext);
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -14,7 +17,7 @@ function Send({ ready }) {
     >
       <path
         className={ready ? 'rw-send-icon-ready' : 'rw-send-icon'}
-
+        style={{ fill: ready && mainColor }}
         d="M0 497.25L535.5 267.75 0 38.25 0 216.75 382.5 267.75 0 318.75z"
       />
     </svg>
