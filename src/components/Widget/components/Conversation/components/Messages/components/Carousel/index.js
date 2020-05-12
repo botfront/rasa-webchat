@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { addUserMessage, emitUserMessage } from 'actions';
 import { PROP_TYPES } from 'constants';
-import Arrow from 'assets/arrow.svg';
+import Arrow from 'assets/arrow';
 import ThemeContext from '../../../../../../ThemeContext';
 
 import './styles.scss';
@@ -144,7 +144,7 @@ const Carousel = (props) => {
             role="button"
             tabIndex={0}
           >
-            <img className="rw-arrow" src={Arrow} alt="left carousel arrow" />
+            <div className="rw-arrow" alt="left carousel arrow" ><Arrow /></div>
           </div>
         )}
         {rightButton && (
@@ -155,7 +155,7 @@ const Carousel = (props) => {
             role="button"
             tabIndex={0}
           >
-            <img className="rw-arrow" src={Arrow} alt="right carousel arrow" />
+            <div className="rw-arrow" alt="right carousel arrow"><Arrow /></div>
           </div>
         )}
       </div>
