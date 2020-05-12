@@ -27,7 +27,7 @@ const Launcher = ({
   lastMessage,
   closeTooltip
 }) => {
-  const { mainColor } = useContext(ThemeContext);
+  const { mainColor, assistBackgoundColor } = useContext(ThemeContext);
 
   const className = ['rw-launcher'];
   if (isChatOpen) className.push('rw-hide-sm');
@@ -50,12 +50,13 @@ const Launcher = ({
           return null;
       }
     })();
-    return <ComponentToRender id={-1} params={{}} message={message} isLast />;
+    if (ComponentToRender) { return <ComponentToRender id={-1} params={{}} message={message} isLast />; }
+    toggle(); // open the chat if the tooltip do not know how to display the compoment
   };
 
 
   const renderToolTip = () => (
-    <div className="rw-tooltip-body">
+    <div className="rw-tooltip-body" style={{ backgroundColor: assistBackgoundColor }}>
       <div className="rw-tooltip-close" >
         <button onClick={(e) => { e.stopPropagation(); closeTooltip(); }}>
           <img
@@ -67,7 +68,7 @@ const Launcher = ({
       <div className="rw-tooltip-response">
         {getComponentToRender(lastMessage)}
       </div>
-      <div className="rw-tooltip-decoration" />
+      <div className="rw-tooltip-decoration" style={{ backgroundColor: assistBackgoundColor }} />
     </div>
   );
 
