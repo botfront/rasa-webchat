@@ -40,6 +40,12 @@ const plugin = {
         defaultHighlightCss={args.defaultHighlightCss}
         defaultHighlightAnimation={args.defaultHighlightAnimation}
         defaultHighlightClassname={args.defaultHighlightClassname}
+        mainColor={args.mainColor}
+        conversationBackgroundColor={args.conversationBackgroundColor}
+        userTextColor={args.userTextColor}
+        userBackgroundColor={args.userBackgroundColor}
+        assistTextColor={args.assistTextColor}
+        assistBackgoundColor={args.assistBackgoundColor}
       />, document.querySelector(args.selector)
     );
   }
