@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
@@ -12,7 +12,7 @@ import close from 'assets/clear-button.svg';
 import Badge from './components/Badge';
 
 import './style.scss';
-
+import ThemeContext from '../../ThemeContext';
 
 const Launcher = ({
   toggle,
@@ -27,6 +27,8 @@ const Launcher = ({
   lastMessage,
   closeTooltip
 }) => {
+  const { mainColor } = useContext(ThemeContext);
+
   const className = ['rw-launcher'];
   if (isChatOpen) className.push('rw-hide-sm');
   if (fullScreenMode && isChatOpen) className.push('rw-full-screen rw-hide');
@@ -80,7 +82,7 @@ const Launcher = ({
   );
 
   return (
-    <button type="button" className={className.join(' ')} onClick={toggle}>
+    <button type="button" style={{ backgroundColor: mainColor }} className={className.join(' ')} onClick={toggle}>
       <Badge badge={badge} />
       {isChatOpen ? (
         <img

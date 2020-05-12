@@ -51,7 +51,7 @@ $fontfamily: 'Inter', sans-serif;
 @mixin header-button-fs {
   @include center;
   display: inline-block;
-  background-color: $tertiary;
+  background-color: transparent;
   border: 0;
   width: 40px;
   cursor: pointer;
