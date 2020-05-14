@@ -148,8 +148,6 @@ class Widget extends Component {
 
   handleMessageReceived(messageWithMetadata) {
     const { dispatch, isChatOpen, disableTooltips } = this.props;
-    dispatch(closeChat());
-    dispatch(showTooltip(true));
 
     // we extract metadata so we are sure it does not interfer with type checking of the message
     const { metadata, ...message } = messageWithMetadata;
