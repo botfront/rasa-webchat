@@ -126,6 +126,9 @@ class Widget extends Component {
           dispatch(addUserMessage(text, tooltipSelector));
         } else if (tooltipSelector) {
           dispatch(addUserMessage('hidden', tooltipSelector, true));
+        }
+        if (tooltipSelector) {
+          dispatch(closeChat());
           showTooltip(true);
         }
       };
