@@ -80,24 +80,18 @@ export function changeInputFieldHint(hint) {
   };
 }
 
-export function addUserMessage(text) {
+export function addUserMessage(text, nextMessageIsTooltip = false, hidden = false) {
   return {
     type: actions.ADD_NEW_USER_MESSAGE,
-    text
+    text,
+    nextMessageIsTooltip,
+    hidden
   };
 }
 
 export function emitUserMessage(text) {
   return {
     type: actions.EMIT_NEW_USER_MESSAGE,
-    text
-  };
-}
-
-export function emitMessageIfFirst(payload, text = null) {
-  return {
-    type: actions.EMIT_MESSAGE_IF_FIRST,
-    payload,
     text
   };
 }

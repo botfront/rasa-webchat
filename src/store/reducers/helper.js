@@ -3,14 +3,16 @@ import { MESSAGES_TYPES, MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
 import { Video, Image, Message, Carousel, Buttons } from 'messagesComponents';
 
-export function createNewMessage(text, sender) {
+export function createNewMessage(text, sender, nextMessageIsTooltip, hidden) {
   return Map({
     type: MESSAGES_TYPES.TEXT,
     component: Message,
     text,
     sender,
     showAvatar: sender === MESSAGE_SENDER.RESPONSE,
-    timestamp: new Date().getTime()
+    timestamp: new Date().getTime(),
+    nextMessageIsTooltip,
+    hidden
   });
 }
 
