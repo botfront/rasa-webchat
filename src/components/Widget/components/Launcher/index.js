@@ -28,19 +28,25 @@ const Launcher = ({
   showTooltip,
   lastMessage,
   closeTooltip,
-  lastUserMessage
+  lastUserMessage,
+  domHighlight
 }) => {
   const { mainColor, assistBackgoundColor } = useContext(ThemeContext);
 
   const [referenceElement, setReferenceElement] = useState(null);
   useEffect(() => {
-    if (lastUserMessage && lastUserMessage.get('nextMessageIsTooltip')) {
-      const reference = document.querySelector(lastUserMessage.get('nextMessageIsTooltip'));
+    const setReference = (selector) => {
+      const reference = document.querySelector(selector);
       setReferenceElement(reference);
+    };
+    if (lastUserMessage && lastUserMessage.get('nextMessageIsTooltip')) {
+      setReference(lastUserMessage.get('nextMessageIsTooltip'));
+    } else if (domHighlight && domHighlight.get('selector')) {
+      setReference(domHighlight.get('selector'));
     } else {
       setReferenceElement(null);
     }
-  }, [lastUserMessage]);
+  }, [lastUserMessage, domHighlight]);
   const [popperElement, setPopperElement] = useState(null);
   const [arrowElement, setArrowElement] = useState(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
@@ -149,7 +155,8 @@ Launcher.propTypes = {
   displayUnreadCount: PropTypes.bool,
   showTooltip: PropTypes.bool,
   lastMessage: ImmutablePropTypes.map,
-  lastUserMessage: PropTypes.oneOfType([ImmutablePropTypes.map, PropTypes.bool])
+  lastUserMessage: PropTypes.oneOfType([ImmutablePropTypes.map, PropTypes.bool]),
+  domHighlight: PropTypes.shape({})
 };
 
 const mapStateToProps = state => ({
@@ -170,7 +177,8 @@ const mapStateToProps = state => ({
       index -= 1;
     }
     return false;
-  }())
+  }()),
+  domHighlight: state.metadata.get('domHighlight')
 });
 
 const mapDispatchToProps = dispatch => ({
