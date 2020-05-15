@@ -82,6 +82,8 @@ const Launcher = ({
       <div className="rw-tooltip-close">
         <button
           onClick={(e) => {
+            /* stop the propagation because the popup is also a button
+            otherwise it would open the webchat when closing the tooltip */
             e.stopPropagation();
             closeTooltip();
           }}
