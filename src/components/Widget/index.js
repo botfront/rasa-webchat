@@ -351,8 +351,6 @@ class Widget extends Component {
       socket.on('connect', () => {
         const localId = this.getSessionId();
         socket.emit('session_request', { session_id: localId });
-        // eslint-disable-next-line no-console
-        console.log(`emit session_request with session_id:${localId}`);
       });
 
       // When session_confirm is received from the server:
