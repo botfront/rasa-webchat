@@ -348,9 +348,11 @@ class Widget extends Component {
       dispatch(pullSession());
 
       // Request a session from server
-      const localId = this.getSessionId();
       socket.on('connect', () => {
+        const localId = this.getSessionId();
         socket.emit('session_request', { session_id: localId });
+        // eslint-disable-next-line no-console
+        console.log(`emit session_request with session_id:${localId}`);
       });
 
       // When session_confirm is received from the server:
@@ -368,6 +370,7 @@ class Widget extends Component {
         If the localId is null or different from the remote_id,
         start a new session.
         */
+        const localId = this.getSessionId();
         if (localId !== remoteId) {
           // storage.clear();
           // Store the received session_id to storage
