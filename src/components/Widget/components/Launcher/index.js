@@ -36,8 +36,12 @@ const Launcher = ({
   const [referenceElement, setReferenceElement] = useState(null);
   useEffect(() => {
     const setReference = (selector) => {
-      const reference = document.querySelector(selector);
-      setReferenceElement(reference);
+      const reference = document.querySelectorAll(selector);
+      if (reference && reference.length === 1) {
+        setReferenceElement(reference[0]);
+      } else {
+        setReferenceElement(null);
+      }
     };
     if (lastUserMessage && lastUserMessage.get('nextMessageIsTooltip')) {
       setReference(lastUserMessage.get('nextMessageIsTooltip'));
