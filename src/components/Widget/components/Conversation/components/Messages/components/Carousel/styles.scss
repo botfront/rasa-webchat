@@ -3,8 +3,8 @@
 
 .#{$namespace}carousel-container {
     // @include message-bubble($grey-2, #000);
-    max-height: 345px;
-    height: 345px;
+    //max-height: 345px;
+    min-height: 345px;
     overflow-x: hidden;
     overflow-y: hidden;
     white-space: nowrap;
@@ -12,11 +12,14 @@
     padding-right: 0;
     margin-top: 8px;
     position: relative;
+    display: flex;
 
     .#{$namespace}carousel-card {
         display: inline-block;
+        max-width: 220px;
         width: 220px;
-        height: 324px;
+        min-width: 220px;
+        min-height: 324px;
         margin: 3px 13px 3px 1px;
         box-shadow: 4px 2px 12px 1px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
@@ -49,7 +52,6 @@
             margin: 0 9px 8px 9px;
             opacity: 0.5;
             font-size: 0.8em;
-            height: 5em;
             overflow: hidden;
             white-space: normal;
             line-height: initial;
@@ -59,9 +61,8 @@
         }
 
         .#{$namespace}carousel-buttons-container {
-            position: absolute;
+            margin-bottom: 1.5rem;
             width: 100%;
-            top: 210px;
             .#{$namespace}reply {
                 min-height: 21px;
                 margin: 5px 10px;
