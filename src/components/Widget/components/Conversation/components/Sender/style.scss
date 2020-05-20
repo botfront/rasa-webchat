@@ -53,6 +53,6 @@
 .#{$namespace}widget-embedded {
   .#{$namespace}sender {
     flex: 0, 0, auto;
-    height: 60px;
+    min-height: 35px;
   }
 }
