@@ -29,7 +29,8 @@ const Launcher = ({
 }) => {
   const className = ['rw-launcher'];
   if (isChatOpen) className.push('rw-hide-sm');
-  if (fullScreenMode) className.push(`rw-full-screen${isChatOpen ? '  rw-hide' : ''}`);
+  console.log(fullScreenMode);
+  if (fullScreenMode && isChatOpen) className.push('rw-full-screen rw-hide');
 
 
   const getComponentToRender = (message) => {
