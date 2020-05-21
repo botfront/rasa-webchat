@@ -55,6 +55,7 @@ export function createQuickReply(quickReply, sender) {
     text: quickReply.text,
     hint: quickReply.hint || 'Select an option...',
     quick_replies: fromJS(quickReply.quick_replies),
+    buttons: fromJS(quickReply.buttons),
     sender,
     showAvatar: true,
     chosenReply: null,

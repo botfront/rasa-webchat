@@ -39,24 +39,15 @@ class QuickReply extends PureComponent {
     // this.props.changeInputFieldHint('Type a message...');
   }
 
-  render() {
-    const {
-      message,
-      getChosenReply,
-      isLast,
-      id,
-      linkTarget
+  renderButtons(message, buttons, persit) {
+    const { isLast, linkTarget
     } = this.props;
-    const chosenReply = getChosenReply(id);
-    if (chosenReply) {
-      return <Message message={message} />;
-    }
     return (
       <div>
         <Message message={message} />
-        {isLast && (
+        {(isLast || persit) && (
           <div className="rw-replies">
-            {message.get('quick_replies').map((reply, index) => {
+            {buttons.map((reply, index) => {
               if (reply.get('type') === 'web_url') {
                 return (
                   <a
@@ -85,6 +76,27 @@ class QuickReply extends PureComponent {
         )}
       </div>
     );
+  }
+
+
+  render() {
+    const {
+      message,
+      getChosenReply,
+      id
+    } = this.props;
+    const chosenReply = getChosenReply(id);
+    if (message.get('quick_replies') !== undefined) {
+      const buttons = message.get('quick_replies');
+      if (chosenReply) {
+        return <Message message={message} />;
+      }
+      return this.renderButtons(message, buttons, false);
+    } else if (message.get('buttons') !== undefined) {
+      const buttons = message.get('buttons');
+      return this.renderButtons(message, buttons, true);
+    }
+    return <Message message={message} />;
   }
 }
 
