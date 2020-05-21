@@ -22,9 +22,9 @@ const formatDate = (date) => {
 };
 
 const scrollToBottom = () => {
-  const messagesDiv = document.getElementById('rw-messages');
-  if (messagesDiv) {
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  const bottom = document.querySelector('div.rw-dummy-scroll-bottom');
+  if (bottom) {
+    bottom.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'end' });
   }
 };
 
@@ -150,6 +150,7 @@ class Messages extends Component {
             </div>
           </div>
         )}
+        <div className="rw-dummy-scroll-bottom" />
       </div>
     );
   }
