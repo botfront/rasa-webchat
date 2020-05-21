@@ -22,6 +22,11 @@
 
 }
 
+.#{$namespace}widget-embedded .rw-conversation-container ul {
+  padding-left: 10px;
+  list-style: disc;
+}
+
 
 .#{$namespace}launcher {
   @include animation(0, 0.5s, slide-in);
