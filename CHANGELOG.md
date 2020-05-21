@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.1](https://https///compare/v0.9.0...v0.9.1) (2020-05-21)
+
+
+### Bug Fixes
+
+* allow session re-use by re-reading session_id from local storage ([6ea3ffc](https://https///commit/6ea3ffcceb2abc47f1d6fe1cf5c0821cd69fa216))
+
 ## [0.9.0](https://https///compare/v0.8.9...v0.9.0) (2020-05-11)
 
 ### [0.8.9](https://https///compare/v0.8.8...v0.8.9) (2020-05-05)
