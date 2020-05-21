@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { MESSAGES_TYPES } from 'constants';
-import { Video, Image, Message, Carousel, QuickReply } from 'messagesComponents';
+import { Video, Image, Message, Carousel, Buttons } from 'messagesComponents';
 
 import './styles.scss';
 
@@ -53,8 +53,8 @@ class Messages extends Component {
         case MESSAGES_TYPES.IMGREPLY.IMAGE: {
           return Image;
         }
-        case MESSAGES_TYPES.QUICK_REPLY: {
-          return QuickReply;
+        case MESSAGES_TYPES.BUTTONS: {
+          return Buttons;
         }
         case MESSAGES_TYPES.CUSTOM_COMPONENT:
           return connect(
@@ -105,8 +105,8 @@ class Messages extends Component {
             message.get('showAvatar') &&
             <img src={profileAvatar} className="rw-avatar" alt="profile" />
           }
-          { this.getComponentToRender(message, index, index === messages.size - 1) }
-          { renderMessageDate(message) }
+          {this.getComponentToRender(message, index, index === messages.size - 1)}
+          {renderMessageDate(message)}
         </div>
       );
 
@@ -134,7 +134,7 @@ class Messages extends Component {
 
     return (
       <div id="rw-messages" className="rw-messages-container">
-        { renderMessages() }
+        {renderMessages()}
         {displayTypingIndication && (
           <div className={`rw-message rw-typing-indication ${profileAvatar && 'rw-with-avatar'}`}>
             {

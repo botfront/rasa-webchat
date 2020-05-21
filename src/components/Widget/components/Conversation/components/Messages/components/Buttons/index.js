@@ -2,12 +2,12 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { PROP_TYPES } from 'constants';
-import { addUserMessage, emitUserMessage, setQuickReply, toggleInputDisabled, changeInputFieldHint } from 'actions';
+import { addUserMessage, emitUserMessage, setButtons, toggleInputDisabled, changeInputFieldHint } from 'actions';
 import Message from '../Message/index';
 
 import './styles.scss';
 
-class QuickReply extends PureComponent {
+class Buttons extends PureComponent {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -111,20 +111,20 @@ const mapDispatchToProps = dispatch => ({
   toggleInputDisabled: () => dispatch(toggleInputDisabled()),
   changeInputFieldHint: hint => dispatch(changeInputFieldHint(hint)),
   chooseReply: (payload, title, id) => {
-    dispatch(setQuickReply(id, title));
+    dispatch(setButtons(id, title));
     dispatch(addUserMessage(title));
     dispatch(emitUserMessage(payload));
     // dispatch(toggleInputDisabled());
   }
 });
 
-QuickReply.propTypes = {
+Buttons.propTypes = {
   getChosenReply: PropTypes.func,
   chooseReply: PropTypes.func,
   id: PropTypes.number,
   isLast: PropTypes.bool,
-  message: PROP_TYPES.QUICK_REPLY,
+  message: PROP_TYPES.BUTTONS,
   linkTarget: PropTypes.string
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(QuickReply);
+export default connect(mapStateToProps, mapDispatchToProps)(Buttons);

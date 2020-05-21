@@ -3,12 +3,12 @@ import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import { render } from 'enzyme';
 
-import { createQuickReply } from 'helper';
-import QuickReply from '../index';
+import { createButtons } from 'helper';
+import Buttons from '../index';
 
 
-describe('<QuickReply />', () => {
-  const quickReply = createQuickReply({
+describe('<Buttons />', () => {
+  const buttons = createButtons({
     text: 'test',
     quick_replies: [
       {
@@ -26,7 +26,7 @@ describe('<QuickReply />', () => {
     ]
   });
 
-  quickReply.set('docViewer', false);
+  buttons.set('docViewer', false);
   const mockStore = configureMockStore();
   const store = mockStore({ getChosenReply: () => undefined,
     inputState: false,
@@ -34,20 +34,20 @@ describe('<QuickReply />', () => {
     behavior: new Map([['disabledInput', false]]),
     metadata: new Map() });
 
-  const quickReplyComponent = render(
+  const buttonsComponent = render(
     <Provider store={store}>
-      <QuickReply
+      <Buttons
         params={null}
         id={1}
-        message={quickReply}
+        message={buttons}
         isLast
       />
     </Provider>
   );
 
   it('should render a quick reply with a link to google', () => {
-    expect(quickReplyComponent.find('a.rw-reply')).toHaveLength(1);
-    expect(quickReplyComponent.find('a.rw-reply').html()).toEqual('google');
-    expect(quickReplyComponent.find('a.rw-reply').prop('href')).toEqual('http://www.google.ca');
+    expect(buttonsComponent.find('a.rw-reply')).toHaveLength(1);
+    expect(buttonsComponent.find('a.rw-reply').html()).toEqual('google');
+    expect(buttonsComponent.find('a.rw-reply').prop('href')).toEqual('http://www.google.ca');
   });
 });

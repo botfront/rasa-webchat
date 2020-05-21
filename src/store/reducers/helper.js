@@ -1,7 +1,7 @@
 import { Map, fromJS } from 'immutable';
 import { MESSAGES_TYPES, MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
-import { Video, Image, Message, Carousel, QuickReply } from 'messagesComponents';
+import { Video, Image, Message, Carousel, Buttons } from 'messagesComponents';
 
 export function createNewMessage(text, sender) {
   return Map({
@@ -48,14 +48,14 @@ export function createImageSnippet(image, sender) {
   });
 }
 
-export function createQuickReply(quickReply, sender) {
+export function createButtons(buttons, sender) {
   return Map({
-    type: MESSAGES_TYPES.QUICK_REPLY,
-    component: QuickReply,
-    text: quickReply.text,
-    hint: quickReply.hint || 'Select an option...',
-    quick_replies: fromJS(quickReply.quick_replies),
-    buttons: fromJS(quickReply.buttons),
+    type: MESSAGES_TYPES.BUTTONS,
+    component: Buttons,
+    text: buttons.text,
+    hint: buttons.hint || 'Select an option...',
+    quick_replies: fromJS(buttons.quick_replies),
+    buttons: fromJS(buttons.buttons),
     sender,
     showAvatar: true,
     chosenReply: null,

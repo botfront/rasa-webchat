@@ -17,7 +17,7 @@ export const MESSAGES_TYPES = {
   IMGREPLY: {
     IMAGE: 'imgreply'
   },
-  QUICK_REPLY: 'quickreply',
+  BUTTONS: 'buttons',
   CUSTOM_COMPONENT: 'component'
 };
 
@@ -40,7 +40,7 @@ export const PROP_TYPES = {
   MESSAGE: ImmutablePropTypes.contains({
     type: PropTypes.oneOf([
       MESSAGES_TYPES.TEXT,
-      MESSAGES_TYPES.QUICK_REPLY,
+      MESSAGES_TYPES.BUTTONS,
       MESSAGES_TYPES.CAROUSEL,
       MESSAGES_TYPES.IMGREPLY.IMAGE,
       MESSAGES_TYPES.VIDREPLY.VIDEO
@@ -85,14 +85,15 @@ export const PROP_TYPES = {
     sender: senderType
   }),
 
-  QUICK_REPLY: ImmutablePropTypes.contains({
+  BUTTONS: ImmutablePropTypes.contains({
     type: PropTypes.oneOf([
-      MESSAGES_TYPES.QUICK_REPLY
+      MESSAGES_TYPES.BUTTONS
     ]),
     id: PropTypes.number,
     text: PropTypes.string,
     hint: PropTypes.string,
     quick_replies: ImmutablePropTypes.listOf(replybuttons),
+    buttons: ImmutablePropTypes.listOf(replybuttons),
     sender: senderType,
     chooseReply: PropTypes.func,
     getChosenReply: PropTypes.func,

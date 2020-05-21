@@ -130,16 +130,16 @@ export function addImageSnippet(image) {
   };
 }
 
-export function addQuickReply(quickReply) {
+export function addButtons(buttons) {
   return {
-    type: actions.ADD_QUICK_REPLY,
-    quickReply
+    type: actions.ADD_BUTTONS,
+    buttons
   };
 }
 
-export function setQuickReply(id, title) {
+export function setButtons(id, title) {
   return {
-    type: actions.SET_QUICK_REPLY,
+    type: actions.SET_BUTTONS,
     id,
     title
   };

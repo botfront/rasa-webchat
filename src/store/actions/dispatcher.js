@@ -45,12 +45,12 @@ export function addImageSnippet(image) {
   store.dispatch(actions.addImageSnippet(image));
 }
 
-export function addQuickReply(quickReply) {
-  store.dispatch(actions.addQuickReply(quickReply));
+export function addButtons(buttons) {
+  store.dispatch(actions.addButtons(buttons));
 }
 
-export function setQuickReply(id, title) {
-  store.dispatch(actions.setQuickReply(id, title));
+export function setButtons(id, title) {
+  store.dispatch(actions.setButtons(id, title));
 }
 
 export function insertUserMessage(id, text) {
