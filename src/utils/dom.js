@@ -2,7 +2,7 @@ export function onRemove(element, callback) {
   const obs = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       mutation.removedNodes.forEach((el) => {
-        if (el === element) {
+        if (el.contains(element)) {
           obs.disconnect();
           callback();
         }
