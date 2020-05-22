@@ -7,8 +7,9 @@
     align-items: center;
     display: flex;
     background-color: $grey-2;
-    height: 50px;
-    padding: 5px;
+    min-height: 30px;
+    padding: 15px 5px;
+   
   }
   
   .#{$namespace}new-message {
@@ -18,8 +19,7 @@
     background-color: $grey-2;
     padding-left: 15px;
     font-family: $fontfamily;
-    height: 35px;
-  
+    resize: none;
     &:focus {
       outline: none;
     }
@@ -53,6 +53,6 @@
 .#{$namespace}widget-embedded {
   .#{$namespace}sender {
     flex: 0, 0, auto;
-    height: 60px;
+    min-height: 35px;
   }
 }
