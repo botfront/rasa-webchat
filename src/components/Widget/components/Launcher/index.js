@@ -37,9 +37,7 @@ const Launcher = ({
   useEffect(() => {
     const setReference = (selector) => {
       const reference = document.querySelectorAll(selector);
-      if (reference && reference.length === 1) {
-        console.log(reference.length);
-        console.log(reference);
+      if (reference && reference.length === 1 && reference[0].classList[0] !== 'rw-launcher') {
         setReferenceElement(reference[0]);
       } else {
         setReferenceElement(null);
