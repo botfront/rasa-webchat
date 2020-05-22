@@ -110,6 +110,11 @@
   .#{$namespace}loading {
     @include loading-fs;
   }
+  &.#{$namespace}widget-container{
+    .#{$namespace}conversation-container{
+    margin-bottom: 0px;
+}}
+  
 }
 
 @media screen and (max-width: 800px) {
