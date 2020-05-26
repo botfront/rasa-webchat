@@ -15,7 +15,7 @@
     
     .#{$namespace}response {
       @include message-bubble($grey-2, #000, 0 15px 15px 15px);
-
+      max-width: 85%;
     }
     
     .#{$namespace}avatar {
