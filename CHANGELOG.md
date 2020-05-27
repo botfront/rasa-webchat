@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.10.0](https://https///compare/v0.9.1...v0.10.0) (2020-05-27)
+
+
+### Features
+
+* message input multiline ([cef1002](https://https///commit/cef10021aee0e4a32a0fd1061dd8b3a884591623))
+* persistent button ([498f1d4](https://https///commit/498f1d4bb5118cb87c3aebcf6373481a123534d3))
+
+
+### Bug Fixes
+
+* markdown lists when embedded mode is active ([46427d1](https://https///commit/46427d143bcd56d8f53f19e4cb07bcd50e73a53f))
+* styles when widget is in full screen mode ([74a95e9](https://https///commit/74a95e9ede83a94b1c0e985a528cf8bc3b8b4912))
+
 ### [0.9.1](https://https///compare/v0.9.0...v0.9.1) (2020-05-21)
 
 
