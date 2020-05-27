@@ -11,22 +11,22 @@ export function isCarousel(message) {
 
 export function isVideo(message) {
   return Object.keys(message).includes('attachment')
-  && Object.keys(message.attachment).includes('type')
-  && message.attachment.type === 'video';
+    && Object.keys(message.attachment).includes('type')
+    && message.attachment.type === 'video';
 }
 
 export function isImage(message) {
   return Object.keys(message).includes('attachment')
-  && Object.keys(message.attachment).includes('type')
-  && message.attachment.type === 'image';
+    && Object.keys(message.attachment).includes('type')
+    && message.attachment.type === 'image';
 }
 
 export function isText(message) {
   return Object.keys(message).length === 1 && Object.keys(message).includes('text');
 }
 
-export function isQR(message) {
+export function isButtons(message) {
   return Object.keys(message).length === 2
     && Object.keys(message).includes('text')
-    && Object.keys(message).includes('quick_replies');
+    && (Object.keys(message).includes('quick_replies') || Object.keys(message).includes('buttons'));
 }

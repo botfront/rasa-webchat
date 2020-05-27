@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { MESSAGES_TYPES } from 'constants';
-import { Image, Message, QuickReply } from 'messagesComponents';
+import { Image, Message, Buttons } from 'messagesComponents';
 import { showTooltip as showTooltipAction } from 'actions';
 import openLauncher from 'assets/launcher_button.svg';
 import closeIcon from 'assets/clear-button-grey.svg';
@@ -41,8 +41,8 @@ const Launcher = ({
         case MESSAGES_TYPES.IMGREPLY.IMAGE: {
           return Image;
         }
-        case MESSAGES_TYPES.QUICK_REPLY: {
-          return QuickReply;
+        case MESSAGES_TYPES.BUTTONS: {
+          return Buttons;
         }
         default:
           return null;

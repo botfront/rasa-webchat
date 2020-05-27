@@ -2,7 +2,7 @@ import { List, fromJS } from 'immutable';
 import { MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
 import {
-  createQuickReply,
+  createButtons,
   createNewMessage,
   createCarousel,
   createVideoSnippet,
@@ -36,13 +36,13 @@ export default function (storage) {
       case actionTypes.ADD_NEW_IMAGE_IMGREPLY: {
         return storeMessage(state.push(createImageSnippet(action.image, MESSAGE_SENDER.RESPONSE)));
       }
-      case actionTypes.ADD_QUICK_REPLY: {
-        return storeMessage(state.push(createQuickReply(action.quickReply, MESSAGE_SENDER.RESPONSE)));
+      case actionTypes.ADD_BUTTONS: {
+        return storeMessage(state.push(createButtons(action.buttons, MESSAGE_SENDER.RESPONSE)));
       }
       case actionTypes.ADD_COMPONENT_MESSAGE: {
         return storeMessage(state.push(createComponentMessage(action.component, action.props, action.showAvatar)));
       }
-      case actionTypes.SET_QUICK_REPLY: {
+      case actionTypes.SET_BUTTONS: {
         return storeMessage(state.setIn([action.id, 'chosenReply'], action.title));
       }
       case actionTypes.INSERT_NEW_USER_MESSAGE: {

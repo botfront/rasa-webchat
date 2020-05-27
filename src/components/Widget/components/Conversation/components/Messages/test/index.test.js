@@ -7,14 +7,14 @@ import {
   createVideoSnippet,
   createImageSnippet,
   createComponentMessage,
-  createQuickReply
+  createButtons
 } from 'helper';
 
 import Messages from '../index';
 import Video from '../components/VidReply';
 import Image from '../components/ImgReply';
 import Message from '../components/Message';
-import QuickReply from '../components/QuickReply';
+import Buttons from '../components/Buttons';
 
 describe('<Messages />', () => {
   const RealDate = Date;
@@ -49,7 +49,7 @@ describe('<Messages />', () => {
   const customComp = createComponentMessage(Dummy, {
     text: 'This is a Dummy Component!'
   });
-  const quickReply = createQuickReply({
+  const buttons = createButtons({
     text: 'test',
     quick_replies: [
       {
@@ -72,7 +72,7 @@ describe('<Messages />', () => {
     srcVideo,
     srcImage,
     customComp,
-    quickReply
+    buttons
   ]);
 
   const messagesComponent = shallow(
@@ -98,8 +98,8 @@ describe('<Messages />', () => {
     expect(messagesComponent.find('Connect(Dummy)')).toHaveLength(1);
   });
 
-  it('should render a QuickReply component', () => {
-    expect(messagesComponent.find(QuickReply)).toHaveLength(1);
+  it('should render a Buttons component', () => {
+    expect(messagesComponent.find(Buttons)).toHaveLength(1);
   });
 
   describe('-- showMessageDate', () => {
