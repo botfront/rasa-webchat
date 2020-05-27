@@ -22,7 +22,7 @@
 
 }
 
-.#{$namespace}widget-embedded .rw-conversation-container ul {
+.#{$namespace}widget-embedded .#{$namespace}conversation-container ul {
   padding-left: 10px;
   list-style: disc;
 }
