@@ -5,10 +5,11 @@
     // @include message-bubble($grey-2, #000);
     //max-height: 345px;
     min-height: 345px;
+    padding-bottom: 10px;
     overflow-x: hidden;
     overflow-y: hidden;
     white-space: nowrap;
-    padding-left: -12px;
+    padding-left: 5px;
     padding-right: 0;
     margin-top: 8px;
     position: relative;
