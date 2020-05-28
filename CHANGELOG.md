@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.2](https://https///compare/v0.10.1...v0.10.2) (2020-05-28)
+
+
+### Bug Fixes
+
+* page refresh when pressing enter on firefox ([174d9b9](https://https///commit/174d9b9b0cbff81f7fe832c5e46e5d0a313a254a))
+
 ### [0.10.1](https://https///compare/v0.10.0...v0.10.1) (2020-05-27)
 
 ## [0.10.0](https://https///compare/v0.9.1...v0.10.0) (2020-05-27)
