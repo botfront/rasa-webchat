@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.10.3](https://https///compare/v0.10.2...v0.10.3) (2020-06-01)
+
+
+### Bug Fixes
+
+* auto scrolling ([9c91876](https://https///commit/9c91876aa15b42ba7dbde32ff071b947473776bf))
+
 ### [0.10.2](https://https///compare/v0.10.1...v0.10.2) (2020-05-28)
 
 
