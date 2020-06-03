@@ -8,7 +8,6 @@ import { Image, Message, Buttons } from 'messagesComponents';
 import { showTooltip as showTooltipAction } from 'actions';
 import openLauncher from 'assets/launcher_button.svg';
 import closeIcon from 'assets/clear-button-grey.svg';
-import close from 'assets/clear-button.svg';
 import Badge from './components/Badge';
 
 import './style.scss';
@@ -20,7 +19,6 @@ const Launcher = ({
   badge,
   fullScreenMode,
   openLauncherImage,
-  closeImage,
   unreadCount,
   displayUnreadCount,
   showTooltip,
@@ -79,20 +77,16 @@ const Launcher = ({
     </div>
   );
 
-  return (
-    <button type="button" className={className.join(' ')} onClick={toggle}>
-      <Badge badge={badge} />
-      {isChatOpen ? (
-        <img
-          src={closeImage || close}
-          className={`rw-close-launcher ${closeImage ? '' : 'rw-default'}`}
-          alt=""
-        />
-      ) : (
-        renderOpenLauncherImage()
-      )}
-    </button>
-  );
+  if (!isChatOpen) {
+    return (
+      <button type="button" className={className.join(' ')} onClick={toggle}>
+        <Badge badge={badge} />
+        {renderOpenLauncherImage()}
+      </button>
+    );
+  }
+
+  return <div />;
 };
 
 Launcher.propTypes = {
@@ -101,7 +95,6 @@ Launcher.propTypes = {
   badge: PropTypes.number,
   fullScreenMode: PropTypes.bool,
   openLauncherImage: PropTypes.string,
-  closeImage: PropTypes.string,
   unreadCount: PropTypes.number,
   displayUnreadCount: PropTypes.bool,
   showTooltip: PropTypes.bool,

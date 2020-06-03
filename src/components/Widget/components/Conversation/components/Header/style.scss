@@ -58,7 +58,10 @@
   }
 
   .#{$namespace}close-button {
-    display: none;
+    @include header-button-fs;
+    img {
+      @include header-icon-fs;
+    }
   }
 
   .#{$namespace}toggle-fullscreen-button {
