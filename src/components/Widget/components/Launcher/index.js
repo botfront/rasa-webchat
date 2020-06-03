@@ -223,8 +223,9 @@ Launcher.propTypes = {
 const mapStateToProps = state => ({
   lastMessages: (state.messages && (() => {
     const messages = [];
-    for (let i = 1; i <= state.behavior.get('unreadCount'); i += 1) {
+    for (let i = 1; i <= 10; i += 1) {
       if (state.messages.get(-i) && state.messages.get(-i).get('sender') !== 'response') break;
+      if (!state.messages.get(-i)) break;
       messages.unshift(state.messages.get(-i));
     }
     return messages;
