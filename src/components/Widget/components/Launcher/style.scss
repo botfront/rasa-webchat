@@ -80,7 +80,7 @@
     right: 78px;
     bottom: 12px;
     box-shadow: 1px 0px 13px 3px rgba(0, 0, 0, 0.15);
-    width: 280px;
+    width: 320px;
     font-size: 1.4em;
     padding: 0px 8px;
     line-height: 1.4em;
@@ -187,10 +187,16 @@
   }
 
   .#{$namespace}slider-safe-zone {
-    width: 86%;
+    width: 87%;
     position: relative;
     margin-bottom: 32px;
     left: 18px;
+    .slick-list {
+      .#{$namespace}tooltip-response {
+        max-height: unquote("min(60vh, 350px)");
+        overflow-y: scroll;
+      }
+    }
   }
 
   .#{$namespace}tooltip-response {
