@@ -45,11 +45,6 @@ class Buttons extends PureComponent {
     const { isLast, linkTarget
     } = this.props;
     const { mainColor } = this.context;
-
-    const chosenReply = getChosenReply(id);
-    if (chosenReply) {
-      return <Message message={message} />;
-    }
     return (
       <div>
         <Message message={message} />
@@ -110,7 +105,7 @@ class Buttons extends PureComponent {
   }
 }
 
-QuickReply.contextType = ThemeContext;
+Buttons.contextType = ThemeContext;
 
 const mapStateToProps = state => ({
   getChosenReply: id => state.messages.get(id).get('chosenReply'),
