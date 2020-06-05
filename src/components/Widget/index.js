@@ -77,6 +77,7 @@ class Widget extends Component {
         localStorage.removeItem(SESSION_NAME);
       }
     } else {
+      this.checkVersionBeforePull();
       dispatch(pullSession());
       if (lastUpdate) this.initializeWidget();
     }
@@ -325,6 +326,14 @@ class Widget extends Component {
     }
   }
 
+  checkVersionBeforePull() {
+    const { storage } = this.props;
+    const localSession = getLocalSession(storage, SESSION_NAME);
+    if (localSession && (localSession.version !== 'packageVersionToBeReplaced')) {
+      storage.removeItem(SESSION_NAME);
+    }
+  }
+
   initializeWidget(sendInitPayload = true) {
     const {
       storage,
@@ -344,6 +353,8 @@ class Widget extends Component {
         // console.log(botUttered);
         this.handleBotUtterance(botUttered);
       });
+
+      this.checkVersionBeforePull();
 
       dispatch(pullSession());
 

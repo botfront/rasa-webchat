@@ -2,6 +2,7 @@
 
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { version } = require('./package.json');
 
 module.exports = [{
   // entry: ['babel-polyfill', './index.js'],
@@ -21,7 +22,16 @@ module.exports = [{
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        use: [
+          {
+            loader: 'string-replace-loader',
+            options: {
+              search: 'packageVersionToBeReplaced',
+              replace: version
+            }
+          },
+          { loader: 'babel-loader' }
+        ]
       },
       {
         test: /\.scss$/,
@@ -78,7 +88,16 @@ module.exports = [{
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        use: [
+          {
+            loader: 'string-replace-loader',
+            options: {
+              search: 'packageVersionToBeReplaced',
+              replace: version
+            }
+          },
+          { loader: 'babel-loader' }
+        ]
       },
       {
         test: /\.scss$/,

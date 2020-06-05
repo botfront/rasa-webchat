@@ -29,8 +29,9 @@ function initStore(
   onWidgetEvent,
 ) {
   const customMiddleWare = store => next => (action) => {
-    let sessionId = getLocalSession(storage, SESSION_NAME)
-      ? getLocalSession(storage, SESSION_NAME).session_id
+    const localSession = getLocalSession(storage, SESSION_NAME);
+    let sessionId = localSession
+      ? localSession.session_id
       : null;
     if (!sessionId && socket.sessionId) {
       sessionId = socket.sessionId;

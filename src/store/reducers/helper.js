@@ -145,7 +145,8 @@ export const storeParamsTo = storage => (params) => {
     // Since immutable Map is not a native JS object, store conversation as array
     ...localSession,
     params: params.toJS(),
-    lastUpdate: Date.now()
+    lastUpdate: Date.now(),
+    version: 'packageVersionToBeReplaced'
   };
   storage.setItem(SESSION_NAME, JSON.stringify(newSession));
   return params;
