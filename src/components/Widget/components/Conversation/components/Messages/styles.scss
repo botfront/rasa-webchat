@@ -54,6 +54,7 @@
 
 .#{$namespace}message.#{$namespace}typing-indication {
   .#{$namespace}response {
+    box-sizing: content-box;
     height: 16px;
   }
 }
