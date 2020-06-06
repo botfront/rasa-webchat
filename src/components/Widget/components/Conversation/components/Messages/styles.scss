@@ -100,12 +100,13 @@ div#wave {
   margin-left: auto;
   margin-right: auto;
   .#{$namespace}dot {
+    opacity: 0.4;
     display:inline-block;
     width:5px;
     height:5px;
     border-radius:50%;
     margin-right:3px;
-    background:#939393;
+    background: #000000;
     animation: wave 1.6s linear infinite;
 
     &:nth-child(2) {

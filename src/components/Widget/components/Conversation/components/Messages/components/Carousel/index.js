@@ -1,10 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { addUserMessage, emitUserMessage } from 'actions';
 import { PROP_TYPES } from 'constants';
-import Arrow from 'assets/arrow.svg';
+import Arrow from 'assets/arrow';
+import ThemeContext from '../../../../../../ThemeContext';
 
 import './styles.scss';
 
@@ -20,6 +21,8 @@ const Carousel = (props) => {
   const scrollContainer = useRef();
   const [leftButton, setLeftButton] = useState(false);
   const [rightButton, setRightButton] = useState(true);
+  const { mainColor, assistTextColor } = useContext(ThemeContext);
+
 
   const handleScroll = () => {
     const current = scrollContainer.current;
@@ -83,6 +86,7 @@ const Carousel = (props) => {
                 target={linkTarget || '_blank'}
                 rel="noopener noreferrer"
                 onClick={() => handleClick(carouselCard.default_action)}
+                style={{ color: assistTextColor }}
               >
                 {carouselCard.title}
               </a>
@@ -92,6 +96,7 @@ const Carousel = (props) => {
                 target={linkTarget || '_blank'}
                 rel="noopener noreferrer"
                 onClick={() => handleClick(carouselCard.default_action)}
+                style={{ color: assistTextColor }}
               >
                 {carouselCard.subtitle}
               </a>
@@ -105,6 +110,7 @@ const Carousel = (props) => {
                         target={linkTarget || '_blank'}
                         rel="noopener noreferrer"
                         className="rw-reply"
+                        style={{ borderColor: mainColor, color: mainColor }}
                       >
                         <span>{button.title}</span>
                       </a>
@@ -118,6 +124,7 @@ const Carousel = (props) => {
                       onClick={() => handleClick(button)}
                       role="button"
                       tabIndex={0}
+                      style={{ borderColor: mainColor, color: mainColor }}
                     >
                       <span>{button.title}</span>
                     </div>
@@ -137,7 +144,7 @@ const Carousel = (props) => {
             role="button"
             tabIndex={0}
           >
-            <img className="rw-arrow" src={Arrow} alt="left carousel arrow" />
+            <div className="rw-arrow" alt="left carousel arrow" ><Arrow /></div>
           </div>
         )}
         {rightButton && (
@@ -148,13 +155,14 @@ const Carousel = (props) => {
             role="button"
             tabIndex={0}
           >
-            <img className="rw-arrow" src={Arrow} alt="right carousel arrow" />
+            <div className="rw-arrow" alt="right carousel arrow"><Arrow /></div>
           </div>
         )}
       </div>
     </React.Fragment>
   );
 };
+
 
 Carousel.propTypes = {
   message: PROP_TYPES.CAROUSEL,

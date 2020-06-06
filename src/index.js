@@ -1,11 +1,12 @@
 import React, { forwardRef } from 'react';
+
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 
 import Widget from './components/Widget';
 import { initStore } from '../src/store/store';
 import socket from './socket';
-
+import ThemeContext from '../src/components/Widget/ThemeContext';
 // eslint-disable-next-line import/no-mutable-exports
 export let store = null;
 
@@ -90,6 +91,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
     props.onSocketEvent
   );
 
+
   const storage =
     props.params.storage === 'session' ? sessionStorage : localStorage;
   if (!store || sock.marker !== store.socketRef) {
@@ -105,38 +107,47 @@ const ConnectedWidget = forwardRef((props, ref) => {
   }
   return (
     <Provider store={store}>
-      <Widget
-        ref={ref}
-        initPayload={props.initPayload}
-        title={props.title}
-        subtitle={props.subtitle}
-        customData={props.customData}
-        handleNewUserMessage={props.handleNewUserMessage}
-        profileAvatar={props.profileAvatar}
-        showCloseButton={props.showCloseButton}
-        showFullScreenButton={props.showFullScreenButton}
-        hideWhenNotConnected={props.hideWhenNotConnected}
-        connectOn={props.connectOn}
-        autoClearCache={props.autoClearCache}
-        fullScreenMode={props.fullScreenMode}
-        badge={props.badge}
-        embedded={props.embedded}
-        params={props.params}
-        storage={storage}
-        openLauncherImage={props.openLauncherImage}
-        closeImage={props.closeImage}
-        customComponent={props.customComponent}
-        displayUnreadCount={props.displayUnreadCount}
-        socket={sock}
-        showMessageDate={props.showMessageDate}
-        customMessageDelay={props.customMessageDelay}
-        tooltipPayload={props.tooltipPayload}
-        tooltipDelay={props.tooltipDelay}
-        disableTooltips={props.disableTooltips}
-        defaultHighlightCss={props.defaultHighlightCss}
-        defaultHighlightAnimation={props.defaultHighlightAnimation}
-        defaultHighlightClassname={props.defaultHighlightClassname}
-      />
+      <ThemeContext.Provider
+        value={{ mainColor: props.mainColor,
+          conversationBackgroundColor: props.conversationBackgroundColor,
+          userTextColor: props.userTextColor,
+          userBackgroundColor: props.userBackgroundColor,
+          assistTextColor: props.assistTextColor,
+          assistBackgoundColor: props.assistBackgoundColor }}
+      >
+        <Widget
+          ref={ref}
+          initPayload={props.initPayload}
+          title={props.title}
+          subtitle={props.subtitle}
+          customData={props.customData}
+          handleNewUserMessage={props.handleNewUserMessage}
+          profileAvatar={props.profileAvatar}
+          showCloseButton={props.showCloseButton}
+          showFullScreenButton={props.showFullScreenButton}
+          hideWhenNotConnected={props.hideWhenNotConnected}
+          connectOn={props.connectOn}
+          autoClearCache={props.autoClearCache}
+          fullScreenMode={props.fullScreenMode}
+          badge={props.badge}
+          embedded={props.embedded}
+          params={props.params}
+          storage={storage}
+          openLauncherImage={props.openLauncherImage}
+          closeImage={props.closeImage}
+          customComponent={props.customComponent}
+          displayUnreadCount={props.displayUnreadCount}
+          socket={sock}
+          showMessageDate={props.showMessageDate}
+          customMessageDelay={props.customMessageDelay}
+          tooltipPayload={props.tooltipPayload}
+          tooltipDelay={props.tooltipDelay}
+          disableTooltips={props.disableTooltips}
+          defaultHighlightCss={props.defaultHighlightCss}
+          defaultHighlightAnimation={props.defaultHighlightAnimation}
+          defaultHighlightClassname={props.defaultHighlightClassname}
+        />
+      </ThemeContext.Provider>
     </Provider>
   );
 });
@@ -182,7 +193,13 @@ ConnectedWidget.propTypes = {
   }),
   disableTooltips: PropTypes.bool,
   defaultHighlightCss: PropTypes.string,
-  defaultHighlightAnimation: PropTypes.string
+  defaultHighlightAnimation: PropTypes.string,
+  mainColor: PropTypes.string,
+  conversationBackgroundColor: PropTypes.string,
+  userTextColor: PropTypes.string,
+  userBackgroundColor: PropTypes.string,
+  assistTextColor: PropTypes.string,
+  assistBackgoundColor: PropTypes.string
 };
 
 ConnectedWidget.defaultProps = {
@@ -222,7 +239,13 @@ ConnectedWidget.defaultProps = {
     onChatVisible: () => {},
     onChatHidden: () => {}
   },
-  disableTooltips: false
+  disableTooltips: false,
+  mainColor: '',
+  conversationBackgroundColor: '',
+  userTextColor: '',
+  userBackgroundColor: '',
+  assistTextColor: '',
+  assistBackgoundColor: ''
 };
 
 export default ConnectedWidget;

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { PROP_TYPES } from 'constants';
 import DocViewer from '../docViewer';
 import './styles.scss';
+import ThemeContext from '../../../../../../ThemeContext';
 
 class Message extends PureComponent {
   render() {
@@ -17,14 +18,25 @@ class Message extends PureComponent {
     if (customCss && customCss.style === 'class') {
       customCss.css = customCss.css.replace(/^\./, '');
     }
+
+    const { userTextColor, userBackgroundColor, assistTextColor, assistBackgoundColor } = this.context;
+    let style;
+    if (sender === 'response' && customCss && customCss.style === 'class') {
+      style = undefined;
+    } else if (sender === 'response' && customCss && customCss.style) {
+      style = { cssText: customCss.css };
+    } else if (sender === 'response') {
+      style = { color: assistTextColor, backgroundColor: assistBackgoundColor };
+    } else if (sender === 'client') {
+      style = { color: userTextColor, backgroundColor: userBackgroundColor };
+    }
+
     return (
       <div
         className={sender === 'response' && customCss && customCss.style === 'class' ?
           `rw-response ${customCss.css}` :
           `rw-${sender}`}
-        style={{ cssText: sender === 'response' && customCss && customCss.style === 'custom' ?
-          customCss.css :
-          undefined }}
+        style={style}
       >
         <div
           className="rw-message-text"
@@ -56,6 +68,8 @@ class Message extends PureComponent {
   }
 }
 
+
+Message.contextType = ThemeContext;
 Message.propTypes = {
   message: PROP_TYPES.MESSAGE,
   docViewer: PropTypes.bool,

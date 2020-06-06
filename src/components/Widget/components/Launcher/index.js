@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
@@ -12,7 +12,7 @@ import close from 'assets/clear-button.svg';
 import Badge from './components/Badge';
 
 import './style.scss';
-
+import ThemeContext from '../../ThemeContext';
 
 const Launcher = ({
   toggle,
@@ -27,6 +27,8 @@ const Launcher = ({
   lastMessage,
   closeTooltip
 }) => {
+  const { mainColor, assistBackgoundColor } = useContext(ThemeContext);
+
   const className = ['rw-launcher'];
   if (isChatOpen) className.push('rw-hide-sm');
   if (fullScreenMode && isChatOpen) className.push('rw-full-screen rw-hide');
@@ -48,12 +50,13 @@ const Launcher = ({
           return null;
       }
     })();
-    return <ComponentToRender id={-1} params={{}} message={message} isLast />;
+    if (ComponentToRender) { return <ComponentToRender id={-1} params={{}} message={message} isLast />; }
+    toggle(); // open the chat if the tooltip do not know how to display the compoment
   };
 
 
   const renderToolTip = () => (
-    <div className="rw-tooltip-body">
+    <div className="rw-tooltip-body" style={{ backgroundColor: assistBackgoundColor }}>
       <div className="rw-tooltip-close" >
         <button onClick={(e) => { e.stopPropagation(); closeTooltip(); }}>
           <img
@@ -65,7 +68,7 @@ const Launcher = ({
       <div className="rw-tooltip-response">
         {getComponentToRender(lastMessage)}
       </div>
-      <div className="rw-tooltip-decoration" />
+      <div className="rw-tooltip-decoration" style={{ backgroundColor: assistBackgoundColor }} />
     </div>
   );
 
@@ -80,7 +83,7 @@ const Launcher = ({
   );
 
   return (
-    <button type="button" className={className.join(' ')} onClick={toggle}>
+    <button type="button" style={{ backgroundColor: mainColor }} className={className.join(' ')} onClick={toggle}>
       <Badge badge={badge} />
       {isChatOpen ? (
         <img

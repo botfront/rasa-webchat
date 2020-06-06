@@ -124,7 +124,7 @@
 
     .#{$namespace}right-arrow {
         right: 10px;
-        img.#{$namespace}arrow {
+        div.#{$namespace}arrow {
             transform: rotate(180deg);
         }
     }
