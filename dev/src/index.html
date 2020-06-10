@@ -1,63 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Botfront - Web Chat</title>
-</head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<body style="background: lightcyan;">
-  <a href="#" onclick="WebChat.send('/chitchat.greet')">Send chitchat.greet without text</a>
-  <br />
-  <a href="#" onclick="WebChat.send('/chitchat.greet', 'salut')">Send chitchat.greet with text</a>
-  <span style="height: 400px; display: block;">test</span>
-  <span style="height: 400px; display: block;">test</span>
-  <span style="height: 400px; display: block;">test</span>
-  <h1 class="test"> test</h1>
-  <button class="my-button"> MY BUTTON</button>
-  <script src="index.js"  type="text/javascript"></script>
-  <div style="width: 400px; height: 2000px; border: 3px solid lightsalmon;" id="webchat" />
-<script>
-  WebChat.default.init({
-    // embedded: true,
-    selector: "#webchat",
-    initPayload: "/intro_registered_accounts",
-    socketUrl: "http://localhost:5005/",
-    tooltipPayload: "/tooltip_registered_accounts",
-    tooltipDelay: 40000,
-    socketPath: "/socket.io/",
-    customData: {
-      language: 'en'
-    },
-    subtitle: 'A',
-    inputTextFieldHint: "Type a message...",
-    connectingText: "Waiting for server...",
-    profileAvatar: "https://storage.googleapis.com/dev-media-store-botfront-cloud/logo_square_circle_white_bg256.jpg",
-    hideWhenNotConnected: false,
-  //   defaultHighlightAnimation: `@-webkit-keyframes default-botfront-blinker-animation {
-  //     from {
-  //     outline: solid rgba(255,0,0,0);
-  //   }
-  //   to {
-  //     outline: solid red;
-  //   }
-  // }`,
-    onSocketEvent: {
-      'bot_uttered': () => console.log('bot uttered'),
-    },
-    showCloseButton: true,
-    fullScreenMode: true,
-    showFullScreenButton: true,
-    docViewer: false,
-    params: {
-      images: {
-        dims: {
-          width: 300,
-          height: 200
-        }
-      },
-      storage: "session"
-    }
-  })
-</script>
-</body>
-
+    <head>
+        <title>Botfront - Web Chat</title>
+    </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <body style="background: lightcyan;">
+        <script src="index.js" type="text/javascript"></script>
+        <div id="webchat"></div>
+        <script>
+            WebChat.default.init({
+                // embedded: true,
+                selector: '#webchat',
+                initPayload: '/greet',
+                socketUrl: 'http://localhost:3000',
+                tooltipPayload: '/tooltip_registered_accounts',
+                tooltipDelay: 40000,
+                socketPath: '/socket.io/',
+                customData: {
+                    language: 'en',
+                },
+                title: 'Volbot',
+                subtitle: 'The best virtual assistant',
+                inputTextFieldHint: 'Type a message...',
+                connectingText: 'Waiting for server...',
+                mainColor: '#1b4353',
+                userBackgroundColor: '#1b4353',
+                profileAvatar: 'https://static.tagshelf.io/assets/images/volvo.png',
+                hideWhenNotConnected: false,
+                //   defaultHighlightAnimation: `@-webkit-keyframes default-botfront-blinker-animation {
+                //     from {
+                //     outline: solid rgba(255,0,0,0);
+                //   }
+                //   to {
+                //     outline: solid red;
+                //   }
+                // }`,
+                onSocketEvent: {
+                    bot_uttered: () => console.log('bot uttered'),
+                },
+                showCloseButton: true,
+                fullScreenMode: true,
+                showFullScreenButton: true,
+                docViewer: false,
+                params: {
+                    images: {
+                        dims: {
+                            width: 300,
+                            height: 200,
+                        },
+                    },
+                    storage: 'session',
+                },
+            });
+        </script>
+    </body>
 </html>
