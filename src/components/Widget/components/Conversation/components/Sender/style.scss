@@ -16,7 +16,8 @@
         width: 100%;
         border: 0;
         background-color: $grey-2;
-        padding-left: 15px;
+        padding: 2px 2px 2px 15px;
+        margin: 0;
         font-family: $fontfamily;
         resize: none;
         &:focus {
@@ -28,6 +29,8 @@
         background: $grey-2;
         border: 0;
         padding: 0;
+        margin: 0;
+        margin-right: 6px;
 
         .#{$namespace}send-icon {
             fill: #00000000;

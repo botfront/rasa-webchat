@@ -5,6 +5,7 @@
 .#{$namespace}conversation-container {
     .#{$namespace}replies {
         @include replies;
+        font-size: 14px;
     }
 
     .#{$namespace}reply {
