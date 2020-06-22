@@ -194,7 +194,7 @@
     .slick-list {
       .#{$namespace}tooltip-response {
         max-height: unquote("min(60vh, 350px)");
-        overflow-y: scroll;
+        overflow-y: auto;
       }
     }
   }
