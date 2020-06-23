@@ -86,10 +86,12 @@
     line-height: 1.4em;
     animation: slideUp 0.3s ease-in-out;
     transition: all 0.2s ease-in-out;
+
     @media screen and (max-width: 800px){
       right: 74px;
       width: calc(100vw - 90px);
     }
+
     &:hover {
       background-color: rgb(250, 250, 250);
       transform: translateY(-2px);
@@ -98,6 +100,24 @@
         background: rgb(250, 250, 250);
       }
     }
+
+    &[data-popper-placement=right] {
+      margin-left: 20px;
+      .#{$namespace}tooltip-decoration {
+        left: -6px;
+        clip-path: polygon(0% 50%, 50% 0, 50% 100%);
+        -webkit-clip-path: polygon(0% 50%, 50% 0, 50% 100%);
+      }
+    }
+    &[data-popper-placement=left] {
+      margin-right: 20px;
+      .#{$namespace}tooltip-decoration {
+        right: -6px;
+        clip-path: polygon(100% 50%, 50% 0, 50% 100%);
+        -webkit-clip-path: polygon(100% 50%, 50% 0, 50% 100%);
+      }
+    }
+
     .#{$namespace}image-details {
       object-fit: scale-down;
       max-width: 100%;

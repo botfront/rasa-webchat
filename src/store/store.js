@@ -36,32 +36,25 @@ function initStore(
     if (!sessionId && socket.sessionId) {
       sessionId = socket.sessionId;
     }
+    const emitMessage = (payload) => {
+      const emit = () => socket.emit(
+        'user_uttered', {
+          message: payload,
+          customData: socket.customData,
+          session_id: sessionId
+        }
+      );
+      if (socket.sessionConfirmed) {
+        emit();
+      } else {
+        socket.on('session_confirm', () => {
+          emit();
+        });
+      }
+    };
     switch (action.type) {
       case actionTypes.EMIT_NEW_USER_MESSAGE: {
-        const emit = () => socket.emit(
-          'user_uttered', {
-            message: action.text,
-            customData: socket.customData,
-            session_id: sessionId
-          }
-        );
-        if (socket.sessionConfirmed) {
-          emit();
-        } else {
-          socket.on('session_confirm', () => {
-            emit();
-          });
-        }
-        break;
-      }
-      case actionTypes.EMIT_MESSAGE_IF_FIRST: {
-        if (store.getState().messages.size === 0) {
-          socket.emit('user_uttered', {
-            message: action.payload,
-            customData: socket.customData,
-            session_id: sessionId
-          });
-        }
+        emitMessage(action.text);
         break;
       }
       case actionTypes.GET_OPEN_STATE: {
@@ -78,13 +71,6 @@ function initStore(
         const pageCallbacksJs = pageCallbacks ? pageCallbacks.toJS() : {};
 
         const newUrl = action.url;
-        const emitMessage = (message) => {
-          socket.emit('user_uttered', {
-            message,
-            customData: socket.customData,
-            session_id: sessionId
-          });
-        };
 
         if (!pageCallbacksJs.pageChanges) break;
 

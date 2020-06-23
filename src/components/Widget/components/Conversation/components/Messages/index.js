@@ -112,6 +112,7 @@ class Messages extends Component {
       );
 
       messages.forEach((msg, index) => {
+        if (msg.get('hidden')) return;
         if (group === null || group.from !== msg.get('sender')) {
           if (group !== null) groups.push(group);
 
