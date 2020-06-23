@@ -146,7 +146,7 @@ export const storeParamsTo = storage => (params) => {
     ...localSession,
     params: params.toJS(),
     lastUpdate: Date.now(),
-    version: 'packageVersionToBeReplaced'
+    version: 'PACKAGE_VERSION_TO_BE_REPLACED'
   };
   storage.setItem(SESSION_NAME, JSON.stringify(newSession));
   return params;

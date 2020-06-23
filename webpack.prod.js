@@ -26,7 +26,7 @@ module.exports = [{
           {
             loader: 'string-replace-loader',
             options: {
-              search: 'packageVersionToBeReplaced',
+              search: 'PACKAGE_VERSION_TO_BE_REPLACED',
               replace: version
             }
           },
@@ -92,7 +92,7 @@ module.exports = [{
           {
             loader: 'string-replace-loader',
             options: {
-              search: 'packageVersionToBeReplaced',
+              search: 'PACKAGE_VERSION_TO_BE_REPLACED',
               replace: version
             }
           },

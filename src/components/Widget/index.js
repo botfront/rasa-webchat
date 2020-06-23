@@ -329,7 +329,7 @@ class Widget extends Component {
   checkVersionBeforePull() {
     const { storage } = this.props;
     const localSession = getLocalSession(storage, SESSION_NAME);
-    if (localSession && (localSession.version !== 'packageVersionToBeReplaced')) {
+    if (localSession && (localSession.version !== 'PACKAGE_VERSION_TO_BE_REPLACED')) {
       storage.removeItem(SESSION_NAME);
     }
   }
