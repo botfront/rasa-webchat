@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.1](https://https///compare/v0.11.0...v0.11.1) (2020-06-23)
+
+
+### Bug Fixes
+
+* webchat opening ([14f457f](https://https///commit/14f457f6a142a1fbde7db972d2f6de0b2063fa34))
+
 ## [0.11.0](https://https///compare/v0.10.4...v0.11.0) (2020-06-23)
 
 
