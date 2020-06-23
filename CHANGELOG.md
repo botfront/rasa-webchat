@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.11.0](https://https///compare/v0.10.4...v0.11.0) (2020-06-23)
+
+
+### Features
+
+* auto clear storage on new version to prevent errors ([db2df1e](https://https///commit/db2df1eec7841e2bbcdc20e228c143361218d4dc))
+* placed tooltips ([6857448](https://https///commit/6857448bee206b53c9a10ed3975f6c7247070253))
+* tooltip sequences ([80f048f](https://https///commit/80f048f516b29f032337f07ff85cb787824f3e70))
+
 ### [0.10.4](https://https///compare/v0.10.3...v0.10.4) (2020-06-06)
 
 
