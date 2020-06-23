@@ -127,7 +127,8 @@ const Launcher = ({
           <img src={closeIcon} alt="close" />
         </button>
       </div>
-      <div className="rw-slider-safe-zone">
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      <div className="rw-slider-safe-zone" onClick={e => e.stopPropagation()}>
         <Slider {...sliderSettings}>
           {lastMessages.map(message => (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
@@ -190,7 +191,7 @@ const Launcher = ({
   );
 
   return (
-    <button type="button" style={{ backgroundColor: mainColor }} className={className.join(' ')} >
+    <button type="button" style={{ backgroundColor: mainColor }} className={className.join(' ')} onClick={toggle}>
       <Badge badge={badge} />
       {isChatOpen ? (
         <img
