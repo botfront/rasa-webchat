@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { version } = require('./package.json');
 
 module.exports = {
   // entry: ['babel-polyfill', './index.js'],
@@ -26,7 +27,16 @@ module.exports = {
     rules: [{
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
-      loader: 'babel-loader'
+      use: [
+        {
+          loader: 'string-replace-loader',
+          options: {
+            search: 'PACKAGE_VERSION_TO_BE_REPLACED',
+            replace: version
+          }
+        },
+        { loader: 'babel-loader' }
+      ]
     }, {
       test: /\.scss$/,
       use: [
