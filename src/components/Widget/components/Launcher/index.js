@@ -1,9 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { usePopper } from 'react-popper';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import { MESSAGES_TYPES } from 'constants';
 import { Image, Message, Buttons } from 'messagesComponents';
@@ -28,7 +31,7 @@ const Launcher = ({
   unreadCount,
   displayUnreadCount,
   showTooltip,
-  lastMessage,
+  lastMessages,
   closeTooltip,
   lastUserMessage,
   domHighlight
@@ -36,6 +39,7 @@ const Launcher = ({
   const { mainColor, assistBackgoundColor } = useContext(ThemeContext);
 
   const [referenceElement, setReferenceElement] = useState(null);
+
   useEffect(() => {
     const setReference = (selector) => {
       const reference = document.querySelectorAll(selector);
@@ -54,8 +58,10 @@ const Launcher = ({
       setReferenceElement(null);
     }
   }, [lastUserMessage, domHighlight]);
+
   const [popperElement, setPopperElement] = useState(null);
   const [arrowElement, setArrowElement] = useState(null);
+
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     modifiers: [
       // The arrow padding ensures it never get on the border where it looks ugly
@@ -69,7 +75,21 @@ const Launcher = ({
     ],
     placement: 'right'
   });
+
   const className = ['rw-launcher'];
+
+  const sliderSettings = {
+    dots: true,
+    infinite: false,
+    adaptiveHeight: true
+  };
+  const lastMessage = lastMessages ? lastMessages.slice(-1)[0] : new Map();
+  // This is used to distinguish bw drag and click events in the tooltips sequences.
+  const dragStatus = useRef({
+    x: 0,
+    y: 0
+  });
+
   if (isChatOpen) className.push('rw-hide-sm');
   if (fullScreenMode && isChatOpen) className.push('rw-full-screen rw-hide');
 
@@ -107,7 +127,31 @@ const Launcher = ({
           <img src={closeIcon} alt="close" />
         </button>
       </div>
-      <div className="rw-tooltip-response">{getComponentToRender(lastMessage)}</div>
+      <div className="rw-slider-safe-zone">
+        <Slider {...sliderSettings}>
+          {lastMessages.map(message => (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+            <div
+              className="rw-tooltip-response"
+              onMouseDown={(event) => {
+                dragStatus.current.x = event.clientX;
+                dragStatus.current.y = event.clientY;
+              }}
+              onMouseUp={(event) => {
+                if (
+                  Math.abs(dragStatus.current.x - event.clientX) +
+                    Math.abs(dragStatus.current.y - event.clientY) <
+                  15
+                ) {
+                  toggle();
+                }
+              }}
+            >
+              {getComponentToRender(message)}
+            </div>
+          ))}
+        </Slider>
+      </div>
     </React.Fragment>
   );
 
@@ -128,7 +172,8 @@ const Launcher = ({
   );
 
   const renderToolTip = () => (
-    <div className="rw-tooltip-body" style={{ backgroundColor: assistBackgoundColor }}>
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div className="rw-tooltip-body" style={{ backgroundColor: assistBackgoundColor }} onClick={(e) => { e.stopPropagation(); }}>
       {renderTooltipContent()}
       <div className="rw-tooltip-decoration" style={{ backgroundColor: assistBackgoundColor }} />
     </div>
@@ -140,14 +185,12 @@ const Launcher = ({
         <div className="rw-unread-count-pastille">{unreadCount}</div>
       )}
       <img src={openLauncherImage || openLauncher} className="rw-open-launcher" alt="" />
-      {showTooltip &&
-        lastMessage.get('sender') === 'response' &&
-        (referenceElement ? renderPlacedTooltip() : renderToolTip())}
+      {showTooltip && lastMessage && lastMessage.get('sender') === 'response' && (referenceElement ? renderPlacedTooltip() : renderToolTip())}
     </div>
   );
 
   return (
-    <button type="button" style={{ backgroundColor: mainColor }} className={className.join(' ')} onClick={toggle}>
+    <button type="button" style={{ backgroundColor: mainColor }} className={className.join(' ')} >
       <Badge badge={badge} />
       {isChatOpen ? (
         <img
@@ -172,13 +215,21 @@ Launcher.propTypes = {
   unreadCount: PropTypes.number,
   displayUnreadCount: PropTypes.bool,
   showTooltip: PropTypes.bool,
-  lastMessage: ImmutablePropTypes.map,
   lastUserMessage: PropTypes.oneOfType([ImmutablePropTypes.map, PropTypes.bool]),
-  domHighlight: PropTypes.shape({})
+  domHighlight: PropTypes.shape({}),
+  lastMessages: PropTypes.arrayOf(ImmutablePropTypes.map)
 };
 
 const mapStateToProps = state => ({
-  lastMessage: (state.messages && state.messages.get(-1)) || new Map(),
+  lastMessages: (state.messages && (() => {
+    const messages = [];
+    for (let i = 1; i <= 10; i += 1) {
+      if (state.messages.get(-i) && state.messages.get(-i).get('sender') !== 'response') break;
+      if (!state.messages.get(-i)) break;
+      messages.unshift(state.messages.get(-i));
+    }
+    return messages;
+  })()) || new Map(),
   unreadCount: state.behavior.get('unreadCount') || 0,
   showTooltip: state.metadata.get('showTooltip'),
   linkTarget: state.metadata.get('linkTarget'),

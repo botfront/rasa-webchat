@@ -80,7 +80,7 @@
     right: 78px;
     bottom: 12px;
     box-shadow: 1px 0px 13px 3px rgba(0, 0, 0, 0.15);
-    width: 280px;
+    width: 320px;
     font-size: 1.4em;
     padding: 0px 8px;
     line-height: 1.4em;
@@ -98,6 +98,9 @@
       cursor: pointer;
       .#{$namespace}tooltip-decoration {
         background: rgb(250, 250, 250);
+      }
+      .#{$namespace}tooltip-close button {
+        background-color: rgb(250, 250, 250);
       }
     }
 
@@ -158,8 +161,47 @@
     -webkit-clip-path: polygon(100% 50%, 50% 0, 50% 100%);
   }
 
+  .slick-dots li {
+    width: 9px;
+  }
+  
+  .slick-arrow {
+    width: 15px;
+    &.slick-next {
+      right: -17px;
+      top: initial;
+      bottom: 10px;
+      &:before {
+        color: #c0c0c0
+      }
+    }
+    &.slick-prev {
+      left: -19px;
+      top: initial;
+      bottom: 10px;
+      &:before {
+        color: #c0c0c0;
+      }
+      
+    }
+  }
+
+  .#{$namespace}slider-safe-zone {
+    width: 87%;
+    position: relative;
+    margin-bottom: 32px;
+    left: 18px;
+    .slick-list {
+      .#{$namespace}tooltip-response {
+        max-height: unquote("min(60vh, 350px)");
+        overflow-y: auto;
+      }
+    }
+  }
+
   .#{$namespace}tooltip-response {
-  margin-top:1.5rem
+    margin-top:1.5rem;
+    outline: none;
   }
 
   .#{$namespace}tooltip-close {
@@ -171,6 +213,7 @@
     width: 15px;
     transition: all 0.2s ease-in-out;
     button{
+      transition: all 0.2s ease-in-out;
       // or else the default background color for a button on MOBILE is grey.
       background-color: transparent;
       cursor: pointer;
@@ -195,6 +238,7 @@
   }
   @include animation(0, 0.5s, rotation-lr);
 }
+
 
 @media screen and (max-width: 800px) {
   .#{$namespace}hide-sm {

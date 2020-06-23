@@ -60,6 +60,7 @@ class Buttons extends PureComponent {
                     rel="noopener noreferrer"
                     className={'rw-reply'}
                     style={{ borderColor: mainColor, color: mainColor }}
+                    onMouseUp={e => e.stopPropagation()}
                   >
                     {reply.get('title')}
                   </a>
@@ -72,6 +73,7 @@ class Buttons extends PureComponent {
                   className={'rw-reply'}
                   onClick={(e) => { e.stopPropagation(); this.handleClick(reply); }}
                   style={{ borderColor: mainColor, color: mainColor }}
+                  onMouseUp={e => e.stopPropagation()}
                 >
                   {reply.get('title')}
                 </div>
