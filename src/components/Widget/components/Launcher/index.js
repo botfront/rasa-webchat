@@ -190,7 +190,7 @@ const Launcher = ({
   );
 
   return (
-    <button type="button" style={{ backgroundColor: mainColor }} className={className.join(' ')} onClick={toggle}>
+    <button type="button" style={{ backgroundColor: mainColor }} className={className.join(' ')} >
       <Badge badge={badge} />
       {isChatOpen ? (
         <img
