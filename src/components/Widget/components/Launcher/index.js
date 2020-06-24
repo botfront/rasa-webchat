@@ -73,7 +73,7 @@ const Launcher = ({
         }
       }
     ],
-    placement: 'right'
+    placement: (domHighlight && domHighlight.get('tooltipPlacement')) || 'auto'
   });
 
   const className = ['rw-launcher'];
