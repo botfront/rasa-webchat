@@ -122,9 +122,11 @@ class Widget extends Component {
     const emit = () => {
       const send = () => {
         dispatch(emitUserMessage(payload));
+        console.log('text', text);
         if (text !== '') {
           dispatch(addUserMessage(text, tooltipSelector));
         } else {
+          console.log('adding a message');
           dispatch(addUserMessage('hidden', tooltipSelector, true));
         }
         if (tooltipSelector) {
