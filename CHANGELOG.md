@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.5](https://https///compare/v0.11.4...v0.11.5) (2020-06-24)
+
+
+### Features
+
+* choose tooltip placement ([aba68c8](https://https///commit/aba68c8b2ad883b85cdf8931d876d809f2beb79e))
+
 ### [0.11.4](https://https///compare/v0.11.3...v0.11.4) (2020-06-24)
 
 ### [0.11.3](https://https///compare/v0.11.2...v0.11.3) (2020-06-24)
