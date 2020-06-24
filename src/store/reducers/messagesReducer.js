@@ -23,7 +23,10 @@ export default function (storage) {
       // Each change to the redux store's message list gets recorded to storage
       case actionTypes.ADD_NEW_USER_MESSAGE: {
         console.log('adding a new message here', JSON.stringify(state));
-        if (state && state.length && state[state.length - 1].hidden) {
+        console.log(state.length);
+        console.log(state.length && state[state.length - 1]);
+        if (state && state.length && state[state.length - 1].hidden && action.hidden) {
+          console.log('here here');
           return state;
         }
         return storeMessage(
