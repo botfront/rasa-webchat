@@ -121,6 +121,24 @@
       }
     }
 
+    &[data-popper-placement=bottom] {
+      margin-top: 20px;
+      .#{$namespace}tooltip-decoration {
+        top: -6px;
+        clip-path: polygon(100% 50%, 0 50%, 50% 0);
+        -webkit-clip-path: polygon(100% 50%, 0 50%, 50% 0);
+      }
+    }
+
+    &[data-popper-placement=top] {
+      margin-bottom: 20px;
+      .#{$namespace}tooltip-decoration {
+        bottom: -6px;
+        clip-path: polygon(100% 50%, 0 50%, 50% 100%);
+        -webkit-clip-path: polygon(100% 50%, 0 50%, 50% 100%);
+      }
+    }
+
     .#{$namespace}image-details {
       object-fit: scale-down;
       max-width: 100%;
