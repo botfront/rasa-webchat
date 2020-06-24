@@ -37,13 +37,21 @@ function initStore(
       sessionId = socket.sessionId;
     }
     const emitMessage = (payload) => {
-      const emit = () => socket.emit(
-        'user_uttered', {
-          message: payload,
-          customData: socket.customData,
-          session_id: sessionId
-        }
-      );
+      const emit = () => {
+        socket.emit(
+          'user_uttered', {
+            message: payload,
+            customData: socket.customData,
+            session_id: sessionId
+          }
+        );
+        store.dispatch({
+          type: actionTypes.ADD_NEW_USER_MESSAGE,
+          text: 'text',
+          nextMessageIsTooltip: false,
+          hidden: true
+        });
+      };
       if (socket.sessionConfirmed) {
         emit();
       } else {

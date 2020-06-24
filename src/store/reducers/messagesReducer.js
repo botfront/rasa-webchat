@@ -22,6 +22,9 @@ export default function (storage) {
     switch (action.type) {
       // Each change to the redux store's message list gets recorded to storage
       case actionTypes.ADD_NEW_USER_MESSAGE: {
+        if (state.size === 0 && action.hidden) {
+          return state;
+        }
         return storeMessage(
           state.push(
             createNewMessage(

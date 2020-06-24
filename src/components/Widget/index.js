@@ -124,7 +124,7 @@ class Widget extends Component {
         dispatch(emitUserMessage(payload));
         if (text !== '') {
           dispatch(addUserMessage(text, tooltipSelector));
-        } else if (tooltipSelector) {
+        } else {
           dispatch(addUserMessage('hidden', tooltipSelector, true));
         }
         if (tooltipSelector) {
