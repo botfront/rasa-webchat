@@ -140,6 +140,11 @@
       text-align: left;
       margin-left: 10px;
       margin-right: 10px;
+      ul {
+        margin-top: 1em;
+        margin-bottom: 1em;
+        padding-left: 40px;
+      }
     }
     .#{$namespace}image-frame {
       object-position: 0 0;
