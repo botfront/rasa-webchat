@@ -24,7 +24,7 @@ export default function (storage) {
       case actionTypes.ADD_NEW_USER_MESSAGE: {
         console.log('adding a new message here', JSON.stringify(state));
         console.log(state.last());
-        if (state.last() && state.last().hidden && action.hidden) {
+        if (state.last() && state.last().get('hidden') && action.hidden) {
           console.log('here here');
           return state;
         }
