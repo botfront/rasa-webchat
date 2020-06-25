@@ -47,7 +47,7 @@ In your `<body/>`:
 ```javascript
 <div id="webchat"/>
 <script src="https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.min.js"></script>
-// you can add a version tag if you need, e.g for version 11.5 https://cdn.jsdelivr.net/npm/rasa-webchat@0.11.5/lib/index.min.js
+// you can add a version tag if you need, e.g for version 0.11.5 https://cdn.jsdelivr.net/npm/rasa-webchat@0.11.5/lib/index.min.js
 <script>
   WebChat.default.init({
     selector: "#webchat",
