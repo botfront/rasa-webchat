@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useImperativeHandle, forwardRef } from 'react
 import Widget from '../index';
 
 import RulesHandler, { RULES_HANDLER_SINGLETON } from './rules';
-import { rasaWebchatProTypes, rasaWebchatProDefaultTypes } from './index';
+import { rasaWebchatProTypes, rasaWebchatProDefaultTypes } from '../../index';
 
 const RasaWebchatPro = React.memo(
   forwardRef((props, ref) => {
