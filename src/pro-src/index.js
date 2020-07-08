@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import RasaWebchatPro from './src/pro-src/rules-wrapper';
+import RasaWebchatPro from './rules-wrapper';
 
-import './src/pro-src/index.css';
+import './index.css';
 
 class RasaWebchatProWithRules extends React.Component {
   constructor(props) {
@@ -42,27 +42,23 @@ class RasaWebchatProWithRules extends React.Component {
 
   handleSessionConfirm(sessionObject) {
     const { innerRef } = this.props;
-    const { propsRetrieved, rulesApplied } = this.state;
-    if (!propsRetrieved) {
-      this.setState({
-        // The OR makes it work even without the augmented webchat channel
-        propsRetrieved: sessionObject.props || sessionObject
-      });
-    } else if (propsRetrieved && !rulesApplied) {
-      if (
-        ((innerRef && innerRef.current) || this.webchatRef.updateRules) &&
-                sessionObject.props &&
-                sessionObject.props.rules
-      ) {
-        setTimeout(() => {
-          if (innerRef && innerRef.current) {
-            innerRef.current.updateRules(sessionObject.props.rules);
-          } else {
-            this.webchatRef.updateRules(sessionObject.props.rules);
-          }
-        }, 100);
-        this.setState({ rulesApplied: true });
-      }
+    this.setState({
+      // The OR makes it work even without the augmented webchat channel
+      propsRetrieved: !!sessionObject
+    });
+    if (
+      ((innerRef && innerRef.current) || this.webchatRef.updateRules) &&
+              sessionObject.props &&
+              sessionObject.props.rules
+    ) {
+      setTimeout(() => {
+        if (innerRef && innerRef.current) {
+          innerRef.current.updateRules(sessionObject.props.rules);
+        } else {
+          this.webchatRef.updateRules(sessionObject.props.rules);
+        }
+      }, 100);
+      this.setState({ rulesApplied: true });
     }
   }
 
@@ -84,7 +80,6 @@ class RasaWebchatProWithRules extends React.Component {
             ...propsToApply,
             ...this.props
           }}
-          key={propsRetrieved ? 1 : 0}
           onSocketEvent={
             withRules
               ? {
