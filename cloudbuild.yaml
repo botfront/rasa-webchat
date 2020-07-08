@@ -1,20 +1,20 @@
 steps:
 - name: 'gcr.io/cloud-builders/npm'
-  args: ['install']
+  args: ['ci']
 
 - name: 'gcr.io/cloud-builders/npm'
   args: ['run','build']
 
 - name: 'gcr.io/cloud-builders/gsutil'
-  args: ['cp', 'lib/index.js', 'gs://mrbot-cdn/webchat-$TAG_NAME.js']
+  args: ['cp', '-Z', 'lib/index.js', 'gs://${_BUCKET_NAME}/botfront-widget-$TAG_NAME.js']
 
 - name: 'gcr.io/cloud-builders/gsutil'
-  args: ['cp', 'lib/index.js', 'gs://mrbot-cdn/webchat-latest.js']
+  args: ['cp', '-Z', 'lib/index.js', 'gs://${_BUCKET_NAME}/botfront-widget-latest.js']
 
 - name: 'gcr.io/cloud-builders/gsutil'
-  args: ['acl', 'ch', '-u', 'AllUsers:R', 'gs://mrbot-cdn/webchat-$TAG_NAME.js']
+  args: ['acl', 'ch', '-u', 'AllUsers:R', 'gs://${_BUCKET_NAME}/botfront-widget-$TAG_NAME.js']
 - name: 'gcr.io/cloud-builders/gsutil'
-  args: ['acl', 'ch', '-u', 'AllUsers:R', 'gs://mrbot-cdn/webchat-latest.js']
+  args: ['acl', 'ch', '-u', 'AllUsers:R', 'gs://${_BUCKET_NAME}/botfront-widget-latest.js']
 
 - name: 'gcr.io/cloud-builders/gcloud'
   args:

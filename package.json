@@ -1,12 +1,12 @@
 {
-  "name": "rasa-webchat",
-  "version": "0.11.5",
+  "name": "botfront-assistant",
+  "version": "1.4.2",
   "description": "Chat web widget for React apps and Rasa Core chatbots",
   "module": "module/index.js",
   "main": "lib/index.js",
-  "repository": "git@https://github.com/mrbot-ai/rasa-webchat.git",
-  "author": "Mr. Bot <human@mrbot.ai>",
-  "license": "MIT",
+  "repository": "git@https://github.com/botfront/rasa-webchat-pro.git",
+  "author": "",
+  "license": "botfront license",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js -p",
