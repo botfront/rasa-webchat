@@ -84,7 +84,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
 
   const instanceSocket = useRef({});
 
-  if (!instanceSocket.current.url && !store.socketRef) {
+  if (!instanceSocket.current.url && !(store && store.socketRef)) {
     instanceSocket.current = new Socket(
       props.socketUrl,
       props.customData,
