@@ -38,6 +38,7 @@ function initStore(
     }
     const emitMessage = (payload) => {
       const emit = () => {
+        console.log(socket);
         socket.emit(
           'user_uttered', {
             message: payload,
