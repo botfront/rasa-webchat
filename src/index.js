@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
 
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
@@ -82,28 +82,32 @@ const ConnectedWidget = forwardRef((props, ref) => {
     }
   }
 
-  const sock = new Socket(
-    props.socketUrl,
-    props.customData,
-    props.socketPath,
-    props.protocol,
-    props.protocolOptions,
-    props.onSocketEvent
-  );
+  const instanceSocket = useRef({});
 
+  if (!instanceSocket.current.url) {
+    instanceSocket.current = new Socket(
+      props.socketUrl,
+      props.customData,
+      props.socketPath,
+      props.protocol,
+      props.protocolOptions,
+      props.onSocketEvent
+    );
+  }
 
   const storage =
     props.params.storage === 'session' ? sessionStorage : localStorage;
-  if (!store || sock.marker !== store.socketRef) {
+
+  if (!store) {
     store = initStore(
       props.inputTextFieldHint,
       props.connectingText,
-      sock,
+      instanceSocket.current,
       storage,
       props.docViewer,
       props.onWidgetEvent
     );
-    store.socketRef = sock.marker;
+    store.socketRef = instanceSocket.current.marker;
   }
   return (
     <Provider store={store}>
@@ -137,7 +141,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
           closeImage={props.closeImage}
           customComponent={props.customComponent}
           displayUnreadCount={props.displayUnreadCount}
-          socket={sock}
+          socket={instanceSocket.current}
           showMessageDate={props.showMessageDate}
           customMessageDelay={props.customMessageDelay}
           tooltipPayload={props.tooltipPayload}
