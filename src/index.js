@@ -29,7 +29,6 @@ const ConnectedWidget = forwardRef((props, ref) => {
       this.socket = null;
       this.onEvents = [];
       this.marker = Math.random();
-      console.log('CREATING NEW SOCKET', this.marker);
     }
 
     isInitialized() {
@@ -67,8 +66,6 @@ const ConnectedWidget = forwardRef((props, ref) => {
       // We set a function on session_confirm here so as to avoid any race condition
       // this will be called first and will set those parameters for everyone to use.
       this.socket.on('session_confirm', (sessionObject) => {
-        console.log('INSIDE SOCKET MARKER', this.marker);
-        console.log('SESSION CONFIRMED IN SOCKET OBJECT');
         this.sessionConfirmed = true;
         this.sessionId = (sessionObject && sessionObject.session_id)
           ? sessionObject.session_id
@@ -87,9 +84,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
 
   const instanceSocket = useRef({});
 
-  console.log('STORE STATE HERE', store, store && store.socketRef);
-  if (!instanceSocket.current.url) {
-    console.log('NEW SOCKET TIIIIIME');
+  if (!instanceSocket.current.url && !store.socketRef) {
     instanceSocket.current = new Socket(
       props.socketUrl,
       props.customData,
@@ -104,7 +99,6 @@ const ConnectedWidget = forwardRef((props, ref) => {
     props.params.storage === 'session' ? sessionStorage : localStorage;
 
   if (!store) {
-    console.log('INIT STORE HERE', instanceSocket.current, instanceSocket.current.marker);
     store = initStore(
       props.inputTextFieldHint,
       props.connectingText,
