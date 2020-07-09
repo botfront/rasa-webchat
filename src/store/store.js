@@ -53,10 +53,14 @@ function initStore(
           hidden: true
         });
       };
+      console.log('SOCKET', socket);
       if (socket.sessionConfirmed) {
+        console.log('SESSION CONFIRMED');
         emit();
       } else {
+        console.log('PLACING SESSION CONFIRM TRAP');
         socket.on('session_confirm', () => {
+          console.log('TRAP ACTIVATED');
           emit();
         });
       }
