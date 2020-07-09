@@ -44,7 +44,7 @@ class RasaWebchatProWithRules extends React.Component {
     const { innerRef } = this.props;
     this.setState({
       // The OR makes it work even without the augmented webchat channel
-      propsRetrieved: !!sessionObject
+      propsRetrieved: { ...sessionObject.props }
     });
     if (
       ((innerRef && innerRef.current) || this.webchatRef.updateRules) &&
