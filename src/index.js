@@ -99,6 +99,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
     props.params.storage === 'session' ? sessionStorage : localStorage;
 
   if (!store) {
+    console.log('initiating store with', instanceSocket.current);
     store = initStore(
       props.inputTextFieldHint,
       props.connectingText,
