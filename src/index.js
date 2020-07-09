@@ -30,7 +30,6 @@ const ConnectedWidget = forwardRef((props, ref) => {
       this.onEvents = [];
       this.marker = Math.random();
       console.log('CREATING NEW SOCKET', this.marker);
-      console.trace();
     }
 
     isInitialized() {
@@ -88,7 +87,9 @@ const ConnectedWidget = forwardRef((props, ref) => {
 
   const instanceSocket = useRef({});
 
+  console.log('STORE STATE HERE', store, store && store.socketRef);
   if (!instanceSocket.current.url) {
+    console.log('NEW SOCKET TIIIIIME');
     instanceSocket.current = new Socket(
       props.socketUrl,
       props.customData,
