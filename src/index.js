@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef, useRef, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
@@ -81,6 +81,10 @@ const ConnectedWidget = forwardRef((props, ref) => {
       });
     }
   }
+
+  useEffect(() => {
+    console.log('bordel de merde');
+  }, []);
 
   const instanceSocket = useRef({});
 
