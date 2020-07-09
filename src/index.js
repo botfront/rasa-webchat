@@ -99,7 +99,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
     props.params.storage === 'session' ? sessionStorage : localStorage;
 
   if (!store) {
-    console.log('initiating store with', instanceSocket.current);
+    console.log('initiating store with', instanceSocket.current, instanceSocket.current && instanceSocket.current.marker);
     store = initStore(
       props.inputTextFieldHint,
       props.connectingText,
@@ -110,6 +110,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
     );
     store.socketRef = instanceSocket.current.marker;
   }
+  console.log('socket passed downwards', instanceSocket.current, instanceSocket.current && instanceSocket.current.marker);
   return (
     <Provider store={store}>
       <ThemeContext.Provider
