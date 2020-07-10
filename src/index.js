@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef, useRef, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
@@ -82,6 +82,14 @@ const ConnectedWidget = forwardRef((props, ref) => {
     }
   }
 
+  useEffect(() => {
+    console.log('ON MOUNT');
+    return () => {
+      console.log('ON UNMOUNT');
+      store = null;
+    };
+  }, []);
+
   const instanceSocket = useRef({});
 
   if (!instanceSocket.current.url && !(store && store.socketRef)) {
@@ -114,6 +122,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
     store.socketRef = instanceSocket.current.marker;
     store.socket = instanceSocket.current;
   }
+  console.log('socket passed downwards', instanceSocket.current, instanceSocket.current && instanceSocket.current.marker);
   return (
     <Provider store={store}>
       <ThemeContext.Provider
