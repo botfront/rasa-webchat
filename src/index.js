@@ -103,16 +103,14 @@ const ConnectedWidget = forwardRef((props, ref) => {
     );
   }
 
-  // if (!instanceSocket.current.url && store && store.socketRef) {
-  //   // ajouter la socket ici!
-  // }
+  if (!instanceSocket.current.url && store && store.socketRef) {
+    instanceSocket.current = store.socket;
+  }
 
   const storage =
     props.params.storage === 'session' ? sessionStorage : localStorage;
 
-  console.log('IS THERE A STORE HERE ?', !!store);
   if (!store) {
-    console.log('initiating store with', instanceSocket.current, instanceSocket.current && instanceSocket.current.marker);
     store = initStore(
       props.inputTextFieldHint,
       props.connectingText,
