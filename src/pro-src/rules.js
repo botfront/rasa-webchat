@@ -1,3 +1,6 @@
+/* eslint-disable no-mixed-operators */
+/* eslint-disable prefer-rest-params */
+/* eslint-disable class-methods-use-this */
 import hash from 'object-hash';
 
 import QuestionMark from './question-solid.svg';
@@ -64,12 +67,10 @@ export default class RulesHandler {
     // further down the line.
     rule.hash = rulesHash;
 
-    const ruleTriggered = this.history.rulesTriggered.find(ruleInStorage => ruleInStorage.hash === rulesHash);
-    if (ruleTriggered && ruleTriggered.triggerLimit) {
-      if (ruleTriggered.triggered >= ruleTriggered.triggerLimit) {
-
-      }
-    } else {
+    const ruleTriggered = this.history.rulesTriggered.find(
+      ruleInStorage => ruleInStorage.hash === rulesHash
+    );
+    if (!(ruleTriggered && ruleTriggered.triggerLimit)) {
       this.history.rulesTriggered.push({
         hash: rulesHash,
         triggerLimit: rule.trigger.triggerLimit,
@@ -124,6 +125,7 @@ export default class RulesHandler {
     const trigger = rules.trigger || {};
     trigger.eventListeners.forEach((listener) => {
       if (!listener.selector || !listener.event) {
+        // eslint-disable-next-line no-console
         console.log("you're missing a selector or an event on an event listener");
         return;
       }
@@ -131,6 +133,7 @@ export default class RulesHandler {
       try {
         elemList = document.querySelectorAll(listener.selector);
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.log(`${listener.selector} is not a valid selector string`);
       }
       if (elemList.length > 0) {
@@ -172,6 +175,7 @@ export default class RulesHandler {
       try {
         document.body.removeChild(visualisationObject);
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.log(e);
       }
     };
@@ -192,6 +196,7 @@ export default class RulesHandler {
       this.placeDot(elem, dot);
       return vizRemoval(dot);
     }
+    return () => {};
   }
 
   placeDot(receptacle, dot) {
@@ -220,7 +225,9 @@ export default class RulesHandler {
     if (
       (/Mobi/.test(navigator.userAgent) && trigger.device === 'mobile') ||
             (!/Mobi/.test(navigator.userAgent) && trigger.device !== 'mobile')
-    ) { return true; }
+    ) {
+      return true;
+    }
     return false;
   }
 
@@ -233,7 +240,9 @@ export default class RulesHandler {
                 Date.parse(this.history.rulesTriggered[ruleTriggeredIndex].lastTimeTriggered)) /
                 (60 * 1000) >
                 trigger.timeLimit
-    ) { return true; }
+    ) {
+      return true;
+    }
     return false;
   }
 
@@ -246,7 +255,9 @@ export default class RulesHandler {
       trigger.url.forEach((triggerUrl, index) => {
         if (sequenceMatched === false || historyPosition < 0) return;
         const historyUrl = this.history.path[historyPosition];
-        if (!this.compareUrls(historyUrl, triggerUrl.path, triggerUrl.partialMatch)) {
+        if (
+          !RulesHandler.compareUrls(historyUrl, triggerUrl.path, triggerUrl.partialMatch)
+        ) {
           // If the very first url in the history is wrong, no point in testing the rest.
           if (index === 0) {
             sequenceMatched = false;
@@ -259,20 +270,21 @@ export default class RulesHandler {
           while (matchedFirstAndLast && !matchedTrigger && historyPosition >= 0) {
             historyPosition -= 1;
             // we only check up to 8 urls before failing. This is 100% arbitrary.
-            // We use that so that we don't compare every urls in a history which could be very long.
+            // We use that so that we don't compare every urls in a history
+            // which could be very long.
             if (tries > 8) {
               sequenceMatched = false;
               break;
             }
             tries += 1;
-            matchedTrigger = this.compareUrls(
+            matchedTrigger = RulesHandler.compareUrls(
               this.history.path[historyPosition],
               triggerUrl.path,
               trigger.partialMatch
             );
             // We only check that one if the trigger url did not match.
             if (!matchedTrigger) {
-              matchedFirstAndLast = this.compareUrls(
+              matchedFirstAndLast = RulesHandler.compareUrls(
                 this.history.path[historyPosition],
                 historyUrl
               );
@@ -304,7 +316,7 @@ export default class RulesHandler {
     }
     // one url
     if (typeof trigger.url === 'object' && typeof trigger.url.path === 'string') {
-      return this.compareUrls(this.url, trigger.url.path, trigger.url.partialMatch);
+      return RulesHandler.compareUrls(this.url, trigger.url.path, trigger.url.partialMatch);
     }
 
     // multiple urls
@@ -314,7 +326,7 @@ export default class RulesHandler {
       }
       return trigger.url.every(url =>
         this.history.path.some(historyUrl =>
-          this.compareUrls(historyUrl, url.path, url.partialMatch)
+          RulesHandler.compareUrls(historyUrl, url.path, url.partialMatch)
         )
       );
     }
@@ -333,11 +345,11 @@ export default class RulesHandler {
     return cleanUrl;
   }
 
-  compareUrls(urlWindow, urlCompare, partialMatch = false) {
+  static compareUrls(urlWindow, urlCompare, partialMatch = false) {
     if (partialMatch) {
-      return this.cleanURL(urlWindow).includes(this.cleanURL(urlCompare));
+      return RulesHandler.cleanURL(urlWindow).includes(RulesHandler.cleanURL(urlCompare));
     }
-    return this.cleanURL(urlWindow) === this.cleanURL(urlCompare);
+    return RulesHandler.cleanURL(urlWindow) === RulesHandler.cleanURL(urlCompare);
   }
 
   // eslint-disable-next-line consistent-return
@@ -352,7 +364,9 @@ export default class RulesHandler {
     let ruleTriggeredIndex = -1;
 
     if (trigger && (trigger.when === 'limited' || trigger.timeLimit)) {
-      ruleTriggeredIndex = this.history.rulesTriggered.findIndex(rule => rule.hash === rules.hash);
+      ruleTriggeredIndex = this.history.rulesTriggered.findIndex(
+        rule => rule.hash === rules.hash
+      );
     }
 
     const mobileCondition = this.verifyMobile(trigger);
@@ -369,7 +383,7 @@ export default class RulesHandler {
     const numberOfPageVisitsCondition =
             !trigger.numberOfPageVisits ||
             (this.history.timePerPage[this.url] &&
-                this.history.timePerPage[this.url] >= parseInt(trigger.numberOfPageVisits));
+                this.history.timePerPage[this.url] >= parseInt(trigger.numberOfPageVisits, 10));
 
     const queryString = window.location.search;
     const queryStringCondition =
@@ -386,7 +400,7 @@ export default class RulesHandler {
             queryStringCondition &&
             timeLimitCondition &&
             (!trigger.numberOfVisits ||
-                parseInt(trigger.numberOfVisits) === parseInt(this.history.timesInDomain))
+                parseInt(trigger.numberOfVisits, 10) === parseInt(this.history.timesInDomain, 10))
     ) {
       if (boolMode) {
         return true;
@@ -423,7 +437,8 @@ export default class RulesHandler {
         value: queryStringJson[param]
       });
       return true;
-    } return false;
+    }
+    return false;
   }
 
   convertQueryStringToJson(query = window.location.search) {
@@ -456,6 +471,7 @@ export default class RulesHandler {
         this.sendMethod(sentPayload, undefined, whenToSend, tooltipSelector);
       }
     } else {
+      // eslint-disable-next-line no-console
       console.log('You forgot to give a payload to your ruleset.');
     }
   }
