@@ -359,7 +359,6 @@ class Widget extends Component {
       tooltipPayload,
       tooltipDelay
     } = this.props;
-    console.log('INITIALIZE WIDGET SOCKET', socket, socket && socket.marker);
     if (!socket.isInitialized()) {
       socket.createSocket();
 
