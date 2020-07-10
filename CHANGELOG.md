@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.3](https://https///compare/v1.5.2...v1.5.3) (2020-07-10)
+
+
+### Bug Fixes
+
+* reload in edge cases ([db6d3d1](https://https///commit/db6d3d140db90e1e417b52c264b0a524489c4a8d))
+
 ### [1.5.2](https://https///compare/v1.5.1...v1.5.2) (2020-07-09)
 
 
