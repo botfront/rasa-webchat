@@ -82,12 +82,8 @@ const ConnectedWidget = forwardRef((props, ref) => {
     }
   }
 
-  useEffect(() => {
-    console.log('ON MOUNT');
-    return () => {
-      console.log('ON UNMOUNT');
-      store = null;
-    };
+  useEffect(() => () => {
+    store = null;
   }, []);
 
   const instanceSocket = useRef({});
@@ -122,7 +118,6 @@ const ConnectedWidget = forwardRef((props, ref) => {
     store.socketRef = instanceSocket.current.marker;
     store.socket = instanceSocket.current;
   }
-  console.log('socket passed downwards', instanceSocket.current, instanceSocket.current && instanceSocket.current.marker);
   return (
     <Provider store={store}>
       <ThemeContext.Provider
