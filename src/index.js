@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef, useRef, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
@@ -82,9 +82,13 @@ const ConnectedWidget = forwardRef((props, ref) => {
     }
   }
 
+  useEffect(() => () => {
+    store = null;
+  }, []);
+
   const instanceSocket = useRef({});
 
-  if (!instanceSocket.current.url) {
+  if (!instanceSocket.current.url && !(store && store.socketRef)) {
     instanceSocket.current = new Socket(
       props.socketUrl,
       props.customData,
@@ -93,6 +97,10 @@ const ConnectedWidget = forwardRef((props, ref) => {
       props.protocolOptions,
       props.onSocketEvent
     );
+  }
+
+  if (!instanceSocket.current.url && store && store.socketRef) {
+    instanceSocket.current = store.socket;
   }
 
   const storage =
@@ -108,6 +116,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
       props.onWidgetEvent
     );
     store.socketRef = instanceSocket.current.marker;
+    store.socket = instanceSocket.current;
   }
   return (
     <Provider store={store}>
