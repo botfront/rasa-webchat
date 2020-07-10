@@ -83,7 +83,11 @@ const ConnectedWidget = forwardRef((props, ref) => {
   }
 
   useEffect(() => {
-    console.log('bordel de merde');
+    console.log('ON MOUNT');
+    return () => {
+      console.log('ON UNMOUNT');
+      store = null;
+    };
   }, []);
 
   const instanceSocket = useRef({});
@@ -98,6 +102,10 @@ const ConnectedWidget = forwardRef((props, ref) => {
       props.onSocketEvent
     );
   }
+
+  // if (!instanceSocket.current.url && store && store.socketRef) {
+  //   // ajouter la socket ici!
+  // }
 
   const storage =
     props.params.storage === 'session' ? sessionStorage : localStorage;
