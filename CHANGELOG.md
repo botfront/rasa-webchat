@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.5](https://https///compare/v1.5.4...v1.5.5) (2020-07-14)
+
+
+### Bug Fixes
+
+* trigger limit when switching urls ([5e0681a](https://https///commit/5e0681a4a50357b75e554cc29ae1e6662e95bbc8))
+
 ### [1.5.4](https://https///compare/v1.5.3...v1.5.4) (2020-07-10)
 
 ### [1.5.3](https://https///compare/v1.5.2...v1.5.3) (2020-07-10)
