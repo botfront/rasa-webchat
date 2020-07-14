@@ -311,20 +311,23 @@ export default class RulesHandler {
     // rule is not defined
     if (!trigger.url) return true;
 
+    let urlToUse = {};
     if (trigger.url && Array.isArray(trigger.url) && trigger.url.length === 1) {
-      trigger.url = trigger.url[0];
+      urlToUse = trigger.url[0];
+    } else {
+      urlToUse = trigger.url;
     }
     // one url
-    if (typeof trigger.url === 'object' && typeof trigger.url.path === 'string') {
-      return RulesHandler.compareUrls(this.url, trigger.url.path, trigger.url.partialMatch);
+    if (typeof urlToUse === 'object' && typeof urlToUse.path === 'string') {
+      return RulesHandler.compareUrls(this.url, urlToUse.path, urlToUse.partialMatch);
     }
 
     // multiple urls
-    if (Array.isArray(trigger.url)) {
+    if (Array.isArray(urlToUse)) {
       if (trigger.urlIsSequence) {
         return this.verifyUrlSequence(trigger);
       }
-      return trigger.url.every(url =>
+      return urlToUse.every(url =>
         this.history.path.some(historyUrl =>
           RulesHandler.compareUrls(historyUrl, url.path, url.partialMatch)
         )
