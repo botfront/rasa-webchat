@@ -4,7 +4,7 @@
     <img alt="npm" src="https://img.shields.io/npm/v/rasa-webchat.svg">
 </a>
 <a href='https://github.com/botfront/botfront/blob/master/LICENSE'>
-    <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg">
+    <img alt="License" src="https://img.shields.io/github/license/botfront/rasa-webchat">
 </a>
 <a href='https://spectrum.chat/botfront'>
     <img alt="License" src="https://withspectrum.github.io/badge/badge.svg">
