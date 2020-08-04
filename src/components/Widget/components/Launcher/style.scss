@@ -81,9 +81,10 @@
     bottom: 12px;
     box-shadow: 1px 0px 13px 3px rgba(0, 0, 0, 0.15);
     width: 320px;
-    font-size: 1.4em;
+    font-size: 16px;
     padding: 0px 8px;
-    line-height: 1.4em;
+    line-height: 19px;
+    font-family: Inter;
     animation: slideUp 0.3s ease-in-out;
     transition: all 0.2s ease-in-out;
 
@@ -148,6 +149,14 @@
     .#{$namespace}replies {
       @include replies;
       margin-left: 4px;
+    }
+
+    .#{$namespace}separator {
+     width:calc(100% + 16px);
+     position:relative;
+     left:-8px;
+     height: 1px;
+     background-color: #e0e0e0
     }
     
     .#{$namespace}reply {
@@ -229,8 +238,7 @@
 
   .#{$namespace}tooltip-close {
     position: absolute;
-    top: 7px;
-    right: 10px;
+    right: 7px;
     color: red;
     height: 15px;
     width: 15px;
