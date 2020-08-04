@@ -79,7 +79,11 @@
     position: absolute;
     right: 78px;
     bottom: 12px;
-    box-shadow: 1px 0px 13px 3px rgba(0, 0, 0, 0.15);
+    box-shadow:
+    0 0.8px 3.1px -10px rgba(0, 0, 0, 0.087),
+    0 2.3px 6.3px -10px rgba(0, 0, 0, 0.115),
+    0 5.4px 10.7px -10px rgba(0, 0, 0, 0.138),
+    0 18px 30px -10px rgba(0, 0, 0, 0.2);
     width: 320px;
     font-size: 16px;
     padding: 0px 8px;
@@ -96,6 +100,12 @@
     &:hover {
       background-color: rgb(250, 250, 250);
       transform: translateY(-2px);
+      box-shadow:
+  0 1px 3.1px -10px rgba(0, 0, 0, 0.087),
+  0 2.6px 6.3px -10px rgba(0, 0, 0, 0.115),
+  0 6.3px 10.7px -10px rgba(0, 0, 0, 0.138),
+  0 21px 30px -10px rgba(0, 0, 0, 0.2)
+;
       cursor: pointer;
       .#{$namespace}tooltip-decoration {
         background: rgb(250, 250, 250);
