@@ -11,11 +11,6 @@ steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   args: ['cp', 'lib/index.js', 'gs://mrbot-cdn/webchat-latest.js']
 
-- name: 'gcr.io/cloud-builders/gsutil'
-  args: ['acl', 'ch', '-u', 'AllUsers:R', 'gs://mrbot-cdn/webchat-$TAG_NAME.js']
-- name: 'gcr.io/cloud-builders/gsutil'
-  args: ['acl', 'ch', '-u', 'AllUsers:R', 'gs://mrbot-cdn/webchat-latest.js']
-
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - kms
