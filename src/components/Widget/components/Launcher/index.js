@@ -16,7 +16,7 @@ import openLauncher from 'assets/launcher_button.svg';
 import closeIcon from 'assets/clear-button-grey.svg';
 import close from 'assets/clear-button.svg';
 import Badge from './components/Badge';
-
+import { safeQuerySelectorAll } from 'utils/dom';
 import './style.scss';
 import ThemeContext from '../../ThemeContext';
 
@@ -42,7 +42,7 @@ const Launcher = ({
 
   useEffect(() => {
     const setReference = (selector) => {
-      const reference = document.querySelectorAll(selector);
+      const reference = safeQuerySelectorAll(selector)
       if (reference && reference.length === 1) {
         onRemove(reference[0], () => setReferenceElement(null));
         setReferenceElement(reference[0]);
