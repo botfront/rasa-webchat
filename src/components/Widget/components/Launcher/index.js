@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -112,38 +113,37 @@ const Launcher = ({
     if (ComponentToRender) { return <ComponentToRender separateButtons={buttonSeparator} id={-1} params={{}} message={message} isLast />; }
     toggle(); // open the chat if the tooltip do not know how to display the compoment
   };
-  
 
-  const renderSequenceTooltip = (lastMessagesSeq) => {
-    console.log(lastMessagesSeq);
-    return(
+
+  const renderSequenceTooltip = lastMessagesSeq => (
     <div className="rw-slider-safe-zone" onClick={e => e.stopPropagation()}>
-    <Slider {...sliderSettings}>
-      {lastMessagesSeq.map(message => (
-        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-        <div
-          className="rw-tooltip-response"
-          onMouseDown={(event) => {
-            dragStatus.current.x = event.clientX;
-            dragStatus.current.y = event.clientY;
-          }}
-          onMouseUp={(event) => {
-            if (
-              Math.abs(dragStatus.current.x - event.clientX) +
+      <Slider {...sliderSettings}>
+        {lastMessagesSeq.map(message => (
+          // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+          <div
+            className="rw-tooltip-response"
+            onMouseDown={(event) => {
+              dragStatus.current.x = event.clientX;
+              dragStatus.current.y = event.clientY;
+            }}
+            onMouseUp={(event) => {
+              if (
+                Math.abs(dragStatus.current.x - event.clientX) +
                 Math.abs(dragStatus.current.y - event.clientY) <
               15
-            ) {
-              toggle();
-            }
-          }}
-        >
-          {getComponentToRender(message)}
-        </div>
-      ))}
-    </Slider>
+              ) {
+                toggle();
+              }
+            }}
+          >
+            {getComponentToRender(message)}
+          </div>
+        ))}
+      </Slider>
     </div>
-    )};
-  
+  )
+    ;
+
   const renderTooltipContent = () => (
     <React.Fragment>
       <div className="rw-tooltip-close">
@@ -159,10 +159,10 @@ const Launcher = ({
         </button>
       </div>
       { lastMessages.length === 1 ? (<div
-          onMouseUp={() => toggle()}
-        >
-          {getComponentToRender(lastMessages[0], true)}
-        </div> ) : renderSequenceTooltip(lastMessages) }
+        onMouseUp={() => toggle()}
+      >
+        {getComponentToRender(lastMessages[0], true)}
+      </div>) : renderSequenceTooltip(lastMessages) }
     </React.Fragment>
   );
 
