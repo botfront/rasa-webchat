@@ -79,11 +79,20 @@
     position: absolute;
     right: 78px;
     bottom: 12px;
-    box-shadow: 1px 0px 13px 3px rgba(0, 0, 0, 0.15);
+    box-shadow:
+    0 0.9px 1.4px -4px rgba(0, 0, 0, 0.042),
+    0 2.3px 3.3px -4px rgba(0, 0, 0, 0.061),
+    0 4.7px 6.3px -4px rgba(0, 0, 0, 0.075),
+    0 9px 11.2px -4px rgba(0, 0, 0, 0.089),
+    0 18.2px 20.9px -4px rgba(0, 0, 0, 0.108),
+    0 50px 50px -4px rgba(0, 0, 0, 0.15)
+  ;
+  
     width: 320px;
-    font-size: 1.4em;
+    font-size: 16px;
     padding: 0px 8px;
-    line-height: 1.4em;
+    line-height: 19px;
+    font-family: $fontfamily;
     animation: slideUp 0.3s ease-in-out;
     transition: all 0.2s ease-in-out;
 
@@ -95,6 +104,15 @@
     &:hover {
       background-color: rgb(250, 250, 250);
       transform: translateY(-2px);
+      box-shadow:
+  0 0.9px 2.1px -4px rgba(0, 0, 0, 0.056),
+  0 2.3px 5.1px -4px rgba(0, 0, 0, 0.081),
+  0 4.7px 9.6px -4px rgba(0, 0, 0, 0.1),
+  0 9px 17.2px -4px rgba(0, 0, 0, 0.119),
+  0 18.2px 32.2px -4px rgba(0, 0, 0, 0.144),
+  0 50px 77px -4px rgba(0, 0, 0, 0.2)
+;
+
       cursor: pointer;
       .#{$namespace}tooltip-decoration {
         background: rgb(250, 250, 250);
@@ -147,7 +165,16 @@
     }
     .#{$namespace}replies {
       @include replies;
+      justify-content: flex-end;
       margin-left: 4px;
+    }
+
+    .#{$namespace}separator {
+     width:calc(100% + 16px);
+     position:relative;
+     left:-8px;
+     height: 1px;
+     background-color: #e0e0e0
     }
     
     .#{$namespace}reply {
@@ -229,8 +256,8 @@
 
   .#{$namespace}tooltip-close {
     position: absolute;
-    top: 7px;
-    right: 10px;
+    right: 7px;
+    top: 3px;
     color: red;
     height: 15px;
     width: 15px;

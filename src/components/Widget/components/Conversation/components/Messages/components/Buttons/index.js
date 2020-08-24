@@ -42,12 +42,13 @@ class Buttons extends PureComponent {
   }
 
   renderButtons(message, buttons, persit) {
-    const { isLast, linkTarget
+    const { isLast, linkTarget, separateButtons
     } = this.props;
     const { mainColor } = this.context;
     return (
       <div>
         <Message message={message} />
+        {separateButtons && (<div className="rw-separator"/>) }
         {(isLast || persit) && (
           <div className="rw-replies">
             {buttons.map((reply, index) => {
