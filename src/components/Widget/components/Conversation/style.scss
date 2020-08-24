@@ -7,10 +7,12 @@
   @include animation(0, 0.5s, slide-in);
   border-radius: 10px;
   box-shadow:
-  0 0.8px 3.1px -10px rgba(0, 0, 0, 0.087),
-  0 2.3px 6.3px -10px rgba(0, 0, 0, 0.115),
-  0 5.4px 10.7px -10px rgba(0, 0, 0, 0.138),
-  0 18px 30px -10px rgba(0, 0, 0, 0.2)
+  0 0.4px 3.4px rgba(0, 0, 0, 0.056),
+  0 2.5px 8.2px rgba(0, 0, 0, 0.081),
+  0 7.2px 15.4px rgba(0, 0, 0, 0.1),
+  0 16.9px 27.5px rgba(0, 0, 0, 0.119),
+  0 37.8px 51.4px rgba(0, 0, 0, 0.144),
+  0 100px 123px rgba(0, 0, 0, 0.2)
 ;
 
   overflow: hidden;
