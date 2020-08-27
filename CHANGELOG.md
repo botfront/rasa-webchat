@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.6](https://https///compare/v1.5.5...v1.5.6) (2020-08-27)
+
+
+### Bug Fixes
+
+* various fixes (see desc) ([2343f49](https://https///commit/2343f492bd48b9098b106f34cdba6ac06d11112a))
+
 ### [1.5.5](https://https///compare/v1.5.4...v1.5.5) (2020-07-14)
 
 

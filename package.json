@@ -1,6 +1,6 @@
 {
   "name": "botfront-assistant",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "description": "Chat web widget for React apps and Rasa Core chatbots",
   "module": "module/index.js",
   "main": "lib/index.js",
