@@ -73,7 +73,10 @@ class RasaWebchatProWithRules extends React.Component {
     if (propsRetrieved) propsToApply = propsRetrieved;
     delete propsToApply.rules;
     return (
-      <div style={{ display: propsRetrieved ? undefined : 'none' }}>
+      <div
+        style={{ display: propsRetrieved ? undefined : 'none' }}
+        className={this.props.embedded || (propsToApply && propsToApply.embedded) ? 'rw-pro-widget-embedded' : ''}
+      >
         <RasaWebchatPro
           ref={this.setRef}
           {...{
@@ -154,7 +157,8 @@ export const rasaWebchatProTypes = {
         )
       })
     })
-  )
+  ),
+  triggerEventListenerUpdateRate: PropTypes.number
 };
 
 RasaWebchatProWithRules.propTypes = {
@@ -194,7 +198,8 @@ export const rasaWebchatProDefaultTypes = {
   tooltipPayload: null,
   tooltipDelay: 500,
   withRules: true,
-  rules: null
+  rules: null,
+  triggerEventListenerUpdateRate: 500
 };
 
 export default React.forwardRef((props, ref) => (

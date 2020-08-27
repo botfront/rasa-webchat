@@ -13,7 +13,11 @@ const RasaWebchatPro = React.memo(
         const handler =
                     (window[RULES_HANDLER_SINGLETON] &&
                         window[RULES_HANDLER_SINGLETON].updateRules(newRules)) ||
-                    new RulesHandler(newRules, widget.current.sendMessage);
+                    new RulesHandler(
+                      newRules,
+                      widget.current.sendMessage,
+                      props.triggerEventListenerUpdateRate
+                    );
         handler.initHandler();
         // putting it in the window object lets us do the singleton design pattern
         window[RULES_HANDLER_SINGLETON] = handler;

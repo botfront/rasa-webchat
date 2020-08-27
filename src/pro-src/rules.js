@@ -10,14 +10,16 @@ const LOCAL_STORAGE_ACCESS_STRING = 'rasaWebchatPro';
 export const RULES_HANDLER_SINGLETON = 'rasaWebchatRulesHandler';
 
 export default class RulesHandler {
-  constructor(rules, sendMethod) {
+  constructor(rules, sendMethod, triggerEventListenerUpdateRate = 500) {
     this.url = window.location.host + window.location.pathname;
     this.numberOfVisits = 0;
     this.rules = rules;
     this.sendMethod = sendMethod;
     this.timeoutIds = [];
     this.eventListeners = [];
+    this.resetListenersTimeouts = [];
     this.protocol = window.location.protocol;
+    this.triggerEventListenerUpdateRate = triggerEventListenerUpdateRate;
 
     // Here we supersede those events to all redirect them to our custom event
     window.history.pushState = (f =>
@@ -50,6 +52,15 @@ export default class RulesHandler {
         window[RULES_HANDLER_SINGLETON].cleanUp();
         window[RULES_HANDLER_SINGLETON].initHandler();
       }
+    });
+  }
+
+  static removeEventListeners(eventListeners) {
+    eventListeners.forEach((eventListener) => {
+      eventListener.elem.removeEventListener(
+        eventListener.event,
+        eventListener.conditionChecker
+      );
     });
   }
 
@@ -121,8 +132,11 @@ export default class RulesHandler {
     });
   }
 
-  initEventHandler(rules) {
+  initEventHandler(rules, withViz = true) {
     const trigger = rules.trigger || {};
+
+    const eventListenersForThisTrigger = [];
+
     trigger.eventListeners.forEach((listener) => {
       if (!listener.selector || !listener.event) {
         // eslint-disable-next-line no-console
@@ -149,20 +163,49 @@ export default class RulesHandler {
               removalMethod
             );
           };
-          this.eventListeners.push({
+
+          const eventListener = {
             elem,
             event: listener.event,
-            conditionChecker
-          });
-          elem.addEventListener(listener.event, conditionChecker, {
-            once: typeof listener.once === 'boolean' ? listener.once : true
-          });
-          if (this.verifyConditions(rules, true) && listener.visualization !== 'none') {
+            conditionChecker,
+            id: Math.random()
+          };
+
+          this.eventListeners.push(eventListener);
+          eventListenersForThisTrigger.push(eventListener);
+
+          elem.addEventListener(listener.event, conditionChecker);
+
+          if (this.verifyConditions(rules, true) && listener.visualization !== 'none' && withViz) {
             removalMethod = this.addViz(listener, elem);
             onRemove(elem, removalMethod);
           }
         });
       }
+    });
+
+    const timeoutId = Math.random();
+
+    this.resetListenersTimeouts.push({
+      timeout: setTimeout(() => {
+        // this removes the timeout that just triggered.
+        window[RULES_HANDLER_SINGLETON].resetListenersTimeouts = window[RULES_HANDLER_SINGLETON]
+          .resetListenersTimeouts.filter(timeout => timeout.id !== timeoutId);
+
+        RulesHandler.removeEventListeners(eventListenersForThisTrigger);
+        // this removes the event listners that we just removed from the list used by the cleanup.
+        // No need to clean them up anymore.
+        window[RULES_HANDLER_SINGLETON].eventListeners = window[RULES_HANDLER_SINGLETON]
+          .eventListeners
+          .filter(listener => !eventListenersForThisTrigger
+            .some(eListener => eListener.id === listener.id)
+          );
+
+        // We recall this method without placing the vizs,
+        // to replace the listeners on new elements that might have appeared.
+        this.initEventHandler(rules, false);
+      }, this.triggerEventListenerUpdateRate),
+      id: timeoutId
     });
   }
 
@@ -514,14 +557,12 @@ export default class RulesHandler {
 
   // clean up the timeOnPage timeouts to prevent leaks
   cleanUp() {
-    this.eventListeners.forEach((eventsListener) => {
-      eventsListener.elem.removeEventListener(
-        eventsListener.event,
-        eventsListener.conditionChecker
-      );
-    });
+    RulesHandler.removeEventListeners(this.eventListeners);
     this.timeoutIds.forEach((id) => {
       clearTimeout(id);
+    });
+    this.resetListenersTimeouts.forEach(({ timeout }) => {
+      clearTimeout(timeout);
     });
   }
 }
