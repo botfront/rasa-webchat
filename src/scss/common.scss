@@ -118,7 +118,10 @@ $fontfamily: 'Inter', sans-serif;
 }
 
 @mixin reply {
-  opacity: 0.75;
+  -webkit-transition: box-shadow 0.3s ease, top 0.3s ease;
+  -moz-transition: box-shadow 0.3s ease, top 0.3s ease;
+  -o-transition: box-shadow 0.3s ease, top 0.3s ease;
+  transition: box-shadow 0.3s ease, top 0.3s ease;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -128,10 +131,11 @@ $fontfamily: 'Inter', sans-serif;
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
-  border-color: $blue-2;
+  background-color:$tertiary;
+  border-color: $tertiary;
   border-radius: 15px;
   border-width: 1px;
-  color: $blue-2;
+  color: $grey-2;
   border-style: solid;
   padding-right: 8px;
   padding-left: 8px;
@@ -139,22 +143,32 @@ $fontfamily: 'Inter', sans-serif;
   padding-top: 4px;
   max-width: 215px;
   min-height: 1.7em;
+  font-weight: 500;
   text-align: center;
   font-family: $fontfamily;
   cursor: pointer;
   margin: 0.25em;
   text-decoration: unset;
+  box-shadow:
+  0 0.2px 0.7px -7px rgba(0, 0, 0, 0.277),
+  0 0.5px 1.8px -7px rgba(0, 0, 0, 0.369),
+  0 1.2px 3.8px -7px rgba(0, 0, 0, 0.442),
+  0 4px 13px -7px rgba(0, 0, 0, 0.64)
+;
+
   &:hover {
+    position: relative;
+    top: 1px;
     opacity: 1;
+    box-shadow: none;
   }
 }
 
 @mixin replies {
-  margin: 10px;
+  margin: 5px 10px;
   display: flex;
   line-height: 20px;
   flex-wrap: wrap;
-  overflow: auto;
   font-size: 16px;
   font-family: $fontfamily;
 }

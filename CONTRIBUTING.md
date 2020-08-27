@@ -28,12 +28,12 @@ npm run build
 and then, add it to a dummy project using the file instead of the package. You can use either yarn or npm:
 
 ```bash
-npm i <path-to>/react-chat-widget
+npm i <path-to>/rasa-webchat
 
-yarn add file:<path-to>/react-chat-widget
+yarn add file:<path-to>/rasa-webchat
 ```
 
-##  Testing
+## Testing
 
 Your new feature **must** be tested with the proper tools. In this project, we use Jest and Enzyme. Once your tests are written, run:
 
