@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://https///compare/v1.6.0...v1.6.1) (2020-09-02)
+
+
+### Features
+
+* clean up window event listeners ([e2ec9bb](https://https///commit/e2ec9bb4a5cf9adddc70add353dc58dff2db37cd))
+
 ## [1.6.0](https://https///compare/v1.5.6...v1.6.0) (2020-08-27)
 
 ### [1.5.6](https://https///compare/v1.5.5...v1.5.6) (2020-08-27)
