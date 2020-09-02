@@ -38,11 +38,13 @@ export default class RulesHandler {
         return ret;
       })(window.history.replaceState);
 
-    window.addEventListener('popstate', () => {
+    this.popstateCallback = () => {
       window.dispatchEvent(new Event('locationchange'));
-    });
+    };
 
-    window.addEventListener('locationchange', () => {
+    window.addEventListener('popstate', this.popstateCallback);
+
+    this.locationChangeCallback = () => {
       // We use the window object that was set in the react component
       // So that we have an up to date version
       if (window[RULES_HANDLER_SINGLETON]) {
@@ -52,7 +54,9 @@ export default class RulesHandler {
         window[RULES_HANDLER_SINGLETON].cleanUp();
         window[RULES_HANDLER_SINGLETON].initHandler();
       }
-    });
+    };
+
+    window.addEventListener('locationchange', this.locationChangeCallback);
   }
 
   static removeEventListeners(eventListeners) {
@@ -558,6 +562,8 @@ export default class RulesHandler {
   // clean up the timeOnPage timeouts to prevent leaks
   cleanUp() {
     RulesHandler.removeEventListeners(this.eventListeners);
+    window.removeEventListener('popstate', this.popstateCallback);
+    window.removeEventListener('locationchange', this.locationChangeCallback);
     this.timeoutIds.forEach((id) => {
       clearTimeout(id);
     });
