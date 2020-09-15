@@ -27,7 +27,7 @@ const RasaWebchatPro = React.memo(
     useEffect(() => function cleanUp() {
       const handler = window[RULES_HANDLER_SINGLETON];
       if (handler && handler instanceof RulesHandler) {
-        handler.cleanUp();
+        handler.cleanUp(true);
       }
     }, []);
 

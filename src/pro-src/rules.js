@@ -20,6 +20,7 @@ export default class RulesHandler {
     this.resetListenersTimeouts = [];
     this.protocol = window.location.protocol;
     this.triggerEventListenerUpdateRate = triggerEventListenerUpdateRate;
+    this.lastLocationChange = Date.now();
 
     // Here we supersede those events to all redirect them to our custom event
     window.history.pushState = (f =>
@@ -45,6 +46,10 @@ export default class RulesHandler {
     window.addEventListener('popstate', this.popstateCallback);
 
     this.locationChangeCallback = () => {
+      if ((Date.now() - window[RULES_HANDLER_SINGLETON].lastLocationChange) < 150) {
+        return;
+      }
+      window[RULES_HANDLER_SINGLETON].lastLocationChange = Date.now();
       // We use the window object that was set in the react component
       // So that we have an up to date version
       if (window[RULES_HANDLER_SINGLETON]) {
@@ -560,10 +565,12 @@ export default class RulesHandler {
   }
 
   // clean up the timeOnPage timeouts to prevent leaks
-  cleanUp() {
+  cleanUp(alsoClearWindowEventListners = false) {
     RulesHandler.removeEventListeners(this.eventListeners);
-    window.removeEventListener('popstate', this.popstateCallback);
-    window.removeEventListener('locationchange', this.locationChangeCallback);
+    if (alsoClearWindowEventListners) {
+      window.removeEventListener('popstate', this.popstateCallback);
+      window.removeEventListener('locationchange', this.locationChangeCallback);
+    }
     this.timeoutIds.forEach((id) => {
       clearTimeout(id);
     });
