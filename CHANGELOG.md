@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.2](https://https///compare/v1.6.1...v1.6.2) (2020-09-15)
+
+
+### Features
+
+* cleanup on page change improved ([b4f1948](https://https///commit/b4f19489284cc7fbe8b94c8e476f798062498c78))
+
 ### [1.6.1](https://https///compare/v1.6.0...v1.6.1) (2020-09-02)
 
 
