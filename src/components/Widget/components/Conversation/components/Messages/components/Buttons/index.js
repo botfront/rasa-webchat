@@ -44,11 +44,16 @@ class Buttons extends PureComponent {
   renderButtons(message, buttons, persit) {
     const { isLast, linkTarget, separateButtons
     } = this.props;
-    const { mainColor } = this.context;
+    const { userTextColor, userBackgroundColor } = this.context;
+    const buttonStyle = {
+      color: userTextColor,
+      backgroundColor: userBackgroundColor,
+      borderColor: userBackgroundColor
+    };
     return (
       <div>
         <Message message={message} />
-        {separateButtons && (<div className="rw-separator"/>) }
+        {separateButtons && (<div className="rw-separator" />) }
         {(isLast || persit) && (
           <div className="rw-replies">
             {buttons.map((reply, index) => {
@@ -60,7 +65,7 @@ class Buttons extends PureComponent {
                     target={linkTarget || '_blank'}
                     rel="noopener noreferrer"
                     className={'rw-reply'}
-                    style={{ borderColor: mainColor, color: mainColor }}
+                    style={buttonStyle}
                     onMouseUp={e => e.stopPropagation()}
                   >
                     {reply.get('title')}
@@ -73,7 +78,7 @@ class Buttons extends PureComponent {
                   key={index}
                   className={'rw-reply'}
                   onClick={(e) => { e.stopPropagation(); this.handleClick(reply); }}
-                  style={{ borderColor: mainColor, color: mainColor }}
+                  style={buttonStyle}
                   onMouseUp={e => e.stopPropagation()}
                 >
                   {reply.get('title')}
