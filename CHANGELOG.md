@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.7](https://https///compare/v0.11.6...v0.11.7) (2020-09-16)
+
+
+### Bug Fixes
+
+* colors on buttons using color props ([dbfebe6](https://https///commit/dbfebe63699f67c9baf5551ca0aa588ca4df76d6))
+
 ### [0.11.6](https://https///compare/v0.11.5...v0.11.6) (2020-08-27)
 
 
