@@ -131,7 +131,8 @@ describe('Messages metadata affect store', () => {
       metadata: {
         domHighlight: {
           selector: '.test',
-          style: 'color: red'
+          style: 'color: red',
+          tooltipClose: 'dummy'
         }
       }
     };
@@ -143,7 +144,8 @@ describe('Messages metadata affect store', () => {
     jest.runOnlyPendingTimers();
     expect(store.getState().metadata.get('domHighlight').toJS()).toEqual({
       selector: '.test',
-      style: 'color: red'
+      style: 'color: red',
+      tooltipClose: 'dummy'
     });
     // clear the dom highlight store so the next test does not try to remove it from the DOM
     store.dispatch({ type: 'SET_DOM_HIGHLIGHT',
