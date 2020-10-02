@@ -196,7 +196,7 @@ class Widget extends Component {
       // prepare the utterance by removing emojis and extra spaces        
       var utterMessage = message.text.replace(/<\/?[^>]+>/ig, ' ').replace(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/g, '')      
       var utterThis = new SpeechSynthesisUtterance(utterMessage);        
-      // call the TTS speck function
+      // call the TTS speak function
       speech.speak(utterThis);
     }, customMessageDelay(message.text || ''));
   }
