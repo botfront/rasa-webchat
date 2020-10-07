@@ -166,6 +166,27 @@ Text messages received when the widget is closed will be shown as a tooltip.
 
 When reconnecting to an existing chat session, the bot will send a message contained in the localStorage key specified by the `NEXT_MESSAGE` constant. The message should be stringified JSON with a `message` property describing the message and an `expiry` property set to a UNIX timestamp in milliseconds after which this message should not be sent. This is useful if you would like your bot to be able to offer your user to navigate around the site.
 
+#### Sending a payload from your React app
+
+```jsx
+function myComponent() {
+    const webchatRef = useRef(null);
+    
+    // triggered when something happens in your app
+    function callback() {
+        if (webchatRef.current && webchatRef.current.sendMessage) {
+            webchatRef.current.sendMessage('/myIntent{"entityName":"value"}');
+        }
+    }
+    
+    return <RasaWebchat
+        ref={webchatRef}
+    />;
+}
+```
+
+The payload can be any message that the user would normally send, but if you want to force an intent and maybe some entities, you can use that format
+`/myIntent{"entity1":"value1","entity2":"value2"}`
 
 ## API
 
