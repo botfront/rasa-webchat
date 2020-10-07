@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.4](https://https///compare/v1.6.3...v1.6.4) (2020-10-07)
+
+
+### Features
+
+* possibility to send a payload on tooltip close ([38cf679](https://https///commit/38cf67976ba634ad2a6097c6f684ff105ede04e6))
+
 ### [1.6.3](https://https///compare/v1.6.2...v1.6.3) (2020-09-16)
 
 
