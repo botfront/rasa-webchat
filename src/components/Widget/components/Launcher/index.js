@@ -11,14 +11,13 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import { MESSAGES_TYPES } from 'constants';
 import { Image, Message, Buttons } from 'messagesComponents';
-import { showTooltip as showTooltipAction } from 'actions';
+import { showTooltip as showTooltipAction, emitUserMessage} from 'actions';
 import { onRemove } from 'utils/dom';
-
 import openLauncher from 'assets/launcher_button.svg';
 import closeIcon from 'assets/clear-button-grey.svg';
 import close from 'assets/clear-button.svg';
 import Badge from './components/Badge';
-
+import { safeQuerySelectorAll } from 'utils/dom';
 import './style.scss';
 import ThemeContext from '../../ThemeContext';
 
@@ -35,7 +34,8 @@ const Launcher = ({
   lastMessages,
   closeTooltip,
   lastUserMessage,
-  domHighlight
+  domHighlight,
+  sendPayload
 }) => {
   const { mainColor, assistBackgoundColor } = useContext(ThemeContext);
 
@@ -43,7 +43,7 @@ const Launcher = ({
 
   useEffect(() => {
     const setReference = (selector) => {
-      const reference = document.querySelectorAll(selector);
+      const reference = safeQuerySelectorAll(selector)
       if (reference && reference.length === 1) {
         onRemove(reference[0], () => setReferenceElement(null));
         setReferenceElement(reference[0]);
@@ -152,6 +152,11 @@ const Launcher = ({
             /* stop the propagation because the popup is also a button
             otherwise it would open the webchat when closing the tooltip */
             e.stopPropagation();
+            
+            const payload = domHighlight.get('tooltipClose')
+              if(domHighlight && payload){
+                sendPayload(`/${payload}`)
+              }
             closeTooltip();
           }}
         >
@@ -262,7 +267,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  closeTooltip: () => dispatch(showTooltipAction(false))
+  closeTooltip: () => dispatch(showTooltipAction(false)),
+  sendPayload: (payload) => dispatch(emitUserMessage(payload))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Launcher);

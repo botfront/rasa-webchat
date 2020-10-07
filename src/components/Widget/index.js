@@ -33,7 +33,7 @@ import {
   evalUrl,
   setCustomCss
 } from 'actions';
-
+import { safeQuerySelectorAll } from 'utils/dom';
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
 import { isVideo, isImage, isButtons, isText, isCarousel } from './msgProcessor';
 import WidgetLayout from './layout';
@@ -274,7 +274,7 @@ class Widget extends Component {
     const { domHighlight, defaultHighlightClassname } = this.props;
     const domHighlightJS = domHighlight.toJS() || {};
     if (domHighlightJS.selector) {
-      const elements = document.querySelectorAll(domHighlightJS.selector);
+      const elements = safeQuerySelectorAll(domHighlightJS.selector)
       elements.forEach((element) => {
         switch (domHighlightJS.style) {
           case 'custom':
@@ -298,7 +298,7 @@ class Widget extends Component {
     const { domHighlight, defaultHighlightCss, defaultHighlightClassname } = this.props;
     const domHighlightJS = domHighlight.toJS() || {};
     if (domHighlightJS.selector) {
-      const elements = document.querySelectorAll(domHighlightJS.selector);
+      const elements = safeQuerySelectorAll(domHighlightJS.selector)
       elements.forEach((element) => {
         switch (domHighlightJS.style) {
           case 'custom':
