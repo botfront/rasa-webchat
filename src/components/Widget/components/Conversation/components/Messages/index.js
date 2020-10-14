@@ -67,7 +67,12 @@ class Messages extends Component {
       }
     })();
     if (message.get('type') === 'component') {
-      return <ComponentToRender id={index} {...message.get('props')} isLast={isLast} />;
+      const messageProps = message.get('props');
+      return (<ComponentToRender
+        id={index}
+        {...(messageProps.toJS ? messageProps.toJS() : messageProps)}
+        isLast={isLast}
+      />);
     }
     return <ComponentToRender id={index} params={params} message={message} isLast={isLast} />;
   }
