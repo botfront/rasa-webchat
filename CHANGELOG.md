@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.11.10](https://https///compare/v0.11.9...v0.11.10) (2020-10-16)
+
+
+### Features
+
+* image size in markdown ([990f4bb](https://https///commit/990f4bb113da8ae1c29528c9b48a279d5efc8393))
+
 ### [0.11.9](https://https///compare/v0.11.8...v0.11.9) (2020-10-14)
 
 
