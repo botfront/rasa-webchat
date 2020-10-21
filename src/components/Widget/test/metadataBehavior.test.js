@@ -14,7 +14,7 @@ const mockSocket = {
   on: () => {},
   sessionConfirmed: true
 };
-const store = initStore('dummy', 'dummy', mockSocket, localStorage);
+const store = initStore('dummy', mockSocket, localStorage);
 
 describe('Metadata store affect app behavior', () => {
   const profile = assetMock;
