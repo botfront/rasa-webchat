@@ -274,7 +274,7 @@ class Widget extends Component {
     const { domHighlight, defaultHighlightClassname } = this.props;
     const domHighlightJS = domHighlight.toJS() || {};
     if (domHighlightJS.selector) {
-      const elements = safeQuerySelectorAll(domHighlightJS.selector)
+      const elements = safeQuerySelectorAll(domHighlightJS.selector);
       elements.forEach((element) => {
         switch (domHighlightJS.style) {
           case 'custom':
@@ -298,7 +298,7 @@ class Widget extends Component {
     const { domHighlight, defaultHighlightCss, defaultHighlightClassname } = this.props;
     const domHighlightJS = domHighlight.toJS() || {};
     if (domHighlightJS.selector) {
-      const elements = safeQuerySelectorAll(domHighlightJS.selector)
+      const elements = safeQuerySelectorAll(domHighlightJS.selector);
       elements.forEach((element) => {
         switch (domHighlightJS.style) {
           case 'custom':
@@ -599,6 +599,7 @@ class Widget extends Component {
         embedded={this.props.embedded}
         params={this.props.params}
         openLauncherImage={this.props.openLauncherImage}
+        inputTextFieldHint={this.props.inputTextFieldHint}
         closeImage={this.props.closeImage}
         customComponent={this.props.customComponent}
         displayUnreadCount={this.props.displayUnreadCount}
@@ -644,6 +645,7 @@ Widget.propTypes = {
   initialized: PropTypes.bool,
   openLauncherImage: PropTypes.string,
   closeImage: PropTypes.string,
+  inputTextFieldHint: PropTypes.string,
   customComponent: PropTypes.func,
   displayUnreadCount: PropTypes.bool,
   showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
@@ -668,6 +670,7 @@ Widget.defaultProps = {
   autoClearCache: false,
   displayUnreadCount: false,
   tooltipPayload: null,
+  inputTextFieldHint: 'Type a message...',
   oldUrl: '',
   disableTooltips: false,
   defaultHighlightClassname: '',

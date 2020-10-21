@@ -8,7 +8,7 @@ import { initStore } from '../../../store/store';
 
 const localStorage = new LocalStorageMock();
 const stubSocket = jest.fn();
-const store = initStore('dummy', 'dummy', stubSocket, localStorage);
+const store = initStore('dummy', stubSocket, localStorage);
 
 describe('link target', () => {
   store.dispatch({ type: 'ADD_BUTTONS',

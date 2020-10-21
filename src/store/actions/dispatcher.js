@@ -89,10 +89,6 @@ export function toggleInputDisabled(disable) {
   store.dispatch(actions.toggleInputDisabled(disable));
 }
 
-export function changeInputFieldHint(hint) {
-  store.dispatch(actions.changeInputFieldHint(hint));
-}
-
 export function dropMessages() {
   store.dispatch(actions.dropMessages());
 }

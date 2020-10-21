@@ -58,7 +58,7 @@ describe('</Carousel />', () => {
 
   const localStorage = new LocalStorageMock();
 
-  const store = initStore('dummy', 'dummy', 'dummy', localStorage);
+  const store = initStore('dummy', 'dummy', localStorage);
 
   store.dispatch({
     type: 'CONNECT'

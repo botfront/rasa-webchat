@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { PROP_TYPES } from 'constants';
-import { addUserMessage, emitUserMessage, setButtons, toggleInputDisabled, changeInputFieldHint } from 'actions';
+import { addUserMessage, emitUserMessage, setButtons, toggleInputDisabled } from 'actions';
 import Message from '../Message/index';
 
 import './styles.scss';
@@ -25,7 +25,6 @@ class Buttons extends PureComponent {
     const chosenReply = getChosenReply(id);
     if (!chosenReply && !inputState) {
       // this.props.toggleInputDisabled();
-      // this.props.changeInputFieldHint(hint);
     }
   }
 
@@ -38,7 +37,6 @@ class Buttons extends PureComponent {
     const payload = reply.get('payload');
     const title = reply.get('title');
     chooseReply(payload, title, id);
-    // this.props.changeInputFieldHint('Type a message...');
   }
 
   renderButtons(message, buttons, persit) {
@@ -123,7 +121,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   toggleInputDisabled: () => dispatch(toggleInputDisabled()),
-  changeInputFieldHint: hint => dispatch(changeInputFieldHint(hint)),
   chooseReply: (payload, title, id) => {
     dispatch(setButtons(id, title));
     dispatch(addUserMessage(title));

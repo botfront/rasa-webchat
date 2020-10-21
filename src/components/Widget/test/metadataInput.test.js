@@ -8,7 +8,7 @@ import LocalStorageMock from '../../../../mocks/localStorageMock';
 
 const localStorage = new LocalStorageMock();
 const stubSocket = jest.fn();
-const store = initStore('dummy', 'dummy', stubSocket, localStorage);
+const store = initStore('dummy', stubSocket, localStorage);
 
 describe('Metadata store affect input behavior', () => {
   const senderCompoment = mount(
