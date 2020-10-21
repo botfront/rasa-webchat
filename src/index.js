@@ -108,7 +108,6 @@ const ConnectedWidget = forwardRef((props, ref) => {
 
   if (!store) {
     store = initStore(
-      props.inputTextFieldHint,
       props.connectingText,
       instanceSocket.current,
       storage,
@@ -146,6 +145,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
           embedded={props.embedded}
           params={props.params}
           storage={storage}
+          inputTextFieldHint={props.inputTextFieldHint}
           openLauncherImage={props.openLauncherImage}
           closeImage={props.closeImage}
           customComponent={props.customComponent}
