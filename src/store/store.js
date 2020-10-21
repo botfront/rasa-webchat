@@ -21,7 +21,6 @@ const trimQueryString = (url) => {
 };
 
 function initStore(
-  hintText,
   connectingText,
   socket,
   storage,
@@ -116,7 +115,7 @@ function initStore(
     next(action);
   };
   const reducer = combineReducers({
-    behavior: behavior(hintText, connectingText, storage, docViewer, onWidgetEvent),
+    behavior: behavior(connectingText, storage, docViewer, onWidgetEvent),
     messages: messages(storage),
     metadata: metadata(storage)
   });
