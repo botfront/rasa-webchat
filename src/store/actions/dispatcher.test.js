@@ -15,7 +15,7 @@ describe('Dispatcher', () => {
     sessionConfirmed: true
   };
 
-  let store = initStore('dummy',
+  let store = initStore(
     'dummy',
     mockSocket,
     localStorageMock,
@@ -23,7 +23,7 @@ describe('Dispatcher', () => {
   );
   beforeEach(() => {
     sentToSocket = [];
-    store = initStore('dummy',
+    store = initStore(
       'dummy',
       mockSocket,
       localStorageMock,

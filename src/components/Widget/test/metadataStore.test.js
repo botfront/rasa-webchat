@@ -8,7 +8,7 @@ import { initStore } from '../../../store/store';
 import LocalStorageMock from '../../../../mocks/localStorageMock';
 
 const localStorage = new LocalStorageMock();
-const store = initStore('dummy', 'dummy', 'dummy', localStorage);
+const store = initStore('dummy', 'dummy', localStorage);
 jest.useFakeTimers();
 
 describe('Messages metadata affect store', () => {

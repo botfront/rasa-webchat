@@ -41,6 +41,7 @@ const WidgetLayout = (props) => {
           closeImage={props.closeImage}
           customComponent={props.customComponent}
           showMessageDate={props.showMessageDate}
+          inputTextFieldHint={props.inputTextFieldHint}
         />
       )}
       {!props.embedded && (
@@ -83,6 +84,7 @@ WidgetLayout.propTypes = {
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
   embedded: PropTypes.bool,
+  inputTextFieldHint: PropTypes.string,
   params: PropTypes.object,
   connected: PropTypes.bool,
   connectingText: PropTypes.string,

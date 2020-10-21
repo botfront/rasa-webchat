@@ -9,7 +9,7 @@ import { initStore } from '../../../store/store';
 
 const localStorage = new LocalStorageMock();
 const stubSocket = jest.fn();
-const store = initStore('dummy', 'dummy', stubSocket, localStorage);
+const store = initStore('dummy', stubSocket, localStorage);
 
 
 describe('message target store affect app behavior', () => {

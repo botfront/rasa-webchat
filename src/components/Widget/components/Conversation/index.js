@@ -30,6 +30,7 @@ const Conversation = props =>
     <Sender
       sendMessage={props.sendMessage}
       disabledInput={props.disabledInput}
+      inputTextFieldHint={props.inputTextFieldHint}
     />
   </div>;
 
@@ -44,6 +45,7 @@ Conversation.propTypes = {
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
   disabledInput: PropTypes.bool,
+  inputTextFieldHint: PropTypes.string,
   params: PropTypes.object,
   connected: PropTypes.bool,
   connectingText: PropTypes.string,

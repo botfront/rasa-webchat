@@ -10,7 +10,7 @@ import { initStore } from '../../../store/store';
 describe('Message custom Css', () => {
   const localStorage = new LocalStorageMock();
   const stubSocket = jest.fn();
-  const store = initStore('dummy', 'dummy', stubSocket, localStorage);
+  const store = initStore('dummy', stubSocket, localStorage);
 
   const messages = [];
   // a response with customcss of type custom
