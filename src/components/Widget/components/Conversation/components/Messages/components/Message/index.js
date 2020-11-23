@@ -12,14 +12,26 @@ class Message extends PureComponent {
   render() {
     const { docViewer, linkTarget } = this.props;
     const sender = this.props.message.get('sender');
-    const text = this.props.message.get('text');
-    const customCss = this.props.message.get('customCss') && this.props.message.get('customCss').toJS();
+    let text = this.props.message.get('text');
+
+    if (sender === 'response') {
+      const re = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}\b/gi;
+      text = text.replace(re, 'mailto:$&');
+    }
+
+    const customCss =
+      this.props.message.get('customCss') && this.props.message.get('customCss').toJS();
 
     if (customCss && customCss.style === 'class') {
       customCss.css = customCss.css.replace(/^\./, '');
     }
 
-    const { userTextColor, userBackgroundColor, assistTextColor, assistBackgoundColor } = this.context;
+    const {
+      userTextColor,
+      userBackgroundColor,
+      assistTextColor,
+      assistBackgoundColor
+    } = this.context;
     let style;
     if (sender === 'response' && customCss && customCss.style === 'class') {
       style = undefined;
@@ -33,29 +45,32 @@ class Message extends PureComponent {
 
     return (
       <div
-        className={sender === 'response' && customCss && customCss.style === 'class' ?
-          `rw-response ${customCss.css}` :
-          `rw-${sender}`}
-        style={style}
-      >
-        <div
-          className="rw-message-text"
-        >
+        className={
+          sender === 'response' && customCss && customCss.style === 'class'
+            ? `rw-response ${customCss.css}`
+            : `rw-${sender}`
+        }
+        style={style}>
+        <div className="rw-message-text">
           {sender === 'response' ? (
             <ReactMarkdown
               className={'rw-markdown'}
               source={text}
               linkTarget={(url) => {
-                if (!url.startsWith('mailto') && !url.startsWith('javascript')) return '_blank';
+                if (!url.startsWith('mailto') && !url.startsWith('javascript')) {
+                  return '_blank';
+                }
                 return undefined;
               }}
               transformLinkUri={null}
               renderers={{
-                link: props =>
+                link: (props) =>
                   docViewer ? (
                     <DocViewer src={props.href}>{props.children}</DocViewer>
                   ) : (
-                    <a href={props.href} target={linkTarget || '_blank'} rel="noopener noreferrer">{props.children}</a>
+                    <a href={props.href} target={linkTarget || '_blank'} rel="noopener noreferrer">
+                      {props.children}
+                    </a>
                   )
               }}
             />
@@ -67,7 +82,6 @@ class Message extends PureComponent {
     );
   }
 }
-
 
 Message.contextType = ThemeContext;
 Message.propTypes = {
@@ -81,7 +95,7 @@ Message.defaultTypes = {
   linkTarget: '_blank'
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   linkTarget: state.metadata.get('linkTarget'),
   docViewer: state.behavior.get('docViewer')
 });
