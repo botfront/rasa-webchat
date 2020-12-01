@@ -52,31 +52,27 @@ class Message extends PureComponent {
         }
         style={style}>
         <div className="rw-message-text">
-          {sender === 'response' ? (
-            <ReactMarkdown
-              className={'rw-markdown'}
-              source={text}
-              linkTarget={(url) => {
-                if (!url.startsWith('mailto') && !url.startsWith('javascript')) {
-                  return '_blank';
-                }
-                return undefined;
-              }}
-              transformLinkUri={null}
-              renderers={{
-                link: (props) =>
-                  docViewer ? (
-                    <DocViewer src={props.href}>{props.children}</DocViewer>
-                  ) : (
-                    <a href={props.href} target={linkTarget || '_blank'} rel="noopener noreferrer">
-                      {props.children}
-                    </a>
-                  )
-              }}
-            />
-          ) : (
-            text
-          )}
+          <ReactMarkdown
+            className={'rw-markdown'}
+            source={text}
+            linkTarget={(url) => {
+              if (!url.startsWith('mailto') && !url.startsWith('javascript')) {
+                return '_blank';
+              }
+              return undefined;
+            }}
+            transformLinkUri={null}
+            renderers={{
+              link: (props) =>
+                docViewer ? (
+                  <DocViewer src={props.href}>{props.children}</DocViewer>
+                ) : (
+                  <a href={props.href} target={linkTarget || '_blank'} rel="noopener noreferrer">
+                    {props.children}
+                  </a>
+                )
+            }}
+          />
         </div>
       </div>
     );
