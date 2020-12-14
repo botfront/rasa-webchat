@@ -457,13 +457,21 @@ class Widget extends Component {
     } = this.props;
 
     // Send initial payload when chat is opened or widget is shown
+    console.log(initialized);
+    console.log(connected);
+    console.log(isChatOpen);
+    console.log(isChatVisible);
+    console.log(embedded);
     if (!initialized && connected && ((isChatOpen && isChatVisible) || embedded)) {
       // Only send initial payload if the widget is connected to the server but not yet initialized
 
       const sessionId = this.getSessionId();
 
       // check that session_id is confirmed
-      if (!sessionId) return;
+      if (!sessionId) {
+        console.log('exiting no Id');
+        return;
+      }
 
       // eslint-disable-next-line no-console
       console.log('sending init payload', sessionId);
