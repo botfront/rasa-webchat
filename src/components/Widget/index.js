@@ -87,10 +87,10 @@ class Widget extends Component {
     const { isChatOpen, dispatch, embedded, initialized } = this.props;
 
     if (isChatOpen) {
+      this.trySendInitPayload();
       if (!initialized) {
         this.initializeWidget();
       }
-      this.trySendInitPayload();
     }
 
     if (embedded && initialized) {
