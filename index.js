@@ -206,13 +206,16 @@ export default React.forwardRef((props, ref) => (
   <RasaWebchatProWithRules innerRef={ref} {...props} />
 ));
 
-export const selfMount = (props) => {
+export const selfMount = (props, element = null) => {
   const load = () => {
-    const node = document.createElement('div');
-    node.setAttribute('id', 'rasaWebchatPro');
-    document.body.appendChild(node);
+    if (element === null) {
+      const node = document.createElement('div');
+      node.setAttribute('id', 'rasaWebchatPro');
+      document.body.appendChild(node);
+    }
+    const mountElement = element || document.getElementById('rasaWebchatPro')
     const webchatPro = React.createElement(RasaWebchatProWithRules, props);
-    ReactDOM.render(webchatPro, document.getElementById('rasaWebchatPro'));
+    ReactDOM.render(webchatPro, mountElement);
   };
   if (document.readyState === 'complete') {
     load();
