@@ -47,6 +47,7 @@ class Widget extends Component {
     this.messageDelayTimeout = null;
     this.onGoingMessageDelay = false;
     this.sendMessage = this.sendMessage.bind(this);
+    this.getSessionId = this.getSessionId.bind(this);
     this.intervalId = null;
     this.eventListenerCleaner = () => { };
   }
