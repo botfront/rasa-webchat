@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.8](https://https///compare/v1.6.7...v1.6.8) (2021-01-19)
+
+
+### Features
+
+* expose getSessionId ([c8cbda7](https://https///commit/c8cbda78ec9b746f2697aa8c279c84f1b260fd1f))
+
 ### [1.6.7](https://https///compare/v1.6.6...v1.6.7) (2021-01-07)
 
 
