@@ -1,4 +1,4 @@
-import { Map, fromJS } from 'immutable';
+import { Map, fromJS, List } from 'immutable';
 import { SESSION_NAME } from 'constants';
 import * as actionTypes from '../actions/actionTypes';
 import { getLocalSession, storeParamsTo } from './helper';
@@ -20,7 +20,8 @@ export default function (
     unreadCount: 0,
     messageDelayed: false,
     oldUrl: '',
-    pageChangeCallbacks: Map()
+    pageChangeCallbacks: Map(),
+    messageQueue: List()
   });
 
   return function reducer(state = initialState, action) {
@@ -78,6 +79,12 @@ export default function (
       }
       case actionTypes.TRIGGER_MESSAGE_DELAY: {
         return storeParams(state.set('messageDelayed', action.messageDelayed));
+      }
+      case actionTypes.ADD_MESSAGE_IN_QUEUE: {
+        return storeParams(state.set('messageQueue', state.get('messageQueue').push(fromJS(action.message))));
+      }
+      case actionTypes.SHIFT_MESSAGES_IN_QUEUE: {
+        return storeParams(state.set('messageQueue', state.get('messageQueue').slice(1)));
       }
       case actionTypes.SET_OLD_URL: {
         return storeParams(state.set('oldUrl', action.url));

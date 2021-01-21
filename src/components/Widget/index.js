@@ -30,6 +30,8 @@ import {
   setPageChangeCallbacks,
   changeOldUrl,
   setDomHighlight,
+  addMessageInQueue,
+  shiftMessagesInQueue,
   evalUrl,
   setCustomCss
 } from 'actions';
@@ -42,7 +44,6 @@ import { storeLocalSession, getLocalSession } from '../../store/reducers/helper'
 class Widget extends Component {
   constructor(props) {
     super(props);
-    this.messages = [];
     this.delayedMessage = null;
     this.messageDelayTimeout = null;
     this.onGoingMessageDelay = false;
@@ -165,18 +166,19 @@ class Widget extends Component {
     } else if (!this.onGoingMessageDelay) {
       this.onGoingMessageDelay = true;
       dispatch(triggerMessageDelayed(true));
-      this.newMessageTimeout(message);
+      dispatch(addMessageInQueue(message));
+      this.popLastMessage();
     } else {
-      this.messages.push(message);
+      dispatch(addMessageInQueue(message));
     }
   }
 
   popLastMessage() {
-    const { dispatch } = this.props;
-    if (this.messages.length) {
+    const { dispatch, messageQueue } = this.props;
+    if (messageQueue.size) {
       this.onGoingMessageDelay = true;
       dispatch(triggerMessageDelayed(true));
-      this.newMessageTimeout(this.messages.shift());
+      this.newMessageTimeout(messageQueue.first().toJS());
     }
   }
 
@@ -185,10 +187,13 @@ class Widget extends Component {
     this.delayedMessage = message;
     this.messageDelayTimeout = setTimeout(() => {
       this.dispatchMessage(message);
+      // the message has been displayed so we remove it from the queue
+      dispatch(shiftMessagesInQueue());
       this.delayedMessage = null;
       this.applyCustomStyle();
       dispatch(triggerMessageDelayed(false));
       this.onGoingMessageDelay = false;
+
       this.popLastMessage();
     }, customMessageDelay(message.text || ''));
   }
@@ -418,6 +423,8 @@ class Widget extends Component {
               dispatch(emitUserMessage(message));
             }
           }
+          // there might be messages in queue waiting to be displayed
+          this.popLastMessage();
         } if (connectOn === 'mount' && tooltipPayload) {
           this.tooltipTimeout = setTimeout(() => {
             this.trySendTooltipPayload();
@@ -621,7 +628,8 @@ const mapStateToProps = state => ({
   oldUrl: state.behavior.get('oldUrl'),
   pageChangeCallbacks: state.behavior.get('pageChangeCallbacks'),
   domHighlight: state.metadata.get('domHighlight'),
-  messages: state.messages
+  messages: state.messages,
+  messageQueue: state.behavior.get('messageQueue')
 });
 
 Widget.propTypes = {
@@ -660,7 +668,8 @@ Widget.propTypes = {
   defaultHighlightAnimation: PropTypes.string,
   defaultHighlightCss: PropTypes.string,
   defaultHighlightClassname: PropTypes.string,
-  messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map)
+  messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
+  messageQueue: ImmutablePropTypes.listOf(ImmutablePropTypes.map)
 };
 
 Widget.defaultProps = {

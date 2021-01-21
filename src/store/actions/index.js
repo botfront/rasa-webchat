@@ -253,3 +253,17 @@ export function setCustomCss(customCss) {
   };
 }
 
+
+export function addMessageInQueue(message) {
+  return {
+    type: actions.ADD_MESSAGE_IN_QUEUE,
+    message
+  };
+}
+
+
+export function shiftMessagesInQueue() {
+  return {
+    type: actions.SHIFT_MESSAGES_IN_QUEUE
+  };
+}
