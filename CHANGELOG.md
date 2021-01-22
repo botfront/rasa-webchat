@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.9](https://https///compare/v1.6.8...v1.6.9) (2021-01-22)
+
+
+### Bug Fixes
+
+* getSessionId not passed to ref  ([245e5a7](https://https///commit/245e5a782b4a01af4e0b515a3b614de7f0aade62))
+
 ### [1.6.8](https://https///compare/v1.6.7...v1.6.8) (2021-01-19)
 
 
