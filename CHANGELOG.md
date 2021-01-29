@@ -2,35 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [1.6.9](https://https///compare/v1.6.8...v1.6.9) (2021-01-22)
-
-
-### Bug Fixes
-
-* getSessionId not passed to ref  ([245e5a7](https://https///commit/245e5a782b4a01af4e0b515a3b614de7f0aade62))
-
-### [1.6.8](https://https///compare/v1.6.7...v1.6.8) (2021-01-19)
+### [0.11.12](https://https///compare/v0.11.11...v0.11.12) (2021-01-19)
 
 
 ### Features
 
 * expose getSessionId ([c8cbda7](https://https///commit/c8cbda78ec9b746f2697aa8c279c84f1b260fd1f))
 
-### [1.6.7](https://https///compare/v1.6.6...v1.6.7) (2021-01-07)
+### [0.11.11](https://https///compare/v0.11.10...v0.11.11) (2020-10-21)
 
-
-### Features
-
-* widget mounting point ([af325f1](https://https///commit/af325f1096854f2080959869904b5fedcd77acd5))
-
-### [1.6.6](https://https///compare/v1.6.5...v1.6.6) (2020-10-21)
+### [0.11.10](https://https///compare/v0.11.9...v0.11.10) (2020-10-16)
 
 
 ### Features
 
 * image size in markdown ([990f4bb](https://https///commit/990f4bb113da8ae1c29528c9b48a279d5efc8393))
 
-### [1.6.5](https://https///compare/v1.6.4...v1.6.5) (2020-10-14)
+### [0.11.9](https://https///compare/v0.11.8...v0.11.9) (2020-10-14)
 
 
 ### Bug Fixes
@@ -38,79 +26,27 @@ All notable changes to this project will be documented in this file. See [standa
 * custom responses ([ae7072c](https://https///commit/ae7072c0dca010dc719d8ecb067726fe8e0e7f9e))
 * image size in markdown ([cee6286](https://https///commit/cee62866b3e61806d389d1728b32864da8f02554))
 
-### [1.6.4](https://https///compare/v1.6.3...v1.6.4) (2020-10-07)
+### [0.11.8](https://https///compare/v0.11.7...v0.11.8) (2020-09-28)
 
 
 ### Features
 
 * possibility to send a payload on tooltip close ([38cf679](https://https///commit/38cf67976ba634ad2a6097c6f684ff105ede04e6))
 
-### [1.6.3](https://https///compare/v1.6.2...v1.6.3) (2020-09-16)
+### [0.11.7](https://https///compare/v0.11.6...v0.11.7) (2020-09-16)
 
 
 ### Bug Fixes
 
 * colors on buttons using color props ([dbfebe6](https://https///commit/dbfebe63699f67c9baf5551ca0aa588ca4df76d6))
 
-### [1.6.2](https://https///compare/v1.6.1...v1.6.2) (2020-09-15)
-
-
-### Features
-
-* cleanup on page change improved ([b4f1948](https://https///commit/b4f19489284cc7fbe8b94c8e476f798062498c78))
-
-### [1.6.1](https://https///compare/v1.6.0...v1.6.1) (2020-09-02)
-
-
-### Features
-
-* clean up window event listeners ([e2ec9bb](https://https///commit/e2ec9bb4a5cf9adddc70add353dc58dff2db37cd))
-
-## [1.6.0](https://https///compare/v1.5.6...v1.6.0) (2020-08-27)
-
-### [1.5.6](https://https///compare/v1.5.5...v1.5.6) (2020-08-27)
-
-
-### Bug Fixes
-
-* various fixes (see desc) ([2343f49](https://https///commit/2343f492bd48b9098b106f34cdba6ac06d11112a))
-
-### [1.5.5](https://https///compare/v1.5.4...v1.5.5) (2020-07-14)
-
-
-### Bug Fixes
-
-* trigger limit when switching urls ([5e0681a](https://https///commit/5e0681a4a50357b75e554cc29ae1e6662e95bbc8))
-
-### [1.5.4](https://https///compare/v1.5.3...v1.5.4) (2020-07-10)
-
-### [1.5.3](https://https///compare/v1.5.2...v1.5.3) (2020-07-10)
-
-
-### Bug Fixes
-
-* reload in edge cases ([db6d3d1](https://https///commit/db6d3d140db90e1e417b52c264b0a524489c4a8d))
-
-### [1.5.2](https://https///compare/v1.5.1...v1.5.2) (2020-07-09)
-
-
-### Bug Fixes
-
-* props were not fetched ([816a225](https://https///commit/816a225c3842e91b0351faa9fa3f85226e410f68))
-
-### [1.5.1](https://https///compare/v1.5.0...v1.5.1) (2020-07-09)
-
-## [1.5.0](https://https///compare/v0.11.5...v1.5.0) (2020-07-08)
-
-
-### Features
-
-* only use one socket connection ([a65e905](https://https///commit/a65e905bedaee8515859e9b58e59335d7e8258a2))
+### [0.11.6](https://https///compare/v0.11.5...v0.11.6) (2020-08-27)
 
 
 ### Bug Fixes
 
 * code formatting on readme ([2a4f94c](https://https///commit/2a4f94cde3137aff1f73080ce296eadafed8bc25))
+* reload in edge cases ([db6d3d1](https://https///commit/db6d3d140db90e1e417b52c264b0a524489c4a8d))
 
 ### [0.11.5](https://https///compare/v0.11.4...v0.11.5) (2020-06-24)
 
