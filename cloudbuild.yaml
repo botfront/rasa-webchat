@@ -5,17 +5,6 @@ steps:
 - name: 'gcr.io/cloud-builders/npm'
   args: ['run','build']
 
-- name: 'gcr.io/cloud-builders/gsutil'
-  args: ['cp', '-Z', 'lib/index.js', 'gs://${_BUCKET_NAME}/botfront-widget-$TAG_NAME.js']
-
-- name: 'gcr.io/cloud-builders/gsutil'
-  args: ['cp', '-Z', 'lib/index.js', 'gs://${_BUCKET_NAME}/botfront-widget-latest.js']
-
-- name: 'gcr.io/cloud-builders/gsutil'
-  args: ['acl', 'ch', '-u', 'AllUsers:R', 'gs://${_BUCKET_NAME}/botfront-widget-$TAG_NAME.js']
-- name: 'gcr.io/cloud-builders/gsutil'
-  args: ['acl', 'ch', '-u', 'AllUsers:R', 'gs://${_BUCKET_NAME}/botfront-widget-latest.js']
-
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
   - kms
