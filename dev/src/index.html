@@ -2,6 +2,17 @@
 <html lang="en">
 <head>
     <title>Botfront - Web Chat</title>
+  <script>
+      const load = () => {
+        if (!WebChat) setTimeout(load, 100);
+        if (WebChat) WebChat.default({
+          customData:{language:"en"},
+          socketUrl:"http://localhost:5005",
+          withRules: true,
+        });
+      }
+      setTimeout(load, 200);
+  </script>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <body style="background: lightcyan;">
@@ -13,55 +24,9 @@
   <span style="height: 400px; display: block;">test</span>
   <span style="height: 400px; display: block;">test</span>
   <h1 class="test"> test</h1>
-  <button class="my-button" style="margin: 3em;"> MY BUTTON</button>
-  <div style="width: 900px; height: 900px; border: 3px solid lightsalmon; margin-left: 200px" id="webchat" />
+<button class="my-button" style="margin-left: 450px"> MY BUTTON</button>
   <script src="index.js"  type="text/javascript"></script>
-<script>
-  WebChat.default.init({
-    // embedded: true,
-    selector: "#webchat",
-    initPayload: "/intro_registered_accounts",
-    socketUrl: "http://localhost:5005/",
-    tooltipPayload: "/tooltip_registered_accounts",
-    tooltipDelay: 40000,
-    socketPath: "/socket.io/",
-    customData: {
-      language: 'fr'
-    },
-    subtitle: 'A',
-    inputTextFieldHint: "Type a message...",
-    connectingText: "Waiting for server...",
-    // profileAvatar: "https://storage.googleapis.com/dev-media-store-botfront-cloud/logo_square_circle_white_bg256.jpg",
-    hideWhenNotConnected: false,
-  //   defaultHighlightAnimation: `@-webkit-keyframes default-botfront-blinker-animation {
-  //     from {
-  //     outline: solid rgba(255,0,0,0);
-  //   }
-  //   to {
-  //     outline: solid red;
-  //   }
-  // }`,
-    onSocketEvent: {
-      'bot_uttered': () => console.log('bot uttered'),
-    },
-    showCloseButton: true,
-    fullScreenMode: true,
-    showFullScreenButton: true,
-    docViewer: false,
-    params: {
-      images: {
-        dims: {
-          width: 300,
-          height: 200
-        }
-      },
-      storage: "local"
-    },
-    mainColor: "#32a852",
-    userBackgroundColor: "#24753a",
-    userTextColor: "#cad9ce",
-  })
-</script>
+  <div style="width: 400px; height: 2000px; border: 3px solid lightsalmon;" id="webchat" />
 </body>
 
 </html>

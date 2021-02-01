@@ -7,7 +7,7 @@
     <img alt="License" src="https://img.shields.io/github/license/botfront/rasa-webchat">
 </a>
 <a href='https://spectrum.chat/botfront'>
-    <img alt="License" src="https://withspectrum.github.io/badge/badge.svg">
+    <img alt="Spectrum link" src="https://withspectrum.github.io/badge/badge.svg">
 </a>
 </p>
 <h1 align="center">Rasa Webchat 💬</h1>
@@ -45,27 +45,31 @@
 
 In your `<body/>`:
 ```html
-<div id="webchat"></div>
-<script src="https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.min.js"></script>
-// you can add a version tag if you need, e.g for version 0.11.5 https://cdn.jsdelivr.net/npm/rasa-webchat@0.11.5/lib/index.min.js
-<script>
-  WebChat.default.init({
-    selector: "#webchat",
-    initPayload: "/get_started",
-    customData: {"language": "en"}, // arbitrary custom data. Stay minimal as this will be added to the socket
-    socketUrl: "http://localhost:5500",
-    socketPath: "/socket.io/",
-    title: "Title",
-    subtitle: "Subtitle",
-    params: {"storage": "session"} // can be set to "local"  or "session". details in storage section.
-  })
+<script>!(function () {
+  let e = document.createElement("script"),
+    t = document.head || document.getElementsByTagName("head")[0];
+  (e.src =
+    "https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.js"),
+    (e.async = !0),
+    (e.onload = () => {
+      window.Webchat.default(
+        {
+          customData: { language: "en" },
+          socketUrl: "https://bf-botfront.development.agents.botfront.cloud",
+          // add other props here
+        },
+        null
+      );
+    }),
+    t.insertBefore(e, t.firstChild);
+})();
 </script>
 ```
 
-About images: `width` and `height` define the size in pixels that images in messages are crop-scaled to. If not present, the image will scale to the maximum width of the container and the image.
+You can add a version tag if you need, e.g for version 1.0.0 https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.0/lib/index.js,
+however this will not work with versions below 1.0.0. If you do not specify a version, you will get served the latest available version of the rasa-webchat.
 
-It is recommended to use a particular version (i.e. "webchat-<version>.js") however the file "webchat-latest.js"
-is also available and is updated continuously with the latest version.
+About images: `width` and `height` define the size in pixels that images in messages are crop-scaled to. If not present, the image will scale to the maximum width of the container and the image.
 
 ### As a React component
 
@@ -77,7 +81,7 @@ npm install rasa-webchat
 Then:
 
 ```javascript
-import { Widget } from 'rasa-webchat';
+import Widget from 'rasa-webchat';
 
 function CustomWidget = () => {
   return (
@@ -188,19 +192,6 @@ function myComponent() {
 The payload can be any message that the user would normally send, but if you want to force an intent and maybe some entities, you can use that format
 `/myIntent{"entity1":"value1","entity2":"value2"}`
 
-## API
-
-| Method                                   | Description                                                                                                                                                              |
-|------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `WebChat.toggle()`                       | Toggle the open/close state of the chat window, send initPayload if webchat is not initialized and is toggled open                                                       |
-| `WebChat.open()`                         | Open the chat window, send initPayload if webchat is not initialized                                                                                                     |
-| `WebChat.close()`                        | Close the chat window                                                                                                                                                    |
-| `WebChat.isOpen()`                       | Get the open/closed state of the widget                                                                                                                                  |
-| `WebChat.show()`                         | Show the chat widget, send initPayload if the chat is in open state and not initialized                                                                                  |
-| `WebChat.hide()`                         | Hide the chat widget                                                                                                                                                     |
-| `WebChat.isVisible()`                    | Get the shown/hidden state of the widget                                                                                                                                 |
-| `WebChat.send(payload, text: optionnal)` | send a payload (`/intent{"entity":"value"}` to rasa. If `text` is specified, it will be displayed as a user message. If not specified, no user message will be displayed |                                                                       |
-
 ### Backends
 
 The widget can be used with any backend but is primarily designed to be used with [Rasa](https://github.com/rasaHQ/rasa) or [Botfront](https://github.com/botfront/botfront).
@@ -275,3 +266,21 @@ hierarchy:
 [@dliuproduction](https://github.com/dliuproduction)
 [@MatthieuJnon](https://github.com/MatthieuJnon)
 [@mofortin](https://github.com/mofortin)
+[@GuillaumeTech](https://github.com/GuillaumeTech)
+                                 
+<br/>
+<h2 align="center">License</h2>
+
+Copyright (C) 2021 Dialogue Technologies Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.(C) 2021 Dialogue Technologies Inc. All rights reserved.

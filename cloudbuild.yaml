@@ -1,15 +1,9 @@
 steps:
 - name: 'gcr.io/cloud-builders/npm'
-  args: ['install']
+  args: ['ci']
 
 - name: 'gcr.io/cloud-builders/npm'
   args: ['run','build']
-
-- name: 'gcr.io/cloud-builders/gsutil'
-  args: ['cp', 'lib/index.js', 'gs://mrbot-cdn/webchat-$TAG_NAME.js']
-
-- name: 'gcr.io/cloud-builders/gsutil'
-  args: ['cp', 'lib/index.js', 'gs://mrbot-cdn/webchat-latest.js']
 
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
@@ -32,3 +26,4 @@ steps:
   volumes:
   - name: 'home'
     path: /root/
+    

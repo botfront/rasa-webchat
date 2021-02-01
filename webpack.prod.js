@@ -7,7 +7,7 @@ const { version } = require('./package.json');
 
 module.exports = [{
   // entry: ['babel-polyfill', './index.js'],
-  entry: './index.js',
+  entry: './umd.js',
   output: {
     path: path.join(__dirname, '/lib'),
     filename: 'index.js',
