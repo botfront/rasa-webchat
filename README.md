@@ -66,7 +66,7 @@ In your `<body/>`:
 </script>
 ```
 
-You can add a version tag if you need, e.g for version 1.0.0 https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.0/lib/index.js,
+⚠️ We recommend adding a version tag to prevent breaking changes from major versions, e.g for version 1.0.0 https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.0/lib/index.js,
 however this will not work with versions below 1.0.0. If you do not specify a version, you will get served the latest available version of the rasa-webchat.
 
 About images: `width` and `height` define the size in pixels that images in messages are crop-scaled to. If not present, the image will scale to the maximum width of the container and the image.
