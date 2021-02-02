@@ -52,7 +52,7 @@ In your `<body/>`:
     "https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.js"),
     (e.async = !0),
     (e.onload = () => {
-      window.Webchat.default(
+      window.WebChat.default(
         {
           customData: { language: "en" },
           socketUrl: "https://bf-botfront.development.agents.botfront.cloud",
