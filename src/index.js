@@ -102,6 +102,8 @@ const ConnectedWidget = forwardRef((props, ref) => {
   const storage =
     props.params.storage === 'session' ? sessionStorage : localStorage;
 
+  storage.sessionName = props.sessionName;
+
   if (!store || !store.current) {
     store.current = initStore(
       props.connectingText,
@@ -143,6 +145,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
           storage={storage}
           inputTextFieldHint={props.inputTextFieldHint}
           openLauncherImage={props.openLauncherImage}
+          sessionName={props.sessionName}
           closeImage={props.closeImage}
           customComponent={props.customComponent}
           displayUnreadCount={props.displayUnreadCount}
@@ -186,6 +189,7 @@ ConnectedWidget.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   params: PropTypes.object,
   openLauncherImage: PropTypes.string,
+  sessionName: PropTypes.string,
   closeImage: PropTypes.string,
   docViewer: PropTypes.bool,
   customComponent: PropTypes.func,
@@ -220,6 +224,7 @@ ConnectedWidget.defaultProps = {
   hideWhenNotConnected: true,
   autoClearCache: false,
   connectOn: 'mount',
+  sessionName: 'chat_session',
   onSocketEvent: {},
   protocol: 'socketio',
   socketUrl: 'http://localhost',

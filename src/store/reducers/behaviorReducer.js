@@ -1,5 +1,4 @@
 import { Map, fromJS } from 'immutable';
-import { SESSION_NAME } from 'constants';
 import * as actionTypes from '../actions/actionTypes';
 import { getLocalSession, storeParamsTo } from './helper';
 
@@ -98,7 +97,7 @@ export default function (
 
       // Pull params from storage to redux store
       case actionTypes.PULL_SESSION: {
-        const localSession = getLocalSession(storage, SESSION_NAME);
+        const localSession = getLocalSession(storage, storage.sessionName);
 
         // Do not persist connected state
         const connected = state.get('connected');

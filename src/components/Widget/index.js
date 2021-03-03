@@ -34,7 +34,7 @@ import {
   setCustomCss
 } from 'actions';
 import { safeQuerySelectorAll } from 'utils/dom';
-import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
+import { NEXT_MESSAGE } from 'constants';
 import { isVideo, isImage, isButtons, isText, isCarousel } from './msgProcessor';
 import WidgetLayout from './layout';
 import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
@@ -68,14 +68,14 @@ class Widget extends Component {
     }
 
 
-    const localSession = getLocalSession(storage, SESSION_NAME);
+    const localSession = getLocalSession(storage, storage.sessionName);
     const lastUpdate = localSession ? localSession.lastUpdate : 0;
 
     if (autoClearCache) {
       if (Date.now() - lastUpdate < 30 * 60 * 1000) {
         this.initializeWidget();
       } else {
-        localStorage.removeItem(SESSION_NAME);
+        localStorage.removeItem(storage.sessionName);
       }
     } else {
       this.checkVersionBeforePull();
@@ -113,7 +113,7 @@ class Widget extends Component {
   getSessionId() {
     const { storage } = this.props;
     // Get the local session, check if there is an existing session_id
-    const localSession = getLocalSession(storage, SESSION_NAME);
+    const localSession = getLocalSession(storage, storage.sessionName);
     const localId = localSession ? localSession.session_id : null;
     return localId;
   }
@@ -343,9 +343,9 @@ class Widget extends Component {
 
   checkVersionBeforePull() {
     const { storage } = this.props;
-    const localSession = getLocalSession(storage, SESSION_NAME);
+    const localSession = getLocalSession(storage, storage.sessionName);
     if (localSession && (localSession.version !== 'PACKAGE_VERSION_TO_BE_REPLACED')) {
-      storage.removeItem(SESSION_NAME);
+      storage.removeItem(storage.sessionName);
     }
   }
 
@@ -399,7 +399,7 @@ class Widget extends Component {
           // storage.clear();
           // Store the received session_id to storage
 
-          storeLocalSession(storage, SESSION_NAME, remoteId);
+          storeLocalSession(storage, storage.sessionName, remoteId);
           dispatch(pullSession());
           if (sendInitPayload) {
             this.trySendInitPayload();
@@ -600,6 +600,7 @@ class Widget extends Component {
         embedded={this.props.embedded}
         params={this.props.params}
         openLauncherImage={this.props.openLauncherImage}
+        sessionName={this.props.sessionName}
         inputTextFieldHint={this.props.inputTextFieldHint}
         closeImage={this.props.closeImage}
         customComponent={this.props.customComponent}
@@ -645,6 +646,7 @@ Widget.propTypes = {
   connected: PropTypes.bool,
   initialized: PropTypes.bool,
   openLauncherImage: PropTypes.string,
+  sessionName: PropTypes.string,
   closeImage: PropTypes.string,
   inputTextFieldHint: PropTypes.string,
   customComponent: PropTypes.func,
@@ -668,6 +670,7 @@ Widget.defaultProps = {
   isChatVisible: true,
   fullScreenMode: false,
   connectOn: 'mount',
+  sessionName: 'chat_session',
   autoClearCache: false,
   displayUnreadCount: false,
   tooltipPayload: null,

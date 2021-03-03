@@ -1,7 +1,5 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 
-import { SESSION_NAME } from 'constants';
-
 import behavior from './reducers/behaviorReducer';
 import messages from './reducers/messagesReducer';
 import metadata from './reducers/metadataReducer';
@@ -28,7 +26,7 @@ function initStore(
   onWidgetEvent,
 ) {
   const customMiddleWare = store => next => (action) => {
-    const localSession = getLocalSession(storage, SESSION_NAME);
+    const localSession = getLocalSession(storage, storage.sessionName);
     let sessionId = localSession
       ? localSession.session_id
       : null;

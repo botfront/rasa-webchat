@@ -1,5 +1,5 @@
 import { List, fromJS } from 'immutable';
-import { MESSAGE_SENDER, SESSION_NAME } from 'constants';
+import { MESSAGE_SENDER } from 'constants';
 
 import {
   createButtons,
@@ -68,7 +68,7 @@ export default function (storage) {
       }
       // Pull conversation from storage, parsing as immutable List
       case actionTypes.PULL_SESSION: {
-        const localSession = getLocalSession(storage, SESSION_NAME);
+        const localSession = getLocalSession(storage, storage.sessionName);
         if (localSession) {
           return fromJS(localSession.conversation);
         }

@@ -122,6 +122,7 @@ export const rasaWebchatProTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   params: PropTypes.object,
   openLauncherImage: PropTypes.string,
+  sessionName: PropTypes.string,
   closeImage: PropTypes.string,
   docViewer: PropTypes.bool,
   customComponent: PropTypes.func,
@@ -175,6 +176,7 @@ export const rasaWebchatProDefaultTypes = {
   hideWhenNotConnected: true,
   autoClearCache: false,
   connectOn: 'mount',
+  sessionName: 'chat_sessoion',
   onSocketEvent: {},
   protocol: 'socketio',
   socketUrl: 'http://localhost',

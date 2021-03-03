@@ -1,4 +1,3 @@
-import { SESSION_NAME } from 'constants';
 import { Map, fromJS } from 'immutable';
 import * as actionTypes from '../actions/actionTypes';
 import { getLocalSession, storeMetadataTo } from './helper';
@@ -42,7 +41,7 @@ export default function (storage) {
         return storeMetadata(state.set('hintText', action.hint));
       }
       case actionTypes.PULL_SESSION: {
-        const localSession = getLocalSession(storage, SESSION_NAME);
+        const localSession = getLocalSession(storage, storage.sessionName);
         if (localSession && localSession.metadata) {
           return fromJS({ ...state.toJS(), ...localSession.metadata });
         }

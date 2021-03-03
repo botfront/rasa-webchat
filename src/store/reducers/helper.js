@@ -1,5 +1,5 @@
 import { Map, fromJS } from 'immutable';
-import { MESSAGES_TYPES, MESSAGE_SENDER, SESSION_NAME } from 'constants';
+import { MESSAGES_TYPES, MESSAGE_SENDER } from 'constants';
 
 import { Video, Image, Message, Carousel, Buttons } from 'messagesComponents';
 
@@ -129,20 +129,20 @@ export function storeLocalSession(storage, key, sid) {
 
 export const storeMessageTo = storage => (conversation) => {
   // Store a conversation List to storage
-  const localSession = getLocalSession(storage, SESSION_NAME);
+  const localSession = getLocalSession(storage, storage.sessionName);
   const newSession = {
     // Since immutable List is not a native JS object, store conversation as array
     ...localSession,
     conversation: conversation.toJS(),
     lastUpdate: Date.now()
   };
-  storage.setItem(SESSION_NAME, JSON.stringify(newSession));
+  storage.setItem(storage.sessionName, JSON.stringify(newSession));
   return conversation;
 };
 
 export const storeParamsTo = storage => (params) => {
   // Store a params List to storage
-  const localSession = getLocalSession(storage, SESSION_NAME);
+  const localSession = getLocalSession(storage, storage.sessionName);
   const newSession = {
     // Since immutable Map is not a native JS object, store conversation as array
     ...localSession,
@@ -150,20 +150,20 @@ export const storeParamsTo = storage => (params) => {
     lastUpdate: Date.now(),
     version: 'PACKAGE_VERSION_TO_BE_REPLACED'
   };
-  storage.setItem(SESSION_NAME, JSON.stringify(newSession));
+  storage.setItem(storage.sessionName, JSON.stringify(newSession));
   return params;
 };
 
 
 export const storeMetadataTo = storage => (metadata) => {
   // Store a params List to storage
-  const localSession = getLocalSession(storage, SESSION_NAME);
+  const localSession = getLocalSession(storage, storage.sessionName);
   const newSession = {
     // Since immutable Map is not a native JS object, store conversation as array
     ...localSession,
     metadata: metadata.toJS(),
     lastUpdate: Date.now()
   };
-  storage.setItem(SESSION_NAME, JSON.stringify(newSession));
+  storage.setItem(storage.sessionName, JSON.stringify(newSession));
   return metadata;
 };
