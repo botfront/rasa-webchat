@@ -46,7 +46,7 @@ const Header = ({
               <img
                 className={`rw-close ${closeImage ? '' : 'rw-default'}`}
                 src={closeImage || close}
-                alt="close"
+                alt="Fechar"
               />
             </button>
           }

@@ -40,14 +40,14 @@ const Carousel = (props) => {
 
   const handleLeftArrow = () => {
     scrollContainer.current.scrollTo({
-      left: scrollContainer.current.scrollLeft - 230,
+      left: scrollContainer.current.scrollLeft - 253,
       behavior: 'smooth'
     });
   };
 
   const handleRightArrow = () => {
     scrollContainer.current.scrollTo({
-      left: scrollContainer.current.scrollLeft + 230,
+      left: scrollContainer.current.scrollLeft + 253,
       behavior: 'smooth'
     });
   };

@@ -22,7 +22,8 @@ export function createCarousel(carousel, sender) {
     component: Carousel,
     sender,
     elements: fromJS(carousel.attachment.payload.elements),
-    timestamp: new Date().getTime()
+    timestamp: new Date().getTime(),
+    showAvatar: true
   });
 }
 
