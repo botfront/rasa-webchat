@@ -20,7 +20,7 @@ const Carousel = (props) => {
 
   const scrollContainer = useRef();
   const [leftButton, setLeftButton] = useState(false);
-  const [rightButton, setRightButton] = useState(true);
+  const [rightButton, setRightButton] = useState(carousel.elements.length > 1);
   const { mainColor, assistTextColor } = useContext(ThemeContext);
 
 
