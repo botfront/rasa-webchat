@@ -4,20 +4,15 @@
 
 .#{$namespace}conversation-container {
   .#{$namespace}header {
+    background-color: $tertiary;
     color: $white;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    height: 55px;
     font-family: $fontfamily;
-
-    width: 365px;
-    height: 52px;
-    background: #FFFFFF;
-    box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.08);
-    border-radius: 3px 3px 0px 0px;
-    display: flex;
     position: relative;
-    z-index: 99;
     .#{$namespace}avatar {
       all: initial;
       height: 31px;
@@ -47,13 +42,12 @@
   }
 
   .#{$namespace}title {
+    font-size: 20px;
     margin: 0;
     font-family: $fontfamily;
     position: absolute;
     left: 20px;
-    height: 15px;
-    color: #333333;
-    font-size: 12.8px;
+    font-weight: 700;
     //font-family: UOLtext-Bold;
     font-weight: bold;
     &.#{$namespace}with-avatar {
