@@ -117,6 +117,7 @@ Usage from rasa:
 payload = {
     "type": "custom_payload_keywords",
     "text": "Your text",
+    "nb_max_keywords": "<number>"  # Optional, defaulted to 8
     "keywords": [
       {
         "content_type": "text",
