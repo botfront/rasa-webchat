@@ -112,6 +112,7 @@ export const PROP_TYPES = {
     text: PropTypes.string,
     hint: PropTypes.string,
     keywords: ImmutablePropTypes.listOf(replybuttons),
+    nb_max_keywords: PropTypes.number,
     sender: senderType,
     chooseReply: PropTypes.func,
     getChosenReply: PropTypes.func,

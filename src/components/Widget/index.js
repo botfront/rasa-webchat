@@ -540,6 +540,7 @@ class Widget extends Component {
       let msg = JSON.parse(messageClean["text"])
       messageClean["text"] = msg["text"]
       messageClean["keywords"] = msg["keywords"]
+      messageClean["nb_max_keywords"] = msg["nb_max_keywords"]
       this.props.dispatch(addKeywords(messageClean))
     } else if (isText(messageClean)) {
       this.props.dispatch(addResponseMessage(messageClean.text));

@@ -72,6 +72,7 @@ export function createKeywords(keywords, sender) {
     text: keywords.text,
     hint: keywords.hint || 'hint test',
     keywords: fromJS(keywords.keywords),
+    nb_max_keywords: keywords.nb_max_keywords,
     sender,
     showAvatar: true,
     chosenReply: null,

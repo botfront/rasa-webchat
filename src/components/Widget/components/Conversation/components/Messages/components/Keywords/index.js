@@ -9,6 +9,7 @@ import './styles.scss';
 import ThemeContext from '../../../../../../ThemeContext';
 
 let chosenKeywords = []
+const default_max_keywords = 8
 
 class Keywords extends PureComponent {
 
@@ -25,10 +26,14 @@ class Keywords extends PureComponent {
     } = this.props;
 
     const hint = message.get('hint');
-    const chosenReply = getChosenReply(id);
-    if (!chosenReply && !inputState) {
-      // this.props.toggleInputDisabled();
+
+    if (message.get('keywords') !== undefined && message.get("nb_max_keywords") !== undefined) {
+      message.get('keywords').size, message.get('keywords')._capacity = message.get("nb_max_keywords")
     }
+    else {
+      message.get('keywords').size, message.get('keywords')._capacity = default_max_keywords
+    }
+
   }
 
   handleClick(reply) {
@@ -112,14 +117,18 @@ class Keywords extends PureComponent {
             textarea.value = chosenKeywords.join(" ")
           }
         }
-        keywords = removeKeywords(keywords, chosenReply);
+        keywords = removeKeywords(keywords, chosenReply, message.get("nb_max_keywords"));
       }
       return this.renderKeywords(message, keywords, true);
     }
   }
 }
 
-function removeKeywords(keywords, keyword_name) {
+function removeKeywords(keywords, keyword_name, nb_max_keywords) {
+
+  if (nb_max_keywords === undefined) {
+    nb_max_keywords = default_max_keywords
+  }
 
   let output = keywords
   let keywords_list = []
@@ -128,8 +137,10 @@ function removeKeywords(keywords, keyword_name) {
       keywords_list.push(keywords._tail.array[i]);
     }
     else {
-      output.size = output.size - 1
-      output._capacity = output._capacity - 1
+      if (output._tail.array.length <= nb_max_keywords) {
+        output.size -= 1
+        output._capacity -= 1
+      }
     }
   }
   output._tail.array = keywords_list
