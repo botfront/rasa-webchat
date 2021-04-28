@@ -119,12 +119,12 @@ payload = {
     "text": "Your text",
     "keywords": [
       {
-        "content_type": "generic",
+        "content_type": "text",
         "title": "reply1",
         "payload": "id1"
       },
       {
-        "content_type": "generic",
+        "content_type": "text",
         "title": "reply2",
         "payload": "id2"
       },
