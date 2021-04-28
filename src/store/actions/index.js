@@ -124,6 +124,13 @@ export function addButtons(buttons) {
   };
 }
 
+export function addKeywords(keywords) {
+  return {
+    type: actions.ADD_KEYWORDS,
+    keywords
+  };
+}
+
 export function setButtons(id, title) {
   return {
     type: actions.SET_BUTTONS,

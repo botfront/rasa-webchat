@@ -49,6 +49,10 @@ export function addButtons(buttons) {
   store.dispatch(actions.addButtons(buttons));
 }
 
+export function addKeywords(keywords) {
+  store.dispatch(actions.addKeywords(keywords));
+}
+
 export function setButtons(id, title) {
   store.dispatch(actions.setButtons(id, title));
 }

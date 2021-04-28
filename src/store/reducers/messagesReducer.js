@@ -3,6 +3,7 @@ import { MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
 import {
   createButtons,
+  createKeywords,
   createNewMessage,
   createCarousel,
   createVideoSnippet,
@@ -50,6 +51,9 @@ export default function (storage) {
       }
       case actionTypes.ADD_BUTTONS: {
         return storeMessage(state.push(createButtons(action.buttons, MESSAGE_SENDER.RESPONSE)));
+      }
+      case actionTypes.ADD_KEYWORDS: {
+        return storeMessage(state.push(createKeywords(action.keywords, MESSAGE_SENDER.RESPONSE)));
       }
       case actionTypes.ADD_COMPONENT_MESSAGE: {
         return storeMessage(state.push(createComponentMessage(action.component, action.props, action.showAvatar)));

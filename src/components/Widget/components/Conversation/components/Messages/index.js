@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { MESSAGES_TYPES } from 'constants';
-import { Video, Image, Message, Carousel, Buttons } from 'messagesComponents';
+import { Video, Image, Message, Carousel, Buttons, Keywords } from 'messagesComponents';
 
 import './styles.scss';
 import ThemeContext from '../../../../ThemeContext';
@@ -56,6 +56,9 @@ class Messages extends Component {
         }
         case MESSAGES_TYPES.BUTTONS: {
           return Buttons;
+        }
+        case MESSAGES_TYPES.KEYWORDS: {
+          return Keywords;
         }
         case MESSAGES_TYPES.CUSTOM_COMPONENT:
           return connect(
@@ -142,14 +145,14 @@ class Messages extends Component {
 
     return (
       <div id="rw-messages" style={{ backgroundColor: conversationBackgroundColor }} className="rw-messages-container">
-        { renderMessages() }
+        {renderMessages()}
         {displayTypingIndication && (
           <div className={`rw-message rw-typing-indication ${profileAvatar && 'rw-with-avatar'}`}>
             {
               profileAvatar &&
               <img src={profileAvatar} className="rw-avatar" alt="profile" />
             }
-            <div style={{ backgroundColor: assistBackgoundColor }}className="rw-response">
+            <div style={{ backgroundColor: assistBackgoundColor }} className="rw-response">
               <div id="wave">
                 <span className="rw-dot" />
                 <span className="rw-dot" />

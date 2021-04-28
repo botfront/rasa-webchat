@@ -1,3 +1,7 @@
+export function isCustomPayloadKeywords(message) {
+  return (Object.keys(message).length === 1 && Object.keys(message).includes('text') && message["text"].includes("custom_payload_keywords"))
+}
+
 export function isCarousel(message) {
   return Object.keys(message).includes('attachment')
     && Object.keys(message.attachment).includes('type')

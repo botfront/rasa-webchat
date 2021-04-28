@@ -18,6 +18,7 @@ export const MESSAGES_TYPES = {
     IMAGE: 'imgreply'
   },
   BUTTONS: 'buttons',
+  KEYWORDS: "keywords",
   CUSTOM_COMPONENT: 'component'
 };
 
@@ -41,6 +42,7 @@ export const PROP_TYPES = {
     type: PropTypes.oneOf([
       MESSAGES_TYPES.TEXT,
       MESSAGES_TYPES.BUTTONS,
+      MESSAGES_TYPES.KEYWORDS,
       MESSAGES_TYPES.CAROUSEL,
       MESSAGES_TYPES.IMGREPLY.IMAGE,
       MESSAGES_TYPES.VIDREPLY.VIDEO
@@ -94,6 +96,22 @@ export const PROP_TYPES = {
     hint: PropTypes.string,
     quick_replies: ImmutablePropTypes.listOf(replybuttons),
     buttons: ImmutablePropTypes.listOf(replybuttons),
+    sender: senderType,
+    chooseReply: PropTypes.func,
+    getChosenReply: PropTypes.func,
+    toggleInputDisabled: PropTypes.func,
+    inputState: PropTypes.bool,
+    chosenReply: PropTypes.string
+  }),
+
+  KEYWORDS: ImmutablePropTypes.contains({
+    type: PropTypes.oneOf([
+      MESSAGES_TYPES.KEYWORDS
+    ]),
+    id: PropTypes.number,
+    text: PropTypes.string,
+    hint: PropTypes.string,
+    keywords: ImmutablePropTypes.listOf(replybuttons),
     sender: senderType,
     chooseReply: PropTypes.func,
     getChosenReply: PropTypes.func,

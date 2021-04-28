@@ -54,7 +54,7 @@ export default class RulesHandler {
       // So that we have an up to date version
       if (window[RULES_HANDLER_SINGLETON]) {
         window[RULES_HANDLER_SINGLETON].url =
-                    window.location.host + window.location.pathname;
+          window.location.host + window.location.pathname;
         // We clean up the timeouts so that we don't have race conditions and unwanted triggers
         window[RULES_HANDLER_SINGLETON].cleanUp();
         window[RULES_HANDLER_SINGLETON].initHandler();
@@ -163,7 +163,7 @@ export default class RulesHandler {
         elemList.forEach((elem) => {
           // We create it empty, because it depends on what happens later in this method.
           // By the time this callback is called, it will be a different method.
-          let removalMethod = () => {};
+          let removalMethod = () => { };
           const conditionChecker = () => {
             window[RULES_HANDLER_SINGLETON].verifyConditions(
               rules,
@@ -248,7 +248,7 @@ export default class RulesHandler {
       this.placeDot(elem, dot);
       return vizRemoval(dot);
     }
-    return () => {};
+    return () => { };
   }
 
   placeDot(receptacle, dot) {
@@ -256,8 +256,8 @@ export default class RulesHandler {
     dot.setAttribute(
       'style',
       `top: ${rect.top + window.pageYOffset - 12}px; left: ${rect.right +
-                window.pageXOffset -
-                16}px`
+      window.pageXOffset -
+      16}px`
     );
   }
 
@@ -266,9 +266,9 @@ export default class RulesHandler {
     questionMark.setAttribute(
       'style',
       `top: ${rect.top +
-                (rect.bottom - rect.top) / 2 +
-                window.pageYOffset -
-                9}px; left: ${rect.right + window.pageXOffset + 5}px;`
+      (rect.bottom - rect.top) / 2 +
+      window.pageYOffset -
+      9}px; left: ${rect.right + window.pageXOffset + 5}px;`
     );
   }
 
@@ -276,7 +276,7 @@ export default class RulesHandler {
     if (!trigger.device) return true;
     if (
       (/Mobi/.test(navigator.userAgent) && trigger.device === 'mobile') ||
-            (!/Mobi/.test(navigator.userAgent) && trigger.device !== 'mobile')
+      (!/Mobi/.test(navigator.userAgent) && trigger.device !== 'mobile')
     ) {
       return true;
     }
@@ -288,10 +288,10 @@ export default class RulesHandler {
     if (!trigger.timeLimit) return true;
     if (
       !this.history.rulesTriggered[ruleTriggeredIndex].lastTimeTriggered ||
-            (Date.now() -
-                Date.parse(this.history.rulesTriggered[ruleTriggeredIndex].lastTimeTriggered)) /
-                (60 * 1000) >
-                trigger.timeLimit
+      (Date.now() -
+        Date.parse(this.history.rulesTriggered[ruleTriggeredIndex].lastTimeTriggered)) /
+      (60 * 1000) >
+      trigger.timeLimit
     ) {
       return true;
     }
@@ -408,7 +408,7 @@ export default class RulesHandler {
   }
 
   // eslint-disable-next-line consistent-return
-  verifyConditions(rules, boolMode, tooltipSelector = false, removeViz = () => {}) {
+  verifyConditions(rules, boolMode, tooltipSelector = false, removeViz = () => { }) {
     const trigger = rules.trigger || {};
     const payload = {
       intent: rules.payload,
@@ -429,33 +429,33 @@ export default class RulesHandler {
     const urlCondition = this.verifyUrl(trigger);
 
     const triggerLimitCondition =
-            !(trigger.triggerLimit && trigger.when === 'limited') ||
-            this.history.rulesTriggered[ruleTriggeredIndex].triggered <
-                this.history.rulesTriggered[ruleTriggeredIndex].triggerLimit;
+      !(trigger.triggerLimit && trigger.when === 'limited') ||
+      this.history.rulesTriggered[ruleTriggeredIndex].triggered <
+      this.history.rulesTriggered[ruleTriggeredIndex].triggerLimit;
 
     const timeLimitCondition = this.verifyTimeLimit(trigger, ruleTriggeredIndex);
 
     const numberOfPageVisitsCondition =
-            !trigger.numberOfPageVisits ||
-            (this.history.timePerPage[this.url] &&
-                this.history.timePerPage[this.url] >= parseInt(trigger.numberOfPageVisits, 10));
+      !trigger.numberOfPageVisits ||
+      (this.history.timePerPage[this.url] &&
+        this.history.timePerPage[this.url] >= parseInt(trigger.numberOfPageVisits, 10));
 
     const queryString = window.location.search;
     const queryStringCondition =
-            !trigger.queryString ||
-            trigger.queryString.every(queryObject =>
-              this.verifyQueryStringAndAddEntities(queryString, queryObject, payload)
-            );
+      !trigger.queryString ||
+      trigger.queryString.every(queryObject =>
+        this.verifyQueryStringAndAddEntities(queryString, queryObject, payload)
+      );
 
     if (
       urlCondition &&
-            mobileCondition &&
-            numberOfPageVisitsCondition &&
-            triggerLimitCondition &&
-            queryStringCondition &&
-            timeLimitCondition &&
-            (!trigger.numberOfVisits ||
-                parseInt(trigger.numberOfVisits, 10) === parseInt(this.history.timesInDomain, 10))
+      mobileCondition &&
+      numberOfPageVisitsCondition &&
+      triggerLimitCondition &&
+      queryStringCondition &&
+      timeLimitCondition &&
+      (!trigger.numberOfVisits ||
+        parseInt(trigger.numberOfVisits, 10) === parseInt(this.history.timesInDomain, 10))
     ) {
       if (boolMode) {
         return true;
@@ -513,9 +513,8 @@ export default class RulesHandler {
     if (payload.intent) {
       let entities = '';
       payload.entities.forEach((entity, index) => {
-        const ent = `"${entity.entity}":"${entity.value}"${
-          index === payload.entities.length - 1 ? '' : ','
-        }`;
+        const ent = `"${entity.entity}":"${entity.value}"${index === payload.entities.length - 1 ? '' : ','
+          }`;
         entities += ent;
       });
       const sentPayload = `${payload.intent}{${entities}}`;
@@ -539,7 +538,7 @@ export default class RulesHandler {
       const minutesSinceLastSession = timeSinceLastSession / (60 * 1000);
       if (minutesSinceLastSession > 30) {
         this.history.timesInDomain =
-                    this.history && this.history.timesInDomain ? this.history.timesInDomain + 1 : 1;
+          this.history && this.history.timesInDomain ? this.history.timesInDomain + 1 : 1;
         this.history.path = [];
       }
     }

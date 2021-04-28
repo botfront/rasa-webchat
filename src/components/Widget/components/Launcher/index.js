@@ -10,8 +10,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import { MESSAGES_TYPES } from 'constants';
-import { Image, Message, Buttons } from 'messagesComponents';
-import { showTooltip as showTooltipAction, emitUserMessage} from 'actions';
+import { Image, Message, Buttons, Keywords } from 'messagesComponents';
+import { showTooltip as showTooltipAction, emitUserMessage } from 'actions';
 import { onRemove } from 'utils/dom';
 import openLauncher from 'assets/launcher_button.svg';
 import closeIcon from 'assets/clear-button-grey.svg';
@@ -106,6 +106,9 @@ const Launcher = ({
         case MESSAGES_TYPES.BUTTONS: {
           return Buttons;
         }
+        case MESSAGES_TYPES.KEYWORDS: {
+          return Keywords;
+        }
         default:
           return null;
       }
@@ -130,7 +133,7 @@ const Launcher = ({
               if (
                 Math.abs(dragStatus.current.x - event.clientX) +
                 Math.abs(dragStatus.current.y - event.clientY) <
-              15
+                15
               ) {
                 toggle();
               }
@@ -152,22 +155,22 @@ const Launcher = ({
             /* stop the propagation because the popup is also a button
             otherwise it would open the webchat when closing the tooltip */
             e.stopPropagation();
-            
+
             const payload = domHighlight.get('tooltipClose')
-              if(domHighlight && payload){
-                sendPayload(`/${payload}`)
-              }
+            if (domHighlight && payload) {
+              sendPayload(`/${payload}`)
+            }
             closeTooltip();
           }}
         >
           <img src={closeIcon} alt="close" />
         </button>
       </div>
-      { lastMessages.length === 1 ? (<div
+      {lastMessages.length === 1 ? (<div
         onMouseUp={() => toggle()}
       >
         {getComponentToRender(lastMessages[0], true)}
-      </div>) : renderSequenceTooltip(lastMessages) }
+      </div>) : renderSequenceTooltip(lastMessages)}
     </React.Fragment>
   );
 

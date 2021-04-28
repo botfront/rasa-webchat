@@ -1,7 +1,7 @@
 import { Map, fromJS } from 'immutable';
 import { MESSAGES_TYPES, MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
-import { Video, Image, Message, Carousel, Buttons } from 'messagesComponents';
+import { Video, Image, Message, Carousel, Buttons, Keywords } from 'messagesComponents';
 
 export function createNewMessage(text, sender, nextMessageIsTooltip, hidden) {
   return Map({
@@ -58,6 +58,20 @@ export function createButtons(buttons, sender) {
     hint: buttons.hint || 'Select an option...',
     quick_replies: fromJS(buttons.quick_replies),
     buttons: fromJS(buttons.buttons),
+    sender,
+    showAvatar: true,
+    chosenReply: null,
+    timestamp: new Date().getTime()
+  });
+}
+
+export function createKeywords(keywords, sender) {
+  return Map({
+    type: MESSAGES_TYPES.KEYWORDS,
+    component: Keywords,
+    text: keywords.text,
+    hint: keywords.hint || 'hint test',
+    keywords: fromJS(keywords.keywords),
     sender,
     showAvatar: true,
     chosenReply: null,

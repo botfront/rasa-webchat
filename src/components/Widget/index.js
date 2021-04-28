@@ -15,6 +15,7 @@ import {
   addVideoSnippet,
   addImageSnippet,
   addButtons,
+  addKeywords,
   renderCustomComponent,
   initialize,
   connectServer,
@@ -35,7 +36,7 @@ import {
 } from 'actions';
 import { safeQuerySelectorAll } from 'utils/dom';
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
-import { isVideo, isImage, isButtons, isText, isCarousel } from './msgProcessor';
+import { isVideo, isImage, isButtons, isText, isCarousel, isCustomPayloadKeywords } from './msgProcessor';
 import WidgetLayout from './layout';
 import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
 
@@ -328,9 +329,9 @@ class Widget extends Component {
 
             const ElemIsInViewPort = (
               rectangle.top >= 0 &&
-                rectangle.left >= 0 &&
-                rectangle.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rectangle.right <= (window.innerWidth || document.documentElement.clientWidth)
+              rectangle.left >= 0 &&
+              rectangle.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+              rectangle.right <= (window.innerWidth || document.documentElement.clientWidth)
             );
             if (!ElemIsInViewPort) {
               elements[0].scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'smooth' });
@@ -534,7 +535,13 @@ class Widget extends Component {
     }
     const { customCss, ...messageClean } = message;
 
-    if (isText(messageClean)) {
+
+    if (isCustomPayloadKeywords(messageClean)) {
+      let msg = JSON.parse(messageClean["text"])
+      messageClean["text"] = msg["text"]
+      messageClean["keywords"] = msg["keywords"]
+      this.props.dispatch(addKeywords(messageClean))
+    } else if (isText(messageClean)) {
       this.props.dispatch(addResponseMessage(messageClean.text));
     } else if (isButtons(messageClean)) {
       this.props.dispatch(addButtons(messageClean));
