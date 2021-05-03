@@ -25,6 +25,7 @@
     border: 0;
     font-size: 100%;
     vertical-align: baseline;
+    margin-block-end:0;
   }
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure, 
@@ -35,7 +36,7 @@
     line-height: 1;
   }
   ol, ul {
-    list-style: none;
+    list-style: disc;
   }
   blockquote, q {
     quotes: none;
@@ -67,7 +68,7 @@
   align-items: flex-end;
   justify-content: flex-end;
 
-  .#{$namespace}full-screen.#{$namespace}chat-open {
+  &.#{$namespace}full-screen.#{$namespace}chat-open {
     @include widget-container-fs;
   }
   p {

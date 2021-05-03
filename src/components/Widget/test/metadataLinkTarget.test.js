@@ -3,16 +3,16 @@ import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 
 import LocalStorageMock from '../../../../mocks/localStorageMock';
-import QuickReply from '../components/Conversation/components/Messages/components/QuickReply';
+import Buttons from '../components/Conversation/components/Messages/components/Buttons';
 import { initStore } from '../../../store/store';
 
 const localStorage = new LocalStorageMock();
 const stubSocket = jest.fn();
-const store = initStore('dummy', 'dummy', stubSocket, localStorage);
+const store = initStore('dummy', stubSocket, localStorage);
 
 describe('link target', () => {
-  store.dispatch({ type: 'ADD_QUICK_REPLY',
-    quickReply: {
+  store.dispatch({ type: 'ADD_BUTTONS',
+    buttons: {
       text: 'test',
       quick_replies: [
         {
@@ -29,9 +29,9 @@ describe('link target', () => {
         }
       ]
     } });
-  const quickReplyComponent = mount(
+  const buttonsComponent = mount(
     <Provider store={store}>
-      <QuickReply
+      <Buttons
         params={null}
         id={0}
         message={store.getState().messages.get(0)}
@@ -43,19 +43,19 @@ describe('link target', () => {
 
   it('should render a quick reply with a link to google targeting self', () => {
     store.dispatch({ type: 'SET_LINK_TARGET', target: '_self' });
-    quickReplyComponent.update();
-    expect(quickReplyComponent.find('a.reply')).toHaveLength(1);
-    expect(quickReplyComponent.find('a.reply').text()).toEqual('google');
-    expect(quickReplyComponent.find('a.reply').prop('href')).toEqual('http://www.google.ca');
-    expect(quickReplyComponent.find('a.reply').prop('target')).toEqual('_self');
+    buttonsComponent.update();
+    expect(buttonsComponent.find('a.rw-reply')).toHaveLength(1);
+    expect(buttonsComponent.find('a.rw-reply').text()).toEqual('google');
+    expect(buttonsComponent.find('a.rw-reply').prop('href')).toEqual('http://www.google.ca');
+    expect(buttonsComponent.find('a.rw-reply').prop('target')).toEqual('_self');
   });
 
   it('should render a quick reply with a link to google targeting blank', () => {
     store.dispatch({ type: 'SET_LINK_TARGET', target: '_blank' });
-    quickReplyComponent.update();
-    expect(quickReplyComponent.find('a.reply')).toHaveLength(1);
-    expect(quickReplyComponent.find('a.reply').text()).toEqual('google');
-    expect(quickReplyComponent.find('a.reply').prop('href')).toEqual('http://www.google.ca');
-    expect(quickReplyComponent.find('a.reply').prop('target')).toEqual('_blank');
+    buttonsComponent.update();
+    expect(buttonsComponent.find('a.rw-reply')).toHaveLength(1);
+    expect(buttonsComponent.find('a.rw-reply').text()).toEqual('google');
+    expect(buttonsComponent.find('a.rw-reply').prop('href')).toEqual('http://www.google.ca');
+    expect(buttonsComponent.find('a.rw-reply').prop('target')).toEqual('_blank');
   });
 });

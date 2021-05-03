@@ -21,7 +21,6 @@ const trimQueryString = (url) => {
 };
 
 function initStore(
-  hintText,
   connectingText,
   socket,
   storage,
@@ -29,38 +28,40 @@ function initStore(
   onWidgetEvent,
 ) {
   const customMiddleWare = store => next => (action) => {
-    let sessionId = getLocalSession(storage, SESSION_NAME)
-      ? getLocalSession(storage, SESSION_NAME).session_id
+    const localSession = getLocalSession(storage, SESSION_NAME);
+    let sessionId = localSession
+      ? localSession.session_id
       : null;
     if (!sessionId && socket.sessionId) {
       sessionId = socket.sessionId;
     }
-    switch (action.type) {
-      case actionTypes.EMIT_NEW_USER_MESSAGE: {
-        const emit = () => socket.emit(
+    const emitMessage = (payload) => {
+      const emit = () => {
+        socket.emit(
           'user_uttered', {
-            message: action.text,
+            message: payload,
             customData: socket.customData,
             session_id: sessionId
           }
         );
-        if (socket.sessionConfirmed) {
+        store.dispatch({
+          type: actionTypes.ADD_NEW_USER_MESSAGE,
+          text: 'text',
+          nextMessageIsTooltip: false,
+          hidden: true
+        });
+      };
+      if (socket.sessionConfirmed) {
+        emit();
+      } else {
+        socket.on('session_confirm', () => {
           emit();
-        } else {
-          socket.on('session_confirm', () => {
-            emit();
-          });
-        }
-        break;
+        });
       }
-      case actionTypes.EMIT_MESSAGE_IF_FIRST: {
-        if (store.getState().messages.size === 0) {
-          socket.emit('user_uttered', {
-            message: action.payload,
-            customData: socket.customData,
-            session_id: sessionId
-          });
-        }
+    };
+    switch (action.type) {
+      case actionTypes.EMIT_NEW_USER_MESSAGE: {
+        emitMessage(action.text);
         break;
       }
       case actionTypes.GET_OPEN_STATE: {
@@ -77,13 +78,6 @@ function initStore(
         const pageCallbacksJs = pageCallbacks ? pageCallbacks.toJS() : {};
 
         const newUrl = action.url;
-        const emitMessage = (message) => {
-          socket.emit('user_uttered', {
-            message,
-            customData: socket.customData,
-            session_id: sessionId
-          });
-        };
 
         if (!pageCallbacksJs.pageChanges) break;
 
@@ -121,7 +115,7 @@ function initStore(
     next(action);
   };
   const reducer = combineReducers({
-    behavior: behavior(hintText, connectingText, storage, docViewer, onWidgetEvent),
+    behavior: behavior(connectingText, storage, docViewer, onWidgetEvent),
     messages: messages(storage),
     metadata: metadata(storage)
   });

@@ -33,8 +33,8 @@ export function addResponseMessage(text) {
   store.dispatch(actions.addResponseMessage(text));
 }
 
-export function addLinkSnippet(link) {
-  store.dispatch(actions.addLinkSnippet(link));
+export function addCarousel(carousel) {
+  store.dispatch(actions.addCarousel(carousel));
 }
 
 export function addVideoSnippet(video) {
@@ -45,12 +45,12 @@ export function addImageSnippet(image) {
   store.dispatch(actions.addImageSnippet(image));
 }
 
-export function addQuickReply(quickReply) {
-  store.dispatch(actions.addQuickReply(quickReply));
+export function addButtons(buttons) {
+  store.dispatch(actions.addButtons(buttons));
 }
 
-export function setQuickReply(id, title) {
-  store.dispatch(actions.setQuickReply(id, title));
+export function setButtons(id, title) {
+  store.dispatch(actions.setButtons(id, title));
 }
 
 export function insertUserMessage(id, text) {
@@ -87,10 +87,6 @@ export function toggleFullScreen() {
 
 export function toggleInputDisabled(disable) {
   store.dispatch(actions.toggleInputDisabled(disable));
-}
-
-export function changeInputFieldHint(hint) {
-  store.dispatch(actions.changeInputFieldHint(hint));
 }
 
 export function dropMessages() {

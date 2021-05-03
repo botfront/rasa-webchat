@@ -1,3 +1,4 @@
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -10,10 +11,10 @@ import {
   addUserMessage,
   emitUserMessage,
   addResponseMessage,
-  addLinkSnippet,
+  addCarousel,
   addVideoSnippet,
   addImageSnippet,
-  addQuickReply,
+  addButtons,
   renderCustomComponent,
   initialize,
   connectServer,
@@ -23,7 +24,6 @@ import {
   triggerMessageDelayed,
   triggerTooltipSent,
   showTooltip,
-  emitMessageIfFirst,
   clearMetadata,
   setUserInput,
   setLinkTarget,
@@ -33,9 +33,9 @@ import {
   evalUrl,
   setCustomCss
 } from 'actions';
-
+import { safeQuerySelectorAll } from 'utils/dom';
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
-import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
+import { isVideo, isImage, isButtons, isText, isCarousel } from './msgProcessor';
 import WidgetLayout from './layout';
 import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
 
@@ -47,6 +47,7 @@ class Widget extends Component {
     this.messageDelayTimeout = null;
     this.onGoingMessageDelay = false;
     this.sendMessage = this.sendMessage.bind(this);
+    this.getSessionId = this.getSessionId.bind(this);
     this.intervalId = null;
     this.eventListenerCleaner = () => { };
   }
@@ -77,6 +78,7 @@ class Widget extends Component {
         localStorage.removeItem(SESSION_NAME);
       }
     } else {
+      this.checkVersionBeforePull();
       dispatch(pullSession());
       if (lastUpdate) this.initializeWidget();
     }
@@ -116,14 +118,27 @@ class Widget extends Component {
     return localId;
   }
 
-  sendMessage(payload, text = '', when = 'always') {
-    const { dispatch, initialized } = this.props;
+  sendMessage(payload, text = '', when = 'always', tooltipSelector = false) {
+    const { dispatch, initialized, messages } = this.props;
     const emit = () => {
-      if (when === 'always') {
+      const send = () => {
         dispatch(emitUserMessage(payload));
-        if (text !== '') dispatch(addUserMessage(text));
+        if (text !== '') {
+          dispatch(addUserMessage(text, tooltipSelector));
+        } else {
+          dispatch(addUserMessage('hidden', tooltipSelector, true));
+        }
+        if (tooltipSelector) {
+          dispatch(closeChat());
+          showTooltip(true);
+        }
+      };
+      if (when === 'always') {
+        send();
       } else if (when === 'init') {
-        dispatch(emitMessageIfFirst(payload, text));
+        if (messages.size === 0) {
+          send();
+        }
       }
     };
     if (!initialized) {
@@ -137,6 +152,7 @@ class Widget extends Component {
 
   handleMessageReceived(messageWithMetadata) {
     const { dispatch, isChatOpen, disableTooltips } = this.props;
+
     // we extract metadata so we are sure it does not interfer with type checking of the message
     const { metadata, ...message } = messageWithMetadata;
     if (!isChatOpen) {
@@ -259,7 +275,7 @@ class Widget extends Component {
     const { domHighlight, defaultHighlightClassname } = this.props;
     const domHighlightJS = domHighlight.toJS() || {};
     if (domHighlightJS.selector) {
-      const elements = document.querySelectorAll(domHighlightJS.selector);
+      const elements = safeQuerySelectorAll(domHighlightJS.selector);
       elements.forEach((element) => {
         switch (domHighlightJS.style) {
           case 'custom':
@@ -283,7 +299,7 @@ class Widget extends Component {
     const { domHighlight, defaultHighlightCss, defaultHighlightClassname } = this.props;
     const domHighlightJS = domHighlight.toJS() || {};
     if (domHighlightJS.selector) {
-      const elements = document.querySelectorAll(domHighlightJS.selector);
+      const elements = safeQuerySelectorAll(domHighlightJS.selector);
       elements.forEach((element) => {
         switch (domHighlightJS.style) {
           case 'custom':
@@ -325,6 +341,14 @@ class Widget extends Component {
     }
   }
 
+  checkVersionBeforePull() {
+    const { storage } = this.props;
+    const localSession = getLocalSession(storage, SESSION_NAME);
+    if (localSession && (localSession.version !== 'PACKAGE_VERSION_TO_BE_REPLACED')) {
+      storage.removeItem(SESSION_NAME);
+    }
+  }
+
   initializeWidget(sendInitPayload = true) {
     const {
       storage,
@@ -340,14 +364,18 @@ class Widget extends Component {
       socket.createSocket();
 
       socket.on('bot_uttered', (botUttered) => {
+        // botUttered.attachment.payload.elements = [botUttered.attachment.payload.elements];
+        // console.log(botUttered);
         this.handleBotUtterance(botUttered);
       });
+
+      this.checkVersionBeforePull();
 
       dispatch(pullSession());
 
       // Request a session from server
-      const localId = this.getSessionId();
       socket.on('connect', () => {
+        const localId = this.getSessionId();
         socket.emit('session_request', { session_id: localId });
       });
 
@@ -366,6 +394,7 @@ class Widget extends Component {
         If the localId is null or different from the remote_id,
         start a new session.
         */
+        const localId = this.getSessionId();
         if (localId !== remoteId) {
           // storage.clear();
           // Store the received session_id to storage
@@ -507,17 +536,11 @@ class Widget extends Component {
 
     if (isText(messageClean)) {
       this.props.dispatch(addResponseMessage(messageClean.text));
-    } else if (isQR(messageClean)) {
-      this.props.dispatch(addQuickReply(messageClean));
-    } else if (isSnippet(messageClean)) {
-      const element = messageClean.attachment.payload.elements[0];
+    } else if (isButtons(messageClean)) {
+      this.props.dispatch(addButtons(messageClean));
+    } else if (isCarousel(messageClean)) {
       this.props.dispatch(
-        addLinkSnippet({
-          title: element.title,
-          content: element.buttons[0].title,
-          link: element.buttons[0].url,
-          target: '_blank'
-        })
+        addCarousel(messageClean)
       );
     } else if (isVideo(messageClean)) {
       const element = messageClean.attachment.payload;
@@ -577,6 +600,7 @@ class Widget extends Component {
         embedded={this.props.embedded}
         params={this.props.params}
         openLauncherImage={this.props.openLauncherImage}
+        inputTextFieldHint={this.props.inputTextFieldHint}
         closeImage={this.props.closeImage}
         customComponent={this.props.customComponent}
         displayUnreadCount={this.props.displayUnreadCount}
@@ -596,7 +620,8 @@ const mapStateToProps = state => ({
   tooltipSent: state.metadata.get('tooltipSent'),
   oldUrl: state.behavior.get('oldUrl'),
   pageChangeCallbacks: state.behavior.get('pageChangeCallbacks'),
-  domHighlight: state.metadata.get('domHighlight')
+  domHighlight: state.metadata.get('domHighlight'),
+  messages: state.messages
 });
 
 Widget.propTypes = {
@@ -621,6 +646,7 @@ Widget.propTypes = {
   initialized: PropTypes.bool,
   openLauncherImage: PropTypes.string,
   closeImage: PropTypes.string,
+  inputTextFieldHint: PropTypes.string,
   customComponent: PropTypes.func,
   displayUnreadCount: PropTypes.bool,
   showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
@@ -633,7 +659,8 @@ Widget.propTypes = {
   disableTooltips: PropTypes.bool,
   defaultHighlightAnimation: PropTypes.string,
   defaultHighlightCss: PropTypes.string,
-  defaultHighlightClassname: PropTypes.string
+  defaultHighlightClassname: PropTypes.string,
+  messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map)
 };
 
 Widget.defaultProps = {
@@ -644,6 +671,7 @@ Widget.defaultProps = {
   autoClearCache: false,
   displayUnreadCount: false,
   tooltipPayload: null,
+  inputTextFieldHint: 'Type a message...',
   oldUrl: '',
   disableTooltips: false,
   defaultHighlightClassname: '',

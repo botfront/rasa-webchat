@@ -10,10 +10,12 @@ describe('Dispatcher', () => {
     clear: jest.fn()
   };
   const mockSocket = {
-    emit: jest.fn((action, message) => sentToSocket.push({ action, message }))
+    emit: jest.fn((action, message) => sentToSocket.push({ action, message })),
+    on: () => {},
+    sessionConfirmed: true
   };
 
-  let store = initStore('dummy',
+  let store = initStore(
     'dummy',
     mockSocket,
     localStorageMock,
@@ -21,7 +23,7 @@ describe('Dispatcher', () => {
   );
   beforeEach(() => {
     sentToSocket = [];
-    store = initStore('dummy',
+    store = initStore(
       'dummy',
       mockSocket,
       localStorageMock,

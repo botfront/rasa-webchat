@@ -33,7 +33,7 @@ describe('<Launcher />', () => {
     const toggle = jest.fn();
     const chatOpened = false;
     const launcherComponent = createLauncherComponent({ toggle, chatOpened });
-    launcherComponent.find('.launcher').simulate('click');
+    launcherComponent.find('.rw-launcher').simulate('click');
     expect(toggle).toBeCalled();
   });
 
@@ -50,9 +50,9 @@ describe('<Launcher />', () => {
         unreadCount,
         displayUnreadCount
       });
-      expect(launcherComponent.find('.open-launcher')).toHaveLength(1);
-      expect(launcherComponent.find('.close-launcher')).toHaveLength(0);
-      expect(launcherComponent.find('.unread-count-pastille')).toHaveLength(0);
+      expect(launcherComponent.find('.rw-open-launcher')).toHaveLength(1);
+      expect(launcherComponent.find('.rw-close-launcher')).toHaveLength(0);
+      expect(launcherComponent.find('.rw-unread-count-pastille')).toHaveLength(0);
     });
 
     it('should not display unreadCount when displayUnreadCount = false', () => {
@@ -64,9 +64,9 @@ describe('<Launcher />', () => {
         unreadCount,
         displayUnreadCount
       });
-      expect(launcherComponent.find('.open-launcher')).toHaveLength(1);
-      expect(launcherComponent.find('.close-launcher')).toHaveLength(0);
-      expect(launcherComponent.find('.unread-count-pastille')).toHaveLength(0);
+      expect(launcherComponent.find('.rw-open-launcher')).toHaveLength(1);
+      expect(launcherComponent.find('.rw-close-launcher')).toHaveLength(0);
+      expect(launcherComponent.find('.rw-unread-count-pastille')).toHaveLength(0);
     });
 
     it('should display unreadCount when count is superior to 0 and displayUnreadCount = true', () => {
@@ -78,17 +78,9 @@ describe('<Launcher />', () => {
         unreadCount,
         displayUnreadCount
       });
-      expect(launcherComponent.find('.open-launcher')).toHaveLength(1);
-      expect(launcherComponent.find('.close-launcher')).toHaveLength(0);
-      expect(launcherComponent.find('.unread-count-pastille')).toHaveLength(1);
+      expect(launcherComponent.find('.rw-open-launcher')).toHaveLength(1);
+      expect(launcherComponent.find('.rw-close-launcher')).toHaveLength(0);
+      expect(launcherComponent.find('.rw-unread-count-pastille')).toHaveLength(1);
     });
-  });
-
-  it('should render the close-launcher image when chatOpened = true', () => {
-    const toggle = jest.fn();
-    const chatOpened = true;
-    const launcherComponent = createLauncherComponent({ toggle, chatOpened });
-    expect(launcherComponent.find('.open-launcher')).toHaveLength(0);
-    expect(launcherComponent.find('.close-launcher')).toHaveLength(1);
   });
 });

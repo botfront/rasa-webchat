@@ -1,9 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { version } = require('./package.json');
 
 module.exports = {
   // entry: ['babel-polyfill', './index.js'],
-  entry: './index.js',
+  entry: './umd.js',
   output: {
     path: path.join(__dirname, '/lib'),
     filename: 'index.js',
@@ -26,7 +27,16 @@ module.exports = {
     rules: [{
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
-      loader: 'babel-loader'
+      use: [
+        {
+          loader: 'string-replace-loader',
+          options: {
+            search: 'PACKAGE_VERSION_TO_BE_REPLACED',
+            replace: version
+          }
+        },
+        { loader: 'babel-loader' }
+      ]
     }, {
       test: /\.scss$/,
       use: [
@@ -40,7 +50,10 @@ module.exports = {
         }
       ]
     }, {
-      test: /\.(jpg|png|gif|svg)$/,
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader']
+    }, {
+      test: /\.(jpg|png|gif|svg|woff|ttf|eot)$/,
       use: {
         loader: 'url-loader'
       }

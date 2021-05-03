@@ -4,64 +4,44 @@
     <img alt="npm" src="https://img.shields.io/npm/v/rasa-webchat.svg">
 </a>
 <a href='https://github.com/botfront/botfront/blob/master/LICENSE'>
-    <img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg">
+    <img alt="License" src="https://img.shields.io/github/license/botfront/rasa-webchat">
 </a>
 <a href='https://spectrum.chat/botfront'>
-    <img alt="License" src="https://withspectrum.github.io/badge/badge.svg">
+    <img alt="Spectrum link" src="https://withspectrum.github.io/badge/badge.svg">
 </a>
 </p>
 <h1 align="center">Rasa Webchat 💬</h1>
 <h5 align="center">
  A chat widget to deploy virtual assistants made with <a href="https://github.com/rasaHQ/rasa">Rasa</a> or <a href="https://github.com/botfront/botfront?utm_source=rasa_webchat">Botfront</a> on any website.
-
 </h5>
-<a href="https://botfront.io">
-</a>
+<br />
+<br />
 
-<table>
-  <tr>
-  <td width="50%">
-    <h2>Features</h2>
-    <ul>
-    <li>Text Messages</li>
-    <li>Quick Replies</li>
-    <li>Images and Videos</li>
-    <li>Markdown support</li>
-    <li>Persistent sessions</li>
-    <li>Typing indications</li>
-    <li>Smart delay between messages</li>
-    <li>Easy to import in a script tag or as a React Component</li>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    </ul>
-  </td>
-  <td width="50%">
-  <img align="center" src="./assets/chat-demonstration.gif" alt="demonstration" width="400">
-  </td>
- </tr>
+<div align="center">
+<img align="center" src="./rasa_webchat.gif" alt="demonstration">
+</div>
+<br />
 
-</table>
-<table>
-<tr>
-<td>
-<h2 align="center">Check Out Our Other Project</h2>
+### ⚠️ Version 1.0.1 of the rasa webchat is made to work with version 2.3.x and 2.4.x of rasa. Use 1.0.0 for other rasa versions.
+
+<br />
+
+## Features
+- Text Messages
+- Quick Replies
+- Images
+- Carousels
+- Markdown support
+- Persistent sessions
+- Typing indications
+- Smart delay between messages
+- Easy to import in a script tag or as a React Component
+
+## 🔥 Promo: check out our other cool open source project
+
 <a href="https://github.com/botfront/botfront?utm_source=rasa_webchat">
 <img align="center" src="https://github.com/botfront/botfront/raw/master/botfront_animation.gif" alt="demonstration" width="100%">
 </a>
-</td>
-</tr>
-</table>
 
 
 ## Usage
@@ -69,39 +49,45 @@
 ### In a `<script>` tag
 
 In your `<body/>`:
-```javascript
-<div id="webchat"/>
-<script src="https://storage.googleapis.com/mrbot-cdn/webchat-latest.js"></script>
-// Or you can replace latest with a specific version
-<script>
-  WebChat.default.init({
-    selector: "#webchat",
-    initPayload: "/get_started",
-    customData: {"language": "en"}, // arbitrary custom data. Stay minimal as this will be added to the socket
-    socketUrl: "http://localhost:5500",
-    socketPath: "/socket.io/",
-    title: "Title",
-    subtitle: "Subtitle",
-  })
+```html
+<script>!(function () {
+  let e = document.createElement("script"),
+    t = document.head || document.getElementsByTagName("head")[0];
+  (e.src =
+    "https://cdn.jsdelivr.net/npm/rasa-webchat@1.x.x/lib/index.js"),
+    // Replace 1.x.x with the version that you want
+    (e.async = !0),
+    (e.onload = () => {
+      window.WebChat.default(
+        {
+          customData: { language: "en" },
+          socketUrl: "https://bf-botfront.development.agents.botfront.cloud",
+          // add other props here
+        },
+        null
+      );
+    }),
+    t.insertBefore(e, t.firstChild);
+})();
 </script>
 ```
 
-About images: `width` and `height` define the size in pixels that images in messages are crop-scaled to. If not present, the image will scale to the maximum width of the container and the image.
+⚠️ We recommend adding a version tag to prevent breaking changes from major versions, e.g for version 1.0.0 https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.0/lib/index.js,
+however this will not work with versions below 1.0.0. If you do not specify a version, you will get served the latest available version of the rasa-webchat.
 
-It is recommended to use a particular version (i.e. "webchat-<version>.js") however the file "webchat-latest.js"
-is also available and is updated continuously with the latest version.
+About images: `width` and `height` define the size in pixels that images in messages are crop-scaled to. If not present, the image will scale to the maximum width of the container and the image.
 
 ### As a React component
 
-Install the package from GitHub by running:
+Install the [npm package](https://npmjs.com/rasa-webchat):
 ```bash
 npm install rasa-webchat
 ```
 
-Then once it is installed it can be implemented as follows.
+Then:
 
 ```javascript
-import { Widget } from 'rasa-webchat';
+import Widget from 'rasa-webchat';
 
 function CustomWidget = () => {
   return (
@@ -140,9 +126,9 @@ set to `true` if you don't want to see the launcher.
 | `displayUnreadCount`   | `false`            | Path to an image displayed on the launcher when the widget is closed                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `showMessageDate`      | `false`            | Show message date. Can be overriden with a function: `(timestamp, message) => return 'my custom date'`                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `customMessageDelay`   | See below          | This prop is a function, the function take a message string as an argument. The defined function will be called everytime a message is received and the returned value will be used as a milliseconds delay before displaying a new message.                                                                                                                                                                                                                                                                                 |
-| `params`               | See below          | Essentially used to customize the image size.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `storage`              | `"local"`          | Specifies the storage location of the conversation state in the browser. `"session"` defines the state to be stored in the session storage. The session storage persists on reload of the page, and is cleared after the browser or tab is closed, or when `sessionStorage.clear()`is called. `"local"` defines the state to be stored in the local stoage. The local storage persists after the the browser is closed, and is cleared when the cookies of the browser are cleared, or when `localStorage.clear()`is called. |
-| `customComponent`      | `null`             | Custom component to be used with custom responses. E.g.: `customComponent={ (messageData) => (<div>Custom React component</div>)` }|
+| `params`               | See below          | Essentially used to customize the image size, also used to change storage options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `storage`              | `"local"`          | ⚠️ This is not a prop, it has to be passed inside the params object above. <br> Specifies the storage location of the conversation state in the browser. `"session"` defines the state to be stored in the session storage. The session storage persists on reload of the page, and is cleared after the browser or tab is closed, or when `sessionStorage.clear()`is called. `"local"` defines the state to be stored in the local stoage. The local storage persists after the the browser is closed, and is cleared when the cookies of the browser are cleared, or when `localStorage.clear()`is called. |
+| `customComponent`      | `null`             | Custom component to be used with custom responses. E.g.: `customComponent={ (messageData) => (<div>Custom React component</div>)}`. Please note that this can only be used if you call the webchat from a React application as you can't write a component in pure Javscript. |
 | `onWidgetEvent`        | `{}`             | call custom code on a specific widget event ( `onChatOpen`, `onChatClose`, `onChatHidden`, are available for now ), add a function to the desired object property in the props to have it react to the event. |
 
 ### Additional Examples
@@ -182,7 +168,7 @@ params={{
 
 ### Other features
 
-#### Tooltip
+#### Tooltips
 
 Text messages received when the widget is closed will be shown as a tooltip.
 
@@ -190,19 +176,27 @@ Text messages received when the widget is closed will be shown as a tooltip.
 
 When reconnecting to an existing chat session, the bot will send a message contained in the localStorage key specified by the `NEXT_MESSAGE` constant. The message should be stringified JSON with a `message` property describing the message and an `expiry` property set to a UNIX timestamp in milliseconds after which this message should not be sent. This is useful if you would like your bot to be able to offer your user to navigate around the site.
 
+#### Sending a payload from your React app
 
-## API
+```jsx
+function myComponent() {
+    const webchatRef = useRef(null);
+    
+    // triggered when something happens in your app
+    function callback() {
+        if (webchatRef.current && webchatRef.current.sendMessage) {
+            webchatRef.current.sendMessage('/myIntent{"entityName":"value"}');
+        }
+    }
+    
+    return <RasaWebchat
+        ref={webchatRef}
+    />;
+}
+```
 
-| Method                                   | Description                                                                                                                                                              |
-|------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `WebChat.toggle()`                       | Toggle the open/close state of the chat window, send initPayload if webchat is not initialized and is toggled open                                                       |
-| `WebChat.open()`                         | Open the chat window, send initPayload if webchat is not initialized                                                                                                     |
-| `WebChat.close()`                        | Close the chat window                                                                                                                                                    |
-| `WebChat.isOpen()`                       | Get the open/closed state of the widget                                                                                                                                  |
-| `WebChat.show()`                         | Show the chat widget, send initPayload if the chat is in open state and not initialized                                                                                  |
-| `WebChat.hide()`                         | Hide the chat widget                                                                                                                                                     |
-| `WebChat.isVisible()`                    | Get the shown/hidden state of the widget                                                                                                                                 |
-| `WebChat.send(payload, text: optionnal)` | send a payload (`/intent{"entity":"value"}` to rasa. If `text` is specified, it will be displayed as a user message. If not specified, no user message will be displayed |                                                                       |
+The payload can be any message that the user would normally send, but if you want to force an intent and maybe some entities, you can use that format
+`/myIntent{"entity1":"value1","entity2":"value2"}`
 
 ### Backends
 
@@ -212,130 +206,12 @@ The widget can be used with any backend but is primarily designed to be used wit
 
 Use the `socketio` channel: See [instructions in the Rasa documentation](https://rasa.com/docs/core/connectors/#socketio-connector)
 
-If you want to process `customData` in Rasa  you have to [create a new channel](https://rasa.com/docs/core/connectors/#custom-channels). Use channel `rasa_core.channels.socketio` as a template for your new channel. In such channel `customData` can be retrieved via `data['customData']`. Then you can  modify `sender_id`, save `customData` to the database, fill slots or whatever you need to with your additional data.
+If you want to process `customData` in Rasa  you have to [create a new channel](https://rasa.com/docs/core/connectors/#custom-channels). Use channel `rasa_core.channels.socketio` as a template for your new channel. In this channel, `customData` can be retrieved via `data['customData']`. Then you can  modify `sender_id`, save `customData` to the database, fill slots or whatever you need to with your additional data.
 
 
 #### Botfront
 
-The Rasa Webchat is developped by the [Botfront](https://botfront.io) team and it works with Botfront. Make sure to specificy the language in the `customData` prop. E.g. `customData={{language: 'en'}}`. See in [Botfront docs](https://botfront.io/docs/deployment/frontend/#frontend-configure-the-widget) for more details.
-
-#### Others
-Your backend must expose a socket with [socket.io](http://socket.io)
-
-##### Receiving messages from the chat
-
-```python
-@socketio.on('user_uttered')
-    def handle_message(message):
-        # do something
-```
-
-##### Sending messages from the backend to the chat widget
-
-###### sending plain text
-
-```python
-emit('bot_uttered', {"text": "hello"}, room=session_id)
-```
-
-###### sending quick replies
-
-```python
-message = {
-  "text": "Happy?",
-  "quick_replies":[
-    {"title":"Yes", "payload":"/affirm"},
-    {"title":"No", "payload":"/deny"}
-  ]}
-emit('bot_uttered', message, room=socket_id)
-```
-
-###### sending a link Snippet
-
-Admittedly a bit far fetched, thinking that Snippets would evolve to carousels
-of generic templates :)
-
-```python
-message = {
-  "attachment":{
-    "type":"template",
-    "payload":{
-      "template_type":"generic",
-      "elements":[
-        {
-          "title":"Title",
-          "buttons":[ {
-            "title":"Link name",
-            "url": "http://link.url"
-          }
-        ]
-      }
-    ]
-  }
-}
-}
-emit('bot_uttered', message, room=socket_id)
-```
-
-###### sending a Video Message
-
-```python
-message = {
-  "attachment":{
-    "type":"video",
-    "payload":{
-      "title":"Link name",
-      "src": "https://www.youtube.com/watch?v=f3EbDbm8XqY"
-    }
-  }
-}
-emit('bot_uttered', message, room=socket_id)
-```
-
-###### sending an Image Message
-
-```python
-message = {
-      "attachment":{
-        "type":"image",
-        "payload":{
-          "title":"Link name",
-          "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_IX5FSDQLrwm9qvuXu_g7R9t_-3yBSycZ8OxpRXvMDaTAeBEW"
-        }
-      }
-    }
-emit('bot_uttered', message, room=socket_id)
-```
-
-###### sending a message with custom data
-
-```python
-message = {
-      "data":{
-        "customField1": 'anything you want',
-        "customField2": 'other custom data, 
-      }
-    }
-emit('bot_uttered', message, room=socket_id)
-```
-###### sending a message to be displayed as a tooltip
-
-You first need to set a tooltipPayload in the props of the component, then, for the answer to that payload, you should define a response with an 
-
-object and a property `tooltip = true`. This message will then be displayed as a tooltip before the widget is opened.
-This works with Botfront, but not yet with vanilla Rasa.
-
-The prop `tooltipDelay` lets you set a delay before calling the payload. It default to 500ms.
-
-```python
-message = {
-  "text": "Hi!",
-  "metadata":{
-    "tooltip": true
-   }
- }
-emit('bot_uttered', message, room=socket_id)
-```
+The Rasa Webchat is developped by the [Botfront](https://botfront.io) team and it works with Botfront. If your bot is multilingual, make sure to specificy the current language in the `customData` prop. E.g. `customData={{language: 'en'}}`. See in [Botfront docs](https://botfront.io/docs/channels/webchat/) for more details.
 
 
 ## Styles
@@ -396,3 +272,21 @@ hierarchy:
 [@dliuproduction](https://github.com/dliuproduction)
 [@MatthieuJnon](https://github.com/MatthieuJnon)
 [@mofortin](https://github.com/mofortin)
+[@GuillaumeTech](https://github.com/GuillaumeTech)
+                                 
+<br/>
+<h2 align="center">License</h2>
+
+Copyright (C) 2021 Dialogue Technologies Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.(C) 2021 Dialogue Technologies Inc. All rights reserved.

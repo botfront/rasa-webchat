@@ -4,11 +4,10 @@ import * as actionTypes from '../actions/actionTypes';
 import { getLocalSession, storeParamsTo } from './helper';
 
 export default function (
-  inputTextFieldHint,
   connectingText,
   storage,
   docViewer = false,
-  onWidgetEvent
+  onWidgetEvent = {},
 ) {
   const initialState = Map({
     connected: false,
@@ -17,7 +16,6 @@ export default function (
     isChatOpen: false,
     disabledInput: true,
     docViewer,
-    inputTextFieldHint,
     connectingText,
     unreadCount: 0,
     messageDelayed: false,
@@ -65,9 +63,6 @@ export default function (
         }
 
         return storeParams(state.update('disabledInput', disabledInput => !disabledInput));
-      }
-      case actionTypes.CHANGE_INPUT_FIELD_HINT: {
-        return storeParams(state.set('inputTextFieldHint', action.hint));
       }
       case actionTypes.CONNECT: {
         return storeParams(state.set('connected', true).set('disabledInput', false));

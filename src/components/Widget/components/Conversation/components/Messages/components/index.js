@@ -1,13 +1,13 @@
 import Video from './VidReply';
 import Image from './ImgReply';
 import Message from './Message';
-import Snippet from './Snippet';
-import QuickReply from './QuickReply';
+import Carousel from './Carousel';
+import Buttons from './Buttons';
 
 export {
-    Video,
-    Image,
-    Message,
-    Snippet,
-    QuickReply
-}
+  Video,
+  Image,
+  Message,
+  Carousel,
+  Buttons
+};

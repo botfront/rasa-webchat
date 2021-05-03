@@ -73,31 +73,18 @@ export function toggleInputDisabled(disable) {
   };
 }
 
-export function changeInputFieldHint(hint) {
-  return {
-    type: actions.CHANGE_INPUT_FIELD_HINT,
-    hint
-  };
-}
-
-export function addUserMessage(text) {
+export function addUserMessage(text, nextMessageIsTooltip = false, hidden = false) {
   return {
     type: actions.ADD_NEW_USER_MESSAGE,
-    text
+    text,
+    nextMessageIsTooltip,
+    hidden
   };
 }
 
 export function emitUserMessage(text) {
   return {
     type: actions.EMIT_NEW_USER_MESSAGE,
-    text
-  };
-}
-
-export function emitMessageIfFirst(payload, text = null) {
-  return {
-    type: actions.EMIT_MESSAGE_IF_FIRST,
-    payload,
     text
   };
 }
@@ -109,10 +96,10 @@ export function addResponseMessage(text) {
   };
 }
 
-export function addLinkSnippet(link) {
+export function addCarousel(carousel) {
   return {
-    type: actions.ADD_NEW_LINK_SNIPPET,
-    link
+    type: actions.ADD_CAROUSEL,
+    carousel
   };
 }
 
@@ -130,16 +117,16 @@ export function addImageSnippet(image) {
   };
 }
 
-export function addQuickReply(quickReply) {
+export function addButtons(buttons) {
   return {
-    type: actions.ADD_QUICK_REPLY,
-    quickReply
+    type: actions.ADD_BUTTONS,
+    buttons
   };
 }
 
-export function setQuickReply(id, title) {
+export function setButtons(id, title) {
   return {
-    type: actions.SET_QUICK_REPLY,
+    type: actions.SET_BUTTONS,
     id,
     title
   };

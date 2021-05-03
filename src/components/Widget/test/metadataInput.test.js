@@ -8,7 +8,7 @@ import LocalStorageMock from '../../../../mocks/localStorageMock';
 
 const localStorage = new LocalStorageMock();
 const stubSocket = jest.fn();
-const store = initStore('dummy', 'dummy', stubSocket, localStorage);
+const store = initStore('dummy', stubSocket, localStorage);
 
 describe('Metadata store affect input behavior', () => {
   const senderCompoment = mount(
@@ -27,21 +27,21 @@ describe('Metadata store affect input behavior', () => {
   });
 
   it('should disable the input', () => {
-    expect(senderCompoment.find('.new-message')).toHaveLength(1);
-    expect(senderCompoment.find('.new-message').prop('disabled')).toEqual(false);
+    expect(senderCompoment.find('textarea.rw-new-message')).toHaveLength(1);
+    expect(senderCompoment.find('textarea.rw-new-message').prop('disabled')).toEqual(false);
     store.dispatch({ type: 'SET_USER_INPUT', userInputState: 'disable' });
     senderCompoment.update(); // propagate new store to the compoment
-    expect(senderCompoment.find('.new-message')).toHaveLength(1);
-    expect(senderCompoment.find('.new-message').prop('disabled')).toEqual(true);
+    expect(senderCompoment.find('textarea.rw-new-message')).toHaveLength(1);
+    expect(senderCompoment.find('textarea.rw-new-message').prop('disabled')).toEqual(true);
   });
 
 
   it('should hide the input', () => {
-    expect(senderCompoment.find('.new-message')).toHaveLength(1);
-    expect(senderCompoment.find('.new-message').prop('disabled')).toEqual(false);
+    expect(senderCompoment.find('textarea.rw-new-message')).toHaveLength(1);
+    expect(senderCompoment.find('textarea.rw-new-message').prop('disabled')).toEqual(false);
     store.dispatch({ type: 'SET_USER_INPUT', userInputState: 'hide' });
     senderCompoment.update(); // propagate new store to the compoment
-    expect(senderCompoment.find('.new-message')).toHaveLength(0);
+    expect(senderCompoment.find('textarea.rw-new-message')).toHaveLength(0);
   });
 });
 

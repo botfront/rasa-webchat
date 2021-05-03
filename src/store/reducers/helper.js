@@ -1,29 +1,27 @@
 import { Map, fromJS } from 'immutable';
 import { MESSAGES_TYPES, MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
-import { Video, Image, Message, Snippet, QuickReply } from 'messagesComponents';
+import { Video, Image, Message, Carousel, Buttons } from 'messagesComponents';
 
-export function createNewMessage(text, sender) {
+export function createNewMessage(text, sender, nextMessageIsTooltip, hidden) {
   return Map({
     type: MESSAGES_TYPES.TEXT,
     component: Message,
     text,
     sender,
     showAvatar: sender === MESSAGE_SENDER.RESPONSE,
-    timestamp: new Date().getTime()
+    timestamp: new Date().getTime(),
+    nextMessageIsTooltip,
+    hidden
   });
 }
 
-export function createLinkSnippet(link, sender) {
+export function createCarousel(carousel, sender) {
   return Map({
-    type: MESSAGES_TYPES.SNIPPET.LINK,
-    component: Snippet,
-    title: link.title,
-    link: link.link,
-    content: link.content,
-    target: link.target || '_blank',
+    type: MESSAGES_TYPES.CAROUSEL,
+    component: Carousel,
     sender,
-    showAvatar: true,
+    elements: fromJS(carousel.attachment.payload.elements),
     timestamp: new Date().getTime()
   });
 }
@@ -52,13 +50,14 @@ export function createImageSnippet(image, sender) {
   });
 }
 
-export function createQuickReply(quickReply, sender) {
+export function createButtons(buttons, sender) {
   return Map({
-    type: MESSAGES_TYPES.QUICK_REPLY,
-    component: QuickReply,
-    text: quickReply.text,
-    hint: quickReply.hint || 'Select an option...',
-    quick_replies: fromJS(quickReply.quick_replies),
+    type: MESSAGES_TYPES.BUTTONS,
+    component: Buttons,
+    text: buttons.text,
+    hint: buttons.hint || 'Select an option...',
+    quick_replies: fromJS(buttons.quick_replies),
+    buttons: fromJS(buttons.buttons),
     sender,
     showAvatar: true,
     chosenReply: null,
@@ -148,7 +147,8 @@ export const storeParamsTo = storage => (params) => {
     // Since immutable Map is not a native JS object, store conversation as array
     ...localSession,
     params: params.toJS(),
-    lastUpdate: Date.now()
+    lastUpdate: Date.now(),
+    version: 'PACKAGE_VERSION_TO_BE_REPLACED'
   };
   storage.setItem(SESSION_NAME, JSON.stringify(newSession));
   return params;

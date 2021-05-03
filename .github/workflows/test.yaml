@@ -1,0 +1,15 @@
+name: test
+
+on: push
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    # if: contains(github.event.head_commit.modified, 'api/')
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - run: npm ci
+      - run: npm run test

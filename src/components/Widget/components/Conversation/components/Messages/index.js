@@ -4,9 +4,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import { MESSAGES_TYPES } from 'constants';
-import { Video, Image, Message, Snippet, QuickReply } from 'messagesComponents';
+import { Video, Image, Message, Carousel, Buttons } from 'messagesComponents';
 
 import './styles.scss';
+import ThemeContext from '../../../../ThemeContext';
 
 const isToday = (date) => {
   const today = new Date();
@@ -44,8 +45,8 @@ class Messages extends Component {
         case MESSAGES_TYPES.TEXT: {
           return Message;
         }
-        case MESSAGES_TYPES.SNIPPET.LINK: {
-          return Snippet;
+        case MESSAGES_TYPES.CAROUSEL: {
+          return Carousel;
         }
         case MESSAGES_TYPES.VIDREPLY.VIDEO: {
           return Video;
@@ -53,8 +54,8 @@ class Messages extends Component {
         case MESSAGES_TYPES.IMGREPLY.IMAGE: {
           return Image;
         }
-        case MESSAGES_TYPES.QUICK_REPLY: {
-          return QuickReply;
+        case MESSAGES_TYPES.BUTTONS: {
+          return Buttons;
         }
         case MESSAGES_TYPES.CUSTOM_COMPONENT:
           return connect(
@@ -66,7 +67,12 @@ class Messages extends Component {
       }
     })();
     if (message.get('type') === 'component') {
-      return <ComponentToRender id={index} {...message.get('props')} isLast={isLast} />;
+      const messageProps = message.get('props');
+      return (<ComponentToRender
+        id={index}
+        {...(messageProps.toJS ? messageProps.toJS() : messageProps)}
+        isLast={isLast}
+      />);
     }
     return <ComponentToRender id={index} params={params} message={message} isLast={isLast} />;
   }
@@ -105,12 +111,13 @@ class Messages extends Component {
             message.get('showAvatar') &&
             <img src={profileAvatar} className="rw-avatar" alt="profile" />
           }
-          { this.getComponentToRender(message, index, index === messages.size - 1) }
-          { renderMessageDate(message) }
+          {this.getComponentToRender(message, index, index === messages.size - 1)}
+          {renderMessageDate(message)}
         </div>
       );
 
       messages.forEach((msg, index) => {
+        if (msg.get('hidden')) return;
         if (group === null || group.from !== msg.get('sender')) {
           if (group !== null) groups.push(group);
 
@@ -126,14 +133,15 @@ class Messages extends Component {
       groups.push(group); // finally push last group of messages.
 
       return groups.map((g, index) => (
-        <div className={`rw-group-message rw-from-${g.from}`} key={`group_${index}`}>
+        <div className={`rw-group-message rw-from-${g && g.from}`} key={`group_${index}`}>
           {g.messages}
         </div>
       ));
     };
+    const { conversationBackgroundColor, assistBackgoundColor } = this.context;
 
     return (
-      <div id="rw-messages" className="rw-messages-container">
+      <div id="rw-messages" style={{ backgroundColor: conversationBackgroundColor }} className="rw-messages-container">
         { renderMessages() }
         {displayTypingIndication && (
           <div className={`rw-message rw-typing-indication ${profileAvatar && 'rw-with-avatar'}`}>
@@ -141,7 +149,7 @@ class Messages extends Component {
               profileAvatar &&
               <img src={profileAvatar} className="rw-avatar" alt="profile" />
             }
-            <div className="rw-response">
+            <div style={{ backgroundColor: assistBackgoundColor }}className="rw-response">
               <div id="wave">
                 <span className="rw-dot" />
                 <span className="rw-dot" />
@@ -154,7 +162,7 @@ class Messages extends Component {
     );
   }
 }
-
+Messages.contextType = ThemeContext;
 Messages.propTypes = {
   messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
   profileAvatar: PropTypes.string,

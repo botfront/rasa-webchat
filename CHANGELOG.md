@@ -2,6 +2,167 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://https///compare/v1.0.0...v1.0.1) (2021-04-15)
+
+
+### Bug Fixes
+
+* readme typo ([f0fa78c](https://https///commit/f0fa78c048d71e52b8a8d2c863e8e2269f2fb834))
+* socket io ([4c1562d](https://https///commit/4c1562d5d62df7f70e12910edcbe093e4dc48e80))
+
+### [1.0.1](https://https///compare/v1.0.0...v1.0.1) (2021-04-15)
+
+
+### Bug Fixes
+
+* readme typo ([f0fa78c](https://https///commit/f0fa78c048d71e52b8a8d2c863e8e2269f2fb834))
+* socket io ([4c1562d](https://https///commit/4c1562d5d62df7f70e12910edcbe093e4dc48e80))
+
+## [1.0.0](https://https///compare/v0.11.12...v1.0.0) (2021-02-01)
+
+### [0.11.12](https://https///compare/v0.11.11...v0.11.12) (2021-01-19)
+
+
+### Features
+
+* expose getSessionId ([c8cbda7](https://https///commit/c8cbda78ec9b746f2697aa8c279c84f1b260fd1f))
+
+### [0.11.11](https://https///compare/v0.11.10...v0.11.11) (2020-10-21)
+
+### [0.11.10](https://https///compare/v0.11.9...v0.11.10) (2020-10-16)
+
+
+### Features
+
+* image size in markdown ([990f4bb](https://https///commit/990f4bb113da8ae1c29528c9b48a279d5efc8393))
+
+### [0.11.9](https://https///compare/v0.11.8...v0.11.9) (2020-10-14)
+
+
+### Bug Fixes
+
+* custom responses ([ae7072c](https://https///commit/ae7072c0dca010dc719d8ecb067726fe8e0e7f9e))
+* image size in markdown ([cee6286](https://https///commit/cee62866b3e61806d389d1728b32864da8f02554))
+
+### [0.11.8](https://https///compare/v0.11.7...v0.11.8) (2020-09-28)
+
+
+### Features
+
+* possibility to send a payload on tooltip close ([38cf679](https://https///commit/38cf67976ba634ad2a6097c6f684ff105ede04e6))
+
+### [0.11.7](https://https///compare/v0.11.6...v0.11.7) (2020-09-16)
+
+
+### Bug Fixes
+
+* colors on buttons using color props ([dbfebe6](https://https///commit/dbfebe63699f67c9baf5551ca0aa588ca4df76d6))
+
+### [0.11.6](https://https///compare/v0.11.5...v0.11.6) (2020-08-27)
+
+
+### Bug Fixes
+
+* code formatting on readme ([2a4f94c](https://https///commit/2a4f94cde3137aff1f73080ce296eadafed8bc25))
+* reload in edge cases ([db6d3d1](https://https///commit/db6d3d140db90e1e417b52c264b0a524489c4a8d))
+
+### [0.11.5](https://https///compare/v0.11.4...v0.11.5) (2020-06-24)
+
+
+### Features
+
+* choose tooltip placement ([aba68c8](https://https///commit/aba68c8b2ad883b85cdf8931d876d809f2beb79e))
+
+### [0.11.4](https://https///compare/v0.11.3...v0.11.4) (2020-06-24)
+
+### [0.11.3](https://https///compare/v0.11.2...v0.11.3) (2020-06-24)
+
+
+### Bug Fixes
+
+* sequence with highlights ([2c69f08](https://https///commit/2c69f08930ab213c1548ec6b1d7d8fac59bae010))
+
+### [0.11.2](https://https///compare/v0.11.1...v0.11.2) (2020-06-23)
+
+
+### Bug Fixes
+
+* bullet points in tooltips ([2c9e92f](https://https///commit/2c9e92f9d20d672ad7d8c991ec7b3db4358bc3a7))
+
+### [0.11.1](https://https///compare/v0.11.0...v0.11.1) (2020-06-23)
+
+
+### Bug Fixes
+
+* webchat opening ([14f457f](https://https///commit/14f457f6a142a1fbde7db972d2f6de0b2063fa34))
+
+## [0.11.0](https://https///compare/v0.10.4...v0.11.0) (2020-06-23)
+
+
+### Features
+
+* auto clear storage on new version to prevent errors ([db2df1e](https://https///commit/db2df1eec7841e2bbcdc20e228c143361218d4dc))
+* placed tooltips ([6857448](https://https///commit/6857448bee206b53c9a10ed3975f6c7247070253))
+* tooltip sequences ([80f048f](https://https///commit/80f048f516b29f032337f07ff85cb787824f3e70))
+
+### [0.10.4](https://https///compare/v0.10.3...v0.10.4) (2020-06-06)
+
+
+### Features
+
+* customize colors ([b2650b5](https://https///commit/b2650b5e5f3aaaf7b5bae7240ddadf8d7bafa27a))
+
+
+### Bug Fixes
+
+* minor style issue on typing indicator ([0b9eb22](https://https///commit/0b9eb228e0573db38c0b77a84571bd279cbbd6f0))
+
+### [0.10.3](https://https///compare/v0.10.2...v0.10.3) (2020-06-01)
+
+
+### Bug Fixes
+
+* auto scrolling ([9c91876](https://https///commit/9c91876aa15b42ba7dbde32ff071b947473776bf))
+
+### [0.10.2](https://https///compare/v0.10.1...v0.10.2) (2020-05-28)
+
+
+### Bug Fixes
+
+* page refresh when pressing enter on firefox ([174d9b9](https://https///commit/174d9b9b0cbff81f7fe832c5e46e5d0a313a254a))
+
+### [0.10.1](https://https///compare/v0.10.0...v0.10.1) (2020-05-27)
+
+## [0.10.0](https://https///compare/v0.9.1...v0.10.0) (2020-05-27)
+
+
+### Features
+
+* message input multiline ([cef1002](https://https///commit/cef10021aee0e4a32a0fd1061dd8b3a884591623))
+* persistent button ([498f1d4](https://https///commit/498f1d4bb5118cb87c3aebcf6373481a123534d3))
+
+
+### Bug Fixes
+
+* markdown lists when embedded mode is active ([46427d1](https://https///commit/46427d143bcd56d8f53f19e4cb07bcd50e73a53f))
+* styles when widget is in full screen mode ([74a95e9](https://https///commit/74a95e9ede83a94b1c0e985a528cf8bc3b8b4912))
+
+### [0.9.1](https://https///compare/v0.9.0...v0.9.1) (2020-05-21)
+
+
+### Bug Fixes
+
+* allow session re-use by re-reading session_id from local storage ([6ea3ffc](https://https///commit/6ea3ffcceb2abc47f1d6fe1cf5c0821cd69fa216))
+
+## [0.9.0](https://https///compare/v0.8.9...v0.9.0) (2020-05-11)
+
+### [0.8.9](https://https///compare/v0.8.8...v0.8.9) (2020-05-05)
+
+
+### Features
+
+* carousels ([98ee08f](https://https///commit/98ee08f96fe4fec504375931c211a6db8abacdba))
+
 ### [0.8.8](https://https///compare/v0.8.7...v0.8.8) (2020-04-24)
 
 
