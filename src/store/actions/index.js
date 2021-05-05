@@ -131,6 +131,13 @@ export function addKeywords(keywords) {
   };
 }
 
+export function addResultsDisplay(results) {
+  return {
+    type: actions.ADD_RESULTS_DISPLAY,
+    results
+  };
+}
+
 export function setButtons(id, title) {
   return {
     type: actions.SET_BUTTONS,

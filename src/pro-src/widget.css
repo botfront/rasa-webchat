@@ -1,0 +1,20 @@
+.rw-conversation-container .rw-header{
+    background-color: #F5360D;
+}
+
+.rw-conversation-container .rw-client{
+       background-color: #F5360D !important; 
+}
+
+.conversation-container close-button {
+    background-color: #F5360D;
+}
+
+.rw-launcher{
+    background-color: #F5360D;
+}
+
+
+.rw-conversation-container {
+    width: 500px;
+}

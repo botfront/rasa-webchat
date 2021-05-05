@@ -4,6 +4,7 @@ import { MESSAGE_SENDER, SESSION_NAME } from 'constants';
 import {
   createButtons,
   createKeywords,
+  createResultsDisplay,
   createNewMessage,
   createCarousel,
   createVideoSnippet,
@@ -54,6 +55,9 @@ export default function (storage) {
       }
       case actionTypes.ADD_KEYWORDS: {
         return storeMessage(state.push(createKeywords(action.keywords, MESSAGE_SENDER.RESPONSE)));
+      }
+      case actionTypes.ADD_RESULTS_DISPLAY: {
+        return storeMessage(state.push(createResultsDisplay(action.results, MESSAGE_SENDER.RESPONSE)));
       }
       case actionTypes.ADD_COMPONENT_MESSAGE: {
         return storeMessage(state.push(createComponentMessage(action.component, action.props, action.showAvatar)));

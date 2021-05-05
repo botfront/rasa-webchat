@@ -2,7 +2,16 @@
 <html lang="en">
 
 <head>
+
   <title>Botfront - Web Chat</title>
+  <a href="#" onclick="sessionStorage.clear()">Clear current session</a>
+  <script src="index.js" type="text/javascript"></script>
+</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<body style="background-image: url()">
+
   <script>
     const load = () => {
       if (!WebChat) setTimeout(load, 100);
@@ -17,14 +26,9 @@
       });
     }
     setTimeout(load, 200);
-  </script>
-</head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<body style="background-image: url()">
-  <br />
-  <a href="#" onclick="sessionStorage.clear()">Clear current session</a>
-  <script src="index.js" type="text/javascript"></script>
+  </script>
+
 </body>
 
 </html>

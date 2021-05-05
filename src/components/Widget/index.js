@@ -16,6 +16,7 @@ import {
   addImageSnippet,
   addButtons,
   addKeywords,
+  addResultsDisplay,
   renderCustomComponent,
   initialize,
   connectServer,
@@ -36,7 +37,7 @@ import {
 } from 'actions';
 import { safeQuerySelectorAll } from 'utils/dom';
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
-import { isVideo, isImage, isButtons, isText, isCarousel, isCustomPayloadKeywords } from './msgProcessor';
+import { isVideo, isImage, isButtons, isText, isCarousel, isCustomPayloadKeywords, isCustomPayloadResultsDisplay } from './msgProcessor';
 import WidgetLayout from './layout';
 import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
 
@@ -537,11 +538,17 @@ class Widget extends Component {
 
 
     if (isCustomPayloadKeywords(messageClean)) {
-      let msg = JSON.parse(messageClean["text"])
-      messageClean["text"] = msg["text"]
-      messageClean["keywords"] = msg["keywords"]
-      messageClean["nb_max_keywords"] = msg["nb_max_keywords"]
+      let msg = JSON.parse(messageClean.text)
+      messageClean.text = msg.text
+      messageClean.keywords = msg.keywords
+      messageClean.nb_max_keywords = msg.nb_max_keywords
       this.props.dispatch(addKeywords(messageClean))
+    } else if (isCustomPayloadResultsDisplay(messageClean)) {
+      let msg = JSON.parse(messageClean.text)
+      messageClean.text = msg.text
+      messageClean.results = msg.results
+      messageClean.nb_max_results = msg.nb_max_results
+      this.props.dispatch(addResultsDisplay(messageClean))
     } else if (isText(messageClean)) {
       this.props.dispatch(addResponseMessage(messageClean.text));
     } else if (isButtons(messageClean)) {

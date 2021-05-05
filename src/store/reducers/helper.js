@@ -1,7 +1,7 @@
 import { Map, fromJS } from 'immutable';
 import { MESSAGES_TYPES, MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
-import { Video, Image, Message, Carousel, Buttons, Keywords } from 'messagesComponents';
+import { Video, Image, Message, Carousel, Buttons, Keywords, Results_Display } from 'messagesComponents';
 
 export function createNewMessage(text, sender, nextMessageIsTooltip, hidden) {
   return Map({
@@ -76,6 +76,19 @@ export function createKeywords(keywords, sender) {
     sender,
     showAvatar: true,
     chosenReply: null,
+    timestamp: new Date().getTime()
+  });
+}
+
+export function createResultsDisplay(results, sender) {
+  return Map({
+    type: MESSAGES_TYPES.RESULTS_DISPLAY,
+    component: Results_Display,
+    text: results.text,
+    results: fromJS(results.results),
+    nb_max_results: results.nb_max_results,
+    sender,
+    showAvatar: true,
     timestamp: new Date().getTime()
   });
 }

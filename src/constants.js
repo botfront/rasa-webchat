@@ -29,6 +29,14 @@ const replybuttons = PropTypes.shape({
   type: PropTypes.string
 });
 
+const collapsible = PropTypes.shape({
+  title: PropTypes.string,
+  url: PropTypes.string,
+  description: PropTypes.string,
+  author: PropTypes.string,
+  payload: PropTypes.string,
+});
+
 const senderType = PropTypes.oneOf([
   MESSAGE_SENDER.CLIENT,
   MESSAGE_SENDER.RESPONSE
@@ -43,6 +51,7 @@ export const PROP_TYPES = {
       MESSAGES_TYPES.TEXT,
       MESSAGES_TYPES.BUTTONS,
       MESSAGES_TYPES.KEYWORDS,
+      MESSAGES_TYPES.RESULTS_DISPLAY,
       MESSAGES_TYPES.CAROUSEL,
       MESSAGES_TYPES.IMGREPLY.IMAGE,
       MESSAGES_TYPES.VIDREPLY.VIDEO
@@ -119,6 +128,17 @@ export const PROP_TYPES = {
     toggleInputDisabled: PropTypes.func,
     inputState: PropTypes.bool,
     chosenReply: PropTypes.string
+  }),
+
+  RESULTS_DISPLAY: ImmutablePropTypes.contains({
+    type: PropTypes.oneOf([
+      MESSAGES_TYPES.RESULTS_DISPLAY
+    ]),
+    id: PropTypes.number,
+    text: PropTypes.string,
+    results: ImmutablePropTypes.listOf(collapsible),
+    nb_max_results: PropTypes.number,
+    sender: senderType,
   })
 
 };
