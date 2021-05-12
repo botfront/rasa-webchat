@@ -6,6 +6,10 @@ export function isCustomPayloadResultsDisplay(message) {
   return (Object.keys(message).length === 1 && Object.keys(message).includes('text') && message["text"].includes("custom_payload_results_display"))
 }
 
+export function isCustomPayloadFeedbacksDisplay(message) {
+  return (Object.keys(message).length === 1 && Object.keys(message).includes('text') && message["text"].includes("custom_payload_feedbacks_display"))
+}
+
 export function isCarousel(message) {
   return Object.keys(message).includes('attachment')
     && Object.keys(message.attachment).includes('type')

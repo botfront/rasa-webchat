@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { PROP_TYPES } from 'constants';
 import { setButtons, toggleInputDisabled } from 'actions';
-import Message from '../Message/index';
 import ReactMarkdown from 'react-markdown';
-import DocViewer from '../docViewer';
 
 
 
@@ -14,7 +12,7 @@ import ThemeContext from '../../../../../../ThemeContext';
 
 const default_max_results = 5
 
-class Results_Dislay extends PureComponent {
+class Results_Display extends PureComponent {
 
   constructor(props) {
 
@@ -30,8 +28,6 @@ class Results_Dislay extends PureComponent {
     else {
       message.get('results').size, message.get('results')._capacity = default_max_results
     }
-    console.log(message.get('results').size)
-
   }
 
   handleClick(reply) {
@@ -112,7 +108,7 @@ class Results_Dislay extends PureComponent {
 
 }
 
-Results_Dislay.contextType = ThemeContext;
+Results_Display.contextType = ThemeContext;
 
 const mapStateToProps = state => ({
   getChosenReply: id => state.messages.get(id).get('chosenReply'),
@@ -126,13 +122,13 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-Results_Dislay.propTypes = {
+Results_Display.propTypes = {
   getChosenReply: PropTypes.func,
   chooseReply: PropTypes.func,
   id: PropTypes.number,
   isLast: PropTypes.bool,
-  message: PROP_TYPES.KEYWORDS,
+  message: PROP_TYPES.RESULTS_DISPLAY,
   linkTarget: PropTypes.string
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Results_Dislay);
+export default connect(mapStateToProps, mapDispatchToProps)(Results_Display);

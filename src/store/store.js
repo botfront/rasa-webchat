@@ -39,10 +39,10 @@ function initStore(
       const emit = () => {
         socket.emit(
           'user_uttered', {
-            message: payload,
-            customData: socket.customData,
-            session_id: sessionId
-          }
+          message: payload,
+          customData: socket.customData,
+          session_id: sessionId
+        }
         );
         store.dispatch({
           type: actionTypes.ADD_NEW_USER_MESSAGE,

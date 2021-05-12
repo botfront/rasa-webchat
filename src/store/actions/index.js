@@ -138,6 +138,13 @@ export function addResultsDisplay(results) {
   };
 }
 
+export function addFeedbacksDisplay(feedbacks) {
+  return {
+    type: actions.ADD_FEEDBACKS_DISPLAY,
+    feedbacks
+  };
+}
+
 export function setButtons(id, title) {
   return {
     type: actions.SET_BUTTONS,

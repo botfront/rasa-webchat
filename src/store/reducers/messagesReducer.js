@@ -5,6 +5,7 @@ import {
   createButtons,
   createKeywords,
   createResultsDisplay,
+  createFeedbacksDisplay,
   createNewMessage,
   createCarousel,
   createVideoSnippet,
@@ -58,6 +59,9 @@ export default function (storage) {
       }
       case actionTypes.ADD_RESULTS_DISPLAY: {
         return storeMessage(state.push(createResultsDisplay(action.results, MESSAGE_SENDER.RESPONSE)));
+      }
+      case actionTypes.ADD_FEEDBACKS_DISPLAY: {
+        return storeMessage(state.push(createFeedbacksDisplay(action.feedbacks, MESSAGE_SENDER.RESPONSE)));
       }
       case actionTypes.ADD_COMPONENT_MESSAGE: {
         return storeMessage(state.push(createComponentMessage(action.component, action.props, action.showAvatar)));

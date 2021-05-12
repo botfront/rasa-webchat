@@ -19,6 +19,8 @@ export const MESSAGES_TYPES = {
   },
   BUTTONS: 'buttons',
   KEYWORDS: "keywords",
+  RESULTS_DISPLAY: "results_display",
+  FEEDBACKS_DISPLAY: "feedbacks_display",
   CUSTOM_COMPONENT: 'component'
 };
 
@@ -37,6 +39,11 @@ const collapsible = PropTypes.shape({
   payload: PropTypes.string,
 });
 
+const feedbacks_checkbox = PropTypes.shape({
+  title: PropTypes.string,
+  payload: PropTypes.string,
+});
+
 const senderType = PropTypes.oneOf([
   MESSAGE_SENDER.CLIENT,
   MESSAGE_SENDER.RESPONSE
@@ -52,6 +59,7 @@ export const PROP_TYPES = {
       MESSAGES_TYPES.BUTTONS,
       MESSAGES_TYPES.KEYWORDS,
       MESSAGES_TYPES.RESULTS_DISPLAY,
+      MESSAGES_TYPES.FEEDBACKS_DISPLAY,
       MESSAGES_TYPES.CAROUSEL,
       MESSAGES_TYPES.IMGREPLY.IMAGE,
       MESSAGES_TYPES.VIDREPLY.VIDEO
@@ -138,6 +146,17 @@ export const PROP_TYPES = {
     text: PropTypes.string,
     results: ImmutablePropTypes.listOf(collapsible),
     nb_max_results: PropTypes.number,
+    sender: senderType,
+  }),
+
+  FEEDBACKS_DISPLAY: ImmutablePropTypes.contains({
+    type: PropTypes.oneOf([
+      MESSAGES_TYPES.FEEDBACKS_DISPLAY
+    ]),
+    id: PropTypes.number,
+    text: PropTypes.string,
+    feedbacks: ImmutablePropTypes.listOf(feedbacks_checkbox),
+    nb_max_feedbacks: PropTypes.number,
     sender: senderType,
   })
 

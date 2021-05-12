@@ -1,7 +1,7 @@
 import { Map, fromJS } from 'immutable';
 import { MESSAGES_TYPES, MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
-import { Video, Image, Message, Carousel, Buttons, Keywords, Results_Display } from 'messagesComponents';
+import { Video, Image, Message, Carousel, Buttons, Keywords, Results_Display, Feedbacks_Display } from 'messagesComponents';
 
 export function createNewMessage(text, sender, nextMessageIsTooltip, hidden) {
   return Map({
@@ -66,7 +66,7 @@ export function createButtons(buttons, sender) {
 }
 
 export function createKeywords(keywords, sender) {
-  return Map({
+  let save = Map({
     type: MESSAGES_TYPES.KEYWORDS,
     component: Keywords,
     text: keywords.text,
@@ -78,15 +78,30 @@ export function createKeywords(keywords, sender) {
     chosenReply: null,
     timestamp: new Date().getTime()
   });
+  return save
 }
 
 export function createResultsDisplay(results, sender) {
-  return Map({
+  let save = Map({
     type: MESSAGES_TYPES.RESULTS_DISPLAY,
     component: Results_Display,
     text: results.text,
     results: fromJS(results.results),
     nb_max_results: results.nb_max_results,
+    sender,
+    showAvatar: true,
+    timestamp: new Date().getTime()
+  });
+  return save
+}
+
+export function createFeedbacksDisplay(feedbacks, sender) {
+  return Map({
+    type: MESSAGES_TYPES.FEEDBACKS_DISPLAY,
+    component: Feedbacks_Display,
+    text: feedbacks.text,
+    feedbacks: fromJS(feedbacks.feedbacks),
+    nb_max_feedbacks: feedbacks.nb_max_feedbacks,
     sender,
     showAvatar: true,
     timestamp: new Date().getTime()

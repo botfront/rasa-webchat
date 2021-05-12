@@ -51,7 +51,7 @@ class Buttons extends PureComponent {
     return (
       <div>
         <Message message={message} />
-        {separateButtons && (<div className="rw-separator" />) }
+        {separateButtons && (<div className="rw-separator" />)}
         {(isLast || persit) && (
           <div className="rw-replies">
             {buttons.map((reply, index) => {

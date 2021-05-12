@@ -57,6 +57,10 @@ export function addResultsDisplay(results) {
   store.dispatch(actions.addResultsDisplay(results));
 }
 
+export function addFeedbacksDisplay(results) {
+  store.dispatch(actions.addFeedbacksDisplay(results));
+}
+
 export function setButtons(id, title) {
   store.dispatch(actions.setButtons(id, title));
 }

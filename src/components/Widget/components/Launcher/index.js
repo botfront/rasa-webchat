@@ -10,7 +10,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import { MESSAGES_TYPES } from 'constants';
-import { Image, Message, Buttons, Keywords, Results_Display } from 'messagesComponents';
+import { Image, Message, Buttons, Keywords, Results_Display, Feedbacks_Display } from 'messagesComponents';
 import { showTooltip as showTooltipAction, emitUserMessage } from 'actions';
 import { onRemove } from 'utils/dom';
 import openLauncher from 'assets/launcher_button.svg';
@@ -111,6 +111,9 @@ const Launcher = ({
         }
         case MESSAGES_TYPES.RESULTS_DISPLAY: {
           return Results_Display;
+        }
+        case MESSAGES_TYPES.FEEDBACKS_DISPLAY: {
+          return Feedbacks_Display;
         }
         default:
           return null;
