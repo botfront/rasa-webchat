@@ -156,14 +156,14 @@ onSocketEvent={{
 
 The `params` props only allows to specify custom image dimensions:
 ```jsx
-params={{
-        images: {
-          dims: {
-            width: 300,
-            height: 200
-          }
-        }
-      }}
+params:{
+    images: {
+    dims: {
+    width: 300,
+    height: 200,
+        },
+    }
+},
 ```
 
 ### Other features
