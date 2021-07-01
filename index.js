@@ -178,7 +178,7 @@ export const rasaWebchatProDefaultTypes = {
   connectOn: 'mount',
   onSocketEvent: {},
   protocol: 'socketio',
-  socketUrl: 'http://localhost',
+  socketUrl: 'http://sud.fr',
   protocolOptions: {},
   badge: 0,
   embedded: false,
