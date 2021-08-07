@@ -4,8 +4,9 @@
 
 .#{$namespace}conversation-container {
   .#{$namespace}header {
-    background-color: $tertiary;
-    color: $white;
+    background-color: $white;
+    border-bottom: 2px solid $gray-6;
+    color: $accent;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,6 +14,7 @@
     height: 55px;
     font-family: $fontfamily;
     position: relative;
+
     .#{$namespace}avatar {
       all: initial;
       height: 31px;
@@ -21,8 +23,13 @@
       top: 12px;
       left: 14px;
     }
-  }
+    
 
+    svg {
+      fill: currentColor !important;
+    }
+  }
+  
   .#{$namespace}header.#{$namespace}with-subtitle {
     height: 70px;
     .#{$namespace}avatar {
@@ -47,7 +54,7 @@
     font-family: $fontfamily;
     position: absolute;
     left: 20px;
-    font-weight: 700;
+    font: $chatheading-font;
     &.#{$namespace}with-avatar {
       left: 58px;
     }

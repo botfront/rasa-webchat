@@ -1,6 +1,30 @@
+
+// bot colors
+
+$accent: #006EFD;
+$accent-light: #EBF3FF;
+$accent-dark: #00439B;
+
+$gray-80: #2E3238;
+$gray-50: #8F97A3;
+$gray-25: #B9BEC6;
+$gray-15: #D5D8DD;
+$gray-6: #EEEFF1;
+$gray-2: #F9FAFA;
+
+$signal-green: #00997F;
+$signal-yellow: #FFF066;
+$signal-red: #F82470;
+
+$black: #000000;
+$white: #ffffff;
+
+
+// standard colors
+
 $green-1: #35e65d;
 $grey-1: #cdd8ec;
-$grey-2: #f4f7f9;
+$grey-2: $gray-2;
 $grey-3: #b5b5b5;
 $turqois-1: #35cce6;
 $turqois-2: #a3eaf7;
@@ -10,4 +34,33 @@ $red-2: #ff7070;
 $blue-1: #003a9b;
 $blue-2: #0084ff;
 $namespace: "rw-";
-$tertiary: #135afe;
+$tertiary: $accent;
+
+
+
+// fonts
+
+$font-size-normal: 16pt;
+$font-size-small: 14pt;
+
+$font-weight-regular: 400;
+$font-weight-mediumbold: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$line-height: 20pt;
+
+
+
+
+$font-family: IBMPlexSans;
+
+
+// app specific
+
+// string interpolation work around to avoid division via slash
+$speechbubble-font: #{$font-weight-regular} #{$font-size-normal}/#{$line-height} #{$font-family};
+$component-font: #{$font-weight-semibold} #{$font-size-normal}/#{$line-height} #{$font-family};
+$chatheading-font: #{$font-weight-bold} #{$font-size-small}/#{$line-height} #{$font-family};
+$chatlabel-font: #{$font-weight-mediumbold} #{$font-size-small}/#{$line-height} #{$font-family};
+
+$chat-widget-shadow-color: rgba(0, 0, 0, 0.1);

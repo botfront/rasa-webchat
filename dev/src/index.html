@@ -6,16 +6,18 @@
       const load = () => {
         if (!WebChat) setTimeout(load, 100);
         if (WebChat) WebChat.default({
-          customData:{language:"en"},
+          title: "Hytebotti",
+          subtitle: "",
+          customData:{language:"fi"},
           socketUrl:"http://localhost:5005",
-          withRules: true,
+          withRules: true
         });
       }
       setTimeout(load, 200);
   </script>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<body style="background: lightcyan;">
+<body style="background: #CDCDCD;">
 <!-- <body style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/42/Main_menu_of_Wikipedia.png);"> -->
   <a href="#" onclick="WebChat.send('/chitchat.greet')">Send chitchat.greet without text</a>
   <br />

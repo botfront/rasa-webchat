@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Inter:400,500,700&display=swap');
+@import './variables.scss';
 
-$fontfamily: 'Inter', sans-serif;  
+
+$fontfamily: $font-family;  
 
 @mixin message-bubble($color, $textColor, $borderRadius: 15px) {
   background-color: $color;
@@ -9,7 +10,7 @@ $fontfamily: 'Inter', sans-serif;
   padding: 11px 15px;
   max-width: 215px;
   text-align: left;
-  font-family: $fontfamily;
+  font: $speechbubble-font;
 }
 
 @mixin borderless-message-bubble($color, $textColor) {
@@ -99,6 +100,7 @@ $fontfamily: 'Inter', sans-serif;
   height: 100%;
   width: 100%;
   border-radius: 0;
+  // box-shadow: 0px 0.5px 4px $chat-widget-shadow-color, 0px 8px 16px;
 }
 
 @mixin loading-fs {

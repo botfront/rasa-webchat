@@ -6,19 +6,19 @@
   .#{$namespace}sender {
     align-items: center;
     display: flex;
-    background-color: $grey-2;
+    background-color: $white;
     min-height: 30px;
     padding: 15px 5px;
-   
+    border-top: 2px solid $gray-6;
   }
   
   .#{$namespace}new-message {
     font-size: 1em;
     width: 100%;
     border: 0;
-    background-color: $grey-2;
+    background-color: $white;
     padding-left: 15px;
-    font-family: $fontfamily;
+    font: $speechbubble-font;
     resize: none;
     &:focus {
       outline: none;
@@ -27,7 +27,7 @@
   
   
   .#{$namespace}send {
-    background: $grey-2;
+    background: $white;
     border: 0;
     
     .#{$namespace}send-icon {
@@ -38,6 +38,10 @@
     .#{$namespace}send-icon-ready {
       fill: #135afe;
       transition: fill 0.35s;
+    }
+
+    svg {
+      stroke: currentColor;
     }
   }
   

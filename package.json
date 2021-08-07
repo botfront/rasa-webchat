@@ -28,6 +28,7 @@
     "object-hash": "^1.1.5",
     "prop-types": "^15.7.2",
     "react-immutable-proptypes": "^2.2.0",
+    "react-inlinesvg": "^2.3.0",
     "react-markdown": "^4.2.2",
     "react-popper": "^2.2.3",
     "react-redux": "^7.1.3",
