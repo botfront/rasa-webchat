@@ -5,13 +5,11 @@
 .#{$namespace}conversation-container {
   
   .#{$namespace}message {
-    margin: 10px;
-    font-size: 16px;
-    line-height: 20px;
+    margin: 24px 20px;
     display: flex;
-    font-family: $fontfamily;
     flex-wrap: wrap;
     position: relative;
+    font: $speechbubble-font;
   
     .#{$namespace}markdown {
       p {

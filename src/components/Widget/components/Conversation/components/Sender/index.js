@@ -37,7 +37,7 @@ const Sender = ({ sendMessage, inputTextFieldHint, disabledInput, userInput }) =
 
         <TextareaAutosize type="text" minRows={1} onKeyDown={onEnterPress} maxRows={3} onChange={handleChange} className="rw-new-message" name="message" placeholder={inputTextFieldHint} disabled={disabledInput || userInput === 'disable'} autoFocus autoComplete="off" />
         <button type="submit" className="rw-send" disabled={!(inputValue && inputValue.length > 0)}>
-          <SVG src={sendButton} width={24} height="auto" title="send" />
+          <Send className="rw-send-icon" ready={!!(inputValue && inputValue.length > 0)} alt="send" />
         </button>
       </form>));
 };

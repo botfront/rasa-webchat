@@ -5,13 +5,13 @@
 .#{$namespace}conversation-container {
   .#{$namespace}header {
     background-color: $white;
-    border-bottom: 2px solid $gray-6;
+    border-bottom: 1px solid $gray-6;
     color: $accent;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    height: 55px;
+    height: 52px;
     font-family: $fontfamily;
     position: relative;
 
@@ -51,13 +51,21 @@
   .#{$namespace}title {
     font-size: 20px;
     margin: 0;
-    font-family: $fontfamily;
     position: absolute;
-    left: 20px;
+    left: 48px;
     font: $chatheading-font;
     &.#{$namespace}with-avatar {
       left: 58px;
     }
+  }
+
+  .#{$namespace}logo {
+    position: absolute;
+    left: 16px;
+  }
+
+  .#{$namespace}close-button {
+    display: none;
   }
 
   .#{$namespace}header-buttons {

@@ -8,8 +8,8 @@
     display: flex;
     background-color: $white;
     min-height: 30px;
-    padding: 15px 5px;
-    border-top: 2px solid $gray-6;
+    padding: 3px 0px;
+    border-top: 1px solid $gray-6;
   }
   
   .#{$namespace}new-message {
@@ -17,26 +17,26 @@
     width: 100%;
     border: 0;
     background-color: $white;
-    padding-left: 15px;
+    padding-left: 16px;
     font: $speechbubble-font;
     resize: none;
     &:focus {
       outline: none;
+    }
+
+    &::placeholder {
+      color: $gray-50;
     }
   }
   
   
   .#{$namespace}send {
     background: $white;
-    border: 0;
-    
-    .#{$namespace}send-icon {
-      fill: #00000000;;
-      transition: fill 0.35s;
-    }
+    border: 1px solid red;
+    padding: 8px;
 
     .#{$namespace}send-icon-ready {
-      fill: #135afe;
+      stroke: #135afe;
       transition: fill 0.35s;
     }
 

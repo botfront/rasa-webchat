@@ -55,7 +55,7 @@ const Header = ({
             </button>
           }
         </div>
-        <SVG src={logo} width={24} height="auto" title="Logo" />
+        <SVG src={logo} width={24} height="auto" title="Logo" class="rw-logo"/>
       
         <h4 className={`rw-title ${profileAvatar && 'rw-with-avatar'}`}>{title}</h4>
         {subtitle && <span className={profileAvatar && 'rw-with-avatar'}>{subtitle}</span>}
