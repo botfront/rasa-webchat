@@ -1,15 +1,17 @@
-<p align="center">
+# RASA WEBCHAT
 
-<a href="https://www.npmjs.com/package/botfront">
-    <img alt="npm" src="https://img.shields.io/npm/v/rasa-webchat.svg">
-</a>
-<a href='https://github.com/botfront/botfront/blob/master/LICENSE'>
-    <img alt="License" src="https://img.shields.io/github/license/botfront/rasa-webchat">
-</a>
-<a href='https://spectrum.chat/botfront'>
-    <img alt="Spectrum link" src="https://withspectrum.github.io/badge/badge.svg">
-</a>
-</p>
+## Install
+* install nodejs
+* clone this repository
+* run `npm ci` to install the dependencies
+
+
+## Run locally for testing or development
+* run `npm run dev`
+
+
+## Official documentation
+
 <h1 align="center">Rasa Webchat 💬</h1>
 <h5 align="center">
  A chat widget to deploy virtual assistants made with <a href="https://github.com/rasaHQ/rasa">Rasa</a> or <a href="https://github.com/botfront/botfront?utm_source=rasa_webchat">Botfront</a> on any website.
