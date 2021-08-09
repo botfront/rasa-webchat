@@ -37,10 +37,16 @@
   border: 0;
   border-radius: 50%;
   box-shadow: 0px 2px 10px 1px $grey-3;
-  height: 60px;
+  height: 44px;
   margin: 0;
-  width: 60px;
+  width: 44px;
   box-sizing: border-box;
+
+  svg {
+    fill: currentColor;
+  }
+
+  color: $white;
 
   &:focus {
     outline: none;

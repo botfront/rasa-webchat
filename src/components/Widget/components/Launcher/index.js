@@ -21,6 +21,9 @@ import { safeQuerySelectorAll } from 'utils/dom';
 import './style.scss';
 import ThemeContext from '../../ThemeContext';
 
+import SVG from 'react-inlinesvg';
+import logo from 'assets/Hytebotti.svg';
+
 const Launcher = ({
   toggle,
   isChatOpen,
@@ -200,7 +203,9 @@ const Launcher = ({
       {unreadCount > 0 && displayUnreadCount && (
         <div className="rw-unread-count-pastille">{unreadCount}</div>
       )}
-      <img src={openLauncherImage || openLauncher} className="rw-open-launcher" alt="" />
+
+      <SVG src={logo} width={24} height="auto" alt="Open Chat" class="rw-logo"  className="rw-open-launcher"/>
+
       {showTooltip && lastMessage && lastMessage.get('sender') === 'response' && (referenceElement ? renderPlacedTooltip() : renderToolTip())}
     </div>
   );
