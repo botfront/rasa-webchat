@@ -8,7 +8,7 @@
     display: flex;
     background-color: $white;
     min-height: 30px;
-    padding: 3px 0px;
+    padding: 5px 0px;
     border-top: 1px solid $gray-6;
   }
   
@@ -28,23 +28,27 @@
       color: $gray-40;
     }
   }
-  
-  .#{$namespace}send {
-    cursor: pointer;
-  }
 
   .#{$namespace}send {
+    border-radius: 50%;
     background: $white;
-    border: 1px solid red;
-    padding: 8px;
-    color: $gray-25;
+    border: none;
+    padding: 5px 8px;
+    color: $accent;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: color 0.35s, background-color 0.35s;
 
-    .#{$namespace}send-icon-ready {
-      stroke: #135afe;
-      transition: fill 0.35s;
+    &:disabled {
+      cursor: inherit;
+      color: $gray-25
+    }
+    &:hover {
+      background-color: $gray-6;
     }
 
-    svg {
+    .#{$namespace}send-icon {
+      margin-top: 3px;
       stroke: currentColor;
     }
   }
