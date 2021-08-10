@@ -3,23 +3,23 @@
 
 $fontfamily: $font-family;  
 
-@mixin message-bubble($color, $textColor, $borderRadius: 15px) {
+@mixin message-bubble($color, $textColor, $borderRadius: 20px) {
   background-color: $color;
   color: $textColor;
   border-radius: $borderRadius;
-  padding: 11px 15px;
-  max-width: 215px;
+  padding: 9px 14px;
+  max-width: 222px;
   text-align: left;
   font: $speechbubble-font;
 }
 
 @mixin borderless-message-bubble($color, $textColor) {
     border-color: $color;
-    border-radius: 15px;
+    border-radius: 20px;
     color: $textColor;
     border-style: solid;
     padding: 15px;
-    max-width: 215px;
+    max-width: 222px;
     max-height: 1em;
     text-align: center;
     font-family: $fontfamily;
@@ -68,8 +68,13 @@ $fontfamily: $font-family;
 
 @mixin header-icon-fs {
   &.#{$namespace}default {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    padding-top: 0px;
+    background-color: $gray-6;
+    color: $black;
+    transition: background-color 0.35s;
 
     &:focus, &:active, &:hover {
       width: 24px;
@@ -82,10 +87,7 @@ $fontfamily: $font-family;
   padding-top: 3px;
 
   &:focus, &:active, &:hover {
-    width: 34px;
-    height: 34px;
-    top: -2px;
-    margin-left: -2px;
+    background-color: $gray-15;
   }
 }
 

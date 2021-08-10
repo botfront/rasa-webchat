@@ -27,9 +27,14 @@
   list-style: disc;
 }
 
+.#{$namespace}launcher:hover {
+  background-color: $accent-dark;
+  cursor: pointer;
+}
 
 .#{$namespace}launcher {
   @include animation(0, 0.5s, slide-in);
+  transition: background-color 0.35s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,10 +46,6 @@
   margin: 0;
   width: 44px;
   box-sizing: border-box;
-
-  svg {
-    fill: currentColor;
-  }
 
   color: $white;
 
@@ -286,13 +287,17 @@
 
 .#{$namespace}open-launcher {
   @include animation(0, 0.5s, rotation-rl);
+
+  fill: currentColor;
 }
 
 .#{$namespace}close-launcher {
   &.#{$namespace}default {
-    width: 20px !important;
+    width: 28px !important;
   }
   @include animation(0, 0.5s, rotation-lr);
+
+  stroke: currentColor;
 }
 
 

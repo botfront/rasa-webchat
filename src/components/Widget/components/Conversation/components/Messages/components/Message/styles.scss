@@ -22,9 +22,8 @@
   }
   
   .#{$namespace}client {
-    @include message-bubble($blue-1, $white);
+    @include message-bubble($accent, $white);
     background-color: $tertiary ;
-    max-width: 85%;
     margin-left: auto;
     overflow-wrap: break-word;
     a {
@@ -33,7 +32,7 @@
   }
   
   .#{$namespace}response {
-    @include message-bubble($grey-2, #000, 0 15px 15px 15px);
+    @include message-bubble($gray-6, #000, 20px);
     overflow-wrap: break-word;
   }
   

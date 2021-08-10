@@ -2,8 +2,6 @@
 @import 'common.scss';
 
 .#{$namespace}carousel-container {
-    // @include message-bubble($grey-2, #000);
-    //max-height: 345px;
     min-height: 345px;
     padding-bottom: 10px;
     overflow-x: hidden;

@@ -22,12 +22,11 @@
       position: absolute;
       top: 12px;
       left: 14px;
+      color: $accent;
+      fill: currentColor;
     }
     
 
-    svg {
-      fill: currentColor !important;
-    }
   }
   
   .#{$namespace}header.#{$namespace}with-subtitle {
@@ -64,16 +63,8 @@
     left: 16px;
   }
 
-  .#{$namespace}close-button {
-    display: none;
-  }
-
   .#{$namespace}header-buttons {
     @include header-buttons-fs;
-  }
-
-  .#{$namespace}close-button {
-    display: none;
   }
 
   .#{$namespace}toggle-fullscreen-button {
@@ -132,6 +123,18 @@
   
 }
 
+
+
+.#{$namespace}close-button {
+  @include header-button-fs;
+}
+
+.#{$namespace}close {
+  @include header-icon-fs;
+
+  stroke: currentColor;
+}
+
 @media screen and (max-width: 800px) {
   .#{$namespace}conversation-container {
     .#{$namespace}header {
@@ -140,14 +143,6 @@
 
     .#{$namespace}title {
       @include title-fs;
-    }
-
-    .#{$namespace}close-button {
-      @include header-button-fs;
-    }
-
-    .#{$namespace}close {
-      @include header-icon-fs;
     }
 
     .#{$namespace}toggle-fullscreen-button, .#{$namespace}w-.toggle-fullscreen {

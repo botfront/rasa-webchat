@@ -25,15 +25,19 @@
     }
 
     &::placeholder {
-      color: $gray-50;
+      color: $gray-40;
     }
   }
   
-  
+  .#{$namespace}send {
+    cursor: pointer;
+  }
+
   .#{$namespace}send {
     background: $white;
     border: 1px solid red;
     padding: 8px;
+    color: $gray-25;
 
     .#{$namespace}send-icon-ready {
       stroke: #135afe;
