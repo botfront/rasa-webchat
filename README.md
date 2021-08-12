@@ -5,7 +5,7 @@
 * The logo should be an SVG, which has the fill color not set or set to currentColor, to enable coloring via the font color of the parent element
 
 ## Integration
-
+Integration can be done via releasing an npm package or direct download of the index.js file
 ## Install
 * install nodejs
 * clone this repository
@@ -15,6 +15,10 @@
 ## Run locally for testing or development
 * run `npm run dev`
 
+
+## Release
+* run `npm run build` to make a release build
+* the build is in `lib/index.js`
 
 ## Official documentation
 
@@ -70,6 +74,9 @@ In your `<body/>`:
         {
           customData: { language: "en" },
           socketUrl: "https://bf-botfront.development.agents.botfront.cloud",
+          profileAvatar: "AVATARPATH",
+          accentColor: "COLORCODE",
+          accentDarkColor: "COLORCODE"
           // add other props here
         },
         null
