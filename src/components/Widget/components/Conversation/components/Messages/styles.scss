@@ -65,8 +65,8 @@
 
 .#{$namespace}messages-container {
   background-color: $white;
-  height: 356px;
-  max-height: 356px;
+  height: $container-height;
+  max-height: $container-height;
   overflow-y: auto;
 
   padding-top: 10px;

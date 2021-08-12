@@ -1,5 +1,11 @@
 # RASA WEBCHAT
 
+## Customization
+* Logo needs to be dimensioned 24px * 24px
+* The logo should be an SVG, which has the fill color not set or set to currentColor, to enable coloring via the font color of the parent element
+
+## Integration
+
 ## Install
 * install nodejs
 * clone this repository

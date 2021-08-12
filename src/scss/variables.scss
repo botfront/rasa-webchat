@@ -57,6 +57,12 @@ $font-family: IBMPlexSans;
 
 // app specific
 
+$container-width: 343px;
+$container-height: 356px;
+
+$card-width: 220px;
+$card-height: 260px;
+
 // string interpolation work around to avoid division via slash
 $speechbubble-font: #{$font-weight-regular} #{$font-size-normal}/#{$line-height} #{$font-family};
 $component-font: #{$font-weight-semibold} #{$font-size-normal}/#{$line-height} #{$font-family};

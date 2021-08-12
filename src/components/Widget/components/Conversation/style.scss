@@ -9,7 +9,7 @@
   box-shadow: 0px 8px 16px $chat-widget-shadow-color;
 
   overflow: hidden;
-  width: 343px;
+  width: $container-width;
 }
 
 .#{$namespace}slide-out {
