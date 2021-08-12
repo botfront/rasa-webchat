@@ -64,42 +64,44 @@ const Carousel = (props) => {
               : null;
           return (
             <div className="rw-carousel-card" key={index}>
-              <a
-                href={defaultActionUrl}
-                target={linkTarget || '_blank'}
-                rel="noopener noreferrer"
-                onClick={() => handleClick(carouselCard.default_action)}
-              >
-                {carouselCard.image_url ? (
-                  <img
-                    className="rw-carousel-card-image"
-                    src={carouselCard.image_url}
-                    alt={`${carouselCard.title} ${carouselCard.subtitle}}}`}
-                  />
-                ) : (
-                  <div className="rw-carousel-card-image" />
-                )}
-              </a>
-              <a
-                className="rw-carousel-card-title"
-                href={defaultActionUrl}
-                target={linkTarget || '_blank'}
-                rel="noopener noreferrer"
-                onClick={() => handleClick(carouselCard.default_action)}
-                style={{ color: assistTextColor }}
-              >
-                {carouselCard.title}
-              </a>
-              <a
-                className="rw-carousel-card-subtitle"
-                href={defaultActionUrl}
-                target={linkTarget || '_blank'}
-                rel="noopener noreferrer"
-                onClick={() => handleClick(carouselCard.default_action)}
-                style={{ color: assistTextColor }}
-              >
-                {carouselCard.subtitle}
-              </a>
+              <div className="rw-carousel-header">
+                <a
+                  href={defaultActionUrl}
+                  target={linkTarget || '_blank'}
+                  rel="noopener noreferrer"
+                  onClick={() => handleClick(carouselCard.default_action)}
+                >
+                  {carouselCard.image_url ? (
+                    <img
+                      className="rw-carousel-card-image"
+                      src={carouselCard.image_url}
+                      alt={`${carouselCard.title} ${carouselCard.subtitle}}}`}
+                    />
+                  ) : (
+                    <div className="rw-carousel-card-image" />
+                  )}
+                </a>
+                <a
+                  className="rw-carousel-card-title"
+                  href={defaultActionUrl}
+                  target={linkTarget || '_blank'}
+                  rel="noopener noreferrer"
+                  onClick={() => handleClick(carouselCard.default_action)}
+                  style={{ color: assistTextColor }}
+                >
+                  {carouselCard.title}
+                </a>
+                <a
+                  className="rw-carousel-card-subtitle"
+                  href={defaultActionUrl}
+                  target={linkTarget || '_blank'}
+                  rel="noopener noreferrer"
+                  onClick={() => handleClick(carouselCard.default_action)}
+                  style={{ color: assistTextColor }}
+                >
+                  {carouselCard.subtitle}
+                </a>
+              </div>
               <div className="rw-carousel-buttons-container">
                 {carouselCard.buttons.map((button, buttonIndex) => {
                   if (button.type === 'web_url') {

@@ -13,7 +13,7 @@
   }
   
   .#{$namespace}response {
-    @include message-bubble($gray-6, #000, 20px);
+    @include message-bubble($gray-6, $gray-80, 20px);
     max-width: 222px;
   }
   

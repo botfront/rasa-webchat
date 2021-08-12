@@ -154,7 +154,7 @@ $fontfamily: $font-family;
 }
 
 @mixin replies {
-  margin: 5px 10px;
+  margin: 5px 0px;
   display: flex;
   line-height: 20px;
   flex-wrap: wrap;
