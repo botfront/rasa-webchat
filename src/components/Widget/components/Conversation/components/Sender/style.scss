@@ -39,10 +39,12 @@
     margin-right: 8px;
     transition: color 0.35s, background-color 0.35s;
 
-    &:disabled {
+    &:disabled, &:disabled:hover{
       cursor: inherit;
-      color: $gray-25
+      color: $gray-25;
+      background-color: $white;
     }
+
     &:hover {
       background-color: $gray-6;
     }

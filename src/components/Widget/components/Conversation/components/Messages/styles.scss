@@ -42,9 +42,6 @@
     .#{$namespace}avatar {
       display: none;
     }
-    &.#{$namespace}with-avatar {
-      margin-left: 33px;
-    }
   }
   // When we have several messages, the last one of the group
   .#{$namespace}message:last-child:not(:only-child) {

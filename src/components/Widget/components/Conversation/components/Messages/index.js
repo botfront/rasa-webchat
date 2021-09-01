@@ -106,11 +106,6 @@ class Messages extends Component {
 
       const renderMessage = (message, index) => (
         <div className={`rw-message ${profileAvatar && 'rw-with-avatar'}`} key={index}>
-          {
-            profileAvatar &&
-            message.get('showAvatar') &&
-            <img src={profileAvatar} className="rw-avatar" alt="profile" />
-          }
           {this.getComponentToRender(message, index, index === messages.size - 1)}
           {renderMessageDate(message)}
         </div>
@@ -145,10 +140,6 @@ class Messages extends Component {
         { renderMessages() }
         {displayTypingIndication && (
           <div className={`rw-message rw-typing-indication ${profileAvatar && 'rw-with-avatar'}`}>
-            {
-              profileAvatar &&
-              <img src={profileAvatar} className="rw-avatar" alt="profile" />
-            }
             <div style={{ backgroundColor: assistBackgoundColor }}className="rw-response">
               <div id="wave">
                 <span className="rw-dot" />

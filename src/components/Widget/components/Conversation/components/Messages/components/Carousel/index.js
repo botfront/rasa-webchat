@@ -1,15 +1,19 @@
-import React, { useRef, useState, useContext } from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { addUserMessage, emitUserMessage } from 'actions';
 import { PROP_TYPES } from 'constants';
-import Arrow from 'assets/arrow';
 import ThemeContext from '../../../../../../ThemeContext';
+
+import SVG, { Props as SVGProps } from 'react-inlinesvg';
+import arrowSvg from 'assets/arrow.svg';
 
 import './styles.scss';
 
 const Carousel = (props) => {
+  const CARD_WIDTH = 234;
+
   const carousel = props.message.toJS();
 
   const handleClick = (action) => {
@@ -19,10 +23,16 @@ const Carousel = (props) => {
   };
 
   const scrollContainer = useRef();
+
+  // reset carousel position after page reload
+  useEffect(() => {
+    scrollContainer.current.scrollTo({left: 0});
+  }, []);
+
   const [leftButton, setLeftButton] = useState(false);
   const [rightButton, setRightButton] = useState(true);
   const { mainColor, assistTextColor } = useContext(ThemeContext);
-
+  const [activeCard, setActiveCard] = useState(0);
 
   const handleScroll = () => {
     const current = scrollContainer.current;
@@ -40,19 +50,26 @@ const Carousel = (props) => {
 
   const handleLeftArrow = () => {
     scrollContainer.current.scrollTo({
-      left: scrollContainer.current.scrollLeft - 230,
+      left: scrollContainer.current.scrollLeft - CARD_WIDTH,
       behavior: 'smooth'
     });
+
+    activeCard > 0 ? setActiveCard(activeCard - 1): setActiveCard(0);
   };
 
   const handleRightArrow = () => {
     scrollContainer.current.scrollTo({
-      left: scrollContainer.current.scrollLeft + 230,
+      left: scrollContainer.current.scrollLeft + CARD_WIDTH,
       behavior: 'smooth'
     });
+
+    console.log({rightButton})
+    activeCard < carousel.elements.length - 1 ? setActiveCard(activeCard + 1) : setActiveCard(carousel.elements.length - 1);
+    console.log({rightButton})
   };
 
   const { linkTarget } = props;
+
 
   return (
     <React.Fragment>
@@ -66,22 +83,6 @@ const Carousel = (props) => {
             <div className="rw-carousel-card" key={index}>
               <div className="rw-carousel-header">
                 <a
-                  href={defaultActionUrl}
-                  target={linkTarget || '_blank'}
-                  rel="noopener noreferrer"
-                  onClick={() => handleClick(carouselCard.default_action)}
-                >
-                  {carouselCard.image_url ? (
-                    <img
-                      className="rw-carousel-card-image"
-                      src={carouselCard.image_url}
-                      alt={`${carouselCard.title} ${carouselCard.subtitle}}}`}
-                    />
-                  ) : (
-                    <div className="rw-carousel-card-image" />
-                  )}
-                </a>
-                <a
                   className="rw-carousel-card-title"
                   href={defaultActionUrl}
                   target={linkTarget || '_blank'}
@@ -92,14 +93,13 @@ const Carousel = (props) => {
                   {carouselCard.title}
                 </a>
                 <a
-                  className="rw-carousel-card-subtitle"
+                  className="rw-carousel-card-image"
                   href={defaultActionUrl}
                   target={linkTarget || '_blank'}
                   rel="noopener noreferrer"
                   onClick={() => handleClick(carouselCard.default_action)}
-                  style={{ color: assistTextColor }}
+                  style={{backgroundImage: `url('${carouselCard.image_url}')`}}
                 >
-                  {carouselCard.subtitle}
                 </a>
               </div>
               <div className="rw-carousel-buttons-container">
@@ -146,7 +146,11 @@ const Carousel = (props) => {
             role="button"
             tabIndex={0}
           >
-            <div className="rw-arrow" alt="left carousel arrow" ><Arrow /></div>
+            <div className="rw-arrow" alt="left carousel arrow" >
+              <SVG
+                src={arrowSvg}
+                alt="left"
+              /></div>
           </div>
         )}
         {rightButton && (
@@ -157,9 +161,26 @@ const Carousel = (props) => {
             role="button"
             tabIndex={0}
           >
-            <div className="rw-arrow" alt="right carousel arrow"><Arrow /></div>
+            <div className="rw-arrow" alt="right carousel arrow">
+              <SVG
+                src={arrowSvg}
+                alt="right"
+              /></div>
           </div>
         )}
+      </div>
+      <div className="rw-carousel-navigation-dots">
+      {carousel.elements.map((carouselCard, index) => {
+          const defaultActionUrl =
+            carouselCard.default_action && carouselCard.default_action.type === 'web_url'
+              ? carouselCard.default_action.url
+              : null;
+          return (
+            <div className={`rw-carousel-navigation-dot ${index === activeCard ? 'active' : ''}`} key={index}>
+              
+            </div>
+          );
+        })}
       </div>
     </React.Fragment>
   );

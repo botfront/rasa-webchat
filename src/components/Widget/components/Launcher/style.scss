@@ -285,6 +285,12 @@
   to {opacity: 1; transform: translateY(0);}
 }
 
+
+
+.#{$namespace}open-launcher__container {
+  margin-top: 3px;
+}
+
 .#{$namespace}open-launcher {
   @include animation(0, 0.5s, rotation-rl);
 
