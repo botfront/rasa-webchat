@@ -127,6 +127,7 @@
 
 .#{$namespace}close-button {
   @include header-button-fs;
+  margin-top: 5px;
 }
 
 .#{$namespace}close {
