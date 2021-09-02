@@ -15,11 +15,14 @@ import { showTooltip as showTooltipAction, emitUserMessage} from 'actions';
 import { onRemove } from 'utils/dom';
 import openLauncher from 'assets/launcher_button.svg';
 import closeIcon from 'assets/clear-button-grey.svg';
-import close from 'assets/clear-button.svg';
+import close from 'assets/Close.svg';
 import Badge from './components/Badge';
 import { safeQuerySelectorAll } from 'utils/dom';
 import './style.scss';
 import ThemeContext from '../../ThemeContext';
+
+import SVG from 'react-inlinesvg';
+import logo from 'assets/Hytebotti.svg';
 
 const Launcher = ({
   toggle,
@@ -196,28 +199,25 @@ const Launcher = ({
   );
 
   const renderOpenLauncherImage = () => (
+    <button type="button" style={{ backgroundColor: mainColor }} className={className.join(' ')} onClick={toggle}>
+      <Badge badge={badge} />
     <div className="rw-open-launcher__container">
       {unreadCount > 0 && displayUnreadCount && (
         <div className="rw-unread-count-pastille">{unreadCount}</div>
       )}
-      <img src={openLauncherImage || openLauncher} className="rw-open-launcher" alt="" />
+
+      <SVG src={logo} width={24} height="auto" alt="Open Chat" class="rw-logo"  className="rw-open-launcher"/>
+
       {showTooltip && lastMessage && lastMessage.get('sender') === 'response' && (referenceElement ? renderPlacedTooltip() : renderToolTip())}
     </div>
+    </button>
   );
 
-  return (
-    <button type="button" style={{ backgroundColor: mainColor }} className={className.join(' ')} onClick={toggle}>
-      <Badge badge={badge} />
-      {isChatOpen ? (
-        <img
-          src={closeImage || close}
-          className={`rw-close-launcher ${closeImage ? '' : 'rw-default'}`}
-          alt=""
-        />
-      ) : (
+  return (<div>
+      {!isChatOpen && (
         renderOpenLauncherImage()
       )}
-    </button>
+      </div>
   );
 };
 

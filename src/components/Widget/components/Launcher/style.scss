@@ -27,20 +27,27 @@
   list-style: disc;
 }
 
+.#{$namespace}launcher:hover {
+  background-color: $accent-dark;
+  cursor: pointer;
+}
 
 .#{$namespace}launcher {
   @include animation(0, 0.5s, slide-in);
+  transition: background-color 0.35s;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: $tertiary;
   border: 0;
   border-radius: 50%;
-  box-shadow: 0px 2px 10px 1px $grey-3;
-  height: 60px;
+  box-shadow: 0px 0.5px 4px rgba(0, 0, 0, 0.1), 0px 8px 16px rgba(0, 0, 0, 0.1);
+  height: 44px;
   margin: 0;
-  width: 60px;
+  width: 44px;
   box-sizing: border-box;
+
+  color: $white;
 
   &:focus {
     outline: none;
@@ -278,15 +285,25 @@
   to {opacity: 1; transform: translateY(0);}
 }
 
+
+
+.#{$namespace}open-launcher__container {
+  margin-top: 3px;
+}
+
 .#{$namespace}open-launcher {
   @include animation(0, 0.5s, rotation-rl);
+
+  fill: currentColor;
 }
 
 .#{$namespace}close-launcher {
   &.#{$namespace}default {
-    width: 20px !important;
+    width: 28px !important;
   }
   @include animation(0, 0.5s, rotation-lr);
+
+  stroke: currentColor;
 }
 
 

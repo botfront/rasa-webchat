@@ -4,7 +4,7 @@
 
 .#{$namespace}conversation-container {
   .#{$namespace}snippet {
-    @include message-bubble($grey-2, #000);
+    @include message-bubble($gray-6, $black);
   }
   
   .#{$namespace}snippet-title {

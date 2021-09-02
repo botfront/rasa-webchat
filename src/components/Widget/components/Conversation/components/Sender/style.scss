@@ -6,38 +6,52 @@
   .#{$namespace}sender {
     align-items: center;
     display: flex;
-    background-color: $grey-2;
+    background-color: $white;
     min-height: 30px;
-    padding: 15px 5px;
-   
+    padding: 5px 0px;
+    border-top: 1px solid $gray-6;
   }
   
   .#{$namespace}new-message {
     font-size: 1em;
     width: 100%;
     border: 0;
-    background-color: $grey-2;
-    padding-left: 15px;
-    font-family: $fontfamily;
+    background-color: $white;
+    padding-left: 16px;
+    font: $speechbubble-font;
     resize: none;
     &:focus {
       outline: none;
     }
+
+    &::placeholder {
+      color: $gray-40;
+    }
   }
-  
-  
+
   .#{$namespace}send {
-    background: $grey-2;
-    border: 0;
-    
-    .#{$namespace}send-icon {
-      fill: #00000000;;
-      transition: fill 0.35s;
+    border-radius: 50%;
+    background: $white;
+    border: none;
+    padding: 5px 7px;
+    color: $accent;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: color 0.35s, background-color 0.35s;
+
+    &:disabled, &:disabled:hover{
+      cursor: inherit;
+      color: $gray-25;
+      background-color: $white;
     }
 
-    .#{$namespace}send-icon-ready {
-      fill: #135afe;
-      transition: fill 0.35s;
+    &:hover {
+      background-color: $gray-6;
+    }
+
+    .#{$namespace}send-icon {
+      margin: 3px 2px 0 0;
+      stroke: currentColor;
     }
   }
   

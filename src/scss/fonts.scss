@@ -1,0 +1,27 @@
+@import './variables.scss';
+
+/* definition */
+@font-face {
+  font-family: IBMPlexSans;
+  src: url('../../assets/fonts/IBMPlexSans-Regular.ttf') format('truetype');
+  font-weight: $font-weight-regular;
+  font-style: normal;
+}
+@font-face {
+  font-family: IBMPlexSans;
+  src: url('../../assets/fonts/IBMPlexSans-Medium.ttf') format('truetype');
+  font-weight: $font-weight-mediumbold;
+  font-style: normal;
+}
+@font-face {
+  font-family: IBMPlexSans;
+  src: url('../../assets/fonts/IBMPlexSans-SemiBold.ttf') format('truetype');
+  font-weight: $font-weight-semibold;
+  font-style: normal;
+}
+@font-face {
+  font-family: IBMPlexSans;
+  src: url('../../assets/fonts/IBMPlexSans-Bold.ttf') format('truetype');
+  font-weight: $font-weight-bold;
+  font-style: normal;
+}

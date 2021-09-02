@@ -5,13 +5,11 @@
 .#{$namespace}conversation-container {
   
   .#{$namespace}message {
-    margin: 10px;
-    font-size: 16px;
-    line-height: 20px;
+    margin: 24px 20px;
     display: flex;
-    font-family: $fontfamily;
     flex-wrap: wrap;
     position: relative;
+    font: $speechbubble-font;
   
     .#{$namespace}markdown {
       p {
@@ -24,9 +22,8 @@
   }
   
   .#{$namespace}client {
-    @include message-bubble($blue-1, $white);
+    @include message-bubble($accent, $white);
     background-color: $tertiary ;
-    max-width: 85%;
     margin-left: auto;
     overflow-wrap: break-word;
     a {
@@ -35,7 +32,7 @@
   }
   
   .#{$namespace}response {
-    @include message-bubble($grey-2, #000, 0 15px 15px 15px);
+    @include message-bubble($gray-6, $gray-80, 20px);
     overflow-wrap: break-word;
   }
   

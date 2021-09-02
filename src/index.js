@@ -1,5 +1,7 @@
 import React, { forwardRef, useRef } from 'react';
 
+import './scss/fonts.scss';
+
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 

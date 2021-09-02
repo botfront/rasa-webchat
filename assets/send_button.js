@@ -6,21 +6,14 @@ function Send({ ready }) {
   const { mainColor } = useContext(ThemeContext);
 
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="25"
-      height="25"
-      enableBackground="new 0 0 535.5 535.5"
-      version="1.1"
-      viewBox="0 0 535.5 535.5"
-      xmlSpace="preserve"
-    >
-      <path
-        className={ready ? 'rw-send-icon-ready' : 'rw-send-icon'}
-        style={{ fill: ready && mainColor }}
-        d="M0 497.25L535.5 267.75 0 38.25 0 216.75 382.5 267.75 0 318.75z"
-      />
-    </svg>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21 4L17.4245 17.9317L3 11.6438L21 4Z" stroke-width="2" stroke-linejoin="round"
+      className={ready ? 'rw-send-icon-ready' : 'rw-send-icon'}
+      style={{ fill: ready && mainColor }}/>/>
+    <path d="M21.0001 4L10.2124 14.7877V19.5719L12.7717 15.8776" stroke-width="2" stroke-linejoin="round"
+      className={ready ? 'rw-send-icon-ready' : 'rw-send-icon'}
+      style={{ fill: ready && mainColor }}/>
+  </svg>
   );
 }
 
