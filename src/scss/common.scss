@@ -68,22 +68,17 @@ $fontfamily: $font-family;
 
 @mixin header-icon-fs {
   &.#{$namespace}default {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     padding-top: 0px;
     background-color: $gray-6;
     color: $black;
     transition: background-color 0.35s;
-
-    &:focus, &:active, &:hover {
-      width: 24px;
-      height: 24px;
-    }
   }
 
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   padding-top: 3px;
 
   &:focus, &:active, &:hover {
