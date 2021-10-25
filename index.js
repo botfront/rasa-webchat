@@ -167,13 +167,13 @@ RasaWebchatProWithRules.propTypes = {
 };
 
 export const rasaWebchatProDefaultTypes = {
-  title: 'Welcome',
+  title: '健康助手',
   customData: {},
-  inputTextFieldHint: 'Type a message...',
-  connectingText: 'Waiting for server...',
+  inputTextFieldHint: '请输入消息...',
+  connectingText: '加载中...',
   fullScreenMode: false,
   hideWhenNotConnected: true,
-  autoClearCache: false,
+  autoClearCache: true,
   connectOn: 'mount',
   onSocketEvent: {},
   protocol: 'socketio',

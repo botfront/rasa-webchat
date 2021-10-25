@@ -62,6 +62,7 @@ class Widget extends Component {
     document.body.appendChild(styleNode);
 
     this.intervalId = setInterval(() => dispatch(evalUrl(window.location.href)), 500);
+    localStorage.removeItem(SESSION_NAME);
     if (connectOn === 'mount') {
       this.initializeWidget();
       return;
@@ -668,7 +669,7 @@ Widget.defaultProps = {
   isChatVisible: true,
   fullScreenMode: false,
   connectOn: 'mount',
-  autoClearCache: false,
+  autoClearCache: true,
   displayUnreadCount: false,
   tooltipPayload: null,
   inputTextFieldHint: 'Type a message...',

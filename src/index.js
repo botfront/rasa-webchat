@@ -212,13 +212,13 @@ ConnectedWidget.propTypes = {
 };
 
 ConnectedWidget.defaultProps = {
-  title: 'Welcome',
+  title: 'Welcome to Health Bot 😊',
   customData: {},
-  inputTextFieldHint: 'Type a message...',
-  connectingText: 'Waiting for server...',
+  inputTextFieldHint: '请输入消息...',
+  connectingText: '正在加载...',
   fullScreenMode: false,
   hideWhenNotConnected: true,
-  autoClearCache: false,
+  autoClearCache: true,
   connectOn: 'mount',
   onSocketEvent: {},
   protocol: 'socketio',
