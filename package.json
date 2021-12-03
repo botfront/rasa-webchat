@@ -1,6 +1,6 @@
 {
   "name": "rasa-webchat",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Chat web widget for React apps and Rasa Core chatbots",
   "module": "module/index.js",
   "main": "lib/index.js",
@@ -25,6 +25,7 @@
     "@stomp/stompjs": "^5.4.2",
     "html-webpack-plugin": "^3.2.0",
     "immutable": "^3.8.2",
+    "object-hash": "^1.1.5",
     "prop-types": "^15.7.2",
     "react-immutable-proptypes": "^2.2.0",
     "react-markdown": "^4.2.2",
@@ -34,10 +35,9 @@
     "react-textarea-autosize": "^7.1.2",
     "redux": "^4.0.5",
     "slick-carousel": "^1.8.1",
-    "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0",
-    "sockjs-client": "^1.4.0",
-    "object-hash": "^1.1.5"
+    "socket.io": "^3.1.2",
+    "socket.io-client": "^3.1.2",
+    "sockjs-client": "^1.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

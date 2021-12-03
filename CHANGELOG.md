@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://https///compare/v1.0.0...v1.0.1) (2021-04-15)
+
+
+### Bug Fixes
+
+* readme typo ([f0fa78c](https://https///commit/f0fa78c048d71e52b8a8d2c863e8e2269f2fb834))
+* socket io ([4c1562d](https://https///commit/4c1562d5d62df7f70e12910edcbe093e4dc48e80))
+
+### [1.0.1](https://https///compare/v1.0.0...v1.0.1) (2021-04-15)
+
+
+### Bug Fixes
+
+* readme typo ([f0fa78c](https://https///commit/f0fa78c048d71e52b8a8d2c863e8e2269f2fb834))
+* socket io ([4c1562d](https://https///commit/4c1562d5d62df7f70e12910edcbe093e4dc48e80))
+
 ## [1.0.0](https://https///compare/v0.11.12...v1.0.0) (2021-02-01)
 
 ### [0.11.12](https://https///compare/v0.11.11...v0.11.12) (2021-01-19)

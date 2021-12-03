@@ -12,10 +12,6 @@ export default function (socketUrl, customData, path) {
     console.log(error);
   });
 
-  socket.on('error', (error) => {
-    console.log(error);
-  });
-
   socket.on('disconnect', (reason) => {
     console.log(reason);
   });
