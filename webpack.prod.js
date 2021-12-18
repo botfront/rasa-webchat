@@ -4,6 +4,7 @@ const path = require('path');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const { version } = require('./package.json');
+const webpack = require('webpack')
 
 module.exports = [{
   // entry: ['babel-polyfill', './index.js'],
@@ -42,7 +43,9 @@ module.exports = [{
           {
             loader: 'sass-loader',
             options: {
-              includePaths: [path.resolve(__dirname, 'src/scss/')]
+              sassOptions: {
+                includePaths: [path.resolve(__dirname, 'src/scss/')],
+              }
             }
           }
         ]
@@ -59,7 +62,15 @@ module.exports = [{
       }
     ]
   },
-  plugins: [new CleanWebpackPlugin(['lib'])]
+  plugins: [new CleanWebpackPlugin(['lib']), new webpack.ProvidePlugin({
+    process: 'process/browser'
+  })],
+  resolve: {
+    // ... rest of the resolve config
+    fallback: {
+      "path": require.resolve("path-browserify")
+    }
+  }
 }, {
   entry: './index.js',
   externals: {
@@ -112,7 +123,9 @@ module.exports = [{
           {
             loader: 'sass-loader',
             options: {
-              includePaths: [path.resolve(__dirname, 'src/scss/')]
+              sassOptions: {
+                includePaths: [path.resolve(__dirname, 'src/scss/')],
+              }
             }
           }
         ]
@@ -129,6 +142,14 @@ module.exports = [{
       }
     ]
   },
-  plugins: [new CleanWebpackPlugin(['module'])]
+  plugins: [new CleanWebpackPlugin(['lib']), new webpack.ProvidePlugin({
+    process: 'process/browser'
+  })],
+  resolve: {
+    // ... rest of the resolve config
+    fallback: {
+      "path": require.resolve("path-browserify")
+    }
+  }
 }
 ];

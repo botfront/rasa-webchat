@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { version } = require('./package.json');
+const webpack = require('webpack')
 
 module.exports = {
   // entry: ['babel-polyfill', './index.js'],
@@ -12,11 +13,13 @@ module.exports = {
     libraryTarget: 'umd'
   },
   devServer: {
-    stats: 'errors-only',
+    client: {
+      logging: 'error',
+    },
     host: process.env.HOST, // Defaults to `localhost`
     port: process.env.PORT, // Defaults to 8080
     open: true, // Open the page in browser
-    contentBase: path.resolve(__dirname, '/lib')
+    static: path.resolve(__dirname, '/lib')
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -45,7 +48,9 @@ module.exports = {
         {
           loader: 'sass-loader',
           options: {
-            includePaths: [path.resolve(__dirname, 'src/scss/')]
+            sassOptions: {
+              includePaths: [path.resolve(__dirname, 'src/scss/')],
+            }
           }
         }
       ]
@@ -66,6 +71,14 @@ module.exports = {
       inject: false,
       template: 'dev/src/index.html',
       showErrors: true
-    })
-  ]
+    }),  new webpack.ProvidePlugin({
+      process: 'process/browser'
+    }),
+  ],
+  resolve: {
+    // ... rest of the resolve config
+    fallback: {
+      "path": require.resolve("path-browserify")
+    }
+  }
 };

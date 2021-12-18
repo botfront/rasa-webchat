@@ -25,6 +25,7 @@ class RasaWebchatProWithRules extends React.Component {
     };
     this.setRef = this.setRef.bind(this);
     this.handleSessionConfirm = this.handleSessionConfirm.bind(this);
+    window.send = this.send.bind(this);
   }
 
   setRef(element) {
@@ -40,6 +41,15 @@ class RasaWebchatProWithRules extends React.Component {
     }
   }
 
+  send(payload, text = '', when = 'always', tooltipSelector = false) {
+    const { innerRef } = this.props;
+    if (innerRef && innerRef.current) {
+      innerRef.current.sendMessage(payload, text, when, tooltipSelector);
+    } else {
+      this.webchatRef.sendMessage(payload, text, when, tooltipSelector);
+    }
+  }
+
   handleSessionConfirm(sessionObject) {
     const { innerRef } = this.props;
     this.setState({
@@ -48,8 +58,8 @@ class RasaWebchatProWithRules extends React.Component {
     });
     if (
       ((innerRef && innerRef.current) || this.webchatRef.updateRules) &&
-              sessionObject.props &&
-              sessionObject.props.rules
+      sessionObject.props &&
+      sessionObject.props.rules
     ) {
       setTimeout(() => {
         if (innerRef && innerRef.current) {
