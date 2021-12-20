@@ -12,7 +12,7 @@ class Message extends PureComponent {
   render() {
     const { docViewer, linkTarget } = this.props;
     const sender = this.props.message.get('sender');
-    const text = this.props.message.get('text');
+    const text = this.props.message.get('text').replace(/\\n/gi, '  \n');
     const customCss = this.props.message.get('customCss') && this.props.message.get('customCss').toJS();
 
     if (customCss && customCss.style === 'class') {
