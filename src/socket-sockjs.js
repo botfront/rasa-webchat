@@ -54,6 +54,7 @@ export default function (socketUrl, customData, _path, options) {
       {},
       JSON.stringify({ type: 'JOIN', sender: socketProxy.id })
     );
+    console.log("connect")
   };
 
   socketProxy.onerror = (error) => {
@@ -68,7 +69,7 @@ export default function (socketUrl, customData, _path, options) {
 
   socketProxy.onIncomingMessage = (payload) => {
     const message = JSON.parse(payload.body);
-
+    console.log("receive:" + message);
     if (message.type === 'JOIN') {
       socketProxy.emit('connect');
     } else if (message.type === 'LEAVE') {

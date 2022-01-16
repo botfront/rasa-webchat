@@ -240,6 +240,10 @@ class Widget extends Component {
       newMessage.customCss = botUtterance.metadata.customCss;
     }
     this.handleMessageReceived(newMessage);
+    if(botUtterance.text.includes("/end")) {
+      const { socket } = this.props;
+      socket.close();
+    }
   }
 
   addCustomsEventListeners(pageEventCallbacks) {

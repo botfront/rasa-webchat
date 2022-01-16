@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta charset="UTF-8">
 
 <head>
   <title>Botfront - Web Chat</title>
@@ -7,28 +8,24 @@
   <script>
     const load = () => {
       if (!WebChat) setTimeout(load, 100);
-      if (WebChat) WebChat.default({
-        customData: { language: "en" },
-        socketUrl: "http://localhost:5005",
-        withRules: true,
-      });
+      if (WebChat) {
+        WebChat.default({
+          socketUrl: "http://localhost:5005"
+        });
+
+          setTimeout(() => {
+            WebChat.send('/set_data{"invite_prompt":"Hello, we have a party, do you want to join？"}');
+            WebChat.send('/invite');
+          }, 200);
+      }
     }
+
     setTimeout(load, 200);
   </script>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<body style="background: lightcyan;">
-  <!-- <body style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/42/Main_menu_of_Wikipedia.png);"> -->
-  <a href="#" onclick="WebChat.send('/chitchat.greet')">Send chitchat.greet without text</a>
-  <br />
-  <a href="#" onclick="WebChat.send('/chitchat.greet', 'salut')">Send chitchat.greet with text</a>
-  <span style="height: 400px; display: block;">test</span>
-  <span style="height: 400px; display: block;">test</span>
-  <span style="height: 400px; display: block;">test</span>
-  <h1 class="test"> test</h1>
-  <button class="my-button" style="margin-left: 450px"> MY BUTTON</button>
-  <div style="width: 400px; height: 2000px; border: 3px solid lightsalmon;" id="webchat" />
+<body style="background-image: url(https://i.imgur.com/NVFKCcI.jpeg);">
 </body>
 
 </html>
