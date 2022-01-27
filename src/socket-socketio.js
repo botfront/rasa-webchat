@@ -1,9 +1,10 @@
 import io from 'socket.io-client';
 
-export default function (socketUrl, customData, path) {
+export default function (socketUrl, customData, path, protocolOptions) {
   const options = {
     transports: ['websocket', 'polling'], 
-    path
+    path,
+    ...protocolOptions,
   }
   const socket = io(socketUrl, options);
   socket.on('connect', () => {
