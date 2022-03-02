@@ -10,6 +10,7 @@
     min-height: 30px;
     padding: 5px 0px;
     border-top: 1px solid $gray-6;
+    flex: 0 0 auto;
   }
   
   .#{$namespace}new-message {
@@ -66,7 +67,7 @@
 
 .#{$namespace}widget-embedded {
   .#{$namespace}sender {
-    flex: 0, 0, auto;
+    flex: 0 0 auto;
     min-height: 35px;
   }
 }

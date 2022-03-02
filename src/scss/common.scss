@@ -89,6 +89,7 @@ $fontfamily: $font-family;
 @mixin messages-container-fs {
   height: 100%;
   max-height: none;
+  flex: 1 1 0;
 }
 
 @mixin conversation-container-fs {
