@@ -1,10 +1,10 @@
 {
-  "name": "auroraai-webchat",
+  "name": "rasa-webchat",
   "version": "0.0.1",
   "description": "Chat web widget for React apps and Rasa Core chatbots",
   "module": "module/index.js",
   "main": "lib/index.js",
-  "repository": "git@https://github.com/botfront/rasa-webchat.git",
+  "repository": "git@https://github.com/auroraai-bot-platform/rasa-webchat.git",
   "author": "",
   "license": "Apache-2.0",
   "scripts": {
@@ -70,7 +70,7 @@
     "husky": "^3.0.7",
     "jest": "^25.5.4",
     "lodash-webpack-plugin": "^0.11.5",
-    "node-sass": "^4.14.1",
+    "node-sass": "4.14.1",
     "prettier": "^1.18.2",
     "prettier-eslint": "^5.1.0",
     "react": "^16.12.0",

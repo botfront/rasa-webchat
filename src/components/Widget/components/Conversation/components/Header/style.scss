@@ -3,6 +3,11 @@
 @import "common.scss";
 
 .#{$namespace}conversation-container {
+
+  .#{$namespace}header-and-loading {
+    flex: 0;
+  }
+
   .#{$namespace}header {
     background-color: $white;
     border-bottom: 1px solid $gray-6;

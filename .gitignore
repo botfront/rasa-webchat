@@ -12,3 +12,4 @@ module
 
 # Test files
 coverage
+*.tgz
