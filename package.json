@@ -1,5 +1,5 @@
 {
-  "name": "auroraai-webchat",
+  "name": "rasa-webchat",
   "version": "0.0.1",
   "description": "Chat web widget for React apps and Rasa Core chatbots",
   "module": "module/index.js",
