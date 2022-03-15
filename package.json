@@ -8,7 +8,7 @@
   "author": "",
   "license": "Apache-2.0",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.dev.js",
+    "dev": "webpack-dev-server --config webpack.prod.js",
     "build": "webpack --config webpack.prod.js -p",
     "test": "jest",
     "prepare": "npm run build",
@@ -53,7 +53,7 @@
     "babel-plugin-module-resolver": "4.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "clean-webpack-plugin": "^0.1.19",
+    "clean-webpack-plugin": "4.0.0",
     "css-loader": "^0.28.11",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
