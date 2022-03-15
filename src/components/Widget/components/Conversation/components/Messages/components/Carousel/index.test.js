@@ -72,7 +72,7 @@ describe('</Carousel />', () => {
 
   it('should render a Carousel component and buttons and default actions', () => {
     expect(messagesComponent.render().find('.rw-carousel-card')).toHaveLength(3);
-    expect(messagesComponent.render().find('a[href^="https://google"]')).toHaveLength(3);
+    expect(messagesComponent.render().find('a[href^="https://google"]')).toHaveLength(2);
     expect(messagesComponent.render().find('.rw-reply')).toHaveLength(3);
 
     expect(messagesComponent.render().find('.rw-reply[href^="https://facebook"]')).toHaveLength(1);
