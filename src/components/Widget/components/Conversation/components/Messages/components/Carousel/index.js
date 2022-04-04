@@ -81,7 +81,6 @@ const Carousel = (props) => {
               : null;
           return (
             <div className="rw-carousel-card" key={index}>
-              <div className="rw-carousel-header">
                 <a
                   className="rw-carousel-card-title"
                   href={defaultActionUrl}
@@ -101,7 +100,17 @@ const Carousel = (props) => {
                   style={{backgroundImage: `url('${carouselCard.image_url}')`}}
                 >
                 </a>
-              </div>
+                <a
+                className="rw-carousel-card-subtitle"
+                href={defaultActionUrl}
+                target={linkTarget || '_blank'}
+                rel="noopener noreferrer"
+                onClick={() => handleClick(carouselCard.default_action)}
+                style={{ color: assistTextColor }}
+                title={carouselCard.subtitle}
+              >
+                {carouselCard.subtitle}
+              </a>
               <div className="rw-carousel-buttons-container">
                 {carouselCard.buttons.map((button, buttonIndex) => {
                   if (button.type === 'web_url') {
