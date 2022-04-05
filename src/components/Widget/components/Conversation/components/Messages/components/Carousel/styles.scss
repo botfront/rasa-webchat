@@ -51,7 +51,7 @@
             text-overflow: ellipsis;
             cursor: pointer;
             text-decoration: none;
-            color: inherit;
+            color: $gray-80;
             font: $chatlabel-font;
         }
 
@@ -59,19 +59,19 @@
             flex: 1 1 fit-content;
             display: block;
             margin: 5px 9px 8px 9px;
-            opacity: 0.5;
             font-size: 0.8em;
             overflow: hidden;
             white-space: normal;
             line-height: initial;
             cursor: pointer;
             text-decoration: none;
-            color: inherit;
+            color: $gray-80;
         }
 
         .#{$namespace}carousel-buttons-container {
             // margin-bottom: 1.5rem;
-            flex: 1 0;
+            flex: 0 0 fit-content;
+            margin-top: auto;
             width: 100%;
             .#{$namespace}reply {
                 min-height: 21px;

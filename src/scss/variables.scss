@@ -58,10 +58,10 @@ $font-family: IBMPlexSans;
 // app specific
 
 $container-width: 343px;
-$container-height: 456px;
+$container-height: 396px;
 
 $card-width: 220px;
-$card-height: 360px;
+$card-height: 300px;
 
 // string interpolation work around to avoid division via slash
 $speechbubble-font: #{$font-weight-regular} #{$font-size-normal}/#{$line-height} #{$font-family};
