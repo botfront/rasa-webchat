@@ -43,7 +43,7 @@
         }
 
         .#{$namespace}carousel-card-title {
-            flex: 0 0 20px;
+            flex: 0 0 fit-content;
             display: block;
             padding: 12px 10px;
             font-weight: 500;
@@ -58,7 +58,7 @@
         .#{$namespace}carousel-card-subtitle {
             flex: 1 1 fit-content;
             display: block;
-            margin: 5px 9px 8px 9px;
+            margin: 0px 9px 8px 9px;
             font-size: 0.8em;
             overflow: hidden;
             white-space: normal;
