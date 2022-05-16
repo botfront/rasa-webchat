@@ -26,21 +26,24 @@
         overflow: hidden;
         position: relative;
         box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+        background-color: $gray-2;
 
         .#{$namespace}carousel-header {
-            flex: 1;
+            flex: 0 0 20px;
             display: flex;
             flex-direction: column;
             background-color: $gray-2;
         }
 
         .#{$namespace}carousel-card-image {
-            flex: 1;
+            flex: 0 0 110px;
             background-repeat: no-repeat;
             background-size: cover;
+            background-position: center;
         }
 
         .#{$namespace}carousel-card-title {
+            flex: 0 0 fit-content;
             display: block;
             padding: 12px 10px;
             font-weight: 500;
@@ -48,31 +51,33 @@
             text-overflow: ellipsis;
             cursor: pointer;
             text-decoration: none;
-            color: inherit;
+            color: $gray-80;
             font: $chatlabel-font;
         }
 
         .#{$namespace}carousel-card-subtitle {
+            flex: 1 1 fit-content;
             display: block;
-            margin: 0 9px 8px 9px;
-            opacity: 0.5;
+            margin: 0px 9px 8px 9px;
             font-size: 0.8em;
             overflow: hidden;
             white-space: normal;
             line-height: initial;
             cursor: pointer;
             text-decoration: none;
-            color: inherit;
+            color: $gray-80;
         }
 
         .#{$namespace}carousel-buttons-container {
             // margin-bottom: 1.5rem;
+            flex: 0 0 fit-content;
+            margin-top: auto;
             width: 100%;
             .#{$namespace}reply {
                 min-height: 21px;
-                margin: 0 0 0 16px;
+                margin: 0;
                 height: 44px;
-                padding: 0;
+                padding: 0 0 0 20px;
                 border-radius: 0;
                 border-width: 1px 0 0 0;
                 border-color: $gray-6;
