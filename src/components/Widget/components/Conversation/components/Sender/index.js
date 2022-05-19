@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextareaAutosize from 'react-textarea-autosize';
-import Send from 'assets/send_button';
 import sendButton from 'assets/Send.svg';
 
 
@@ -34,7 +33,7 @@ const Sender = ({ sendMessage, inputTextFieldHint, disabledInput, userInput }) =
   }
   return (
     userInput === 'hide' ? <div /> : (
-      <form ref={formRef} className="rw-sender" onSubmit={handleSubmit}>
+      <form ref={formRef} className={`rw-sender${userInput === 'disable' ? ' disabled' : ''}`} onSubmit={handleSubmit}>
 
         <TextareaAutosize type="text" minRows={1} onKeyDown={onEnterPress} maxRows={3} onChange={handleChange} className="rw-new-message" name="message" placeholder={inputTextFieldHint} disabled={disabledInput || userInput === 'disable'} autoFocus autoComplete="off" />
         <button type="submit" className="rw-send" disabled={!(inputValue && inputValue.length > 0)}>
