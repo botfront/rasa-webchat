@@ -11,6 +11,7 @@
   flex-direction: column;
   overflow: hidden;
   width: $container-width;
+  background-color: $white;
 }
 
 .#{$namespace}slide-out {
