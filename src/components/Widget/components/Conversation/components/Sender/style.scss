@@ -11,7 +11,21 @@
     padding: 5px 0px;
     border-top: 1px solid $gray-6;
     flex: 0 0 auto;
+    transition: background-color 0.3s;
+
+    textarea {
+      transition: inherit;
+    }
   }
+
+  .#{$namespace}sender.disabled {
+    background-color: $gray-6;
+
+    textarea {
+      text-decoration-line: line-through;
+      background-color: inherit;
+    }
+}
   
   .#{$namespace}new-message {
     font-size: 1em;

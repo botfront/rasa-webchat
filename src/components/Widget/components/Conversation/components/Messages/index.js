@@ -136,7 +136,7 @@ class Messages extends Component {
     const { conversationBackgroundColor, assistBackgoundColor } = this.context;
 
     return (
-      <div id="rw-messages" style={{ backgroundColor: conversationBackgroundColor }} className="rw-messages-container">
+      <div id="rw-messages" style={{ backgroundColor: conversationBackgroundColor }} className={`rw-messages-container${this.props.userInput === 'hide' ? ' hidden-input' : ''}`}>
         { renderMessages() }
         {displayTypingIndication && (
           <div className={`rw-message rw-typing-indication ${profileAvatar && 'rw-with-avatar'}`}>
@@ -159,7 +159,8 @@ Messages.propTypes = {
   profileAvatar: PropTypes.string,
   customComponent: PropTypes.func,
   showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  displayTypingIndication: PropTypes.bool
+  displayTypingIndication: PropTypes.bool,
+  userInput: PropTypes.string
 };
 
 Message.defaultTypes = {
@@ -168,5 +169,6 @@ Message.defaultTypes = {
 
 export default connect(store => ({
   messages: store.messages,
-  displayTypingIndication: store.behavior.get('messageDelayed')
+  displayTypingIndication: store.behavior.get('messageDelayed'),
+  userInput: store.metadata.get('userInput')
 }))(Messages);

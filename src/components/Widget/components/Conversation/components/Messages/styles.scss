@@ -68,6 +68,11 @@
   padding-top: 10px;
 }
 
+.#{$namespace}messages-container.hidden-input {
+  padding-bottom: 31px;
+  margin-bottom: 20px;
+}
+
 .#{$namespace}widget-embedded {
   .#{$namespace}messages-container {
     height: 100%;
