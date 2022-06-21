@@ -566,6 +566,7 @@ class Widget extends Component {
         })
       );
     } else if (isLiveAgent(messageClean)) {
+      console.log(`messageClean: ${isLiveAgent(messageClean)}`);
       const mode = messageClean.attachment.payload.elements.mode;
       document.cookie = `mode=${mode}`;
       this.props.dispatch(toggleLiveAgent(mode));
@@ -602,7 +603,7 @@ class Widget extends Component {
         customData={this.props.customData}
         profileAvatar={this.props.profileAvatar}
         agentAvatar={this.props.agentAvatar}
-        liveAgent={this.getLiveAgent()}
+        liveAgent={this.props.liveAgent}
         showCloseButton={this.props.showCloseButton}
         showFullScreenButton={this.props.showFullScreenButton}
         hideWhenNotConnected={this.props.hideWhenNotConnected}
@@ -645,6 +646,7 @@ Widget.propTypes = {
   initPayload: PropTypes.string,
   profileAvatar: PropTypes.string,
   agentAvatar: PropTypes.string,
+  liveAgent: PropTypes.bool,
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
   hideWhenNotConnected: PropTypes.bool,
