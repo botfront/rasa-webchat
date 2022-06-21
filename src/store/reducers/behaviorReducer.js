@@ -2,6 +2,7 @@ import { Map, fromJS } from 'immutable';
 import { SESSION_NAME } from 'constants';
 import * as actionTypes from '../actions/actionTypes';
 import { getLocalSession, storeParamsTo } from './helper';
+import Cookies from 'js-cookie';
 
 export default function (
   connectingText,
@@ -13,7 +14,7 @@ export default function (
     connected: false,
     initialized: false,
     isChatVisible: true,
-    liveAgent: false,
+    liveAgent: Cookies.get('mode'),
     isChatOpen: false,
     disabledInput: true,
     docViewer,

@@ -561,6 +561,7 @@ class Widget extends Component {
       );
     } else if (isLiveAgent(messageClean)) {
       const mode = messageClean.attachment.payload.elements.mode;
+      document.cookie = `mode=${mode}`;
       this.props.dispatch(toggleLiveAgent(mode));
     } else {
       // some custom message
