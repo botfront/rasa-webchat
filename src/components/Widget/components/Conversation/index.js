@@ -27,6 +27,7 @@ const Conversation = props =>
       customComponent={props.customComponent}
       showMessageDate={props.showMessageDate}
       agentAvatar={props.agentAvatar}
+      liveAgent={props.liveAgent}
     />
     <Sender
       sendMessage={props.sendMessage}
@@ -41,6 +42,7 @@ Conversation.propTypes = {
   sendMessage: PropTypes.func,
   profileAvatar: PropTypes.string,
   agentAvatar: PropTypes.string,
+  liveAgent: PropTypes.bool,
   toggleFullScreen: PropTypes.func,
   fullScreenMode: PropTypes.bool,
   toggleChat: PropTypes.func,

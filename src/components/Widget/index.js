@@ -35,7 +35,7 @@ import {
 } from 'actions';
 import { safeQuerySelectorAll } from 'utils/dom';
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
-import { isVideo, isImage, isButtons, isText, isCarousel } from './msgProcessor';
+import { isVideo, isImage, isButtons, isText, isCarousel, isLiveAgent } from './msgProcessor';
 import WidgetLayout from './layout';
 import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
 
@@ -528,6 +528,7 @@ class Widget extends Component {
     this.props.dispatch(toggleFullScreen());
   }
 
+
   dispatchMessage(message) {
     if (Object.keys(message).length === 0) {
       return;
@@ -558,6 +559,9 @@ class Widget extends Component {
           image: element.src
         })
       );
+    } else if (isLiveAgent(messageClean)) {
+      const mode = messageClean.attachment.payload.elements.mode;
+      this.props.dispatch(mode);
     } else {
       // some custom message
       const props = messageClean;
@@ -591,7 +595,7 @@ class Widget extends Component {
         customData={this.props.customData}
         profileAvatar={this.props.profileAvatar}
         agentAvatar={this.props.agentAvatar}
-        isAgent={this.props.isAgent}
+        liveAgent={this.props.liveAgent}
         showCloseButton={this.props.showCloseButton}
         showFullScreenButton={this.props.showFullScreenButton}
         hideWhenNotConnected={this.props.hideWhenNotConnected}
@@ -618,6 +622,7 @@ const mapStateToProps = state => ({
   connected: state.behavior.get('connected'),
   isChatOpen: state.behavior.get('isChatOpen'),
   isChatVisible: state.behavior.get('isChatVisible'),
+  liveAgent: state.behavior.get('liveAgent'),
   fullScreenMode: state.behavior.get('fullScreenMode'),
   tooltipSent: state.metadata.get('tooltipSent'),
   oldUrl: state.behavior.get('oldUrl'),
@@ -633,7 +638,7 @@ Widget.propTypes = {
   initPayload: PropTypes.string,
   profileAvatar: PropTypes.string,
   agentAvatar: PropTypes.string,
-  isAgent: PropTypes.bool,
+  liveAgent: PropTypes.bool,
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
   hideWhenNotConnected: PropTypes.bool,

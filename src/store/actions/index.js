@@ -66,6 +66,12 @@ export function toggleFullScreen() {
   };
 }
 
+export function toggleLiveAgent() {
+  return {
+    type: actions.TOGGLE_LIVEAGENT
+  };
+}
+
 export function toggleInputDisabled(disable) {
   return {
     type: actions.TOGGLE_INPUT_DISABLED,

@@ -30,3 +30,18 @@ export function isButtons(message) {
     && Object.keys(message).includes('text')
     && (Object.keys(message).includes('quick_replies') || Object.keys(message).includes('buttons'));
 }
+
+export function isLiveAgent(message) {
+  return (
+    (Object.keys(message).includes('attachment') &&
+          Object.keys(message.attachment).includes('type') &&
+          message.attachment.type === 'template' &&
+          Object.keys(message.attachment).includes('payload') &&
+          Object.keys(message.attachment.payload).indexOf('template_type') >= 0 &&
+          message.attachment.payload.template_type === 'generic' &&
+          Object.keys(message.attachment.payload).indexOf('elements') >= 0 &&
+          Object.keys(message.attachment.payload.elements).includes('mode') &&
+          message.attachment.payload.elements.mode === 'connection_success') ||
+          message.attachment.payload.elements.mode === 'live_agent_end'
+  );
+}

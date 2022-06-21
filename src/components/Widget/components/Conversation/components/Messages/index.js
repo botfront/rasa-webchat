@@ -82,7 +82,7 @@ class Messages extends Component {
   }
 
   render() {
-    const { displayTypingIndication, profileAvatar, agentAvatar } = this.props;
+    const { displayTypingIndication, profileAvatar, agentAvatar, liveAgent } = this.props;
 
     const renderMessages = () => {
       const {
@@ -151,10 +151,10 @@ class Messages extends Component {
       <div id="rw-messages" style={{ backgroundColor: conversationBackgroundColor }} className="rw-messages-container">
         { renderMessages() }
         {displayTypingIndication && (
-          <div className={`rw-message rw-typing-indication ${profileAvatar && 'rw-with-avatar'}`}>
+          <div className={`rw-message rw-typing-indication ${liveAgent ? agentAvatar : profileAvatar && 'rw-with-avatar'}`}>
             {
-              profileAvatar &&
-              <img src={profileAvatar} className="rw-avatar" alt="profile" />
+              liveAgent ? agentAvatar : profileAvatar &&
+              <img src={liveAgent ? agentAvatar : profileAvatar} className="rw-avatar" alt="profile" />
             }
             <div style={{ backgroundColor: assistBackgoundColor }}className="rw-response">
               <div id="wave">
@@ -174,6 +174,7 @@ Messages.propTypes = {
   messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
   profileAvatar: PropTypes.string,
   agentAvatar: PropTypes.string,
+  liveAgent: PropTypes.bool,
   customComponent: PropTypes.func,
   showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   displayTypingIndication: PropTypes.bool

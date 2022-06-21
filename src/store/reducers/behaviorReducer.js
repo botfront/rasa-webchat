@@ -13,6 +13,7 @@ export default function (
     connected: false,
     initialized: false,
     isChatVisible: true,
+    liveAgent: false,
     isChatOpen: false,
     disabledInput: true,
     docViewer,
@@ -43,6 +44,10 @@ export default function (
         }
 
         return storeParams(state.update('isChatOpen', isChatOpen => !isChatOpen).set('unreadCount', 0));
+      }
+      case actionTypes.TOGGLE_LIVEAGENT: {
+        const startLiveAgent = 'connection_success';
+        return storeParams(state.update('liveAgent', isLiveAgent => isLiveAgent === startLiveAgent));
       }
       case actionTypes.OPEN_CHAT: {
         if (onWidgetEvent.onChatOpen) onWidgetEvent.onChatOpen();

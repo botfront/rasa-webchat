@@ -28,10 +28,12 @@ const WidgetLayout = (props) => {
           subtitle={props.subtitle}
           sendMessage={props.onSendMessage}
           profileAvatar={props.profileAvatar}
+          agentAvatar={props.agentAvatar}
           toggleChat={props.toggleChat}
           isChatOpen={props.isChatOpen}
           toggleFullScreen={props.toggleFullScreen}
           fullScreenMode={props.fullScreenMode}
+          liveAgent={props.liveAgent}
           disabledInput={props.disabledInput}
           params={props.params}
           showFullScreenButton={props.showFullScreenButton}
@@ -77,6 +79,8 @@ WidgetLayout.propTypes = {
   isChatOpen: PropTypes.bool,
   isChatVisible: PropTypes.bool,
   profileAvatar: PropTypes.string,
+  agentAvatar: PropTypes.string,
+  liveAgent: PropTypes.bool,
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
   hideWhenNotConnected: PropTypes.bool,
