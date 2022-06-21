@@ -4,6 +4,8 @@ import * as actionTypes from '../actions/actionTypes';
 import { getLocalSession, storeParamsTo } from './helper';
 import Cookies from 'js-cookie';
 
+const startLiveAgent = 'connection_success';
+
 export default function (
   connectingText,
   storage,
@@ -14,7 +16,7 @@ export default function (
     connected: false,
     initialized: false,
     isChatVisible: true,
-    liveAgent: Cookies.get('mode'),
+    liveAgent: Cookies.get('mode') === startLiveAgent,
     isChatOpen: false,
     disabledInput: true,
     docViewer,
@@ -47,7 +49,6 @@ export default function (
         return storeParams(state.update('isChatOpen', isChatOpen => !isChatOpen).set('unreadCount', 0));
       }
       case actionTypes.TOGGLE_LIVEAGENT: {
-        const startLiveAgent = 'connection_success';
         return storeParams(state.update('liveAgent', isLiveAgent => isLiveAgent === startLiveAgent));
       }
       case actionTypes.OPEN_CHAT: {
