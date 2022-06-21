@@ -33,6 +33,10 @@ export function addResponseMessage(text) {
   store.dispatch(actions.addResponseMessage(text));
 }
 
+export function toggleLiveAgent(mode) {
+  store.dispatch(actions.toggleLiveAgent(mode));
+}
+
 export function addCarousel(carousel) {
   store.dispatch(actions.addCarousel(carousel));
 }

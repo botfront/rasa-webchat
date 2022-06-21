@@ -32,7 +32,7 @@ import {
   setDomHighlight,
   evalUrl,
   setCustomCss
-} from 'actions';
+  , toggleLiveAgent } from 'actions';
 import { safeQuerySelectorAll } from 'utils/dom';
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
 import { isVideo, isImage, isButtons, isText, isCarousel, isLiveAgent } from './msgProcessor';
@@ -561,7 +561,7 @@ class Widget extends Component {
       );
     } else if (isLiveAgent(messageClean)) {
       const mode = messageClean.attachment.payload.elements.mode;
-      this.props.dispatch(mode);
+      this.props.dispatch(toggleLiveAgent(mode));
     } else {
       // some custom message
       const props = messageClean;
