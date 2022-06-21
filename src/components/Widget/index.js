@@ -590,6 +590,8 @@ class Widget extends Component {
         subtitle={this.props.subtitle}
         customData={this.props.customData}
         profileAvatar={this.props.profileAvatar}
+        agentAvatar={this.props.agentAvatar}
+        isAgent={this.props.isAgent}
         showCloseButton={this.props.showCloseButton}
         showFullScreenButton={this.props.showFullScreenButton}
         hideWhenNotConnected={this.props.hideWhenNotConnected}
@@ -630,6 +632,8 @@ Widget.propTypes = {
   subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   initPayload: PropTypes.string,
   profileAvatar: PropTypes.string,
+  agentAvatar: PropTypes.string,
+  isAgent:PropTypes.bool,
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
   hideWhenNotConnected: PropTypes.bool,

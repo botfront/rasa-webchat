@@ -26,6 +26,8 @@ const Conversation = props =>
       params={props.params}
       customComponent={props.customComponent}
       showMessageDate={props.showMessageDate}
+      isAgent={props.isAgent}
+      agentAvatar={props.agentAvatar}
     />
     <Sender
       sendMessage={props.sendMessage}
@@ -39,6 +41,8 @@ Conversation.propTypes = {
   subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   sendMessage: PropTypes.func,
   profileAvatar: PropTypes.string,
+  agentAvatar:PropTypes.string,
+  isAgent: PropTypes.bool,
   toggleFullScreen: PropTypes.func,
   fullScreenMode: PropTypes.bool,
   toggleChat: PropTypes.func,

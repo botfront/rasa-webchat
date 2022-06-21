@@ -166,6 +166,8 @@ Messages.contextType = ThemeContext;
 Messages.propTypes = {
   messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
   profileAvatar: PropTypes.string,
+  agentAvatar:PropTypes.string,
+  isAgent: PropTypes.bool,
   customComponent: PropTypes.func,
   showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   displayTypingIndication: PropTypes.bool
