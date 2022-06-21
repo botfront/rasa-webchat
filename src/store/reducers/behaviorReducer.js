@@ -49,6 +49,7 @@ export default function (
         return storeParams(state.update('isChatOpen', isChatOpen => !isChatOpen).set('unreadCount', 0));
       }
       case actionTypes.TOGGLE_LIVEAGENT: {
+        console.log(state.get('liveAgent'));
         return storeParams(state.update('liveAgent', isLiveAgent => isLiveAgent === startLiveAgent));
       }
       case actionTypes.OPEN_CHAT: {
