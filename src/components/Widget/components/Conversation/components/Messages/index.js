@@ -110,7 +110,7 @@ class Messages extends Component {
 
       const renderMessage = (message, index) => {
         const text = message.get('text');
-        const avatar = isAgentResponse(text) ? profileAvatar : agentAvatar;
+        const avatar = isAgentResponse(text) ? agentAvatar : profileAvatar;
         return (
           <div className={`rw-message ${avatar && 'rw-with-avatar'}`} key={index}>
             {avatar && message.get('showAvatar') && (
