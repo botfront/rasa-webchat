@@ -29,6 +29,10 @@ const scrollToBottom = () => {
   }
 };
 
+const isAgentResponse = (message) => {
+  const prefix = 'agent:';
+  return message ? message.startsWith(prefix) : false;
+};
 class Messages extends Component {
   componentDidMount() {
     scrollToBottom();
@@ -78,7 +82,7 @@ class Messages extends Component {
   }
 
   render() {
-    const { displayTypingIndication, profileAvatar } = this.props;
+    const { displayTypingIndication, profileAvatar, agentAvatar } = this.props;
 
     const renderMessages = () => {
       const {
@@ -104,17 +108,19 @@ class Messages extends Component {
           : null;
       };
 
-      const renderMessage = (message, index) => (
-        <div className={`rw-message ${profileAvatar && 'rw-with-avatar'}`} key={index}>
-          {
-            profileAvatar &&
-            message.get('showAvatar') &&
-            <img src={profileAvatar} className="rw-avatar" alt="profile" />
-          }
-          {this.getComponentToRender(message, index, index === messages.size - 1)}
-          {renderMessageDate(message)}
-        </div>
-      );
+      const renderMessage = (message, index) => {
+        const avatar = isAgentResponse(message) ? profileAvatar : agentAvatar;
+        return (
+          <div className={`rw-message ${avatar && 'rw-with-avatar'}`} key={index}>
+            {avatar && message.get('showAvatar') && (
+              <img src={avatar} className="rw-avatar" alt="profile" />
+            )}
+            {this.getComponentToRender(message, index, index === messages.size - 1)}
+            {renderMessageDate(message)}
+          </div>
+        );
+      };
+
 
       messages.forEach((msg, index) => {
         if (msg.get('hidden')) return;
@@ -166,8 +172,7 @@ Messages.contextType = ThemeContext;
 Messages.propTypes = {
   messages: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
   profileAvatar: PropTypes.string,
-  agentAvatar:PropTypes.string,
-  isAgent: PropTypes.bool,
+  agentAvatar: PropTypes.string,
   customComponent: PropTypes.func,
   showMessageDate: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   displayTypingIndication: PropTypes.bool

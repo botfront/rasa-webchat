@@ -131,6 +131,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
           customData={props.customData}
           handleNewUserMessage={props.handleNewUserMessage}
           profileAvatar={props.profileAvatar}
+          agentAvatar={props.agentAvatar}
           showCloseButton={props.showCloseButton}
           showFullScreenButton={props.showFullScreenButton}
           hideWhenNotConnected={props.hideWhenNotConnected}
@@ -172,6 +173,7 @@ ConnectedWidget.propTypes = {
   customData: PropTypes.shape({}),
   handleNewUserMessage: PropTypes.func,
   profileAvatar: PropTypes.string,
+  agentAvatar: PropTypes.string,
   inputTextFieldHint: PropTypes.string,
   connectingText: PropTypes.string,
   showCloseButton: PropTypes.bool,

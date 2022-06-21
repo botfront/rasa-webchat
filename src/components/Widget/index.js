@@ -633,7 +633,7 @@ Widget.propTypes = {
   initPayload: PropTypes.string,
   profileAvatar: PropTypes.string,
   agentAvatar: PropTypes.string,
-  isAgent:PropTypes.bool,
+  isAgent: PropTypes.bool,
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
   hideWhenNotConnected: PropTypes.bool,
