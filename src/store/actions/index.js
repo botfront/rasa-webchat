@@ -72,6 +72,12 @@ export function toggleLiveAgent() {
   };
 }
 
+export function getLiveAgent() {
+  return {
+    type: actions.GET_LIVEAGENT_STATE
+  };
+}
+
 export function toggleInputDisabled(disable) {
   return {
     type: actions.TOGGLE_INPUT_DISABLED,

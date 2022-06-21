@@ -37,6 +37,10 @@ export function toggleLiveAgent(mode) {
   store.dispatch(actions.toggleLiveAgent(mode));
 }
 
+export function isLiveAgent() {
+  return store.dispatch(actions.get);
+}
+
 export function addCarousel(carousel) {
   store.dispatch(actions.addCarousel(carousel));
 }

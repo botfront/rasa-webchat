@@ -31,8 +31,10 @@ import {
   changeOldUrl,
   setDomHighlight,
   evalUrl,
-  setCustomCss
-  , toggleLiveAgent } from 'actions';
+  setCustomCss,
+  toggleLiveAgent,
+  getLiveAgent
+} from 'actions';
 import { safeQuerySelectorAll } from 'utils/dom';
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
 import { isVideo, isImage, isButtons, isText, isCarousel, isLiveAgent } from './msgProcessor';
@@ -528,6 +530,10 @@ class Widget extends Component {
     this.props.dispatch(toggleFullScreen());
   }
 
+  getLiveAgent() {
+    this.props.dispatch(getLiveAgent());
+  }
+
 
   dispatchMessage(message) {
     if (Object.keys(message).length === 0) {
@@ -596,7 +602,7 @@ class Widget extends Component {
         customData={this.props.customData}
         profileAvatar={this.props.profileAvatar}
         agentAvatar={this.props.agentAvatar}
-        liveAgent={this.props.liveAgent}
+        liveAgent={this.getLiveAgent()}
         showCloseButton={this.props.showCloseButton}
         showFullScreenButton={this.props.showFullScreenButton}
         hideWhenNotConnected={this.props.hideWhenNotConnected}
@@ -639,7 +645,6 @@ Widget.propTypes = {
   initPayload: PropTypes.string,
   profileAvatar: PropTypes.string,
   agentAvatar: PropTypes.string,
-  liveAgent: PropTypes.bool,
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
   hideWhenNotConnected: PropTypes.bool,
