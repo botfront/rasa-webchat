@@ -12,7 +12,6 @@ export default function (
   docViewer = false,
   onWidgetEvent = {},
 ) {
-  console.log(`Cookies init: ${Cookies.get('mode') === startLiveAgent}`);
   const initialState = Map({
     connected: false,
     initialized: false,
@@ -29,7 +28,6 @@ export default function (
   });
 
   return function reducer(state = initialState, action) {
-    console.log(`I'm cookies: ${Cookies.get('mode')}`);
     const storeParams = storeParamsTo(storage);
     switch (action.type) {
       // Each change to the redux store's behavior Map gets recorded to storage
@@ -51,11 +49,7 @@ export default function (
         return storeParams(state.update('isChatOpen', isChatOpen => !isChatOpen).set('unreadCount', 0));
       }
       case actionTypes.TOGGLE_LIVEAGENT: {
-        console.log(`update liveAgent: ${state.get('liveAgent')}`);
-        return storeParams(state.update('liveAgent', (isLiveAgent) => {
-          console.log(`store update: ${isLiveAgent}`, startLiveAgent);
-          return isLiveAgent = !isLiveAgent;
-        }));
+        return storeParams(state.update('liveAgent', isLiveAgent => isLiveAgent = !isLiveAgent));
       }
       case actionTypes.OPEN_CHAT: {
         if (onWidgetEvent.onChatOpen) onWidgetEvent.onChatOpen();

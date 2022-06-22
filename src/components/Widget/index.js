@@ -32,8 +32,7 @@ import {
   setDomHighlight,
   evalUrl,
   setCustomCss,
-  toggleLiveAgent,
-  getLiveAgent
+  toggleLiveAgent
 } from 'actions';
 import { safeQuerySelectorAll } from 'utils/dom';
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
@@ -530,11 +529,6 @@ class Widget extends Component {
     this.props.dispatch(toggleFullScreen());
   }
 
-  getLiveAgent() {
-    this.props.dispatch(getLiveAgent());
-  }
-
-
   dispatchMessage(message) {
     if (Object.keys(message).length === 0) {
       return;
@@ -566,7 +560,6 @@ class Widget extends Component {
         })
       );
     } else if (isLiveAgent(messageClean)) {
-      console.log(`messageClean: ${isLiveAgent(messageClean)}`);
       const mode = messageClean.attachment.payload.elements.mode;
       document.cookie = `mode=${mode}`;
       this.props.dispatch(toggleLiveAgent(mode));

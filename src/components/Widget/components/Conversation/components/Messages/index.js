@@ -109,8 +109,8 @@ class Messages extends Component {
       };
 
       const renderMessage = (message, index) => {
-        console.log(message);
-        const avatar = liveAgent ? agentAvatar : profileAvatar;
+        const text = message.get('text');
+        const avatar = isAgentResponse(text) ? agentAvatar : profileAvatar;
         return (
           <div className={`rw-message ${avatar && 'rw-with-avatar'}`} key={index}>
             {avatar && message.get('showAvatar') && (
@@ -152,10 +152,7 @@ class Messages extends Component {
         {renderMessages()}
         {displayTypingIndication && (
           <div className={`rw-message rw-typing-indication ${liveAgent ? agentAvatar : profileAvatar && 'rw-with-avatar'}`}>
-            {
-              liveAgent ? agentAvatar : profileAvatar &&
-              <img src={liveAgent ? agentAvatar : profileAvatar} className="rw-avatar" alt="profile" />
-            }
+            <img src={liveAgent ? agentAvatar : profileAvatar} className="rw-avatar" alt="profile" />
             <div style={{ backgroundColor: assistBackgoundColor }}className="rw-response">
               <div id="wave">
                 <span className="rw-dot" />

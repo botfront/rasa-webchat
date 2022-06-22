@@ -10,9 +10,13 @@ import ThemeContext from '../../../../../../ThemeContext';
 
 class Message extends PureComponent {
   render() {
+    const isAgentResponse = (message) => {
+      const prefix = 'agent:';
+      return message ? message.startsWith(prefix) : false;
+    };
     const { docViewer, linkTarget } = this.props;
     const sender = this.props.message.get('sender');
-    const text = this.props.message.get('text');
+    const text = isAgentResponse(this.props.message.get('text')) ? this.props.message.get('text').substring(6) : this.props.message.get('text');
     const customCss = this.props.message.get('customCss') && this.props.message.get('customCss').toJS();
 
     if (customCss && customCss.style === 'class') {

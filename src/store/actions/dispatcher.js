@@ -34,7 +34,6 @@ export function addResponseMessage(text) {
 }
 
 export function toggleLiveAgent(mode) {
-  console.log(`dispatcher: ${mode}`);
   store.dispatch(actions.toggleLiveAgent(mode));
 }
 
