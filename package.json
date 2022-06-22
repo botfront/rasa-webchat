@@ -1,5 +1,5 @@
 {
-    "name": "@josh.chou/rasa-webchat",
+    "name": "test-rasa-webchat",
     "version": "1.1.14",
     "description": "Chat web widget for React apps and Rasa Core chatbots",
     "module": "module/index.js",

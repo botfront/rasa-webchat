@@ -148,8 +148,8 @@ class Messages extends Component {
     const { conversationBackgroundColor, assistBackgoundColor } = this.context;
 
     return (
-      <div id="rw-messages" style={{ backgroundColor: conversationBackgroundColor }} className="rw-messages-container">
-        { renderMessages() }
+      <div id="rw-messages test" style={{ backgroundColor: conversationBackgroundColor }} className="rw-messages-container">
+        {renderMessages()}
         {displayTypingIndication && (
           <div className={`rw-message rw-typing-indication ${liveAgent ? agentAvatar : profileAvatar && 'rw-with-avatar'}`}>
             {
