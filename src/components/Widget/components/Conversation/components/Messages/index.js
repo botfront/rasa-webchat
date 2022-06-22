@@ -109,8 +109,8 @@ class Messages extends Component {
       };
 
       const renderMessage = (message, index) => {
-        const text = message.get('text');
-        const avatar = liveAgent && isAgentResponse(text) ? agentAvatar : profileAvatar;
+        console.log(message);
+        const avatar = liveAgent ? agentAvatar : profileAvatar;
         return (
           <div className={`rw-message ${avatar && 'rw-with-avatar'}`} key={index}>
             {avatar && message.get('showAvatar') && (
@@ -148,7 +148,7 @@ class Messages extends Component {
     const { conversationBackgroundColor, assistBackgoundColor } = this.context;
 
     return (
-      <div id="rw-messages test" style={{ backgroundColor: conversationBackgroundColor }} className="rw-messages-container">
+      <div id="rw-messages" style={{ backgroundColor: conversationBackgroundColor }} className="rw-messages-container">
         {renderMessages()}
         {displayTypingIndication && (
           <div className={`rw-message rw-typing-indication ${liveAgent ? agentAvatar : profileAvatar && 'rw-with-avatar'}`}>

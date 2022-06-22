@@ -74,6 +74,7 @@ function initStore(
         return store.getState().behavior.get('fullScreenMode');
       }
       case actionTypes.GET_LIVEAGENT_STATE: {
+        console.log(store.getState().behavior.get('liveAgent'));
         return store.getState().behavior.get('liveAgent');
       }
       case actionTypes.EVAL_URL: {

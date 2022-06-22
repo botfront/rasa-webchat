@@ -687,6 +687,7 @@ Widget.defaultProps = {
   connectOn: 'mount',
   autoClearCache: false,
   displayUnreadCount: false,
+  liveAgent: false,
   tooltipPayload: null,
   inputTextFieldHint: 'Type a message...',
   oldUrl: '',
