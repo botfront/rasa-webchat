@@ -151,7 +151,7 @@ class Messages extends Component {
       <div id="rw-messages" style={{ backgroundColor: conversationBackgroundColor }} className="rw-messages-container">
         {renderMessages()}
         {displayTypingIndication && (
-          <div className={`rw-message rw-typing-indication ${liveAgent ? agentAvatar : profileAvatar && 'rw-with-avatar'}`}>
+          <div className="rw-message rw-typing-indication rw-with-avatar">
             <img src={liveAgent ? agentAvatar : profileAvatar} className="rw-avatar" alt="profile" />
             <div style={{ backgroundColor: assistBackgoundColor }}className="rw-response">
               <div id="wave">
