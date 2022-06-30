@@ -12,6 +12,7 @@ class Message extends PureComponent {
   render() {
     const isAgentResponse = (message) => {
       const prefix = 'agent:';
+      if (typeof message === 'object') return false;
       return message ? message.startsWith(prefix) : false;
     };
     const { docViewer, linkTarget } = this.props;

@@ -31,6 +31,7 @@ const scrollToBottom = () => {
 
 const isAgentResponse = (message) => {
   const prefix = 'agent:';
+  if (typeof message === 'object') return false;
   return message ? message.startsWith(prefix) : false;
 };
 class Messages extends Component {
