@@ -39,7 +39,7 @@ import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
 import { isVideo, isImage, isButtons, isText, isCarousel, isLiveAgent } from './msgProcessor';
 import WidgetLayout from './layout';
 import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
-
+import Cookies from 'js-cookie';
 class Widget extends Component {
   constructor(props) {
     super(props);
@@ -377,7 +377,9 @@ class Widget extends Component {
       // Request a session from server
       socket.on('connect', () => {
         const localId = this.getSessionId();
-        socket.emit('session_request', { session_id: localId });
+        // empty string or user-id
+        const userId = Cookies.get('_userID') || '';
+        socket.emit('session_request', { session_id: localId, user_id: userId });
       });
 
       // When session_confirm is received from the server:
@@ -434,7 +436,6 @@ class Widget extends Component {
         }
       });
     }
-
     if (embedded && initialized) {
       dispatch(showChat());
       dispatch(openChat());
@@ -457,7 +458,6 @@ class Widget extends Component {
       connected,
       dispatch
     } = this.props;
-
     // Send initial payload when chat is opened or widget is shown
     if (!initialized && connected && ((isChatOpen && isChatVisible) || embedded)) {
       // Only send initial payload if the widget is connected to the server but not yet initialized
@@ -468,7 +468,6 @@ class Widget extends Component {
       if (!sessionId) return;
 
       // eslint-disable-next-line no-console
-      console.log('sending init payload', sessionId);
       socket.emit('user_uttered', { message: initPayload, customData, session_id: sessionId });
       dispatch(initialize());
     }

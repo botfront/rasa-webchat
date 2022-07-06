@@ -16,7 +16,7 @@ export default function (
     connected: false,
     initialized: false,
     isChatVisible: true,
-    liveAgent: Cookies.get('mode') === startLiveAgent,
+    liveAgent: getLocalSession(storage, SESSION_NAME)?.params?.liveAgent && Cookies.get('mode') === startLiveAgent,
     isChatOpen: false,
     disabledInput: true,
     docViewer,
@@ -49,7 +49,7 @@ export default function (
         return storeParams(state.update('isChatOpen', isChatOpen => !isChatOpen).set('unreadCount', 0));
       }
       case actionTypes.TOGGLE_LIVEAGENT: {
-        return storeParams(state.update('liveAgent', isLiveAgent => isLiveAgent = !isLiveAgent));
+        return state.update('liveAgent', () => Cookies.get('mode') === startLiveAgent);
       }
       case actionTypes.OPEN_CHAT: {
         if (onWidgetEvent.onChatOpen) onWidgetEvent.onChatOpen();
@@ -72,7 +72,7 @@ export default function (
         return storeParams(state.update('disabledInput', disabledInput => !disabledInput));
       }
       case actionTypes.CONNECT: {
-        return storeParams(state.set('connected', true).set('disabledInput', false));
+        return storeParams(state.set('connected', true).set('disabledInput', false)).set('liveAgent', Cookies.get('mode') === startLiveAgent);
       }
       case actionTypes.DISCONNECT: {
         return storeParams(state.set('connected', false).set('disabledInput', true));
@@ -106,7 +106,6 @@ export default function (
       // Pull params from storage to redux store
       case actionTypes.PULL_SESSION: {
         const localSession = getLocalSession(storage, SESSION_NAME);
-
         // Do not persist connected state
         const connected = state.get('connected');
         const messageDelayed = state.get('messageDelayed');
