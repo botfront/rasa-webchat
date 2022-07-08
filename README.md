@@ -1,3 +1,6 @@
+- v1.1.22
+1. Clear localStorage when localID not equal to remoteID.
+
 - v1.1.21
 1. Handle undefined sessionID to null.
 

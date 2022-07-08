@@ -399,7 +399,7 @@ class Widget extends Component {
         */
         const localId = this.getSessionId();
         if (localId !== remoteId) {
-          // storage.clear();
+          storage.clear();
           // Store the received session_id to storage
 
           storeLocalSession(storage, SESSION_NAME, remoteId);
@@ -463,7 +463,6 @@ class Widget extends Component {
       // Only send initial payload if the widget is connected to the server but not yet initialized
 
       const sessionId = this.getSessionId();
-
       // check that session_id is confirmed
       if (!sessionId) return;
 
