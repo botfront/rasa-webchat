@@ -1,3 +1,6 @@
+- v1.1.24
+1. test Android websocket.
+
 - v1.1.23
 1. Parse URL and Image.
 2. Remove disconnect UI.
