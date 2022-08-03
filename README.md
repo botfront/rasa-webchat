@@ -1,3 +1,7 @@
+- v1.1.23
+1. Parse URL and Image.
+2. Remove disconnect UI.
+
 - v1.1.22
 1. Clear localStorage when localID not equal to remoteID.
 
