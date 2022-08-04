@@ -1,7 +1,8 @@
 import io from 'socket.io-client';
 
 export default function (socketUrl, customData, path) {
-  const options = { transports: ['websocket'] };
+  const options = { transports: ['websocket'], closeOnBeforeunload: false, autoConnect: true };
+
   const socket = io(socketUrl, options);
   socket.on('connect', () => {
     console.log(`connect:${socket.id}`);
