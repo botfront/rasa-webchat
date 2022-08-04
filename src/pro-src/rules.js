@@ -23,27 +23,27 @@ export default class RulesHandler {
     this.lastLocationChange = Date.now();
 
     // Here we supersede those events to all redirect them to our custom event
-    // window.history.pushState = (f =>
-    //   function pushState() {
-    //     const ret = f.apply(this, arguments);
-    //     window.dispatchEvent(new Event('pushstate'));
-    //     window.dispatchEvent(new Event('locationchange'));
-    //     return ret;
-    //   })(window.history.pushState);
+    window.history.pushState = (f =>
+      function pushState() {
+        const ret = f.apply(this, arguments);
+        window.dispatchEvent(new Event('pushstate'));
+        window.dispatchEvent(new Event('locationchange'));
+        return ret;
+      })(window.history.pushState);
 
-    // window.history.replaceState = (f =>
-    //   function replaceState() {
-    //     const ret = f.apply(this, arguments);
-    //     window.dispatchEvent(new Event('replacestate'));
-    //     window.dispatchEvent(new Event('locationchange'));
-    //     return ret;
-    //   })(window.history.replaceState);
+    window.history.replaceState = (f =>
+      function replaceState() {
+        const ret = f.apply(this, arguments);
+        window.dispatchEvent(new Event('replacestate'));
+        window.dispatchEvent(new Event('locationchange'));
+        return ret;
+      })(window.history.replaceState);
 
     this.popstateCallback = () => {
       window.dispatchEvent(new Event('locationchange'));
     };
 
-    // window.addEventListener('popstate', this.popstateCallback);
+    window.addEventListener('popstate', this.popstateCallback);
 
     this.locationChangeCallback = () => {
       if ((Date.now() - window[RULES_HANDLER_SINGLETON].lastLocationChange) < 150) {
@@ -61,7 +61,7 @@ export default class RulesHandler {
       }
     };
 
-    // window.addEventListener('locationchange', this.locationChangeCallback);
+    window.addEventListener('locationchange', this.locationChangeCallback);
   }
 
   static removeEventListeners(eventListeners) {
