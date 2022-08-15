@@ -208,7 +208,7 @@ const Launcher = ({
         )}
 
         {openLauncherImage ? (
-          <img src={openLauncherImage} style={{ width: '24px' }} height="auto" />
+          <img src={openLauncherImage} class="rw-open-launcher-image" style={{ width: '24px' }} height="auto" alt="Open Chat"  />
         ) : (
           <SVG src={logo} width={24} height="auto" alt="Open Chat" className="rw-open-launcher rw-logo" />
         )}

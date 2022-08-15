@@ -32,7 +32,7 @@ const Header = ({
       <div style={{ backgroundColor: mainColor }} className={`rw-header ${subtitle ? 'rw-with-subtitle' : ''}`}>
         {
           profileAvatar ? (
-            <img src={profileAvatar} className="rw-avatar" />
+            <img src={profileAvatar} className="rw-avatar" alt="chat avatar"  />
           ) : (
             <SVG src={logo} className="rw-avatar" alt="chat avatar" />
           )
@@ -61,8 +61,8 @@ const Header = ({
         </div>
         {/* <SVG src={logo} width={24} height="auto" title="Logo" class="rw-logo"/> */}
 
-        <h4 className={`rw-title ${profileAvatar && 'rw-with-avatar'}`}>{title}</h4>
-        {subtitle && <span className={profileAvatar && 'rw-with-avatar'}>{subtitle}</span>}
+        <h4 className={`rw-title ${(profileAvatar || logo) && 'rw-with-avatar'}`}>{title}</h4>
+        {subtitle && <span className={(profileAvatar || logo) && 'rw-with-avatar'}>{subtitle}</span>}
       </div>
       {
         !connected &&
