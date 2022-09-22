@@ -60,6 +60,10 @@ function initStore(
       }
     };
     switch (action.type) {
+      case actionTypes.RESET_SESSION_ID: {
+        sessionId = null;
+        break;
+      }
       case actionTypes.EMIT_NEW_USER_MESSAGE: {
         emitMessage(action.text);
         break;

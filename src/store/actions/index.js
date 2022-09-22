@@ -253,3 +253,10 @@ export function setCustomCss(customCss) {
   };
 }
 
+
+export function resetSessionId() {
+  return {
+    type: actions.RESET_SESSION_ID
+  };
+}
+
