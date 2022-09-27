@@ -507,6 +507,9 @@ class Widget extends Component {
 
     if (isChatOpen) {
       this.removeHistory();
+      this.createNewSession();
+    } else {
+      this.resendInitPayload();
     }
 
     if (isChatOpen && this.delayedMessage) {
@@ -534,14 +537,24 @@ class Widget extends Component {
 
   removeHistory() {
     // removes session data and messages from the session or local storage
-    const {storage, dispatch, socket } = this.props;
+    const {storage, dispatch } = this.props;
     storage.removeItem(SESSION_NAME);
 
     // removes
     dispatch(dropMessages());
     dispatch(resetSessionId());
+  }
 
+  createNewSession() {
+    const { socket } = this.props;
     socket.emit('session_request');
+  }
+
+  resendInitPayload() {
+    const { socket, customData, initPayload } = this.props;
+    const sessionId = this.getSessionId();
+
+    socket.emit('user_uttered', { message: initPayload, customData, session_id: sessionId });
   }
 
   toggleFullScreen() {
