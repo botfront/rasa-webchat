@@ -23,7 +23,7 @@
   "dependencies": {
     "@popperjs/core": "^2.4.0",
     "@stomp/stompjs": "^5.4.2",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "immutable": "^3.8.2",
     "object-hash": "^1.1.5",
     "prop-types": "^15.7.2",
