@@ -1,12 +1,10 @@
 {
-  "name": "rasa-webchat",
-  "version": "1.0.1",
+  "name": "airate-rasa-webchat",
+  "version": "0.0.10",
   "description": "Chat web widget for React apps and Rasa Core chatbots",
   "module": "module/index.js",
   "main": "lib/index.js",
-  "repository": "git@https://github.com/botfront/rasa-webchat.git",
   "author": "",
-  "license": "Apache-2.0",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js -p",

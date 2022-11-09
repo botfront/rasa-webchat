@@ -86,7 +86,7 @@ const Carousel = (props) => {
                 target={linkTarget || '_blank'}
                 rel="noopener noreferrer"
                 onClick={() => handleClick(carouselCard.default_action)}
-                style={{ color: assistTextColor }}
+                // style={{ color: assistTextColor }}
               >
                 {carouselCard.title}
               </a>
@@ -96,7 +96,7 @@ const Carousel = (props) => {
                 target={linkTarget || '_blank'}
                 rel="noopener noreferrer"
                 onClick={() => handleClick(carouselCard.default_action)}
-                style={{ color: assistTextColor }}
+                // style={{ color: assistTextColor }}
               >
                 {carouselCard.subtitle}
               </a>
@@ -110,7 +110,7 @@ const Carousel = (props) => {
                         target={linkTarget || '_blank'}
                         rel="noopener noreferrer"
                         className="rw-reply"
-                        style={{ borderColor: mainColor, color: mainColor }}
+                        // style={{ borderColor: mainColor, color: mainColor }}
                       >
                         <span>{button.title}</span>
                       </a>
@@ -124,7 +124,7 @@ const Carousel = (props) => {
                       onClick={() => handleClick(button)}
                       role="button"
                       tabIndex={0}
-                      style={{ borderColor: mainColor, color: mainColor }}
+                      // style={{ borderColor: mainColor, color: mainColor }}
                     >
                       <span>{button.title}</span>
                     </div>
