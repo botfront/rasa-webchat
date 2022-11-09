@@ -51,8 +51,8 @@ const Header = ({
             </button>
           }
         </div>
-        <h4 className={`rw-title ${profileAvatar && 'rw-with-avatar'}`}>{title}</h4>
-        {subtitle && <span className={profileAvatar && 'rw-with-avatar'}>{subtitle}</span>}
+        <h4 style="color: black;" className={`rw-title ${profileAvatar && 'rw-with-avatar'}`}>{title}</h4>
+        {subtitle && <span style="color: black;" className={profileAvatar && 'rw-with-avatar'}>{subtitle}</span>}
       </div>
       {
         !connected &&
