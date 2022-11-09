@@ -44,9 +44,9 @@ class Buttons extends PureComponent {
     } = this.props;
     const { userTextColor, userBackgroundColor } = this.context;
     const buttonStyle = {
-      color: userTextColor,
-      backgroundColor: userBackgroundColor,
-      borderColor: userBackgroundColor
+      color: "#ffffff",
+      backgroundColor: '#FF6E1F',
+      borderColor: '#FF6E1F'
     };
     return (
       <div>
