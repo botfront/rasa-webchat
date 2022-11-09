@@ -1,6 +1,6 @@
 {
   "name": "airate-rasa-webchat",
-  "version": "0.0.1",
+  "version": "0.0.10",
   "description": "Chat web widget for React apps and Rasa Core chatbots",
   "module": "module/index.js",
   "main": "lib/index.js",

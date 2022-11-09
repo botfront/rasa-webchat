@@ -30,10 +30,10 @@
         .#{$namespace}carousel-card-image {
             width: 100%;
             height: 150px;
-            object-fit: cover;
+            object-fit: contain;
             display: block;
             // this is so that it's not empty while loading
-            background-color: $grey-3;
+            background-color: #ffffff;
             cursor: pointer;
         }
 
@@ -45,7 +45,7 @@
             text-overflow: ellipsis;
             cursor: pointer;
             text-decoration: none;
-            color: inherit;
+            color: #000000;
         }
 
         .#{$namespace}carousel-card-subtitle {
@@ -58,13 +58,15 @@
             line-height: initial;
             cursor: pointer;
             text-decoration: none;
-            color: inherit;
+            color: #000000;
         }
 
         .#{$namespace}carousel-buttons-container {
             margin-bottom: 1.5rem;
             width: 100%;
             .#{$namespace}reply {
+                color: #000000;
+                background-color: #ffbf00;
                 min-height: 21px;
                 margin: 5px 10px;
                 font-size: 0.9em;
