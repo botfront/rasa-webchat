@@ -69,7 +69,7 @@
     "husky": "^3.0.7",
     "jest": "^25.5.4",
     "lodash-webpack-plugin": "^0.11.5",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.3",
     "prettier": "^1.18.2",
     "prettier-eslint": "^5.1.0",
     "react": "^16.12.0",
