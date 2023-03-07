@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.2](https://https///compare/v1.0.1...v1.0.2) (2023-03-07)
+
+
+### Bug Fixes
+
+* update node-sass to support node12+ ([#458](https://https//undefined/issues/458)) ([5070d24](https://https///commit/5070d24410786b2ad4acc632fa81ab6b49441bc7))
+
 ### [1.0.1](https://https///compare/v1.0.0...v1.0.1) (2021-04-15)
 
 
