@@ -13,6 +13,7 @@ const Conversation = props =>
       subtitle={props.subtitle}
       toggleChat={props.toggleChat}
       toggleFullScreen={props.toggleFullScreen}
+      resetChat={props.resetChat}
       fullScreenMode={props.fullScreenMode}
       showCloseButton={props.showCloseButton}
       showFullScreenButton={props.showFullScreenButton}
@@ -40,6 +41,7 @@ Conversation.propTypes = {
   sendMessage: PropTypes.func,
   profileAvatar: PropTypes.string,
   toggleFullScreen: PropTypes.func,
+  resetChat:PropTypes.func,
   fullScreenMode: PropTypes.bool,
   toggleChat: PropTypes.func,
   showCloseButton: PropTypes.bool,

@@ -12,6 +12,7 @@ const Header = ({
   subtitle,
   fullScreenMode,
   toggleFullScreen,
+  resetChat,
   toggleChat,
   showCloseButton,
   showFullScreenButton,
@@ -30,6 +31,7 @@ const Header = ({
           )
         }
         <div className="rw-header-buttons">
+          <button onClick={resetChat}> RESET</button>
           {
             showFullScreenButton &&
             <button className="rw-toggle-fullscreen-button" onClick={toggleFullScreen}>

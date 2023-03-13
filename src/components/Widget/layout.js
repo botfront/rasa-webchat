@@ -31,6 +31,7 @@ const WidgetLayout = (props) => {
           toggleChat={props.toggleChat}
           isChatOpen={props.isChatOpen}
           toggleFullScreen={props.toggleFullScreen}
+          resetChat={props.resetChat}
           fullScreenMode={props.fullScreenMode}
           disabledInput={props.disabledInput}
           params={props.params}
@@ -74,6 +75,7 @@ WidgetLayout.propTypes = {
   onSendMessage: PropTypes.func,
   toggleChat: PropTypes.func,
   toggleFullScreen: PropTypes.func,
+  resetChat: PropTypes.func,
   isChatOpen: PropTypes.bool,
   isChatVisible: PropTypes.bool,
   profileAvatar: PropTypes.string,

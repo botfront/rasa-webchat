@@ -151,6 +151,7 @@ class Widget extends Component {
       emit();
     }
   }
+
   reset() {
     const { dispatch, initPayload, customData } = this.props;
     console.log(' TEST RESET');
@@ -159,9 +160,7 @@ class Widget extends Component {
 
     if (socket) {
       socket.close();
-      this.initializeWidget();
-      // dispatch(initialize());
-      // socket.emit('user_uttered', { message: initPayload, customData, session_id: socket.socket.id });
+      this.reinitializeWidget();
     }
   }
 
@@ -344,9 +343,9 @@ class Widget extends Component {
 
             const ElemIsInViewPort = (
               rectangle.top >= 0 &&
-                rectangle.left >= 0 &&
-                rectangle.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rectangle.right <= (window.innerWidth || document.documentElement.clientWidth)
+              rectangle.left >= 0 &&
+              rectangle.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+              rectangle.right <= (window.innerWidth || document.documentElement.clientWidth)
             );
             if (!ElemIsInViewPort) {
               elements[0].scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'smooth' });
@@ -365,6 +364,71 @@ class Widget extends Component {
     }
   }
 
+  reinitializeWidget() {
+    const {
+      storage,
+      socket,
+      dispatch,
+      initPayload,
+      customData,
+    } = this.props;
+    console.log(socket, "REINITWIDGET")
+    if (!socket.isInitialized()) {
+      socket.createSocket()
+
+      socket.on('bot_uttered', (botUttered) => {
+        // botUttered.attachment.payload.elements = [botUttered.attachment.payload.elements];
+        // console.log(botUttered);
+        this.handleBotUtterance(botUttered);
+      });
+      this.checkVersionBeforePull();
+      dispatch(pullSession());
+
+      // Request a session from server
+      socket.on('connect', () => {
+        socket.emit('session_request', { session_id: socket.socket.id });
+      });
+
+
+      // When session_confirm is received from the server:
+      socket.on('session_confirm', (sessionObject) => {
+        const remoteId = (sessionObject && sessionObject.session_id)
+          ? sessionObject.session_id
+          : sessionObject;
+
+        // eslint-disable-next-line no-console
+        console.log(`session_confirm:${socket.socket.id} session_id:${remoteId}`);
+        // Store the initial state to both the redux store and the storage, set connected to true
+        dispatch(connectServer());
+        /*
+        Check if the session_id is consistent with the server
+        If the localId is null or different from the remote_id,
+        start a new session.
+        */
+        const localId = socket.socket.id
+        console.log(localId, "socket.socket.id")
+        console.log(remoteId, "remoteId")
+
+        storeLocalSession(storage, SESSION_NAME, localId);
+        dispatch(pullSession());
+        // eslint-disable-next-line no-console
+        console.log('sending init payload', localId);
+        socket.emit('user_uttered', { message: initPayload, customData, session_id: localId });
+        dispatch(initialize());
+      });
+
+      socket.on('disconnect', (reason) => {
+        // eslint-disable-next-line no-console
+        console.log(reason);
+        if (reason !== 'io client disconnect') {
+          dispatch(disconnectServer());
+        }
+      });
+
+
+
+    }
+  }
   initializeWidget(sendInitPayload = true) {
     const {
       storage,
@@ -609,6 +673,7 @@ class Widget extends Component {
       <WidgetLayout
         toggleChat={() => this.toggleConversation()}
         toggleFullScreen={() => this.toggleFullScreen()}
+        resetChat={()=> this.reset()}
         onSendMessage={event => this.handleMessageSubmit(event)}
         title={this.props.title}
         subtitle={this.props.subtitle}
