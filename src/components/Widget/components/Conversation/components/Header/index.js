@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import close from 'assets/clear-button.svg';
 import fullscreen from 'assets/fullscreen_button.svg';
 import fullscreenExit from 'assets/fullscreen_exit_button.svg';
+import refreshIcon from 'assets/refresh-svgrepo-com.svg';
 import './style.scss';
 import ThemeContext from '../../../../ThemeContext';
 
@@ -31,7 +32,7 @@ const Header = ({
           )
         }
         <div className="rw-header-buttons">
-          <button onClick={resetChat}> RESET</button>
+          <button className='rw-reset-button' onClick={resetChat}> <img className='rw-reset' src={refreshIcon} alt="reset"/></button>
           {
             showFullScreenButton &&
             <button className="rw-toggle-fullscreen-button" onClick={toggleFullScreen}>

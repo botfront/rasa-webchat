@@ -153,8 +153,7 @@ class Widget extends Component {
   }
 
   reset() {
-    const { dispatch, initPayload, customData } = this.props;
-    console.log(' TEST RESET');
+    const { dispatch} = this.props;
     dispatch(dropMessages());
     const { socket } = this.props;
 
@@ -372,7 +371,6 @@ class Widget extends Component {
       initPayload,
       customData,
     } = this.props;
-    console.log(socket, "REINITWIDGET")
     if (!socket.isInitialized()) {
       socket.createSocket()
 
@@ -406,9 +404,6 @@ class Widget extends Component {
         start a new session.
         */
         const localId = socket.socket.id
-        console.log(localId, "socket.socket.id")
-        console.log(remoteId, "remoteId")
-
         storeLocalSession(storage, SESSION_NAME, localId);
         dispatch(pullSession());
         // eslint-disable-next-line no-console
@@ -440,7 +435,6 @@ class Widget extends Component {
       tooltipPayload,
       tooltipDelay
     } = this.props;
-    console.log(socket.isInitialized(), 'SOCKET INITALIZED');
     if (!socket.isInitialized()) {
       socket.createSocket();
 
@@ -476,15 +470,12 @@ class Widget extends Component {
         start a new session.
         */
         const localId = this.getSessionId();
-        console.log(localId, 'localID');
-        console.log(this.getSessionId(), ' this.getSessionId()');
         if (localId !== remoteId) {
           // storage.clear();
           // Store the received session_id to storage
 
           storeLocalSession(storage, SESSION_NAME, remoteId);
           dispatch(pullSession());
-          console.log(sendInitPayload, 'sendInitPayload');
           if (sendInitPayload) {
             this.trySendInitPayload();
           }
@@ -540,11 +531,6 @@ class Widget extends Component {
       connected,
       dispatch
     } = this.props;
-    console.log(initialized, 'initialized');
-    console.log(connected, 'connected');
-    console.log(isChatOpen, 'isChatOpen');
-    console.log(isChatVisible, 'isChatVisible');
-    console.log(embedded, 'embedded');
     // Send initial payload when chat is opened or widget is shown
     if (!initialized && connected && ((isChatOpen && isChatVisible) || embedded)) {
       // Only send initial payload if the widget is connected to the server but not yet initialized
