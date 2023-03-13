@@ -1,11 +1,14 @@
 {
-  "name": "rasa-webchat",
-  "version": "1.0.2",
+  "name": "@alibabaoglu/rasa-webchat",
+  "version": "1.2.0",
   "description": "Chat web widget for React apps and Rasa Core chatbots",
   "module": "module/index.js",
   "main": "lib/index.js",
-  "repository": "git@https://github.com/botfront/rasa-webchat.git",
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git@https://github.com/alibabaoglu/rasa-webchat.git"
+  },
+  "author": "alibabaoglu",
   "license": "Apache-2.0",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
@@ -23,6 +26,7 @@
   "dependencies": {
     "@popperjs/core": "^2.4.0",
     "@stomp/stompjs": "^5.4.2",
+    "browserslist": "^4.21.5",
     "html-webpack-plugin": "^3.2.0",
     "immutable": "^3.8.2",
     "object-hash": "^1.1.5",
@@ -100,5 +104,8 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "directories": {
+    "lib": "lib"
   }
 }

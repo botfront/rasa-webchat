@@ -31,7 +31,8 @@ import {
   changeOldUrl,
   setDomHighlight,
   evalUrl,
-  setCustomCss
+  setCustomCss,
+  dropMessages
 } from 'actions';
 import { safeQuerySelectorAll } from 'utils/dom';
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
@@ -49,6 +50,7 @@ class Widget extends Component {
     this.sendMessage = this.sendMessage.bind(this);
     this.getSessionId = this.getSessionId.bind(this);
     this.intervalId = null;
+    this.reset = this.reset.bind(this);
     this.eventListenerCleaner = () => { };
   }
 
@@ -149,6 +151,20 @@ class Widget extends Component {
       emit();
     }
   }
+  reset() {
+    const { dispatch, initPayload, customData } = this.props;
+    console.log(' TEST RESET');
+    dispatch(dropMessages());
+    const { socket } = this.props;
+
+    if (socket) {
+      socket.close();
+      this.initializeWidget();
+      // dispatch(initialize());
+      // socket.emit('user_uttered', { message: initPayload, customData, session_id: socket.socket.id });
+    }
+  }
+
 
   handleMessageReceived(messageWithMetadata) {
     const { dispatch, isChatOpen, disableTooltips } = this.props;
@@ -360,6 +376,7 @@ class Widget extends Component {
       tooltipPayload,
       tooltipDelay
     } = this.props;
+    console.log(socket.isInitialized(), 'SOCKET INITALIZED');
     if (!socket.isInitialized()) {
       socket.createSocket();
 
@@ -395,12 +412,15 @@ class Widget extends Component {
         start a new session.
         */
         const localId = this.getSessionId();
+        console.log(localId, 'localID');
+        console.log(this.getSessionId(), ' this.getSessionId()');
         if (localId !== remoteId) {
           // storage.clear();
           // Store the received session_id to storage
 
           storeLocalSession(storage, SESSION_NAME, remoteId);
           dispatch(pullSession());
+          console.log(sendInitPayload, 'sendInitPayload');
           if (sendInitPayload) {
             this.trySendInitPayload();
           }
@@ -456,7 +476,11 @@ class Widget extends Component {
       connected,
       dispatch
     } = this.props;
-
+    console.log(initialized, 'initialized');
+    console.log(connected, 'connected');
+    console.log(isChatOpen, 'isChatOpen');
+    console.log(isChatVisible, 'isChatVisible');
+    console.log(embedded, 'embedded');
     // Send initial payload when chat is opened or widget is shown
     if (!initialized && connected && ((isChatOpen && isChatVisible) || embedded)) {
       // Only send initial payload if the widget is connected to the server but not yet initialized

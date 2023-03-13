@@ -213,7 +213,7 @@ export const selfMount = (props, element = null) => {
       node.setAttribute('id', 'rasaWebchatPro');
       document.body.appendChild(node);
     }
-    const mountElement = element || document.getElementById('rasaWebchatPro')
+    const mountElement = element || document.getElementById('rasaWebchatPro');
     const webchatPro = React.createElement(RasaWebchatProWithRules, props);
     ReactDOM.render(webchatPro, mountElement);
   };
