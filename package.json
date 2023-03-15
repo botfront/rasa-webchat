@@ -1,10 +1,13 @@
 {
-  "name": "rasa-webchat",
+  "name": "@osapiens/rasa-webchat",
   "version": "1.0.3",
   "description": "Chat web widget for React apps and Rasa Core chatbots",
   "module": "module/index.js",
   "main": "lib/index.js",
-  "repository": "git@https://github.com/botfront/rasa-webchat.git",
+  "repository": {
+    "type": "git",
+    "url": "git@https://github.com/botfront/rasa-webchat.git"
+  },
   "author": "",
   "license": "Apache-2.0",
   "scripts": {
@@ -101,5 +104,8 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "directories": {
+    "lib": "lib"
   }
 }
