@@ -61,6 +61,13 @@
     display: none;
   }
 
+  .#{$namespace}reset-button {
+    @include header-button-fs;
+  }
+  .#{$namespace}reset {
+    @include header-icon-fs;
+  }
+
   .#{$namespace}toggle-fullscreen-button {
     @include header-button-fs;
   }

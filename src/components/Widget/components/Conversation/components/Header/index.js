@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import close from 'assets/clear-button.svg';
 import fullscreen from 'assets/fullscreen_button.svg';
 import fullscreenExit from 'assets/fullscreen_exit_button.svg';
+import refreshIcon from 'assets/refresh-svgrepo-com.svg';
 import './style.scss';
 import ThemeContext from '../../../../ThemeContext';
 
@@ -12,9 +13,11 @@ const Header = ({
   subtitle,
   fullScreenMode,
   toggleFullScreen,
+  resetChat,
   toggleChat,
   showCloseButton,
   showFullScreenButton,
+  customRefreshButton,
   connected,
   connectingText,
   closeImage,
@@ -23,13 +26,18 @@ const Header = ({
   const { mainColor } = useContext(ThemeContext);
   return (
     <div className="rw-header-and-loading">
-      <div style={{ backgroundColor: mainColor }}className={`rw-header ${subtitle ? 'rw-with-subtitle' : ''}`}>
+      <div style={{ backgroundColor: mainColor }} className={`rw-header ${subtitle ? 'rw-with-subtitle' : ''}`}>
         {
           profileAvatar && (
             <img src={profileAvatar} className="rw-avatar" alt="chat avatar" />
           )
         }
         <div className="rw-header-buttons">
+
+          {customRefreshButton ? customRefreshButton(resetChat) :
+            <button className='rw-reset-button' onClick={resetChat}> <img className='rw-reset' src={refreshIcon} alt="reset" /></button>
+          }
+
           {
             showFullScreenButton &&
             <button className="rw-toggle-fullscreen-button" onClick={toggleFullScreen}>
@@ -71,6 +79,7 @@ Header.propTypes = {
   toggleChat: PropTypes.func,
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
+  customRefreshButton: PropTypes.func,
   connected: PropTypes.bool,
   connectingText: PropTypes.string,
   closeImage: PropTypes.string,

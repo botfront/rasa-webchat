@@ -112,6 +112,7 @@ export const rasaWebchatProTypes = {
   connectingText: PropTypes.string,
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
+  customRefreshButton: PropTypes.func,
   hideWhenNotConnected: PropTypes.bool,
   connectOn: PropTypes.oneOf(['mount', 'open']),
   autoClearCache: PropTypes.bool,
@@ -213,7 +214,7 @@ export const selfMount = (props, element = null) => {
       node.setAttribute('id', 'rasaWebchatPro');
       document.body.appendChild(node);
     }
-    const mountElement = element || document.getElementById('rasaWebchatPro')
+    const mountElement = element || document.getElementById('rasaWebchatPro');
     const webchatPro = React.createElement(RasaWebchatProWithRules, props);
     ReactDOM.render(webchatPro, mountElement);
   };

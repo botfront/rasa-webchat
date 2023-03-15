@@ -31,7 +31,8 @@ import {
   changeOldUrl,
   setDomHighlight,
   evalUrl,
-  setCustomCss
+  setCustomCss,
+  dropMessages
 } from 'actions';
 import { safeQuerySelectorAll } from 'utils/dom';
 import { SESSION_NAME, NEXT_MESSAGE } from 'constants';
@@ -49,6 +50,7 @@ class Widget extends Component {
     this.sendMessage = this.sendMessage.bind(this);
     this.getSessionId = this.getSessionId.bind(this);
     this.intervalId = null;
+    this.reset = this.reset.bind(this);
     this.eventListenerCleaner = () => { };
   }
 
@@ -149,6 +151,18 @@ class Widget extends Component {
       emit();
     }
   }
+
+  reset() {
+    const { dispatch} = this.props;
+    dispatch(dropMessages());
+    const { socket } = this.props;
+
+    if (socket) {
+      socket.close();
+      this.reinitializeWidget();
+    }
+  }
+
 
   handleMessageReceived(messageWithMetadata) {
     const { dispatch, isChatOpen, disableTooltips } = this.props;
@@ -328,9 +342,9 @@ class Widget extends Component {
 
             const ElemIsInViewPort = (
               rectangle.top >= 0 &&
-                rectangle.left >= 0 &&
-                rectangle.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rectangle.right <= (window.innerWidth || document.documentElement.clientWidth)
+              rectangle.left >= 0 &&
+              rectangle.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+              rectangle.right <= (window.innerWidth || document.documentElement.clientWidth)
             );
             if (!ElemIsInViewPort) {
               elements[0].scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'smooth' });
@@ -349,6 +363,67 @@ class Widget extends Component {
     }
   }
 
+  reinitializeWidget() {
+    const {
+      storage,
+      socket,
+      dispatch,
+      initPayload,
+      customData,
+    } = this.props;
+    if (!socket.isInitialized()) {
+      socket.createSocket()
+
+      socket.on('bot_uttered', (botUttered) => {
+        // botUttered.attachment.payload.elements = [botUttered.attachment.payload.elements];
+        // console.log(botUttered);
+        this.handleBotUtterance(botUttered);
+      });
+      this.checkVersionBeforePull();
+      dispatch(pullSession());
+
+      // Request a session from server
+      socket.on('connect', () => {
+        socket.emit('session_request', { session_id: socket.socket.id });
+      });
+
+
+      // When session_confirm is received from the server:
+      socket.on('session_confirm', (sessionObject) => {
+        const remoteId = (sessionObject && sessionObject.session_id)
+          ? sessionObject.session_id
+          : sessionObject;
+
+        // eslint-disable-next-line no-console
+        console.log(`session_confirm:${socket.socket.id} session_id:${remoteId}`);
+        // Store the initial state to both the redux store and the storage, set connected to true
+        dispatch(connectServer());
+        /*
+        Check if the session_id is consistent with the server
+        If the localId is null or different from the remote_id,
+        start a new session.
+        */
+        const localId = socket.socket.id
+        storeLocalSession(storage, SESSION_NAME, localId);
+        dispatch(pullSession());
+        // eslint-disable-next-line no-console
+        console.log('sending init payload', localId);
+        socket.emit('user_uttered', { message: initPayload, customData, session_id: localId });
+        dispatch(initialize());
+      });
+
+      socket.on('disconnect', (reason) => {
+        // eslint-disable-next-line no-console
+        console.log(reason);
+        if (reason !== 'io client disconnect') {
+          dispatch(disconnectServer());
+        }
+      });
+
+
+
+    }
+  }
   initializeWidget(sendInitPayload = true) {
     const {
       storage,
@@ -456,7 +531,6 @@ class Widget extends Component {
       connected,
       dispatch
     } = this.props;
-
     // Send initial payload when chat is opened or widget is shown
     if (!initialized && connected && ((isChatOpen && isChatVisible) || embedded)) {
       // Only send initial payload if the widget is connected to the server but not yet initialized
@@ -585,6 +659,7 @@ class Widget extends Component {
       <WidgetLayout
         toggleChat={() => this.toggleConversation()}
         toggleFullScreen={() => this.toggleFullScreen()}
+        resetChat={()=> this.reset()}
         onSendMessage={event => this.handleMessageSubmit(event)}
         title={this.props.title}
         subtitle={this.props.subtitle}
@@ -592,6 +667,7 @@ class Widget extends Component {
         profileAvatar={this.props.profileAvatar}
         showCloseButton={this.props.showCloseButton}
         showFullScreenButton={this.props.showFullScreenButton}
+        customRefreshButton= {this.props.customRefreshButton}
         hideWhenNotConnected={this.props.hideWhenNotConnected}
         fullScreenMode={this.props.fullScreenMode}
         isChatOpen={this.props.isChatOpen}
@@ -632,6 +708,7 @@ Widget.propTypes = {
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
+  customRefreshButton: PropTypes.func,
   hideWhenNotConnected: PropTypes.bool,
   connectOn: PropTypes.oneOf(['mount', 'open']),
   autoClearCache: PropTypes.bool,

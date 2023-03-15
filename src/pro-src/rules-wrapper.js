@@ -38,7 +38,8 @@ const RasaWebchatPro = React.memo(
       updateRules: (rules) => {
         updateRules(rules);
       },
-      getSessionId: widget.current.getSessionId
+      getSessionId: widget.current.getSessionId,
+      reset: widget.current.reset
     }));
 
     return <Widget ref={widget} {...{ ...props }} />;
