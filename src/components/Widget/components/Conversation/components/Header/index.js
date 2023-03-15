@@ -26,15 +26,18 @@ const Header = ({
   const { mainColor } = useContext(ThemeContext);
   return (
     <div className="rw-header-and-loading">
-      <div style={{ backgroundColor: mainColor }}className={`rw-header ${subtitle ? 'rw-with-subtitle' : ''}`}>
+      <div style={{ backgroundColor: mainColor }} className={`rw-header ${subtitle ? 'rw-with-subtitle' : ''}`}>
         {
           profileAvatar && (
             <img src={profileAvatar} className="rw-avatar" alt="chat avatar" />
           )
         }
         <div className="rw-header-buttons">
-          {customRefreshButton(resetChat)}
-        {/*   <button className='rw-reset-button' onClick={resetChat}> <img className='rw-reset' src={refreshIcon} alt="reset"/></button> */}
+
+          {customRefreshButton ? customRefreshButton(resetChat) :
+            <button className='rw-reset-button' onClick={resetChat}> <img className='rw-reset' src={refreshIcon} alt="reset" /></button>
+          }
+
           {
             showFullScreenButton &&
             <button className="rw-toggle-fullscreen-button" onClick={toggleFullScreen}>
