@@ -17,6 +17,7 @@ const Header = ({
   toggleChat,
   showCloseButton,
   showFullScreenButton,
+  customRefreshButton,
   connected,
   connectingText,
   closeImage,
@@ -32,7 +33,8 @@ const Header = ({
           )
         }
         <div className="rw-header-buttons">
-          <button className='rw-reset-button' onClick={resetChat}> <img className='rw-reset' src={refreshIcon} alt="reset"/></button>
+          {customRefreshButton(resetChat)}
+        {/*   <button className='rw-reset-button' onClick={resetChat}> <img className='rw-reset' src={refreshIcon} alt="reset"/></button> */}
           {
             showFullScreenButton &&
             <button className="rw-toggle-fullscreen-button" onClick={toggleFullScreen}>
@@ -74,6 +76,7 @@ Header.propTypes = {
   toggleChat: PropTypes.func,
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
+  customRefreshButton: PropTypes.func,
   connected: PropTypes.bool,
   connectingText: PropTypes.string,
   closeImage: PropTypes.string,

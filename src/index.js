@@ -133,6 +133,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
           profileAvatar={props.profileAvatar}
           showCloseButton={props.showCloseButton}
           showFullScreenButton={props.showFullScreenButton}
+          customRefreshButton= {props.customRefreshButton}
           hideWhenNotConnected={props.hideWhenNotConnected}
           connectOn={props.connectOn}
           autoClearCache={props.autoClearCache}
@@ -176,6 +177,7 @@ ConnectedWidget.propTypes = {
   connectingText: PropTypes.string,
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
+  customRefreshButton: PropTypes.func,
   hideWhenNotConnected: PropTypes.bool,
   connectOn: PropTypes.oneOf(['mount', 'open']),
   autoClearCache: PropTypes.bool,

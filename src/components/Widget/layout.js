@@ -37,6 +37,7 @@ const WidgetLayout = (props) => {
           params={props.params}
           showFullScreenButton={props.showFullScreenButton}
           {...{ showCloseButton }}
+          customRefreshButton= {props.customRefreshButton}
           connected={props.connected}
           connectingText={props.connectingText}
           closeImage={props.closeImage}
@@ -81,6 +82,7 @@ WidgetLayout.propTypes = {
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
+  customRefreshButton: PropTypes.func,
   hideWhenNotConnected: PropTypes.bool,
   disabledInput: PropTypes.bool,
   fullScreenMode: PropTypes.bool,

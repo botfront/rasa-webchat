@@ -667,6 +667,7 @@ class Widget extends Component {
         profileAvatar={this.props.profileAvatar}
         showCloseButton={this.props.showCloseButton}
         showFullScreenButton={this.props.showFullScreenButton}
+        customRefreshButton= {this.props.customRefreshButton}
         hideWhenNotConnected={this.props.hideWhenNotConnected}
         fullScreenMode={this.props.fullScreenMode}
         isChatOpen={this.props.isChatOpen}
@@ -707,6 +708,7 @@ Widget.propTypes = {
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
+  customRefreshButton: PropTypes.func,
   hideWhenNotConnected: PropTypes.bool,
   connectOn: PropTypes.oneOf(['mount', 'open']),
   autoClearCache: PropTypes.bool,

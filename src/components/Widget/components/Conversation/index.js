@@ -17,6 +17,7 @@ const Conversation = props =>
       fullScreenMode={props.fullScreenMode}
       showCloseButton={props.showCloseButton}
       showFullScreenButton={props.showFullScreenButton}
+      customRefreshButton= {props.customRefreshButton}
       connected={props.connected}
       connectingText={props.connectingText}
       closeImage={props.closeImage}
@@ -46,6 +47,7 @@ Conversation.propTypes = {
   toggleChat: PropTypes.func,
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
+  customRefreshButton: PropTypes.func,
   disabledInput: PropTypes.bool,
   inputTextFieldHint: PropTypes.string,
   params: PropTypes.object,

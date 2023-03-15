@@ -65,7 +65,7 @@
     @include header-button-fs;
   }
   .#{$namespace}reset {
-    @include header-button-fs;
+    @include header-icon-fs;
   }
 
   .#{$namespace}toggle-fullscreen-button {
