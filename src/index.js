@@ -134,6 +134,7 @@ const ConnectedWidget = forwardRef((props, ref) => {
           showCloseButton={props.showCloseButton}
           showFullScreenButton={props.showFullScreenButton}
           customRefreshButton= {props.customRefreshButton}
+          languageDropDownSelection= {props.languageDropDownSelection}
           hideWhenNotConnected={props.hideWhenNotConnected}
           connectOn={props.connectOn}
           autoClearCache={props.autoClearCache}

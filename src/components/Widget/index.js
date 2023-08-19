@@ -668,6 +668,7 @@ class Widget extends Component {
         showCloseButton={this.props.showCloseButton}
         showFullScreenButton={this.props.showFullScreenButton}
         customRefreshButton= {this.props.customRefreshButton}
+        languageDropDownSelection= {this.props.languageDropDownSelection}
         hideWhenNotConnected={this.props.hideWhenNotConnected}
         fullScreenMode={this.props.fullScreenMode}
         isChatOpen={this.props.isChatOpen}
@@ -709,6 +710,7 @@ Widget.propTypes = {
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
   customRefreshButton: PropTypes.func,
+  languageDropDownSelection: PropTypes.func,
   hideWhenNotConnected: PropTypes.bool,
   connectOn: PropTypes.oneOf(['mount', 'open']),
   autoClearCache: PropTypes.bool,

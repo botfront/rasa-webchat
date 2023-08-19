@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-indent-props */
+/* eslint-disable react/jsx-indent */
+/* eslint-disable indent */
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
@@ -9,81 +12,86 @@ import './style.scss';
 import ThemeContext from '../../../../ThemeContext';
 
 const Header = ({
-  title,
-  subtitle,
-  fullScreenMode,
-  toggleFullScreen,
-  resetChat,
-  toggleChat,
-  showCloseButton,
-  showFullScreenButton,
-  customRefreshButton,
-  connected,
-  connectingText,
-  closeImage,
-  profileAvatar
+    title,
+    subtitle,
+    fullScreenMode,
+    toggleFullScreen,
+    resetChat,
+    toggleChat,
+    showCloseButton,
+    showFullScreenButton,
+    customRefreshButton,
+    languageDropDownSelection,
+    connected,
+    connectingText,
+    closeImage,
+    profileAvatar,
 }) => {
-  const { mainColor } = useContext(ThemeContext);
-  return (
-    <div className="rw-header-and-loading">
-      <div style={{ backgroundColor: mainColor }} className={`rw-header ${subtitle ? 'rw-with-subtitle' : ''}`}>
-        {
-          profileAvatar && (
-            <img src={profileAvatar} className="rw-avatar" alt="chat avatar" />
-          )
-        }
-        <div className="rw-header-buttons">
-
-          {customRefreshButton ? customRefreshButton(resetChat) :
-            <button className='rw-reset-button' onClick={resetChat}> <img className='rw-reset' src={refreshIcon} alt="reset" /></button>
-          }
-
-          {
-            showFullScreenButton &&
-            <button className="rw-toggle-fullscreen-button" onClick={toggleFullScreen}>
-              <img
-                className={`rw-toggle-fullscreen ${fullScreenMode ? 'rw-fullScreenExitImage' : 'rw-fullScreenImage'}`}
-                src={fullScreenMode ? fullscreenExit : fullscreen}
-                alt="toggle fullscreen"
-              />
-            </button>
-          }
-          {
-            showCloseButton &&
-            <button className="rw-close-button" onClick={toggleChat}>
-              <img
-                className={`rw-close ${closeImage ? '' : 'rw-default'}`}
-                src={closeImage || close}
-                alt="close"
-              />
-            </button>
-          }
+    const { mainColor } = useContext(ThemeContext);
+    return (
+        <div className="rw-header-and-loading">
+            <div
+                style={{ backgroundColor: mainColor }}
+                className={`rw-header ${subtitle ? 'rw-with-subtitle' : ''}`}
+            >
+                {profileAvatar && (
+                    <img src={profileAvatar} className="rw-avatar" alt="chat avatar" />
+                )}
+                <div className="rw-header-buttons">
+                    {customRefreshButton ? (
+                        customRefreshButton(resetChat)
+                    ) : (
+                        <button className="rw-reset-button" onClick={resetChat}>
+                            {' '}
+                            <img className="rw-reset" src={refreshIcon} alt="reset" />
+                        </button>
+                    )}
+                    <div className="rw-reset-button">
+                        {languageDropDownSelection && languageDropDownSelection()}
+                    </div>
+                    {showFullScreenButton && (
+                        <button className="rw-toggle-fullscreen-button" onClick={toggleFullScreen}>
+                            <img
+                                className={`rw-toggle-fullscreen ${
+                                    fullScreenMode ? 'rw-fullScreenExitImage' : 'rw-fullScreenImage'
+                                }`}
+                                src={fullScreenMode ? fullscreenExit : fullscreen}
+                                alt="toggle fullscreen"
+                            />
+                        </button>
+                    )}
+                    {showCloseButton && (
+                        <button className="rw-close-button" onClick={toggleChat}>
+                            <img
+                                className={`rw-close ${closeImage ? '' : 'rw-default'}`}
+                                src={closeImage || close}
+                                alt="close"
+                            />
+                        </button>
+                    )}
+                </div>
+                <h6 className={`rw-title ${profileAvatar && 'rw-with-avatar'}`}>{title}</h6>
+                {subtitle && <span className={profileAvatar && 'rw-with-avatar'}>{subtitle}</span>}
+            </div>
+            {!connected && <span className="rw-loading">{connectingText}</span>}
         </div>
-        <h4 className={`rw-title ${profileAvatar && 'rw-with-avatar'}`}>{title}</h4>
-        {subtitle && <span className={profileAvatar && 'rw-with-avatar'}>{subtitle}</span>}
-      </div>
-      {
-        !connected &&
-        <span className="rw-loading">
-          {connectingText}
-        </span>
-      }
-    </div>);
+    );
 };
 
 Header.propTypes = {
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  fullScreenMode: PropTypes.bool,
-  toggleFullScreen: PropTypes.func,
-  toggleChat: PropTypes.func,
-  showCloseButton: PropTypes.bool,
-  showFullScreenButton: PropTypes.bool,
-  customRefreshButton: PropTypes.func,
-  connected: PropTypes.bool,
-  connectingText: PropTypes.string,
-  closeImage: PropTypes.string,
-  profileAvatar: PropTypes.string
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    fullScreenMode: PropTypes.bool,
+    toggleFullScreen: PropTypes.func,
+    toggleChat: PropTypes.func,
+    showCloseButton: PropTypes.bool,
+    showFullScreenButton: PropTypes.bool,
+    customRefreshButton: PropTypes.func,
+    languageDropDownSelection: PropTypes.func,
+    connected: PropTypes.bool,
+    connectingText: PropTypes.string,
+    closeImage: PropTypes.string,
+    profileAvatar: PropTypes.string,
 };
 
 export default Header;

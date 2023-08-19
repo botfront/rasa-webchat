@@ -38,6 +38,7 @@ const WidgetLayout = (props) => {
           showFullScreenButton={props.showFullScreenButton}
           {...{ showCloseButton }}
           customRefreshButton= {props.customRefreshButton}
+          languageDropDownSelection= {props.languageDropDownSelection}
           connected={props.connected}
           connectingText={props.connectingText}
           closeImage={props.closeImage}
@@ -83,6 +84,7 @@ WidgetLayout.propTypes = {
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
   customRefreshButton: PropTypes.func,
+  languageDropDownSelection: PropTypes.func,
   hideWhenNotConnected: PropTypes.bool,
   disabledInput: PropTypes.bool,
   fullScreenMode: PropTypes.bool,

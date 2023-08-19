@@ -113,6 +113,7 @@ export const rasaWebchatProTypes = {
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
   customRefreshButton: PropTypes.func,
+  languageDropDownSelection: PropTypes.func,
   hideWhenNotConnected: PropTypes.bool,
   connectOn: PropTypes.oneOf(['mount', 'open']),
   autoClearCache: PropTypes.bool,

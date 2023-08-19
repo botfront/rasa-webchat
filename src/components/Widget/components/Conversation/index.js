@@ -18,6 +18,7 @@ const Conversation = props =>
       showCloseButton={props.showCloseButton}
       showFullScreenButton={props.showFullScreenButton}
       customRefreshButton= {props.customRefreshButton}
+      languageDropDownSelection= {props.languageDropDownSelection}
       connected={props.connected}
       connectingText={props.connectingText}
       closeImage={props.closeImage}
@@ -48,6 +49,7 @@ Conversation.propTypes = {
   showCloseButton: PropTypes.bool,
   showFullScreenButton: PropTypes.bool,
   customRefreshButton: PropTypes.func,
+  languageDropDownSelection: PropTypes.func,
   disabledInput: PropTypes.bool,
   inputTextFieldHint: PropTypes.string,
   params: PropTypes.object,
