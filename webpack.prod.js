@@ -15,7 +15,10 @@ module.exports = [{
     libraryTarget: 'umd'
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    fallback: {
+      path: require.resolve('path-browserify') // Add this line
+    }
   },
   mode: 'production',
   module: {
@@ -42,7 +45,9 @@ module.exports = [{
           {
             loader: 'sass-loader',
             options: {
-              includePaths: [path.resolve(__dirname, 'src/scss/')]
+              sassOptions: {
+                includePaths: [path.resolve(__dirname, 'src/scss/')]
+              }
             }
           }
         ]
@@ -85,7 +90,10 @@ module.exports = [{
     libraryTarget: 'umd'
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    fallback: {
+      path: require.resolve('path-browserify') // Add this line
+    }
   },
   mode: 'production',
   module: {
@@ -112,7 +120,9 @@ module.exports = [{
           {
             loader: 'sass-loader',
             options: {
-              includePaths: [path.resolve(__dirname, 'src/scss/')]
+              sassOptions: {
+                includePaths: [path.resolve(__dirname, 'src/scss/')]
+              }
             }
           }
         ]
