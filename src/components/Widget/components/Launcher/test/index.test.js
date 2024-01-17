@@ -1,86 +1,66 @@
 import React from 'react';
-import { Map } from 'immutable';
-import { createStore, combineReducers } from 'redux';
-import { mount } from 'enzyme';
-import behavior from '../../../../../store/reducers/behaviorReducer';
-import metadata from '../../../../../store/reducers/metadataReducer';
+import { initStore } from '../../../../../store/store';
+import LocalStorageMock from '../../../.././../../mocks/localStorageMock';
+import { combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import { render, fireEvent, screen } from '@testing-library/react';
 
-
+import behaviorReducer from '../../../../../store/reducers/behaviorReducer';
+import metadataReducer from '../../../../../store/reducers/metadataReducer';
 import Launcher from '../index';
 
-const appReducer = combineReducers({ behavior: behavior(), metadata: metadata() });
-const rootReducer = (state, action) => appReducer(state, action);
+const rootReducer = combineReducers({
+  behavior: behaviorReducer(),
+  metadata: metadataReducer()
+});
 
-const storeFactory = initialState => createStore(rootReducer, { behavior: Map(initialState), metadata: Map() });
+const storeFactory = initialState => initStore(rootReducer, initialState, LocalStorageMock);
 
 describe('<Launcher />', () => {
-  const createLauncherComponent = ({
+  const   createLauncherComponent = ({
     toggle,
     chatOpened,
     unreadCount = 0,
     displayUnreadCount = false
-  }) =>
-    mount(<Launcher
-      store={storeFactory({
-        unreadCount
-      })}
-      toggle={toggle}
-      isChatOpen={chatOpened}
-      displayUnreadCount={displayUnreadCount}
-    />);
+  }) => render(
+    <Provider store={storeFactory({
+      behavior: { unreadCount },
+      metadata: {}
+    })}>
+      <Launcher
+        toggle={toggle}
+        isChatOpen={chatOpened}
+        displayUnreadCount={displayUnreadCount}
+      />
+    </Provider>
+  );
 
   it('should call toggle prop when clicked', () => {
     const toggle = jest.fn();
-    const chatOpened = false;
-    const launcherComponent = createLauncherComponent({ toggle, chatOpened });
-    launcherComponent.find('.rw-launcher').simulate('click');
+    createLauncherComponent({ toggle, chatOpened: false });
+    fireEvent.click(screen.getByTestId('message-input'));
     expect(toggle).toBeCalled();
   });
 
   describe('Rendering open-launcher image when chatOpened = false', () => {
-    const toggle = jest.fn();
-    const chatOpened = false;
-
     it('should not display unreadCount when count is 0', () => {
-      const unreadCount = 0;
-      const displayUnreadCount = true;
-      const launcherComponent = createLauncherComponent({
-        toggle,
-        chatOpened,
-        unreadCount,
-        displayUnreadCount
-      });
-      expect(launcherComponent.find('.rw-open-launcher')).toHaveLength(1);
-      expect(launcherComponent.find('.rw-close-launcher')).toHaveLength(0);
-      expect(launcherComponent.find('.rw-unread-count-pastille')).toHaveLength(0);
+      createLauncherComponent({ toggle: jest.fn(), chatOpened: false, unreadCount: 0, displayUnreadCount: true });
+      expect(screen.getByTestId('rw-open-launcher')).toBeInTheDocument();
+      expect(screen.queryByTestId('rw-close-launcher')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('rw-unread-count-pastille')).not.toBeInTheDocument();
     });
 
     it('should not display unreadCount when displayUnreadCount = false', () => {
-      const unreadCount = 4;
-      const displayUnreadCount = false;
-      const launcherComponent = createLauncherComponent({
-        toggle,
-        chatOpened,
-        unreadCount,
-        displayUnreadCount
-      });
-      expect(launcherComponent.find('.rw-open-launcher')).toHaveLength(1);
-      expect(launcherComponent.find('.rw-close-launcher')).toHaveLength(0);
-      expect(launcherComponent.find('.rw-unread-count-pastille')).toHaveLength(0);
+      createLauncherComponent({ toggle: jest.fn(), chatOpened: false, unreadCount: 4, displayUnreadCount: false });
+      expect(screen.getByTestId('rw-open-launcher')).toBeInTheDocument();
+      expect(screen.queryByTestId('rw-close-launcher')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('rw-unread-count-pastille')).not.toBeInTheDocument();
     });
 
-    it('should display unreadCount when count is superior to 0 and displayUnreadCount = true', () => {
-      const unreadCount = 2;
-      const displayUnreadCount = true;
-      const launcherComponent = createLauncherComponent({
-        toggle,
-        chatOpened,
-        unreadCount,
-        displayUnreadCount
-      });
-      expect(launcherComponent.find('.rw-open-launcher')).toHaveLength(1);
-      expect(launcherComponent.find('.rw-close-launcher')).toHaveLength(0);
-      expect(launcherComponent.find('.rw-unread-count-pastille')).toHaveLength(1);
+    it('should display unreadCount when count is more than 0 and displayUnreadCount = true', () => {
+      createLauncherComponent({ toggle: jest.fn(), chatOpened: false, unreadCount: 2, displayUnreadCount: true });
+      expect(screen.getByTestId('rw-open-launcher')).toBeInTheDocument();
+      expect(screen.queryByTestId('rw-close-launcher')).not.toBeInTheDocument();
     });
   });
 });

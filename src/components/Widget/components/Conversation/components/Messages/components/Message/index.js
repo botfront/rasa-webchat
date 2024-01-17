@@ -31,6 +31,18 @@ class Message extends PureComponent {
       style = { color: userTextColor, backgroundColor: userBackgroundColor };
     }
 
+    const markdownComponents = {
+      a: ({...props}) => {
+        const isExternalLink = !props.href.startsWith('mailto') && !props.href.startsWith('javascript');
+        return docViewer ? (
+          <DocViewer src={props.href}>{props.children}</DocViewer>
+        ) : (
+          <a href={props.href} target={isExternalLink ? '_blank' : undefined} rel="noopener noreferrer">{props.children}</a>
+        );
+      },
+      // Add other custom components if needed
+    };
+
     return (
       <div
         className={sender === 'response' && customCss && customCss.style === 'class' ?
@@ -38,26 +50,12 @@ class Message extends PureComponent {
           `rw-${sender}`}
         style={style}
       >
-        <div
-          className="rw-message-text"
-        >
+        <div className="rw-message-text">
           {sender === 'response' ? (
             <ReactMarkdown
               className={'rw-markdown'}
-              source={text}
-              linkTarget={(url) => {
-                if (!url.startsWith('mailto') && !url.startsWith('javascript')) return '_blank';
-                return undefined;
-              }}
-              transformLinkUri={null}
-              renderers={{
-                link: props =>
-                  docViewer ? (
-                    <DocViewer src={props.href}>{props.children}</DocViewer>
-                  ) : (
-                    <a href={props.href} target={linkTarget || '_blank'} rel="noopener noreferrer" onMouseUp={e => e.stopPropagation()}>{props.children}</a>
-                  )
-              }}
+              children={text}
+              components={markdownComponents}
             />
           ) : (
             text

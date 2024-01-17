@@ -6,8 +6,8 @@ import { Map } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { usePopper } from 'react-popper';
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import { MESSAGES_TYPES } from 'constants';
 import { Image, Message, Buttons } from 'messagesComponents';
@@ -194,22 +194,24 @@ const Launcher = ({
       <div className="rw-tooltip-decoration" style={{ backgroundColor: assistBackgoundColor }} />
     </div>
   );
+  
 
   const renderOpenLauncherImage = () => (
     <div className="rw-open-launcher__container">
       {unreadCount > 0 && displayUnreadCount && (
-        <div className="rw-unread-count-pastille">{unreadCount}</div>
+        <div data-testid="rw-unread-count-pastille" className="rw-unread-count-pastille">{unreadCount}</div>
       )}
-      <img src={openLauncherImage || openLauncher} className="rw-open-launcher" alt="" />
+      <img data-testid="rw-open-launcher" src={openLauncherImage || openLauncher} className="rw-open-launcher" alt="" />
       {showTooltip && lastMessage && lastMessage.get('sender') === 'response' && (referenceElement ? renderPlacedTooltip() : renderToolTip())}
     </div>
   );
 
   return (
-    <button type="button" style={{ backgroundColor: mainColor }} className={className.join(' ')} onClick={toggle}>
+    <button data-testid="message-input" type="button" style={{ backgroundColor: mainColor }} className={className.join(' ')} onClick={toggle}>
       <Badge badge={badge} />
       {isChatOpen ? (
         <img
+        data-testid="rw-open-launcher"
           src={closeImage || close}
           className={`rw-close-launcher ${closeImage ? '' : 'rw-default'}`}
           alt=""

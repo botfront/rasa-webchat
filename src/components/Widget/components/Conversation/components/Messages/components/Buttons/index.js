@@ -114,7 +114,10 @@ class Buttons extends PureComponent {
 Buttons.contextType = ThemeContext;
 
 const mapStateToProps = state => ({
-  getChosenReply: id => state.messages.get(id).get('chosenReply'),
+  getChosenReply: id => {
+    const message = state.messages.get(id);
+    return message ? message.get('chosenReply') : null;
+  },
   inputState: state.behavior.get('disabledInput'),
   linkTarget: state.metadata.get('linkTarget')
 });

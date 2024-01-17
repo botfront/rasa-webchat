@@ -78,6 +78,7 @@ export function createComponentMessage(component, props, showAvatar) {
 
 export function getLocalSession(storage, key) {
   // Attempt to get local session from storage
+  // console.log(storage)
   const cachedSession = storage.getItem(key);
   let session = null;
   if (cachedSession) {

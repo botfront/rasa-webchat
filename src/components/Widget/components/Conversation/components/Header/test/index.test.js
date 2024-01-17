@@ -1,46 +1,36 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import Header from '../index';
 
-describe('<Header />', () => {
-  const createHeader = ({ toggle, fullScreenMode, showFullScreenButton }) =>
-    shallow(<Header
-      toggleFullScreen={toggle}
-      fullScreenMode={fullScreenMode}
-      showFullScreenButton={showFullScreenButton}
-    />);
+const createHeader = ({ toggle, fullScreenMode, showFullScreenButton }) => render(
+  <Header
+    toggleFullScreen={toggle}
+    fullScreenMode={fullScreenMode}
+    showFullScreenButton={showFullScreenButton}
+  />
+);
 
+describe('<Header />', () => {
   it('should call toggle prop when clicked', () => {
     const toggle = jest.fn();
-    const fullScreenMode = false;
-    const showFullScreenButton = true;
-    const headerComponent = createHeader({ toggle, fullScreenMode, showFullScreenButton });
-    headerComponent.find('.rw-toggle-fullscreen-button').simulate('click');
+    createHeader({ toggle, fullScreenMode: false, showFullScreenButton: true });
+    fireEvent.click(screen.getByTestId('rw-toggle-fullscreen-button'));
     expect(toggle).toBeCalled();
   });
 
   it('should render the fullscreen image when fullScreenMode = false', () => {
-    const toggle = jest.fn();
-    const fullScreenMode = false;
-    const showFullScreenButton = true;
-    const headerComponent = createHeader({ toggle, fullScreenMode, showFullScreenButton });
-    expect(headerComponent.find('.rw-fullScreenImage')).toHaveLength(1);
+    createHeader({ toggle: jest.fn(), fullScreenMode: false, showFullScreenButton: true });
+    expect(screen.getByTestId('rw-fullScreenImage')).toBeInTheDocument();
   });
 
   it('should render the fullscreen exit image when fullScreenMode = true', () => {
-    const toggle = jest.fn();
-    const fullScreenMode = true;
-    const showFullScreenButton = true;
-    const headerComponent = createHeader({ toggle, fullScreenMode, showFullScreenButton });
-    expect(headerComponent.find('.rw-fullScreenExitImage')).toHaveLength(1);
+    createHeader({ toggle: jest.fn(), fullScreenMode: true, showFullScreenButton: true });
+    expect(screen.getByTestId('rw-fullScreenExitImage')).toBeInTheDocument();
   });
 
   it('should not render the fullscreen toggle button when showFullScreenButton = false', () => {
-    const toggle = jest.fn();
-    const fullScreen = true;
-    const showFullScreenButton = false;
-    const headerComponent = createHeader({ toggle, fullScreen, showFullScreenButton });
-    expect(headerComponent.find('.rw-toggle-fullscreen-button')).toHaveLength(0);
+    createHeader({ toggle: jest.fn(), fullScreen: true, showFullScreenButton: false });
+    expect(screen.queryByTestId('rw-toggle-fullscreen-button')).not.toBeInTheDocument();
   });
 });

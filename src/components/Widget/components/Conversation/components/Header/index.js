@@ -32,8 +32,9 @@ const Header = ({
         <div className="rw-header-buttons">
           {
             showFullScreenButton &&
-            <button className="rw-toggle-fullscreen-button" onClick={toggleFullScreen}>
+            <button data-testid="rw-toggle-fullscreen-button" className="rw-toggle-fullscreen-button" onClick={toggleFullScreen}>
               <img
+                data-testid={`${fullScreenMode ? 'rw-fullScreenExitImage' : 'rw-fullScreenImage'}`}
                 className={`rw-toggle-fullscreen ${fullScreenMode ? 'rw-fullScreenExitImage' : 'rw-fullScreenImage'}`}
                 src={fullScreenMode ? fullscreenExit : fullscreen}
                 alt="toggle fullscreen"

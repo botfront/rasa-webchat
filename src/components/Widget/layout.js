@@ -21,7 +21,7 @@ const WidgetLayout = (props) => {
   }
 
   return isVisible ? (
-    <div className={classes.join(' ')}>
+    <div  data-testid="widget-layout" className={classes.join(' ')}>
       {chatShowing && (
         <Conversation
           title={props.title}

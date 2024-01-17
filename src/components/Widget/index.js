@@ -67,7 +67,7 @@ class Widget extends Component {
       return;
     }
 
-
+    console.log(storage)
     const localSession = getLocalSession(storage, SESSION_NAME);
     const lastUpdate = localSession ? localSession.lastUpdate : 0;
 

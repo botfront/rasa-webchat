@@ -81,7 +81,7 @@
   }
 }
 
-&.#{$namespace}widget-embedded {
+.#{$namespace}widget-embedded {
   .#{$namespace}header {
     display: none;
   }
