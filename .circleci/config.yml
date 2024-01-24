@@ -1,0 +1,49 @@
+version: 2
+executors:
+  debian:
+    docker:
+      - image: cimg/node:16.14.2
+        <<: *dockerhub_auth
+
+jobs:
+
+  build_and_test:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install dependencies
+          command: |
+            npm ci
+      - run:
+          name: Build the Docker builder/base image
+          command: |
+            npm build
+       
+
+  deploy:
+    <<: *defaults
+    docker:
+      - image: node:8-alpine
+    steps:
+      - checkout
+      - run:
+          name: Add curl
+          command: apk add --no-cache curl
+      - run:
+          name: Push to GemFury
+          command: curl --fail -F package=@`npm pack` https://${GEMFURY_TOKEN}@push.fury.io/argumed/
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build_and_test
+      - deploy:
+          requires:
+            - build_and_test
+          context: gemfury-upload
+          filters:
+              branches:
+                only: master
