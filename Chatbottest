@@ -1,0 +1,36 @@
+const messages = document.getElementById('chat-messages');
+const input = document.getElementById('user-input');
+
+input.addEventListener('keypress', function (e) {
+  if (e.key === 'Enter' && input.value.trim() !== '') {
+    const userMsg = input.value;
+    appendMessage('Du', userMsg);
+    input.value = '';
+
+    setTimeout(() => {
+      const botReply = getBotResponse(userMsg);
+      appendMessage('Bot', botReply);
+    }, 600); // schnelle Antwortzeit
+  }
+});
+
+function appendMessage(sender, text) {
+  const msg = document.createElement('div');
+  msg.textContent = `${sender}: ${text}`;
+  messages.appendChild(msg);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function getBotResponse(input) {
+  input = input.toLowerCase();
+
+  if (input.includes('hallo') || input.includes('hi')) {
+    return 'Hallo! Wie kann ich Ihnen helfen? 😊';
+  } else if (input.includes('öffnungszeiten')) {
+    return 'Unsere Öffnungszeiten sind Mo–Fr von 9–18 Uhr.';
+  } else if (input.includes('hilfe') || input.includes('problem')) {
+    return 'Natürlich, ich bin für Sie da. Worum geht es genau?';
+  } else {
+    return 'Vielen Dank für Ihre Nachricht. Ein Mitarbeiter wird sich bald bei Ihnen melden.';
+  }
+}
